@@ -1,0 +1,21 @@
+en_EN
+{"name":"en-EN","fullName":"English"}
+
+VideoSettings;;Video Settings;Video Settings;
+NewGame;;New Game;New Game;
+QuitGame;;Quit;Quit;
+Settings;;Settings;Settings;
+VideoSetting.AntiAliasing;;Anti-Aliasing;Anti-Aliasing;
+VideoSetting.Depth;;Depth of Field;Depth of Field;
+VideoSetting.AmbientOcclusion;;Ambient Occlusion;Ambient Occlusion;
+VideoSetting.Bloom;;Bloom;Bloom;
+Button.Reset;;Reset;Reset;
+VideoSetting.Vignette;;Vignette;Vignette;
+Button.Apply;;Apply;Apply;
+Button.Back;;Back;Back;
+WindowHeader.QuitGame;;Quit Game;Quit Game;
+Sure?;;You Sure?;You Sure?;
+Yes;;Yes;Yes;
+No;;No;No;
+GameSettings;;Game Settings;Game Settings;
+Language;;Language;Language;

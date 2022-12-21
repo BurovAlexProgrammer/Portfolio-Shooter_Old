@@ -1,0 +1,21 @@
+{
+    "name": "Extension.Editor",
+    "rootNamespace": "",
+    "references": [
+        "GUID:97903ecf262b3294eb1292f1ac8203d4",
+        "GUID:4b64ed143a0025a429a620d5ccd0b98a",
+        "GUID:75469ad4d38634e559750d17036d5f7c",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

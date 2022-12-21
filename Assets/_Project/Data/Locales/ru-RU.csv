@@ -1,0 +1,21 @@
+ru_RU
+{"name":"ru-RU","fullName":"Russian"}
+
+VideoSettings;;Video Settings;Видео настройки;
+NewGame;;New Game;Новая игра;
+QuitGame;;Quit;Выход;
+Settings;;Settings;Настройки;
+VideoSetting.AntiAliasing;;Anti-Aliasing;Сглаживание;
+VideoSetting.Depth;;Depth of Field;Глубина резкости;
+VideoSetting.AmbientOcclusion;;Ambient Occlusion;Затенение экрана (SSAO);
+VideoSetting.Bloom;;Bloom;Свечение (Bloom);
+Button.Reset;;Reset;Сброс;
+VideoSetting.Vignette;;Vignette;Виньетирование;
+Button.Apply;;Apply;Применить;
+Button.Back;;Back;Назад;
+WindowHeader.QuitGame;;Quit Game;Выход из игры;
+Sure?;;You Sure?;Уверен?;
+Yes;;Yes;Да;
+No;;No;Нет;
+GameSettings;;Game Settings;Игровые настройки;
+Language;;Language;Язык;
