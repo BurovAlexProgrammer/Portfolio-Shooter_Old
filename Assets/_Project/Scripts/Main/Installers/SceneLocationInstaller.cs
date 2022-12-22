@@ -13,6 +13,8 @@ namespace _Project.Scripts.Main.Installers
         {
             var playerInstance = 
                 Container.InstantiatePrefabForComponent<BasePlayer>(_playerPrefab, _playerStartPoint.position, _playerStartPoint.rotation, null);
+            playerInstance.name = "Player";
+            
 
             Container.Bind<BasePlayer>().FromInstance(playerInstance).AsSingle();
         }
