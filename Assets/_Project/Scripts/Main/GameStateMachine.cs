@@ -23,11 +23,10 @@ namespace _Project.Scripts.Main
             if (_sceneLoader.InitialSceneEquals(Boot))
             {
                 _ = EnterState(GameStates.Boot);
+                return;
             }
-            else
-            {
-                _ = EnterState(GameStates.CustomSceneBoot);
-            }
+            
+            _ = EnterState(GameStates.CustomSceneBoot);
         }
 
         public async void SetState(GameStates newState)
@@ -52,6 +51,7 @@ namespace _Project.Scripts.Main
                     EnterStateMainMenu();
                     break;
                 case GameStates.PlayGame:
+                    EnterStatePlayGame();
                     break;
                 case GameStates.GamePause:
                     break;
@@ -94,6 +94,11 @@ namespace _Project.Scripts.Main
         private void EnterStateCustomBoot()
         {
            _sceneLoader.ShowScene();
+        }
+
+        private void EnterStatePlayGame()
+        {
+            _sceneLoader.LoadScene(MiniGameLevel);
         }
 
         private async UniTask ExitStateBoot()

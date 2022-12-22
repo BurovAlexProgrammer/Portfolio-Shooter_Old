@@ -21,6 +21,7 @@ namespace _Project.Scripts.Main.Services
         {
             { Scenes.Boot, "Boot" },
             { Scenes.MainMenu, "MainMenu" },
+            { Scenes.MiniGameLevel, "MiniGameLevel" },
         };
 
         public string MainMenuScene => _mainMenuScene.scenePath;
@@ -84,7 +85,8 @@ namespace _Project.Scripts.Main.Services
         {
             Boot,
             MainMenu,
-            IntroLevel,
+            Intro,
+            MiniGameLevel,
         }
 
         private string GetSceneName(Scenes scene)
