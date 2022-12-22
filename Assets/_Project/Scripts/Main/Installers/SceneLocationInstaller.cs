@@ -1,4 +1,3 @@
-using _Project.Scripts.Game;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
 using Zenject;
@@ -16,7 +15,7 @@ namespace _Project.Scripts.Main.Installers
             playerInstance.name = "Player";
             
 
-            Container.Bind<BasePlayer>().FromInstance(playerInstance).AsSingle();
+            Container.BindInstance(playerInstance).AsSingle();
         }
     }
 }

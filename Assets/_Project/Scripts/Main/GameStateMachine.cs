@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
 using static _Project.Scripts.Extension.Common;
-using static _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
+using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
 
 namespace _Project.Scripts.Main
 {
@@ -20,7 +20,7 @@ namespace _Project.Scripts.Main
 
         public void Init()
         {
-            if (_sceneLoader.InitialSceneEquals(Boot))
+            if (_sceneLoader.InitialSceneEquals(SceneName.Boot))
             {
                 _ = EnterState(GameStates.Boot);
                 return;
@@ -98,7 +98,7 @@ namespace _Project.Scripts.Main
 
         private void EnterStatePlayGame()
         {
-            _sceneLoader.LoadScene(MiniGameLevel);
+            _sceneLoader.LoadScene(SceneName.MiniGameLevel);
         }
 
         private async UniTask ExitStateBoot()
@@ -108,7 +108,7 @@ namespace _Project.Scripts.Main
 
         private void EnterStateMainMenu()
         {
-            _sceneLoader.LoadScene(MainMenu);
+            _sceneLoader.LoadScene(SceneName.MainMenu);
         }
     }
 
