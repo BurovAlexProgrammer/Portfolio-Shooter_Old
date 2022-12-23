@@ -10,12 +10,17 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private Transform _playerStartPoint;
         public override void InstallBindings()
         {
-            var playerInstance = 
-                Container.InstantiatePrefabForComponent<BasePlayer>(_playerPrefab, _playerStartPoint.position, _playerStartPoint.rotation, null);
-            playerInstance.name = "Player";
-            
-
-            Container.BindInstance(playerInstance).AsSingle();
+            Container
+                .Bind<BasePlayer>()
+                .FromComponentInNewPrefab(_playerPrefab)
+                .WithGameObjectName("Player")
+                .AsSingle()
+                .OnInstantiated((ctx, instance) =>
+                {
+                    var playerTransform = (instance as BasePlayer).transform;
+                    playerTransform.position = _playerStartPoint.position;
+                    playerTransform.rotation = _playerStartPoint.rotation;
+                });
         }
     }
 }

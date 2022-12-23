@@ -11,6 +11,7 @@ namespace _Project.Scripts.Main
         
         private void OnDestroy()
         {
+            if (_screenService == null || _screenService.MainCamera == null) return;
             ReturnCameraToService();
         }
 
