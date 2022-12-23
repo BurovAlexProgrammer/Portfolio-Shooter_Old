@@ -50,7 +50,7 @@ namespace _Project.Scripts.Main.Menu
                 _controller.GameSettings.CurrentLocale = (Locales)value;
             });
 
-            LoadLocalizationOptions();
+            _ = LoadLocalizationOptions();
         }
         
         private void OnDestroy()

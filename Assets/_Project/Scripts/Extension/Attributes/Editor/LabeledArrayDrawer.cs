@@ -18,7 +18,7 @@ namespace _Project.Scripts.Extension.Attributes.Editor
             try
             {
                 var path = property.propertyPath;
-                int pos = int.Parse(path.Split('[').LastOrDefault().TrimEnd(']'));
+                var pos = int.Parse(path.Split('[').LastOrDefault()!.TrimEnd(']'));
                 EditorGUI.PropertyField(rect, property,
                     new GUIContent(ObjectNames.NicifyVariableName(((LabeledArrayAttribute)attribute).names[pos])),
                     true);

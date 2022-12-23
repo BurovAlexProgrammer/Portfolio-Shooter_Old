@@ -2,23 +2,22 @@
 
 namespace _Project.Scripts.Extension.Attributes
 {
-        
-        [Serializable]
-        public struct RangedFloat
+    [Serializable]
+    public struct RangedFloat
+    {
+        private float _minValue;
+        private float _maxValue;
+    }
+
+    public class MinMaxRangeAttribute : Attribute
+    {
+        public MinMaxRangeAttribute(float min, float max)
         {
-            public float minValue;
-            public float maxValue;
+            Min = min;
+            Max = max;
         }
 
-        public class MinMaxRangeAttribute : Attribute
-        {
-            public MinMaxRangeAttribute(float min, float max)
-            {
-                Min = min;
-                Max = max;
-            }
-
-            public float Min { get; private set; }
-            public float Max { get; private set; }
-        }
+        public float Min { get; private set; }
+        public float Max { get; private set; }
+    }
 }

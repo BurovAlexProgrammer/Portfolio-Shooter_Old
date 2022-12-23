@@ -28,14 +28,14 @@ namespace _Project.Scripts.Extension.Attributes.Editor
 
 			const float rangeBoundsLabelWidth = 40f;
 
-			var rangeBoundsLabel1Rect = new Rect(position);
-			rangeBoundsLabel1Rect.width = rangeBoundsLabelWidth;
-			GUI.Label(rangeBoundsLabel1Rect, new GUIContent(minValue.ToString("F2")));
+			var rangeBound1LabelRect = new Rect(position);
+			rangeBound1LabelRect.width = rangeBoundsLabelWidth;
+			GUI.Label(rangeBound1LabelRect, new GUIContent(minValue.ToString("F2")));
 			position.xMin += rangeBoundsLabelWidth;
 
-			var rangeBoundsLabel2Rect = new Rect(position);
-			rangeBoundsLabel2Rect.xMin = rangeBoundsLabel2Rect.xMax - rangeBoundsLabelWidth;
-			GUI.Label(rangeBoundsLabel2Rect, new GUIContent(maxValue.ToString("F2")));
+			var rangeBound2LabelRect = new Rect(position);
+			rangeBound2LabelRect.xMin = rangeBound2LabelRect.xMax - rangeBoundsLabelWidth;
+			GUI.Label(rangeBound2LabelRect, new GUIContent(maxValue.ToString("F2")));
 			position.xMax -= rangeBoundsLabelWidth;
 
 			EditorGUI.BeginChangeCheck();

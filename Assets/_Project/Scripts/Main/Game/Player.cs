@@ -1,9 +1,6 @@
-﻿using _Project.Scripts.Main.Game;
-using UnityEngine;
-
-namespace _Project.Scripts.Game
+﻿namespace _Project.Scripts.Main.Game
 {
-    public class Player : BasePlayer
+    public class Player  : BasePlayer
     {
         
     }
