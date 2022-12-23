@@ -1,7 +1,7 @@
-using UnityEngine;
 using System;
+using UnityEngine;
 
-namespace _Project.Scripts.Extension.LabeledArray
+namespace _Project.Scripts.Extension.Attributes
 {
     public class LabeledArrayAttribute : PropertyAttribute
     {

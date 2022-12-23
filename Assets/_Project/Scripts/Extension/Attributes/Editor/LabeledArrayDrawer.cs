@@ -1,8 +1,8 @@
-using UnityEngine;
-using UnityEditor;
 using System.Linq;
+using UnityEditor;
+using UnityEngine;
 
-namespace _Project.Scripts.Extension.LabeledArray.Editor
+namespace _Project.Scripts.Extension.Attributes.Editor
 {
     [CustomPropertyDrawer(typeof(LabeledArrayAttribute))]
     public class LabeledArrayDrawer : PropertyDrawer
