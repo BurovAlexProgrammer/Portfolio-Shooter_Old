@@ -19,7 +19,9 @@ namespace _Project.Scripts.Main.Game
         private CharacterController _characterController;
         private Controls.PlayerActions _playerControl;
         private Vector2 _moveInputValue;
+        private Vector2 _moveLerpValue;
         private Vector2 _rotateInputValue;
+        private Vector2 _rotateLerpValue;
         private float _rotationY;
         private float _shootTimer;
         private bool _shootInputValue;
@@ -34,19 +36,28 @@ namespace _Project.Scripts.Main.Game
 
         private void Update()
         {
-            if (_playerControl.Move.inProgress)
-            { 
-                Move(_playerControl.Move.ReadValue<Vector2>());
-            }
+            _rotateInputValue = _playerControl.Rotate.ReadValue<Vector2>();
+            _rotateLerpValue = Vector2.Lerp(_rotateLerpValue, _rotateInputValue, _config.RotateLerpTime);
             
-            if (_playerControl.Rotate.inProgress)
+            if (_rotateLerpValue != Vector2.zero)
             {
-                Rotate(_playerControl.Rotate.ReadValue<Vector2>());
+                Rotate(_rotateLerpValue);
             }
 
             if (_playerControl.Shoot.inProgress)
             {
-                Shooting();
+                TryShoot();
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            _moveInputValue = _playerControl.Move.ReadValue<Vector2>().normalized;
+            _moveLerpValue = Vector2.Lerp(_moveLerpValue, _moveInputValue, _config.MoveLerpTime);
+            
+            if (_moveLerpValue != Vector2.zero)
+            { 
+                Move(_moveLerpValue);
             }
         }
 
@@ -65,7 +76,7 @@ namespace _Project.Scripts.Main.Game
         protected virtual void Move(Vector2 inputValue)
         {
             if (!_canMove) return;
-            var moveVector = inputValue.normalized * Time.deltaTime * _config.MoveSpeed;
+            var moveVector = inputValue * Time.deltaTime * _config.MoveSpeed;
             _characterController.Move(transform.right * moveVector.x + transform.forward * moveVector.y);
         } 
 
@@ -80,18 +91,23 @@ namespace _Project.Scripts.Main.Game
             transform.Rotate(rotation.x * Vector3.up * delta);
         }
 
-        protected virtual void Shooting()
+        protected virtual void TryShoot()
         {
             if (!_canShoot) return;
 
             if (_shootTimer <= 0f)
             {
-                Debug.Log("Shoot");
+                Shoot();
                 _shootTimer = _config.ShootDelay;
                 return;
             }
 
             _shootTimer -= Time.deltaTime;
+        }
+
+        protected virtual void Shoot()
+        {
+            
         }
     }
 }
