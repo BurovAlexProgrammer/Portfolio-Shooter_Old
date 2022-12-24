@@ -56,7 +56,6 @@ namespace _Project.Scripts.Main
                 case GameStates.GamePause:
                     break;
                 case GameStates.GameQuit:
-                    
                     break;
                 default:
                     throw new Exception("GameManager: unknown state.");

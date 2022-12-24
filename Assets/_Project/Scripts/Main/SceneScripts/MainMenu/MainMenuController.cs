@@ -47,6 +47,11 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
             _gameManager.QuitGame();
         }
 
+        public void StartNewGame()
+        {
+            _gameManager.SetGameState(GameStates.PlayGame);
+        }
+
         private async UniTask EnterState(MenuStates newState)
         {
             Debug.Log("MenuState Enter: " + newState, this);

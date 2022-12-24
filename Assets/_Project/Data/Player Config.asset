@@ -17,6 +17,6 @@ MonoBehaviour:
   _rotateSpeed: 32
   _shootSpeed: 0.5
   _maxVerticalAngle: 80
-  _moveLerpTime: 0
-  _rotateLerpTime: 0
+  _moveLerpTime: 0.081
+  _rotateLerpTime: 0.185
   _shootDelay: 0.3

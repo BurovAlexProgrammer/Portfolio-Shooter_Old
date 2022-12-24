@@ -12,6 +12,11 @@ namespace _Project.Scripts.Main.Services
         
         public GameStateMachine GameStateMachine => _gameStateMachine;
 
+        public void SetGameState(GameStates newState)
+        {
+            _gameStateMachine.SetState(newState);
+        }
+        
         public void Init()
         {
             if (string.IsNullOrEmpty(_sceneLoader.InitialScene.name))

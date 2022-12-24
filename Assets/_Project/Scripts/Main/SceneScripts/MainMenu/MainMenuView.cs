@@ -11,7 +11,7 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
         [SerializeField] private Button _buttonQuit;
         [SerializeField] private Button _buttonQuitNo;
         [SerializeField] private Button _buttonQuitYes;
-        
+        [SerializeField] private Button _buttonNewGame;
 
         void Start()
         {
@@ -20,6 +20,17 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
             _buttonQuit.onClick.AddListener(() => _menuController.SetState(MenuStates.QuitGame));
             _buttonQuitNo.onClick.AddListener(() => _menuController.SetState(MenuStates.MainMenu));
             _buttonQuitYes.onClick.AddListener(_menuController.QuitGame);
+            _buttonNewGame.onClick.AddListener(_menuController.StartNewGame);
+        }
+
+        private void OnDestroy()
+        {
+            _settingsButton.onClick.RemoveAllListeners();
+            _backFromSettings.onClick.RemoveAllListeners();
+            _buttonQuit.onClick.RemoveAllListeners();
+            _buttonQuitNo.onClick.RemoveAllListeners();
+            _buttonQuitYes.onClick.RemoveAllListeners();
+            _buttonNewGame.onClick.RemoveAllListeners();
         }
     }
 }
