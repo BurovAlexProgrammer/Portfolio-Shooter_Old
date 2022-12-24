@@ -2335,6 +2335,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneScript
       objectReference: {fileID: 0}
+    - target: {fileID: 1080345241182922501, guid: 8992d79154906334e8a09528915ed4e7,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1080345241182922503, guid: 8992d79154906334e8a09528915ed4e7,
         type: 3}
       propertyPath: m_RootOrder

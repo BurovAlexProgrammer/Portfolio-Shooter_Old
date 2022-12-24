@@ -9,9 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3180f5bc5007472dbdf1b10ffb4be57b, type: 3}
-  m_Name: Default Game Settings
+  m_Script: {fileID: 11500000, guid: 3089b85bd441421cb03dfdf951d76370, type: 3}
+  m_Name: Player Config
   m_EditorClassIdentifier: 
-  Description: 
-  CurrentLocale: 0
-  Sensitivity: 0.35
+  _moveSpeed: 10
+  _runSpeed: 20
+  _rotateSpeed: 32
+  _shootSpeed: 0.5
+  _maxVerticalAngle: 80
+  _moveLerpTime: 0
+  _rotateLerpTime: 0
+  _shootDelay: 0.3

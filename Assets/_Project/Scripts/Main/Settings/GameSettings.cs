@@ -8,6 +8,15 @@ namespace _Project.Scripts.Main.Settings
     {
         public Locales CurrentLocale;
         
+        [Range(Attributes.SensitivityMin,Attributes.SensitivityMax)] 
+        public float Sensitivity;
+        
         public override void ApplySettings() {}
+        
+        public static class Attributes
+        {
+            public const float SensitivityMin = 0.1f;
+            public const float SensitivityMax = 1f;
+        }
     }
 }
