@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -10,26 +11,26 @@ namespace _Project.Scripts.Main.Game
 
         void Start()
         {
-            OnChangeColorInEditor();
+            ChangeColorInPlayMode();
         }
 
         private void OnValidate()
         {
-            OnChangeColorInEditor();
+            if (Application.isPlaying) return;
+
+            ChangeColorInEditMode();
         }
 
-        void OnChangeColorInEditor()
+        void ChangeColorInEditMode()
         {
-            if (Application.isPlaying)
-            {
-                GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
-            }
-            else
-            {
-                var sharedMaterial = GetComponent<MeshRenderer>().sharedMaterial;
-                if (sharedMaterial != null)
-                    GetComponent<MeshRenderer>().sharedMaterial.color = _colorInEditor;
-            }
+            var sharedMaterial = GetComponent<MeshRenderer>().sharedMaterial;
+
+            sharedMaterial.color = _colorInEditor;
+        }
+
+        void ChangeColorInPlayMode()
+        {
+            GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
         }
     }
 }
