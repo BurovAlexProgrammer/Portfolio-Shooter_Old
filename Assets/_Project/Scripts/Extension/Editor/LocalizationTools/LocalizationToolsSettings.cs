@@ -1,7 +1,8 @@
+using _Project.Scripts.Main.Localizations;
 using UnityEditor;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Localizations
+namespace _Project.Scripts.Extension.Editor.LocalizationTools
 {
     [CreateAssetMenu(menuName = "Custom/Localization/Settings")]
     public class LocalizationToolsSettings : ScriptableObject
