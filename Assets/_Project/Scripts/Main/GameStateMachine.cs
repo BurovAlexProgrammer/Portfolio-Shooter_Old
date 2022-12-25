@@ -97,7 +97,7 @@ namespace _Project.Scripts.Main
 
         private void EnterStatePlayGame()
         {
-            _sceneLoader.LoadScene(SceneName.MiniGameLevel);
+            _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
         }
 
         private async UniTask ExitStateBoot()
@@ -107,7 +107,7 @@ namespace _Project.Scripts.Main
 
         private void EnterStateMainMenu()
         {
-            _sceneLoader.LoadScene(SceneName.MainMenu);
+            _sceneLoader.LoadSceneAsync(SceneName.MainMenu);
         }
     }
 

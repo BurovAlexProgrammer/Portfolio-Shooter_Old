@@ -46,8 +46,8 @@ namespace _Project.Scripts.Main.Installers
                 .AsSingle()
                 .OnInstantiated((ctx, instance) =>
                 {
-                    var settingService = instance as ControlService;
-                    settingService.Init();
+                    var service = instance as ControlService;
+                    service.Init();
                 })
                 .NonLazy();
         }
@@ -60,9 +60,9 @@ namespace _Project.Scripts.Main.Installers
                 .AsSingle()
                 .OnInstantiated((ctx, instance) =>
                 {
-                    var settingService = (SettingsService)instance;
-                    settingService.Init();
-                    settingService.Load();
+                    var service = (SettingsService)instance;
+                    service.Init();
+                    service.Load();
                 });
         }
 
@@ -93,9 +93,9 @@ namespace _Project.Scripts.Main.Installers
                 .AsSingle()
                 .OnInstantiated((ctx, instance) =>
                 {
-                    var serviceInstance = instance as GameManagerService;
-                    SetService(serviceInstance);
-                    serviceInstance.Init();
+                    var service = instance as GameManagerService;
+                    SetService(service);
+                    service.Init();
                 })
                 .NonLazy();
         }

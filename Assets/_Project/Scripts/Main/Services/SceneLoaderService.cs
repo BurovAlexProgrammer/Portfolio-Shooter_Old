@@ -5,6 +5,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 
 namespace _Project.Scripts.Main.Services
 {
@@ -34,10 +35,12 @@ namespace _Project.Scripts.Main.Services
             ShowScene();
         }
 
-        public void LoadScene(Scenes scene)
+        public async void LoadSceneAsync(Scenes scene)
         {
-            var sceneName = GetScene(scene);
-            LoadSceneAsync(sceneName).Forget();
+            var sceneName = GetSceneName(scene);
+            await UniTask.WhenAll(HideScene(), PrepareScene(sceneName));
+            ActivatePreparedScene();
+            ShowScene();
         }
         
         public void ShowScene()
@@ -50,13 +53,6 @@ namespace _Project.Scripts.Main.Services
                 .OnComplete(() => _blackFrame.gameObject.SetActive(false));
         }
 
-        private async UniTask LoadSceneAsync(string scenePath)
-        {
-            await UniTask.WhenAll(HideScene(), PrepareScene(scenePath));
-            ActivatePreparedScene();
-            ShowScene();
-        }
-
         public async UniTask HideScene()
         {
             _blackFrame.gameObject.SetActive(true);
@@ -66,11 +62,13 @@ namespace _Project.Scripts.Main.Services
                 .AsyncWaitForCompletion();
         }
 
-        private async UniTask PrepareScene(string scenePath)
+        private async UniTask PrepareScene(string sceneName)
         {
             _currentScene = SceneManager.GetActiveScene();
-            await SceneManager.LoadSceneAsync(scenePath, LoadSceneMode.Additive);
-            _preparedScene = SceneManager.GetSceneByName(scenePath);
+            var asyncOperationHandle = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            await asyncOperationHandle.Task;
+            var sceneInstance = asyncOperationHandle.Result;
+            _preparedScene = sceneInstance.Scene;//SceneManager.GetSceneByName(sceneName);
             _preparedScene.SetActive(false);
         }
 
@@ -89,11 +87,6 @@ namespace _Project.Scripts.Main.Services
             MiniGameLevel,
         }
 
-        private string GetSceneName(Scenes scene)
-        {
-            return _sceneNames[scene];
-        }
-
         public bool InitialSceneEquals(Scenes scene)
         {
             if (_initialScene.name == null)
@@ -104,7 +97,7 @@ namespace _Project.Scripts.Main.Services
             return GetSceneName(scene).Equals(_initialScene.name);
         }
 
-        private string GetScene(Scenes scene)
+        private string GetSceneName(Scenes scene)
         {
             if (_sceneNames.ContainsKey(scene)) return _sceneNames[scene];
 
