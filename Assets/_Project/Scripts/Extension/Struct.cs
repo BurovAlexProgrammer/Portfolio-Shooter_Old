@@ -1,3 +1,5 @@
+using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace _Project.Scripts.Extension
@@ -32,6 +34,11 @@ namespace _Project.Scripts.Extension
             if (float.IsNaN(b) == false) color.b = b;
             if (float.IsNaN(a) == false) color.a = a;
             return color;
+        }
+
+        public static async UniTask WaitInSeconds(this float time, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(time), DelayType.DeltaTime, playerLoopTiming);
         }
     }
 }

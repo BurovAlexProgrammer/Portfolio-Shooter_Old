@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
 using Zenject;
@@ -10,6 +11,7 @@ namespace _Project.Scripts.Main.Game
     {
         [SerializeField] private CameraHolder _cameraHolder;
         [SerializeField] private PlayerConfig _config;
+        [SerializeField] private BaseGun _gun;
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canShoot;
 
@@ -23,7 +25,6 @@ namespace _Project.Scripts.Main.Game
         private Vector2 _rotateInputValue;
         private Vector2 _rotateLerpValue;
         private float _rotationY;
-        private float _shootTimer;
         private bool _shootInputValue;
 
         public CameraHolder CameraHolder => _cameraHolder;
@@ -95,14 +96,8 @@ namespace _Project.Scripts.Main.Game
         {
             if (!_canShoot) return;
 
-            if (_shootTimer <= 0f)
-            {
-                Shoot();
-                _shootTimer = _config.ShootDelay;
-                return;
-            }
-
-            _shootTimer -= Time.deltaTime;
+            Debug.Log("TryShoot");
+            _gun.TryShoot();
         }
 
         protected virtual void Shoot()

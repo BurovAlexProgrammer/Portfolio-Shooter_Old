@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 4623806979323550822}
   - component: {fileID: 6778786076881365828}
   - component: {fileID: 2868835938778812559}
+  - component: {fileID: 9146088926614243244}
+  - component: {fileID: 6477285161445736835}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -47,9 +49,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraHolder: {fileID: 2632336050109998029}
+  _config: {fileID: 11400000, guid: dcda238fdd10abd4ab0d22bd6bd32df1, type: 2}
+  _gun: {fileID: 75479655363943444}
   _canMove: 0
   _canShoot: 0
-  _config: {fileID: 11400000, guid: dcda238fdd10abd4ab0d22bd6bd32df1, type: 2}
 --- !u!143 &2868835938778812559
 CharacterController:
   m_ObjectHideFlags: 0
@@ -68,6 +71,56 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!33 &9146088926614243244
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518685102165091296}
+  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &6477285161445736835
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5518685102165091296}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 0}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1001 &8200138823519016749
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -107,6 +160,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8e7a006e5e432d4cad9f736cce5f368, type: 3}
+--- !u!114 &75479655363943444 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8124659242545253177, guid: d8e7a006e5e432d4cad9f736cce5f368,
+    type: 3}
+  m_PrefabInstance: {fileID: 8200138823519016749}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b00625224b54be8860aa31889db77b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2632336050109998029 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6146095591534327008, guid: d8e7a006e5e432d4cad9f736cce5f368,

@@ -1,3 +1,5 @@
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.Extension
@@ -10,6 +12,11 @@ namespace _Project.Scripts.Extension
             {
                 rootGameObject.SetActive(state);
             }
+        }
+        
+        public static bool IsDestroyed(this GameObject gameObject)
+        {
+            return gameObject == null && !ReferenceEquals(gameObject, null);
         }
     }
 }
