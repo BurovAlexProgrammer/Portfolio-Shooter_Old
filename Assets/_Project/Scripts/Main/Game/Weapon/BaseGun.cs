@@ -1,4 +1,5 @@
-﻿using _Project.Scripts.Main.Wrappers;
+﻿using System;
+using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Weapon
@@ -6,9 +7,15 @@ namespace _Project.Scripts.Main.Game.Weapon
     public abstract class BaseGun: MonoBehaviour
     {
         [SerializeField] private WeaponConfig _weaponConfig;
-        [SerializeField] private ObjectPool _objectPool;
+        [SerializeField] private BaseShell _shellPrefab;
+        private MonoPool<BaseShell> _shellPool;
         
         private float _shootTimer;
+
+        private void Start()
+        {
+            _shellPool = new MonoPool<BaseShell>(_shellPrefab, null, 10, 50);
+        }
 
         public virtual void TryShoot()
         {
@@ -25,8 +32,9 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         protected virtual void Shoot()
         {
-            var shell = _objectPool.Get().GetComponent<BaseShell>();
+            var shell = _shellPool.Get().GetComponent<BaseShell>();
             shell.Shoot(transform);
+            shell.DestroyOnLifetimeEnd();
         }
     }
 }

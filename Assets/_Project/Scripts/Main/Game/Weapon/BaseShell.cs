@@ -1,11 +1,12 @@
 ﻿using _Project.Scripts.Extension;
+using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
     [RequireComponent(typeof(Rigidbody))]
-    public abstract class BaseShell : MonoBehaviour
+    public abstract class BaseShell : MonoPoolItemBase
     {
         [SerializeField] private ShellConfig _shellConfig;
         [SerializeField] private Destruction _destructionPrefab;
@@ -39,7 +40,7 @@ namespace _Project.Scripts.Main.Game.Weapon
             var destructTransform = Instantiate(_destructionPrefab).transform;
             destructTransform.SetPositionAndRotation(transform.position, transform.rotation);
             destructTransform.SetParent(transform.parent);
-            Destroy(gameObject);
+            ReturnToPool();
         }
     }
 }
