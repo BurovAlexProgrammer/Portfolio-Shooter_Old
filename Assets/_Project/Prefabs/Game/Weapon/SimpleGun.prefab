@@ -46,7 +46,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _weaponConfig: {fileID: 11400000, guid: e495886a8e6c5434e9278c65e1a77b66, type: 2}
-  _objectPool: {fileID: 9031706197150285602}
+  _shellPrefab: {fileID: 4292875084513145365, guid: 2b5a6f1d2d6972c4e96c8feb07f89084,
+    type: 3}
 --- !u!1 &7187637525410288170
 GameObject:
   m_ObjectHideFlags: 0
@@ -56,7 +57,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1758581740416036994}
-  - component: {fileID: 9031706197150285602}
   m_Layer: 0
   m_Name: Pool
   m_TagString: Untagged
@@ -79,19 +79,3 @@ Transform:
   m_Father: {fileID: 423819478231527623}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &9031706197150285602
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7187637525410288170}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5543d9fa8e424af9a1f6667865bfe013, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _prefab: {fileID: 2056946358374497243, guid: 2b5a6f1d2d6972c4e96c8feb07f89084, type: 3}
-  _initCapacity: 10
-  _maxCapacity: 20
-  _parent: {fileID: 0}
