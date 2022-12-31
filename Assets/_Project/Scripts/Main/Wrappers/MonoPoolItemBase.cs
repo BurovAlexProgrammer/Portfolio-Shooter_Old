@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Wrappers
 {
-    public abstract class MonoPoolItemBase : MonoWrapper
+    public abstract class MonoPoolItemBase : MonoBeh
     {
         private static int _idGenerator;
         private static int NewId => _idGenerator++;
