@@ -30,6 +30,8 @@ namespace _Project.Scripts.Main.Game
 
         void ChangeColorInPlayMode()
         {
+            if (Application.isPlaying == false) return;
+            
             GetComponent<MeshRenderer>().material.color = Random.ColorHSV();
         }
     }

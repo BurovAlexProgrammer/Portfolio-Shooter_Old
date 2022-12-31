@@ -14,7 +14,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void Start()
         {
-            _shellPool = new MonoPool<BaseShell>(_shellPrefab, null, 10, 50);
+            _shellPool = new MonoPool<BaseShell>(_shellPrefab, null, 10, 12);
         }
 
         public virtual void TryShoot()
