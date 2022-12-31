@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Project.Scripts.Main.Game.Weapon
 {
     [RequireComponent(typeof(Rigidbody))]
-    public abstract class BaseShell : MonoPoolItemBase
+    public abstract class ShellBase : MonoPoolItemBase
     {
         [SerializeField] private ShellConfig _shellConfig;
         [SerializeField] private Destruction _destructionPrefab;

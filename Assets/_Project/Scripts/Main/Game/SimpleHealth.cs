@@ -19,9 +19,11 @@ namespace _Project.Scripts.Main.Game
 
         private void Destruct()
         {
-            if (_destructionPrefab == null) return;
+            if (_destructionPrefab != null)
+            {
+                Instantiate(_destructionPrefab, transform.parent);
+            }
 
-            Instantiate(_destructionPrefab, transform.parent);
             Destroy(gameObject);
         }
     }

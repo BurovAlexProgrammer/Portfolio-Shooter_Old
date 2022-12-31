@@ -11,7 +11,7 @@ namespace _Project.Scripts.Main.Game
     {
         [SerializeField] private CameraHolder _cameraHolder;
         [SerializeField] private PlayerConfig _config;
-        [SerializeField] private BaseGun _gun;
+        [SerializeField] private GunBase _gun;
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canShoot;
 

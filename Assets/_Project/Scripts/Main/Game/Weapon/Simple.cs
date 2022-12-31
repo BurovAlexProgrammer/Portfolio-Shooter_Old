@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
-    public class SimpleShell : BaseShell
+    public class Simple : ShellBase
     {
     }
 }

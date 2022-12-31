@@ -1,20 +1,21 @@
 ﻿using System;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
-    public abstract class BaseGun: MonoBehaviour
+    public abstract class GunBase: MonoBehaviour
     {
         [SerializeField] private WeaponConfig _weaponConfig;
-        [SerializeField] private BaseShell _shellPrefab;
-        private MonoPool<BaseShell> _shellPool;
+        [FormerlySerializedAs("_shellPrefab")] [SerializeField] private ShellBase _prefab;
+        private MonoPool<ShellBase> _shellPool;
         
         private float _shootTimer;
 
         private void Start()
         {
-            _shellPool = new MonoPool<BaseShell>(_shellPrefab, null, 10, 12);
+            _shellPool = new MonoPool<ShellBase>(_prefab, null, 10, 12);
         }
 
         public virtual void TryShoot()
@@ -32,7 +33,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         protected virtual void Shoot()
         {
-            var shell = _shellPool.Get().GetComponent<BaseShell>();
+            var shell = _shellPool.Get().GetComponent<ShellBase>();
             shell.Shoot(transform);
             shell.DestroyOnLifetimeEnd();
         }
