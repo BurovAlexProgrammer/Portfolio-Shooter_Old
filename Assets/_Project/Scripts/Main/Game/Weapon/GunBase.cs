@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Scripts.Main.Wrappers;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Serialization;
 
@@ -20,15 +21,13 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         public virtual void TryShoot()
         {
-            Debug.Log("Gun tryShoot");
             if (_shootTimer <= 0f)
             {
                 Shoot();
                 _shootTimer = _weaponConfig.FireRateDelay;
+                _ = RunTimer();
                 return;
             }
-
-            _shootTimer -= Time.deltaTime;
         }
 
         protected virtual void Shoot()
@@ -36,6 +35,15 @@ namespace _Project.Scripts.Main.Game.Weapon
             var shell = _shellPool.Get().GetComponent<ShellBase>();
             shell.Shoot(transform);
             shell.DestroyOnLifetimeEnd();
+        }
+
+        private async UniTask RunTimer()
+        {
+            while (_shootTimer > 0f)
+            {
+                await UniTask.NextFrame();
+                _shootTimer -= Time.deltaTime;
+            }
         }
     }
 }
