@@ -7,7 +7,7 @@ using Zenject;
 namespace _Project.Scripts.Main.Game
 {
     [RequireComponent(typeof(CharacterController))]
-    public abstract class BasePlayer : MonoBehaviour
+    public abstract class PlayerBase : MonoBehaviour
     {
         [SerializeField] private CameraHolder _cameraHolder;
         [SerializeField] private PlayerConfig _config;
