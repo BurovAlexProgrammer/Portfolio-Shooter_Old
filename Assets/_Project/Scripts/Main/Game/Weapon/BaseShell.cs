@@ -13,24 +13,34 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private float _lifeTime = 5f;
 
         private Rigidbody _rigidbody;
-        
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            var targetHealth = collision.gameObject.GetComponent<HealthBase>();
+            if (targetHealth != null)
+            {
+                TakeDamage(targetHealth);
+            }
+            Destruct();
+        }
+
         public void Shoot(Transform startPoint)
         {
            gameObject.SetActive(true);
-           transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
-           _rigidbody.velocity = transform.forward * _shellConfig.InitSpeed;
+           _transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
+           _rigidbody.velocity = _transform.forward * _shellConfig.InitSpeed;
         }
 
         public async UniTask DestroyOnLifetimeEnd()
         {
             await _lifeTime.WaitInSeconds();
                 
-            if (gameObject.IsDestroyed()) return;
+            if (!_gameObject.activeSelf) return;
             
             Destruct();
         }
@@ -38,9 +48,14 @@ namespace _Project.Scripts.Main.Game.Weapon
         public void Destruct()
         {
             var destructTransform = Instantiate(_destructionPrefab).transform;
-            destructTransform.SetPositionAndRotation(transform.position, transform.rotation);
-            destructTransform.SetParent(transform.parent);
+            destructTransform.SetPositionAndRotation(_transform.position, _transform.rotation);
+            destructTransform.SetParent(_transform.parent);
             ReturnToPool();
+        }
+
+        private void TakeDamage(HealthBase target)
+        {
+            target.GetDamage(_shellConfig.Damage);
         }
     }
 }
