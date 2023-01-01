@@ -36,10 +36,15 @@ namespace _Project.Scripts.Main.Game.Weapon
            _rigidbody.velocity = _transform.forward * _shellConfig.InitSpeed;
         }
 
-        public async UniTask DestroyOnLifetimeEnd()
+        public void DestroyOnLifetimeEnd()
+        {
+            _ = DestroyOnLifetimeEndTask();
+        }
+
+        private async UniTask DestroyOnLifetimeEndTask()
         {
             await _lifeTime.WaitInSeconds();
-                
+            
             if (!_gameObject.activeSelf) return;
             
             Destruct();

@@ -1,5 +1,4 @@
 using UnityEngine;
-// ReSharper disable InconsistentNaming
 
 namespace _Project.Scripts.Main
 {

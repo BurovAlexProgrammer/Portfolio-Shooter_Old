@@ -96,7 +96,6 @@ namespace _Project.Scripts.Main.Game
         {
             if (!_canShoot) return;
 
-            Debug.Log("TryShoot");
             _gun.TryShoot();
         }
 

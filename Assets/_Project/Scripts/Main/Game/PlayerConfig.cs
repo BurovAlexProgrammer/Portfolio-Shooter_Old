@@ -20,11 +20,8 @@ namespace _Project.Scripts.Main.Game
         public float RotateSpeed => _rotateSpeed;
         public float ShootSpeed => _shootSpeed;
         public float MaxVerticalAngle => _maxVerticalAngle;
-
         public float ShootDelay => _shootDelay;
-
         public float MoveLerpTime => _moveLerpTime;
-
         public float RotateLerpTime => _rotateLerpTime;
     }
 }

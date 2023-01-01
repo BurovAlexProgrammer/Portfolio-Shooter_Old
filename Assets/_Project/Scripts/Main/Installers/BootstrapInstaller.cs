@@ -15,6 +15,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
         [SerializeField] private LocalizationService _localizationServicePrefab;
         [SerializeField] private ControlService _controlServicePrefab;
+        [SerializeField] private DebugService _debugServicePrefab;
 
         public override void InstallBindings()
         {
@@ -25,6 +26,17 @@ namespace _Project.Scripts.Main.Installers
             InstallSettingService();
             InstallLocalizationService();
             InstallControlService();
+            InstallDebugService();
+        }
+
+        private void InstallDebugService()
+        {
+            Container
+                .Bind<DebugService>()
+                .FromComponentInNewPrefab(_debugServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((DebugService)instance))
+                .NonLazy();
         }
 
         private void LogToFile(string condition, string stacktrace, LogType type)
