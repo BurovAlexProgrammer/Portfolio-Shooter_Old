@@ -50,15 +50,14 @@ namespace _Project.Scripts.Main.Game.Weapon
             Destruct();
         }
 
-        public void Destruct()
+        private void Destruct()
         {
-            var destructTransform = Instantiate(_destructionPrefab).transform;
-            destructTransform.SetPositionAndRotation(_transform.position, _transform.rotation);
-            destructTransform.SetParent(_transform.parent);
-            var rigidbodies = destructTransform.GetComponentsInChildren<Rigidbody>();
+            var destruction = Instantiate(_destructionPrefab,_transform.position, _transform.rotation );
+            destruction._transform.SetParent(_transform.parent);
+            var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
             foreach (var rb in rigidbodies)
             {
-                rb.velocity = _rigidbody.velocity / 2f;
+                rb.velocity = _rigidbody.velocity / 5f;
             }
             ReturnToPool();
         }

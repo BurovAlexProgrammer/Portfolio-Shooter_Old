@@ -52,11 +52,12 @@ namespace _Project.Scripts.Main.Game
 
         private async void Start()
         {
-            Debug.Log("Collider count: " + _colliders.Length);
-
             foreach (var targetRigidbody in _rigidbodies)
             {
                 await UniTask.NextFrame();
+                
+                if (targetRigidbody == null) continue;
+                
                 targetRigidbody.AddExplosionForce(_force, transform.position, _radius, _liftForce,
                     _forceMode);
             }

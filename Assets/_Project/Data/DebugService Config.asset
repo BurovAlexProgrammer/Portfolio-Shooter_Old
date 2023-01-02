@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c9f7521a6dd44ba8d3147cf96837e4a, type: 3}
   m_Name: DebugService Config
   m_EditorClassIdentifier: 
-  ShowExplosionSphere: 1
+  ShowExplosionSphere: 0
