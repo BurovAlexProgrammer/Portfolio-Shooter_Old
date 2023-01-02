@@ -57,6 +57,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dd1da6c0db7407e895b48f75f969bdd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _behavior: 2
   _lifeTime: 5
 --- !u!1 &1631662004593364759
 GameObject:
@@ -1263,7 +1264,7 @@ MonoBehaviour:
   _dependencies: 0
   _radius: 2
   _force: 3
-  _liftForce: 0.1
+  _liftForce: 0.3
   _forceMode: 0
 --- !u!1 &8608088385425383323
 GameObject:

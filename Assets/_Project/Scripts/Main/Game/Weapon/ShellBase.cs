@@ -55,6 +55,11 @@ namespace _Project.Scripts.Main.Game.Weapon
             var destructTransform = Instantiate(_destructionPrefab).transform;
             destructTransform.SetPositionAndRotation(_transform.position, _transform.rotation);
             destructTransform.SetParent(_transform.parent);
+            var rigidbodies = destructTransform.GetComponentsInChildren<Rigidbody>();
+            foreach (var rb in rigidbodies)
+            {
+                rb.velocity = _rigidbody.velocity / 2f;
+            }
             ReturnToPool();
         }
 
