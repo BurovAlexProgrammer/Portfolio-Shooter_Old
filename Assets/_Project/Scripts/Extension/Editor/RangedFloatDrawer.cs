@@ -10,8 +10,8 @@ namespace _Project.Scripts.Extension.Attributes.Editor
 			label = EditorGUI.BeginProperty(position, label, property);
 			position = EditorGUI.PrefixLabel(position, label);
 
-			SerializedProperty minProp = property.FindPropertyRelative("minValue");
-			SerializedProperty maxProp = property.FindPropertyRelative("maxValue");
+			SerializedProperty minProp = property.FindPropertyRelative("MinValue");
+			SerializedProperty maxProp = property.FindPropertyRelative("MaxValue");
         
 			float minValue = minProp.floatValue;
 			float maxValue = maxProp.floatValue;

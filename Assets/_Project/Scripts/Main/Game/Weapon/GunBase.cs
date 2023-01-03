@@ -9,6 +9,7 @@ namespace _Project.Scripts.Main.Game.Weapon
     public abstract class GunBase: MonoBehaviour
     {
         [SerializeField] private WeaponConfig _weaponConfig;
+        [SerializeField] private AudioSource _audioSource;
         [FormerlySerializedAs("_shellPrefab")] [SerializeField] private ShellBase _prefab;
         private MonoPool<ShellBase> _shellPool;
         
@@ -23,10 +24,9 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             if (_shootTimer <= 0f)
             {
-                Shoot();
                 _shootTimer = _weaponConfig.FireRateDelay;
                 _ = RunTimer();
-                return;
+                Shoot();
             }
         }
 
@@ -35,6 +35,11 @@ namespace _Project.Scripts.Main.Game.Weapon
             var shell = _shellPool.Get().GetComponent<ShellBase>();
             shell.Shoot(transform);
             shell.DestroyOnLifetimeEnd();
+            
+            if (_audioSource != null)
+            {
+                _weaponConfig.ShootAudioEvent.Play(_audioSource);
+            }
         }
 
         private async UniTask RunTimer()

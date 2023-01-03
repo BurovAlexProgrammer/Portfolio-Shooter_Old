@@ -23,7 +23,7 @@ namespace _Project.Scripts.Main.Audio.Editor
             DrawDefaultInspector();
             EditorGUI.BeginDisabledGroup(false);
             if (GUILayout.Button("Preview")) {
-                ((AudioEvent) target).Play(audioSource);
+                (target as AudioEvent).Play(audioSource);
             }
             EditorGUI.EndDisabledGroup();
         }
