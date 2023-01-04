@@ -9,8 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81702eb455e941178ee915873e999b80, type: 3}
-  m_Name: Simple Gun
+  m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
+  m_Name: ShellHit
   m_EditorClassIdentifier: 
-  _fireRateDelay: 0.3
-  _shootAudioEvent: {fileID: 11400000, guid: 047976e16f7636444af0f0bf1a1a3edd, type: 2}
+  _audioClips: []
+  _volume:
+    MinValue: 0.8
+    MaxValue: 1
+  _pitch:
+    MinValue: 0.8
+    MaxValue: 1.2
