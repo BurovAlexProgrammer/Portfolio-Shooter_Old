@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
@@ -7,6 +8,7 @@ using Zenject;
 namespace _Project.Scripts.Main.Game
 {
     [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(AudioSource))]
     public abstract class PlayerBase : MonoBehaviour
     {
         [SerializeField] private CameraHolder _cameraHolder;
@@ -14,11 +16,13 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private GunBase _gun;
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canShoot;
-
+        [SerializeField] private SimpleAudioEvent _startPhrase;
+        
         [Inject] private ControlService _controlService;
         [Inject] private SettingsService _settingsService;
         
         private CharacterController _characterController;
+        private AudioSource _audioSource;
         private Controls.PlayerActions _playerControl;
         private Vector2 _moveInputValue;
         private Vector2 _moveLerpValue;
@@ -28,11 +32,25 @@ namespace _Project.Scripts.Main.Game
         private bool _shootInputValue;
 
         public CameraHolder CameraHolder => _cameraHolder;
-        
-        private void Start()
+
+        private void Awake()
         {
             _characterController = GetComponent<CharacterController>();
+            _audioSource = GetComponent<AudioSource>();
+        }
+
+        private void Start()
+        {
             _playerControl = _controlService.Controls.Player;
+
+            if (_startPhrase != null)
+            {
+                _startPhrase.Play(_audioSource);
+            }
+            else
+            {
+                Debug.LogWarning("Player does not have Start Phrase. (Click to select)", this);
+            }
         }
 
         private void Update()
