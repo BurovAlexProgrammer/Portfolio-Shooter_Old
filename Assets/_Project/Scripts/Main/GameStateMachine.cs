@@ -15,6 +15,7 @@ namespace _Project.Scripts.Main
         private GameStates _activeState;
         
         [Inject] private SceneLoaderService _sceneLoader;
+        [Inject] private ControlService _controlService;
 
         public GameStates ActiveState => _activeState;
 
@@ -73,6 +74,7 @@ namespace _Project.Scripts.Main
                 case GameStates.MainMenu:
                     break;
                 case GameStates.PlayGame:
+                    ExitStatePlayGame();
                     break;
                 case GameStates.GamePause:
                     break;
@@ -97,7 +99,13 @@ namespace _Project.Scripts.Main
 
         private void EnterStatePlayGame()
         {
+            _controlService.LockCursor();
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
+        }
+        
+        private void ExitStatePlayGame()
+        {
+            _controlService.UnlockCursor();
         }
 
         private async UniTask ExitStateBoot()

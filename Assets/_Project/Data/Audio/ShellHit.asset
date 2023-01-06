@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
   m_Name: ShellHit
   m_EditorClassIdentifier: 
-  _audioClips: []
+  _audioClips:
+  - {fileID: 8300000, guid: afbce574c7531284088a1234bed58c00, type: 3}
   _volume:
-    MinValue: 0.8
-    MaxValue: 1
+    MinValue: 0.5357442
+    MaxValue: 0.735744
   _pitch:
-    MinValue: 0.8
-    MaxValue: 1.2
+    MinValue: 1.1310947
+    MaxValue: 1.5310951

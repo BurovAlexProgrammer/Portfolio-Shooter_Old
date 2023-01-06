@@ -10,14 +10,14 @@ namespace _Project.Scripts.Main.Game.Weapon
     {
         [SerializeField] private WeaponConfig _weaponConfig;
         [SerializeField] private AudioSource _audioSource;
-        [FormerlySerializedAs("_shellPrefab")] [SerializeField] private ShellBase _prefab;
+        [SerializeField] private ShellBase _shellPrefab;
         private MonoPool<ShellBase> _shellPool;
         
         private float _shootTimer;
 
         private void Start()
         {
-            _shellPool = new MonoPool<ShellBase>(_prefab, null, 10, 12);
+            _shellPool = new MonoPool<ShellBase>(_shellPrefab, transform.root, 10, 12);
         }
 
         public virtual void TryShoot()
@@ -49,6 +49,11 @@ namespace _Project.Scripts.Main.Game.Weapon
                 await UniTask.NextFrame();
                 _shootTimer -= Time.deltaTime;
             }
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log("Destroy GUN");
         }
     }
 }
