@@ -63,7 +63,7 @@ namespace _Project.Scripts.Main.Game
                 Rotate(_rotateLerpValue);
             }
 
-            if (_playerControl.Shoot.inProgress)
+            if (_playerControl.Shoot.IsPressed())
             {
                 TryShoot();
             }

@@ -1,12 +1,12 @@
 ﻿using System;
 using _Project.Scripts.Extension;
-using Cysharp.Threading.Tasks;
+using _Project.Scripts.Main.Wrappers;
 using DG.Tweening;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
-    public class Destruction : MonoBeh
+    public class Destruction : MonoPoolItemBase
     {
         [SerializeField] private Behaviors _behavior;
         [SerializeField] private float _lifeTime = 5f;
@@ -15,8 +15,8 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             switch (_behavior)
             {
-                case Behaviors.Destroy:
-                    Destroy();
+                case Behaviors.ReturnToPool:
+                    ReturnToPoolByLifetime();
                     break;
                 case Behaviors.FadeAlpha:
                     throw new NotImplementedException();
@@ -28,13 +28,13 @@ namespace _Project.Scripts.Main.Game.Weapon
             }
         }
 
-        private async void Destroy()
+        private async void ReturnToPoolByLifetime()
         {
             await _lifeTime.WaitInSeconds();
 
-            if (gameObject.IsDestroyed()) return;
+            if (!_gameObject.activeSelf) return;
 
-            Destroy(gameObject);
+            ReturnToPool();
         }
 
         private async void FadeScaleChildren()
@@ -53,15 +53,15 @@ namespace _Project.Scripts.Main.Game.Weapon
             }
 
             await (_lifeTime / 2f).WaitInSeconds();
+            
+            if (!_gameObject.activeSelf) return;
 
-            if (gameObject.IsDestroyed()) return;
-
-            Destroy(gameObject);
+            ReturnToPool();
         }
 
         private enum Behaviors
         {
-            Destroy,
+            ReturnToPool,
             FadeAlpha,
             FadeScaleChildren,
         }

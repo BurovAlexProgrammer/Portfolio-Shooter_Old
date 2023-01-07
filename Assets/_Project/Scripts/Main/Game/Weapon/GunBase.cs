@@ -1,8 +1,6 @@
-﻿using System;
-using _Project.Scripts.Main.Wrappers;
+﻿using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
@@ -12,12 +10,12 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private ShellBase _shellPrefab;
         private MonoPool<ShellBase> _shellPool;
-        
+
         private float _shootTimer;
 
         private void Start()
         {
-            _shellPool = new MonoPool<ShellBase>(_shellPrefab, transform.root, 10, 12);
+            _shellPool = new MonoPool<ShellBase>(_shellPrefab, null, 10, 12);
         }
 
         public virtual void TryShoot()

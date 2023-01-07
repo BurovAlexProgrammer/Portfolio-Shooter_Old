@@ -88,3 +88,5 @@ MonoBehaviour:
     type: 3}
   _debugServicePrefab: {fileID: 2020632961071291257, guid: 3a085f93678f3cf4392e1fdbd1158fbf,
     type: 3}
+  _poolServicePrefab: {fileID: -738795846971750403, guid: 00dad4366aa56234cb5fe0a1783d0ecd,
+    type: 3}

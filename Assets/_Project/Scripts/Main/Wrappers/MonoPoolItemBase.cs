@@ -21,7 +21,7 @@ namespace _Project.Scripts.Main.Wrappers
             }
         }
 
-        public void ReturnToPool()
+        protected void ReturnToPool()
         {
             gameObject.SetActive(false);
             Returned?.Invoke(this);

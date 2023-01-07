@@ -16,6 +16,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private LocalizationService _localizationServicePrefab;
         [SerializeField] private ControlService _controlServicePrefab;
         [SerializeField] private DebugService _debugServicePrefab;
+        [SerializeField] private PoolService _poolServicePrefab;
 
         public override void InstallBindings()
         {
@@ -27,6 +28,17 @@ namespace _Project.Scripts.Main.Installers
             InstallLocalizationService();
             InstallControlService();
             InstallDebugService();
+            InstallPoolService();
+        }
+
+        private void InstallPoolService()
+        {
+            Container
+                .Bind<PoolService>()
+                .FromComponentInNewPrefab(_poolServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((PoolService)instance))
+                .NonLazy();
         }
 
         private void InstallDebugService()
@@ -57,10 +69,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_controlServicePrefab)
                 .AsSingle()
                 .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as ControlService;
-                    service.Init();
-                })
+                    (instance as ControlService)?.Init())
                 .NonLazy();
         }
 
@@ -103,12 +112,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<GameManagerService>()
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as GameManagerService;
-                    SetService(service);
-                    service.Init();
-                })
+                .OnInstantiated((ctx, instance) => SetService(instance as GameManagerService))
                 .NonLazy();
         }
         
@@ -118,7 +122,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<LocalizationService>()
                 .FromComponentInNewPrefab(_localizationServicePrefab)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => (instance as LocalizationService).Init())
+                .OnInstantiated((ctx, instance) => (instance as LocalizationService)?.Init())
                 .NonLazy();
         }
     }
