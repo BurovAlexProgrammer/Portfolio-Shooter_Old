@@ -2,7 +2,6 @@
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
@@ -22,11 +21,22 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void OnCollisionEnter(Collision collision)
         {
+            var targetHealthRef = collision.gameObject.GetComponent<HealthRef>();
+
+            if (targetHealthRef != null)
+            {
+                TakeDamage(targetHealthRef.Health);
+                Destruct();
+                return;
+            }
+            
             var targetHealth = collision.gameObject.GetComponent<HealthBase>();
+            
             if (targetHealth != null)
             {
                 TakeDamage(targetHealth);
             }
+
             Destruct();
         }
 

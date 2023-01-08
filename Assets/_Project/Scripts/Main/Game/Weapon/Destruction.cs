@@ -31,21 +31,12 @@ namespace _Project.Scripts.Main.Game.Weapon
         private async void ReturnToPoolByLifetime()
         {
             await _lifeTime.WaitInSeconds();
-
-            if (!_gameObject.activeSelf) return;
-
             ReturnToPool();
         }
 
         private async void FadeScaleChildren()
         {
             await (_lifeTime / 2f).WaitInSeconds();
-            var rigidbodies = _transform.GetComponentsInChildren<Rigidbody>();
-
-            foreach (var rb in rigidbodies)
-            {
-                rb.Sleep();
-            }
 
             foreach (Transform child in _transform)
             {
@@ -53,9 +44,6 @@ namespace _Project.Scripts.Main.Game.Weapon
             }
 
             await (_lifeTime / 2f).WaitInSeconds();
-            
-            if (!_gameObject.activeSelf) return;
-
             ReturnToPool();
         }
 
