@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -8,7 +7,19 @@ namespace _Project.Scripts.Main.Game.Brain
     {
         public override void Think(BrainOwner brainOwner)
         {
-            Debug.Log("think");
+            if (brainOwner.IsTargetExist)
+            {
+                brainOwner.NavMeshAgent.SetDestination(brainOwner.Target.transform.position);
+            }
+            else
+            {
+                FindTarget(brainOwner);
+            }
+        }
+        
+        private void FindTarget(BrainOwner brainOwner)
+        {
+            brainOwner.SetTargetHealth(brainOwner.Player.Health);
         }
     }
 }

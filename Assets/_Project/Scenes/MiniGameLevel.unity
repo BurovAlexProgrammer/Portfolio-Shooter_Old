@@ -2831,6 +2831,32 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 112258819}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1405298587 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7574077792932038324, guid: a35ab4541f95cff4eab958b9d222a46a,
+    type: 3}
+  m_PrefabInstance: {fileID: 7340284987333674130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1405298588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1405298587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12feeed530d45658914d1df8543abc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _brain: {fileID: 11400000, guid: 7a231c0c5e249c342a3754a0c1455732, type: 2}
+  _healthTarget: {fileID: 0}
+  _transformInfoTarget:
+    Position: {x: 0, y: 0, z: 0}
+    LocalPosition: {x: 0, y: 0, z: 0}
+    Rotation: {x: 0, y: 0, z: 0, w: 0}
+    LocalRotation: {x: 0, y: 0, z: 0, w: 0}
+    LocalScale: {x: 0, y: 0, z: 0}
 --- !u!4 &1473925932 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3580981814800367222, guid: e6c0ad87ec67a094daaae705827c8439,
@@ -4998,5 +5024,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2492229960181296011, guid: a35ab4541f95cff4eab958b9d222a46a, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a35ab4541f95cff4eab958b9d222a46a, type: 3}

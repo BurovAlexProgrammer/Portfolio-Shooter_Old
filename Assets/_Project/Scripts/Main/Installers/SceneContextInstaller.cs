@@ -1,18 +1,16 @@
 using _Project.Scripts.Main.Game;
+using _Project.Scripts.Main.Services;
 using UnityEngine;
 using Zenject;
 
 namespace _Project.Scripts.Main.Installers
 {
-    public class SceneLocationInstaller : MonoInstaller
+    public class SceneContextInstaller : MonoInstaller
     {
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private Transform _playerStartPoint;
+        [SerializeField] private BrainControlService _brainControlServicePrefab;
 
-        private PlayerBase _playerInstance;
-
-        public PlayerBase PlayerInstance => _playerInstance;
-        
         public override void InstallBindings()
         {
             Container
@@ -26,6 +24,15 @@ namespace _Project.Scripts.Main.Installers
                     playerTransform.position = _playerStartPoint.position;
                     playerTransform.rotation = _playerStartPoint.rotation;
                 });
+        }
+
+        private void InstallBrainControl()
+        {
+            Container
+                .Bind<BrainControlService>()
+                .FromComponentInNewPrefab(_brainControlServicePrefab)
+                .WithGameObjectName("BrainControl Service")
+                .AsSingle();
         }
     }
 }
