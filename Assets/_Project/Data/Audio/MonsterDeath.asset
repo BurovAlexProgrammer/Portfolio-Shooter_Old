@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: MonsterDeath
   m_EditorClassIdentifier: 
   _audioClips:
-  - {fileID: 8300000, guid: 0e4bfe5e142854c4aafa6648265198b9, type: 3}
-  - {fileID: 8300000, guid: 8c28e61901e0b944a9d52f0ed4e29601, type: 3}
+  - {fileID: 8300000, guid: fe1bce2ac235fd844b8b8bf7edc36663, type: 3}
+  - {fileID: 8300000, guid: b1199900a8e30104983733b26093068c, type: 3}
+  - {fileID: 8300000, guid: f79d2be153fd9d94c9dbc46201cf2989, type: 3}
   _volume:
     MinValue: 0.5913073
     MaxValue: 0.7729485
