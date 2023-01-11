@@ -13,6 +13,12 @@ namespace _Project.Scripts.Main.Installers
 
         public override void InstallBindings()
         {
+            InstallPlayer();
+            InstallBrainControl();
+        }
+
+        private void InstallPlayer()
+        {
             Container
                 .Bind<PlayerBase>()
                 .FromComponentInNewPrefab(_playerPrefab)

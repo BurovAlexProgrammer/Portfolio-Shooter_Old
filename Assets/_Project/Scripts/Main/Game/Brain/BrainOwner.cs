@@ -1,10 +1,8 @@
 using System;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace _Project.Scripts.Main.Game.Brain
@@ -18,19 +16,31 @@ namespace _Project.Scripts.Main.Game.Brain
         private bool _isTargetExist;
         private NavMeshAgent _navMeshAgent;
         [Inject] PlayerBase _player;
+        [Inject] private BrainControlService _brainControlService;
 
         public PlayerBase Player => _player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         public HealthBase Target => _target;
         public bool IsTargetExist => _isTargetExist;
 
+        private void OnEnable()
+        {
+            _brainControlService.AddBrain(this);
+        }
+
+        private void OnDisable()
+        {
+            _brainControlService.RemoveBrain(this);
+        }
+
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
         }
 
-        private void Update()
+        public void Think()
         {
+            Debug.Log("Think");
             _brain.Think(this);
         }
 
