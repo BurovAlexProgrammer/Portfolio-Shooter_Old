@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -49,7 +50,8 @@ namespace _Project.Scripts.Extension
         }
     }
 
-    public class TransformInfo
+    [Serializable]
+    public struct TransformInfo
     {
         public Vector3 Position;
         public Vector3 LocalPosition;

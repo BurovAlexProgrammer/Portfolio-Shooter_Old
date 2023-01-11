@@ -8,6 +8,11 @@ namespace _Project.Scripts.Main.Installers
     {
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private Transform _playerStartPoint;
+
+        private PlayerBase _playerInstance;
+
+        public PlayerBase PlayerInstance => _playerInstance;
+        
         public override void InstallBindings()
         {
             Container

@@ -7,6 +7,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.Game
 {
+    [RequireComponent(typeof(HealthBase))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
     public abstract class PlayerBase : MonoBehaviour
@@ -23,6 +24,7 @@ namespace _Project.Scripts.Main.Game
         
         private CharacterController _characterController;
         private AudioSource _audioSource;
+        private HealthBase _health;
         private Controls.PlayerActions _playerControl;
         private Vector2 _moveInputValue;
         private Vector2 _moveLerpValue;
@@ -32,9 +34,11 @@ namespace _Project.Scripts.Main.Game
         private bool _shootInputValue;
 
         public CameraHolder CameraHolder => _cameraHolder;
+        public HealthBase Health => _health;
 
         private void Awake()
         {
+            _health = GetComponent<HealthBase>();
             _characterController = GetComponent<CharacterController>();
             _audioSource = GetComponent<AudioSource>();
         }

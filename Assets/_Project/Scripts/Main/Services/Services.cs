@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace _Project.Scripts.Main.Services
 {
     public static class Services
@@ -37,10 +35,5 @@ namespace _Project.Scripts.Main.Services
                     break;
             }
         }
-    }
-
-    public abstract class BaseService : MonoBehaviour
-    {
-        
     }
 }
