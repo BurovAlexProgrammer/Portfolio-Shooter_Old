@@ -63,16 +63,18 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void Destruct()
         {
-            var destruction = Services.Services.PoolService._destructionPool.Get();//Instantiate(_destructionPrefab,_transform.position, _transform.rotation );
+            var destruction = Services.Services.PoolService._destructionPool.Get();
+            var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
             destruction._transform.position = _transform.position;
             destruction._transform.rotation = _transform.rotation;
             destruction._gameObject.SetActive(true);
             destruction._transform.SetParent(_transform.parent);
-            var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
+            
             foreach (var rb in rigidbodies)
             {
                 rb.velocity = _rigidbody.velocity / 5f;
             }
+            
             ReturnToPool();
         }
 

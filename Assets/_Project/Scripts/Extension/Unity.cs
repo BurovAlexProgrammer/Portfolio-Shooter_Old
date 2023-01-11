@@ -18,5 +18,52 @@ namespace _Project.Scripts.Extension
         {
             return gameObject == null && !ReferenceEquals(gameObject, null);
         }
+
+        public static Transform[] GetChildrenTransforms(this Transform transform)
+        {
+            var transforms = new Transform[transform.childCount];
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                transforms[i] = transform.GetChild(i);
+            }
+
+            return transforms;
+        }
+        
+        public static TransformInfo GetTransformInfo(this Transform transform)
+        {
+            return new TransformInfo(transform);
+        }
+        
+        public static TransformInfo[] GetChildrenTransformInfo(this Transform transform)
+        {
+            var infos = new TransformInfo[transform.childCount];
+
+            for (int i = 0; i < transform.childCount; i++)
+            {
+                infos[i] = transform.GetChild(i).GetTransformInfo();
+            }
+
+            return infos;
+        }
+    }
+
+    public class TransformInfo
+    {
+        public Vector3 Position;
+        public Vector3 LocalPosition;
+        public Quaternion Rotation;
+        public Quaternion LocalRotation;
+        public Vector3 LocalScale;
+
+        public TransformInfo(Transform transform)
+        {
+            Position = transform.position;
+            LocalPosition = transform.localPosition;
+            Rotation = transform.rotation;
+            LocalRotation = transform.localRotation;
+            LocalScale = transform.localScale;
+        }
     }
 }
