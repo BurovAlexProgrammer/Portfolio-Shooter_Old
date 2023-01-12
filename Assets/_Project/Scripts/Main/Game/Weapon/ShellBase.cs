@@ -63,7 +63,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void Destruct()
         {
-            var destruction = Services.Services.PoolService._destructionPool.Get();
+            var destruction = Services.Services.PoolService.Get(_destructionPrefab);
             var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
             destruction._transform.position = _transform.position;
             destruction._transform.rotation = _transform.rotation;

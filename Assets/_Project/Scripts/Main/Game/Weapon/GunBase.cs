@@ -1,6 +1,6 @@
-﻿using _Project.Scripts.Main.Wrappers;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
+using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
@@ -9,14 +9,8 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private WeaponConfig _weaponConfig;
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private ShellBase _shellPrefab;
-        private MonoPool<ShellBase> _shellPool;
 
         private float _shootTimer;
-
-        private void Start()
-        {
-            _shellPool = new MonoPool<ShellBase>(_shellPrefab, null, 10, 12);
-        }
 
         public virtual void TryShoot()
         {
@@ -30,7 +24,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         protected virtual void Shoot()
         {
-            var shell = _shellPool.Get().GetComponent<ShellBase>();
+            var shell = PoolService.Get(_shellPrefab).GetComponent<ShellBase>();
             shell.Shoot(transform);
             shell.DestroyOnLifetimeEnd();
             
