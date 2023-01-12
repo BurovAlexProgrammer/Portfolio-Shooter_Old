@@ -55,7 +55,6 @@ namespace _Project.Scripts.Main.Installers
         {
             var path = Application.persistentDataPath + "/log.txt";
             using var streamWriter = File.AppendText(path);
-            streamWriter.WriteLine("-----------------------------------------------------------------------------------------");
             streamWriter.WriteLine($"{condition}");
             streamWriter.WriteLine("----");
             streamWriter.WriteLine($"{stacktrace}");

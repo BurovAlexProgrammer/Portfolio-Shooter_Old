@@ -40,7 +40,6 @@ namespace _Project.Scripts.Main.Game.Brain
 
         public void Think()
         {
-            Debug.Log("Think");
             _brain.Think(this);
         }
 
