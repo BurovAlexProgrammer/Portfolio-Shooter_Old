@@ -2,6 +2,7 @@
   <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="_Project.Scripts.UI.Toggle.ToggleView" preserve="all" />
     <type fullname="Test" preserve="all" />
+    <type fullname="TestEnemy" preserve="all" />
   </assembly>
   <assembly fullname="Main, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="_Project.Scripts.Main.Audio.SimpleAudioEvent" preserve="all" />
