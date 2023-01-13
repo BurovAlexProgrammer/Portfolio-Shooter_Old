@@ -13,6 +13,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private float _lifeTime = 5f;
 
         private Rigidbody _rigidbody;
+        private bool _collided;
 
         private void Awake()
         {
@@ -21,6 +22,9 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (_collided) return;
+
+            _collided = true;
             var targetHealthRef = collision.gameObject.GetComponent<HealthRef>();
 
             if (targetHealthRef != null)
@@ -42,7 +46,8 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         public void Shoot(Transform startPoint)
         {
-           gameObject.SetActive(true);
+            _collided = false;
+            gameObject.SetActive(true);
            _transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
            _rigidbody.velocity = _transform.forward * _shellConfig.InitSpeed;
         }
@@ -68,13 +73,12 @@ namespace _Project.Scripts.Main.Game.Weapon
             destruction._transform.position = _transform.position;
             destruction._transform.rotation = _transform.rotation;
             destruction._gameObject.SetActive(true);
-            destruction._transform.SetParent(_transform.parent);
             
             foreach (var rb in rigidbodies)
             {
                 rb.velocity = _rigidbody.velocity / 5f;
             }
-            
+
             ReturnToPool();
         }
 

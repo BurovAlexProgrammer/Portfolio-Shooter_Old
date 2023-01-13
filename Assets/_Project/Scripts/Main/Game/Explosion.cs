@@ -20,7 +20,6 @@ namespace _Project.Scripts.Main.Game
         private void Awake()
         {
             _rigidbodies = new List<Rigidbody>();
-            DebugService.CreateExplosionGizmo(transform, _radius);
 
             switch (_dependencies)
             {
@@ -50,8 +49,10 @@ namespace _Project.Scripts.Main.Game
             }
         }
 
-        private async void Start()
+        private async void OnEnable()
         {
+            DebugService.CreateExplosionGizmo(transform, _radius);
+
             foreach (var targetRigidbody in _rigidbodies)
             {
                 await UniTask.NextFrame();
