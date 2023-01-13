@@ -121,11 +121,11 @@ MonoBehaviour:
           m_Key: HostingServiceUploadSpeed
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String
-          m_Data: Library/com.unity.addressables/aa/Windows/StandaloneWindows64;ServerData/StandaloneWindows64
+          m_Data: Library/com.unity.addressables/aa/Windows/StandaloneWindows64
           m_Key: ContentRoot
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.Boolean
-          m_Data: False
+          m_Data: True
           m_Key: IsEnabled
         - m_AssemblyName: mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
           m_ClassName: System.String

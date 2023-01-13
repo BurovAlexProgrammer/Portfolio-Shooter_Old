@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
+using DG.Tweening;
 using static _Project.Scripts.Extension.Common;
 using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
 
@@ -103,8 +104,12 @@ namespace _Project.Scripts.Main
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
         }
         
-        private void ExitStatePlayGame()
+        private async void ExitStatePlayGame()
         {
+            if (Time.timeScale == 0f)
+            {
+                DOVirtual.Float(0, 1f, 0.5f, x => Time.timeScale = x);
+            } 
             _controlService.UnlockCursor();
         }
 

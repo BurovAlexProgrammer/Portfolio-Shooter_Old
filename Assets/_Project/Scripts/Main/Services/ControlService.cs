@@ -1,4 +1,7 @@
+using System;
+using _Project.Scripts.Extension;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Services
@@ -8,10 +11,22 @@ namespace _Project.Scripts.Main.Services
         public Controls Controls { get; private set; }
         public CursorLockMode CursorLockState => Cursor.lockState;
 
+        private void OnEnable()
+        {
+            Controls.Enable();
+        }
+
+        private void OnDisable()
+        {
+            Controls.Disable();
+        }
+
         public void Init()
         {
             SetService(this);
             Controls = new Controls();
+            Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
+            Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGameFromPause);
         }
 
         public void LockCursor()
@@ -24,14 +39,22 @@ namespace _Project.Scripts.Main.Services
             Cursor.lockState = CursorLockMode.None;
         }
 
-        private void OnEnable()
+        private void PauseGame(InputAction.CallbackContext ctx)
         {
-            Controls.Enable();
+            if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame || 
+                Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot)
+            {
+                Services.GameManagerService.PauseGame();
+            } 
         }
-
-        private void OnDisable()
+        
+        private void ReturnGameFromPause(InputAction.CallbackContext ctx)
         {
-            Controls.Disable();
+            if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame || 
+                Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot)
+            {
+                Services.GameManagerService.ReturnGame();
+            }
         }
     }
 }
