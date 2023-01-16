@@ -42,6 +42,7 @@ namespace _Project.Scripts.Main.Services
             if (_currentState == playerState) return;
             
             var lastState = playerState;
+            _currentState = playerState;
             PlayRandomTrack();
 
             while (_currentState == lastState)
@@ -91,11 +92,6 @@ namespace _Project.Scripts.Main.Services
         public void StopMusic()
         {
             _currentState = MusicPlayerState.None;
-        } 
-        
-        private async void TurnDownMusic()
-        {
-            
         }
 
         public enum MusicPlayerState {None, MainMenu, Battle}

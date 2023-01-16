@@ -13,6 +13,7 @@ public class WindowGamePause : MonoBehaviour
     [SerializeField] private CanvasGroup _canvasGroup;
 
     [Inject] private SettingsService _settingsService;
+    [Inject] private ControlService _controlService;
     
     private void Awake()
     {
@@ -44,14 +45,20 @@ public class WindowGamePause : MonoBehaviour
     {
         if (isPause)
         {
+            _controlService.UnlockCursor();
             gameObject.SetActive(true);
-            await transform.DOScale(1f, 0.3f).From(0f).AsyncWaitForCompletion();
+            await transform.DOScale(1f, 0.3f).From(0f)
+                .SetUpdate(true)
+                .AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
         }
         else
         {
+            _controlService.LockCursor();
             _canvasGroup.interactable = false;
-            await transform.DOScale(0f, 0.3f).AsyncWaitForCompletion();
+            await transform.DOScale(0f, 0.3f)
+                .SetUpdate(true)
+                .AsyncWaitForCompletion();
             gameObject.SetActive(false);
         }
     }

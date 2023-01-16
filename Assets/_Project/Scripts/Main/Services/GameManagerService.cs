@@ -60,15 +60,15 @@ namespace _Project.Scripts.Main.Services
             var fixedDeltaTime = Time.fixedDeltaTime;
             _transaction = true;
             _gamePause = true;
+            _controlService.Controls.Player.Disable();
             SwitchPause?.Invoke(_gamePause);
 
             await DOVirtual.Float(1f, 0f, 1f, SetTimeSpeed)
                 .SetUpdate(true)
                 .AsyncWaitForCompletion();
 
-            Time.fixedDeltaTime = fixedDeltaTime;
-            _controlService.Controls.Player.Disable();
             _controlService.Controls.Menu.Enable();
+            Time.fixedDeltaTime = fixedDeltaTime;
             _transaction = false;
         }
 
@@ -82,12 +82,12 @@ namespace _Project.Scripts.Main.Services
             _transaction = true;
             _gamePause = false;
             SwitchPause?.Invoke(_gamePause);
+            _controlService.Controls.Player.Enable();
 
             await DOVirtual.Float(0f, 1f, 1f, SetTimeSpeed)
                 .SetUpdate(true)
                 .AsyncWaitForCompletion();
 
-            _controlService.Controls.Player.Enable();
             _controlService.Controls.Menu.Disable();
             _transaction = false;
         }

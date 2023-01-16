@@ -15,7 +15,7 @@ namespace _Project.Scripts.Main
         
         private GameStates _activeState;
 
-        //[Inject] private AudioService _audioService;
+        [Inject] private AudioService _audioService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private ControlService _controlService;
 
@@ -51,7 +51,6 @@ namespace _Project.Scripts.Main
                     await EnterStateBoot();
                     break;
                 case GameStates.MainMenu:
-                    _ = Services.Services.AudioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
                     EnterStateMainMenu();
                     break;
                 case GameStates.PlayGame:
@@ -82,10 +81,16 @@ namespace _Project.Scripts.Main
                 case GameStates.GamePause:
                     break;
                 case GameStates.CustomSceneBoot:
+                    ExitStateCustomBoot();
                     break;
                 default:
                     throw new Exception("GameManager: unknown state.");
             }
+        }
+
+        private void ExitStateCustomBoot()
+        {
+            _audioService.StopMusic();
         }
 
         private async UniTask EnterStateBoot()
@@ -97,17 +102,20 @@ namespace _Project.Scripts.Main
 
         private void EnterStateCustomBoot()
         {
-           _sceneLoader.ShowScene();
+            _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
+            _sceneLoader.ShowScene();
         }
 
         private void EnterStatePlayGame()
         {
+            _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
             _controlService.LockCursor();
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
         }
         
         private async void ExitStatePlayGame()
         {
+            _audioService.StopMusic();
             if (Time.timeScale == 0f)
             {
                 DOVirtual.Float(0, 1f, 0.5f, x => Time.timeScale = x);
@@ -122,6 +130,7 @@ namespace _Project.Scripts.Main
 
         private void EnterStateMainMenu()
         {
+            _ = _audioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
             _sceneLoader.LoadSceneAsync(SceneName.MainMenu);
         }
     }
