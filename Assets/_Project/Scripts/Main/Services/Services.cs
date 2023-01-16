@@ -7,7 +7,8 @@ namespace _Project.Scripts.Main.Services
         public static GameManagerService GameManagerService { get; private set; }
         public static LocalizationService LocalizationService { get; private set; }
         public static DebugService DebugService { get; private set; }
-        public static  PoolService PoolService { get; private set; }
+        public static PoolService PoolService { get; private set; }
+        public static AudioService AudioService { get; private set; }
 
         public static void SetService<T>(T instance) where T : BaseService
         {
@@ -32,6 +33,10 @@ namespace _Project.Scripts.Main.Services
                 case PoolService service:
                     service.Init();
                     PoolService = service;
+                    break;
+                case AudioService service:
+                    service.Init();
+                    AudioService = service;
                     break;
             }
         }

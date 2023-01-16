@@ -35,7 +35,6 @@ public class WindowGamePause : MonoBehaviour
         _musicToggle.onValueChanged.RemoveAllListeners();
     }
 
-
     private void ReturnGame()
     {
         Services.GameManagerService.ReturnGame();

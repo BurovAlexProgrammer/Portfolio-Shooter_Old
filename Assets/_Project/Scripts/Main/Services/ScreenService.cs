@@ -16,7 +16,7 @@ namespace _Project.Scripts.Main.Services
         [SerializeField] private bool _showProfilerOnStartup;
 
         [Inject] private ControlService _controlService;
-        
+
         public Camera MainCamera => _mainCamera;
         public Camera UICamera => _uiCamera;
         public PostProcessVolume PostProcessVolume => _postProcessVolume;
@@ -31,7 +31,6 @@ namespace _Project.Scripts.Main.Services
 
         private void ToggleShowProfiler()
         {
-            Debug.Log("VAR");
             _internalProfiler.enabled = !_internalProfiler.enabled;
         }
     }

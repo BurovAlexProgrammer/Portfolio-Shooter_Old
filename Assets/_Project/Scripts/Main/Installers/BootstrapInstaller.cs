@@ -4,6 +4,7 @@ using _Project.Scripts.Main.Services;
 using UnityEngine;
 using Zenject;
 using static _Project.Scripts.Main.Services.Services;
+using AudioService = _Project.Scripts.Main.Services.AudioService;
 
 namespace _Project.Scripts.Main.Installers
 {
@@ -17,18 +18,30 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private ControlService _controlServicePrefab;
         [SerializeField] private DebugService _debugServicePrefab;
         [SerializeField] private PoolService _poolServicePrefab;
+        [SerializeField] private AudioService _audioServicePrefab;
 
         public override void InstallBindings()
         {
             Application.logMessageReceived += LogToFile;
             InstallSceneLoaderService();
             InstallScreenService();
+            InstallAudioService();
             InstallGameManagerService();
             InstallSettingService();
             InstallLocalizationService();
             InstallControlService();
             InstallDebugService();
             InstallPoolService();
+        }
+
+        private void InstallAudioService()
+        {
+            Container
+                .Bind<AudioService>()
+                .FromComponentInNewPrefab(_audioServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((AudioService)instance))
+                .NonLazy();
         }
 
         private void InstallPoolService()

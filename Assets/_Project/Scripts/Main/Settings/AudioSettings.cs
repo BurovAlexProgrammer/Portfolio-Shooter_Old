@@ -1,4 +1,6 @@
+using _Project.Scripts.Main.Services;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Main.Settings
 {
@@ -9,8 +11,10 @@ namespace _Project.Scripts.Main.Settings
             public float SoundVolume;
             public bool MusicEnabled;
             public float MusicVolume;
+
             public override void ApplySettings()
             {
+                Services.Services.AudioService.Setup();
             }
         }
         
