@@ -3,6 +3,7 @@ using _Project.Scripts.Main.Services;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 public class WindowGamePause : MonoBehaviour
 {
@@ -11,19 +12,29 @@ public class WindowGamePause : MonoBehaviour
     [SerializeField] private Button _quitGameButton;
     [SerializeField] private CanvasGroup _canvasGroup;
 
+    [Inject] private SettingsService _settingsService;
+    
     private void Awake()
     {
-        _returnGameButton.onClick.AddListener(ReturnGame);
         Services.GameManagerService.SwitchPause += OnSwitchGamePause;
+        _returnGameButton.onClick.AddListener(ReturnGame);
+        _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
         _canvasGroup.interactable = false;
         gameObject.SetActive(false);
     }
 
+    private void Start()
+    {
+        _musicToggle.isOn = _settingsService.Audio.MusicEnabled;
+    }
+
     private void OnDestroy()
     {
-        _returnGameButton.onClick.RemoveAllListeners();
         Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
+        _returnGameButton.onClick.RemoveAllListeners();
+        _musicToggle.onValueChanged.RemoveAllListeners();
     }
+
 
     private void ReturnGame()
     {
@@ -44,5 +55,11 @@ public class WindowGamePause : MonoBehaviour
             await transform.DOScale(0f, 0.3f).AsyncWaitForCompletion();
             gameObject.SetActive(false);
         }
+    }
+    
+    private void OnMusicSwitch(bool newValue)
+    {
+        _settingsService.Audio.MusicEnabled = newValue;
+        _settingsService.Save();
     }
 }

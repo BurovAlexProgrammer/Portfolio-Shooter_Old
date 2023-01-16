@@ -41,9 +41,9 @@ namespace _Project.Scripts.UI.Toggle
             var handlePosition = newState ? _handleActivePosition : _handleInactivePosition;
             var handleColor = newState ? _activeBackColor : _inactiveBackColor;
             var backColor = newState ? _activeHandleColor : _inactiveHandleColor; 
-            _handleRect.DOAnchorPos(handlePosition, 0.4f).SetEase(Ease.InOutBack);
-            _handleBack.DOColor(handleColor, 0.6f);
-            _handleImage.DOColor(backColor, 0.4f);
+            _handleRect.DOAnchorPos(handlePosition, 0.4f).SetEase(Ease.InOutBack).SetUpdate(true);
+            _handleBack.DOColor(handleColor, 0.6f).SetUpdate(true);
+            _handleImage.DOColor(backColor, 0.4f).SetUpdate(true);
         }
     }
 }
