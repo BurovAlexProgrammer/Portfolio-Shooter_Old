@@ -33,6 +33,8 @@ namespace _Project.Scripts.Main.Installers
             InstallDebugService();
             InstallPoolService();
         }
+        
+        
 
         private void InstallAudioService()
         {
@@ -96,7 +98,7 @@ namespace _Project.Scripts.Main.Installers
                     var service = (SettingsService)instance;
                     service.Init();
                     service.Load();
-                });
+                }).NonLazy();
         }
 
         private void InstallScreenService()

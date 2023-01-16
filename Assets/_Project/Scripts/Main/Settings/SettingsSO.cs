@@ -1,3 +1,4 @@
+using _Project.Scripts.Main.Services;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Settings
@@ -6,6 +7,6 @@ namespace _Project.Scripts.Main.Settings
     {
         public string Description;
 
-        public abstract void ApplySettings();
+        public abstract void ApplySettings(SettingsService settingsService);
     }
 }

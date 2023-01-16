@@ -13,12 +13,12 @@ namespace _Project.Scripts.Main.Settings
 {
     public interface ISettingGroup
     {
-        void Init();
+        void Init(SettingsService settingsService);
         void LoadFromFile();
         void SaveToFile();
         void Cancel();
         void Restore();
-        void ApplySettings();
+        void ApplySettings(SettingsService settingsService);
     }
 
     [Serializable]
@@ -33,15 +33,15 @@ namespace _Project.Scripts.Main.Settings
         private static string StoredFolder; //TODO Move to File Service
         private string _storedFilePath;
 
-        public void Init()
+        public void Init(SettingsService settingsService)
         {
             LoadFromFile();
-            ApplySettings();
+            ApplySettings(settingsService);
         }
 
-        public void ApplySettings()
+        public void ApplySettings(SettingsService settingsService)
         {
-            _saved.ApplySettings();
+            _saved.ApplySettings(settingsService);
         }
 
         public void LoadFromFile()

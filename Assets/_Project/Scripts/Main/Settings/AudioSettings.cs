@@ -12,9 +12,9 @@ namespace _Project.Scripts.Main.Settings
             public bool MusicEnabled;
             public float MusicVolume;
 
-            public override void ApplySettings()
+            public override void ApplySettings(SettingsService settingsService)
             {
-                Services.Services.AudioService.Setup();
+                settingsService.AudioService.Setup(settingsService);
             }
         }
         

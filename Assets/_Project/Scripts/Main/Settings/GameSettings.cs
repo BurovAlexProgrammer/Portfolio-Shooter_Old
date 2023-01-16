@@ -1,4 +1,5 @@
 using _Project.Scripts.Main.Localizations;
+using _Project.Scripts.Main.Services;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Settings
@@ -11,7 +12,7 @@ namespace _Project.Scripts.Main.Settings
         [Range(Attributes.SensitivityMin,Attributes.SensitivityMax)] 
         public float Sensitivity;
         
-        public override void ApplySettings() {}
+        public override void ApplySettings(SettingsService settingsService) {}
         
         public static class Attributes
         {

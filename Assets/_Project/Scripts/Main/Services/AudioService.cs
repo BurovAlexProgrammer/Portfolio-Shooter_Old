@@ -18,7 +18,6 @@ namespace _Project.Scripts.Main.Services
         [FormerlySerializedAs("_backgroundPlaylist")] [SerializeField] private AudioClip[] _menuPlaylist;
 
         [Inject] private ScreenService _screenService;
-        [Inject] private SettingsService _settingsService;
 
         private MusicPlayerState _currentState;
         
@@ -33,9 +32,9 @@ namespace _Project.Scripts.Main.Services
             _musicAudioSource = GetComponent<AudioSource>();
         }
 
-        public void Setup()
+        public void Setup(SettingsService settingsService)
         {
-            _musicAudioSource.enabled = _settingsService.Audio.MusicEnabled;
+            _musicAudioSource.enabled = settingsService.Audio.MusicEnabled;
         }
 
         public async UniTask PlayMusic(MusicPlayerState playerState)
@@ -47,7 +46,7 @@ namespace _Project.Scripts.Main.Services
 
             while (_currentState == lastState)
             {
-                UniTask.WaitForFixedUpdate();
+                await UniTask.WaitForFixedUpdate();
                 if (_musicAudioSource.isPlaying == false)
                 {
                     PlayRandomTrack();

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using _Project.Scripts.Main.Settings;
 using UnityEngine;
+using Zenject;
 using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
 namespace _Project.Scripts.Main.Services
@@ -11,11 +12,18 @@ namespace _Project.Scripts.Main.Services
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
         [SerializeField] private SettingGroup<GameSettings> _gameSettings;
 
+        [Inject] private AudioService _audioService;
+        [Inject] private ScreenService _screenService;
+        
+        
         private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
         public AudioSettings Audio => _audioSettings.CurrentSettings;
         public GameSettings GameSettings => _gameSettings.CurrentSettings;
+
+        public AudioService AudioService => _audioService;
+        public ScreenService ScreenService => _screenService;
 
         public void Init()
         {
@@ -28,7 +36,7 @@ namespace _Project.Scripts.Main.Services
 
             foreach (var settingGroup in _settingList)
             {
-                settingGroup.Init();
+                settingGroup.Init(this);
             }
         }
 
@@ -45,7 +53,7 @@ namespace _Project.Scripts.Main.Services
             foreach (var settingGroup in _settingList)
             {
                 settingGroup.SaveToFile();
-                settingGroup.Init();
+                settingGroup.Init(this);
                 settingGroup.LoadFromFile();
             }
         }
@@ -70,7 +78,7 @@ namespace _Project.Scripts.Main.Services
         {
             foreach (var settingGroup in _settingList)
             {
-                settingGroup.ApplySettings();
+                settingGroup.ApplySettings(this);
             }
         }
     }

@@ -14,7 +14,8 @@ namespace _Project.Scripts.Main
         public Action StateChanged;
         
         private GameStates _activeState;
-        
+
+        //[Inject] private AudioService _audioService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private ControlService _controlService;
 
@@ -50,6 +51,7 @@ namespace _Project.Scripts.Main
                     await EnterStateBoot();
                     break;
                 case GameStates.MainMenu:
+                    _ = Services.Services.AudioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
                     EnterStateMainMenu();
                     break;
                 case GameStates.PlayGame:

@@ -27,7 +27,7 @@ namespace _Project.Scripts.Main.Settings
             //TODO Research. Inject does not call, dont know why.
         }
         
-        public override void ApplySettings()
+        public override void ApplySettings(SettingsService settingsService)
         {
             var postProcessLayer = Services.Services.ScreenService.PostProcessLayer;   //Crutch instead of injection
             var postProcessVolume = Services.Services.ScreenService.PostProcessVolume; //Crutch instead of injection
