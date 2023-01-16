@@ -1,9 +1,8 @@
 ﻿using System;
 using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
-using ModestTree;
 using UnityEngine;
-using UnityEngine.Serialization;
+using UnityEngine.Audio;
 using Zenject;
 
 namespace _Project.Scripts.Main.Services
@@ -14,13 +13,15 @@ namespace _Project.Scripts.Main.Services
     {
         [SerializeField] private AudioListener _audioListener;
         [SerializeField] private AudioSource _musicAudioSource;
+        [SerializeField] private AudioMixerGroup _soundEffectMixerGroup;
+        [SerializeField] private AudioMixerGroup _musicMixerGroup;
         [SerializeField] private AudioClip[] _battlePlaylist;
-        [FormerlySerializedAs("_backgroundPlaylist")] [SerializeField] private AudioClip[] _menuPlaylist;
+        [SerializeField] private AudioClip[] _menuPlaylist;
 
         [Inject] private ScreenService _screenService;
 
         private MusicPlayerState _currentState;
-        
+
         private void Awake()
         {
             Init();
@@ -35,6 +36,7 @@ namespace _Project.Scripts.Main.Services
         public void Setup(SettingsService settingsService)
         {
             _musicAudioSource.enabled = settingsService.Audio.MusicEnabled;
+            SwitchSoundEffects(settingsService.Audio.SoundEnabled);
         }
 
         public async UniTask PlayMusic(MusicPlayerState playerState)
@@ -45,7 +47,7 @@ namespace _Project.Scripts.Main.Services
             _currentState = playerState;
             PlayRandomTrack();
 
-            while (_currentState == lastState)
+            while (_musicAudioSource != null && _currentState == lastState)
             {
                 await UniTask.WaitForFixedUpdate();
                 if (_musicAudioSource.isPlaying == false)
@@ -53,6 +55,12 @@ namespace _Project.Scripts.Main.Services
                     PlayRandomTrack();
                 } 
             }
+        }
+
+        private async void SwitchSoundEffects(bool newState)
+        {
+            await UniTask.NextFrame();
+            _soundEffectMixerGroup.audioMixer.SetFloat(_soundEffectMixerGroup.name, newState ? 0f : -80f);
         }
 
         private void PlayRandomTrack()

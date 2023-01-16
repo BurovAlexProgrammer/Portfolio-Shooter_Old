@@ -8,6 +8,7 @@ using Zenject;
 public class WindowGamePause : MonoBehaviour
 {
     [SerializeField] private Toggle _musicToggle;
+    [SerializeField] private Toggle _soundsToggle;
     [SerializeField] private Button _returnGameButton;
     [SerializeField] private Button _quitGameButton;
     [SerializeField] private CanvasGroup _canvasGroup;
@@ -20,6 +21,7 @@ public class WindowGamePause : MonoBehaviour
         Services.GameManagerService.SwitchPause += OnSwitchGamePause;
         _returnGameButton.onClick.AddListener(ReturnGame);
         _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
+        _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
         _canvasGroup.interactable = false;
         gameObject.SetActive(false);
     }
@@ -27,6 +29,7 @@ public class WindowGamePause : MonoBehaviour
     private void Start()
     {
         _musicToggle.isOn = _settingsService.Audio.MusicEnabled;
+        _soundsToggle.isOn = _settingsService.Audio.SoundEnabled;
     }
 
     private void OnDestroy()
@@ -34,6 +37,7 @@ public class WindowGamePause : MonoBehaviour
         Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
         _returnGameButton.onClick.RemoveAllListeners();
         _musicToggle.onValueChanged.RemoveAllListeners();
+        _soundsToggle.onValueChanged.RemoveAllListeners();
     }
 
     private void ReturnGame()
@@ -66,6 +70,12 @@ public class WindowGamePause : MonoBehaviour
     private void OnMusicSwitch(bool newValue)
     {
         _settingsService.Audio.MusicEnabled = newValue;
+        _settingsService.Save();
+    }
+    
+    private void OnSoundsSwitch(bool newValue)
+    {
+        _settingsService.Audio.SoundEnabled = newValue;
         _settingsService.Save();
     }
 }

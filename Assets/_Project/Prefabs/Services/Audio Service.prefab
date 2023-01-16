@@ -47,6 +47,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _audioListener: {fileID: 0}
   _musicAudioSource: {fileID: 4789526535547427929}
+  _soundEffectMixerGroup: {fileID: -4153131008125989416, guid: 00dba7a1824766144a3f92dfaeb450be,
+    type: 2}
+  _musicMixerGroup: {fileID: -6945114975033853926, guid: 00dba7a1824766144a3f92dfaeb450be,
+    type: 2}
   _battlePlaylist:
   - {fileID: 8300000, guid: 74082229ea3ab2a4bbe6ed5fa0e9555a, type: 3}
   - {fileID: 8300000, guid: 037f8aa78ceba8a48b74cc543aaf65f2, type: 3}
