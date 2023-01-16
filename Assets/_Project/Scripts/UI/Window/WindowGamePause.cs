@@ -1,7 +1,9 @@
 using System;
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.UI;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 
@@ -12,6 +14,7 @@ public class WindowGamePause : MonoBehaviour
     [SerializeField] private Button _returnGameButton;
     [SerializeField] private Button _quitGameButton;
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private DialogView _quitGameDialog;
 
     [Inject] private SettingsService _settingsService;
     [Inject] private ControlService _controlService;
@@ -20,6 +23,7 @@ public class WindowGamePause : MonoBehaviour
     {
         Services.GameManagerService.SwitchPause += OnSwitchGamePause;
         _returnGameButton.onClick.AddListener(ReturnGame);
+        _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
         _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
         _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
         _canvasGroup.interactable = false;
@@ -36,6 +40,7 @@ public class WindowGamePause : MonoBehaviour
     {
         Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
         _returnGameButton.onClick.RemoveAllListeners();
+        _quitGameButton.onClick.RemoveAllListeners();
         _musicToggle.onValueChanged.RemoveAllListeners();
         _soundsToggle.onValueChanged.RemoveAllListeners();
     }
@@ -77,5 +82,22 @@ public class WindowGamePause : MonoBehaviour
     {
         _settingsService.Audio.SoundEnabled = newValue;
         _settingsService.Save();
+    }
+    
+    private void ShowQuitGameDialog()
+    {
+        _ = _quitGameDialog.Show();
+    }
+
+    private void OnQuitDialogSubmitted(bool result)
+    {
+        if (result)
+        {
+            //todo EXIT
+        }
+        else
+        {
+            //todo close dialog
+        }
     }
 }

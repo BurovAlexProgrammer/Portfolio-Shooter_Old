@@ -47,10 +47,10 @@ namespace _Project.Scripts.Main.Services
             _currentState = playerState;
             PlayRandomTrack();
 
-            while (_musicAudioSource != null && _currentState == lastState)
+            while (_currentState == lastState)
             {
                 await UniTask.WaitForFixedUpdate();
-                if (_musicAudioSource.isPlaying == false)
+                if (gameObject.IsDestroyed() == false && _musicAudioSource.isPlaying == false)
                 {
                     PlayRandomTrack();
                 } 
