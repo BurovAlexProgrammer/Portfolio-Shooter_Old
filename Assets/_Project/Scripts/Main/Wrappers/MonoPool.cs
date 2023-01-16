@@ -6,17 +6,17 @@ using Object = UnityEngine.Object;
 namespace _Project.Scripts.Main.Wrappers
 {
     [Serializable]
-    public class MonoPool<T> where T : MonoPoolItemBase
+    public class MonoPool
     {
-        private T _prefab;
+        private MonoPoolItemBase _prefab;
         private int _initCapacity;
         private int _maxCapacity;
         private int _instanceCount;
         private Transform _container;
         private OverAllocationBehaviour _overAllocationBehaviour;
 
-        private Queue<T> _inactivePool;
-        private List<T> _activePool;
+        private Queue<MonoPoolItemBase> _inactivePool;
+        private List<MonoPoolItemBase> _activePool;
 
         public enum OverAllocationBehaviour
         {
@@ -26,7 +26,7 @@ namespace _Project.Scripts.Main.Wrappers
             DestructFirst
         }
 
-        public MonoPool(T prefab, Transform container, int initialCapacity, int maxCapacity, OverAllocationBehaviour behaviour = OverAllocationBehaviour.Warning)
+        public MonoPool(MonoPoolItemBase prefab, Transform container, int initialCapacity, int maxCapacity, OverAllocationBehaviour behaviour = OverAllocationBehaviour.Warning)
         {
             Clear();
             _prefab = prefab;
@@ -41,7 +41,7 @@ namespace _Project.Scripts.Main.Wrappers
             }
         }
         
-        public T Get()
+        public MonoPoolItemBase Get()
         {
             if (_inactivePool.Count == 0)
             {
@@ -74,8 +74,8 @@ namespace _Project.Scripts.Main.Wrappers
                 }
             }
             
-            _inactivePool = new Queue<T>();
-            _activePool = new List<T>();
+            _inactivePool = new Queue<MonoPoolItemBase>();
+            _activePool = new List<MonoPoolItemBase>();
         }
 
         private void AddInstance()
@@ -112,7 +112,7 @@ namespace _Project.Scripts.Main.Wrappers
             if (index < 0) return;
             
             _activePool.RemoveAt(index);
-            _inactivePool.Enqueue(item as T);
+            _inactivePool.Enqueue(item);
         }
     }
 }

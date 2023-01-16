@@ -220,7 +220,7 @@
                 {
                     "name": "",
                     "id": "db2a0a4a-7b02-4782-93c4-05a57c4868e8",
-                    "path": "",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": "Keyboard",
@@ -331,6 +331,15 @@
                     "name": "InternalProfiler",
                     "type": "Button",
                     "id": "be84af53-0276-4196-9ba9-41242654649a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "ec88e7b5-c8c8-4a39-8831-48a761484e94",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -566,6 +575,17 @@
                     "processors": "",
                     "groups": "Keyboard",
                     "action": "InternalProfiler",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "22a16992-df77-4ccf-bd89-722e23ddb7bc",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

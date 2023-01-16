@@ -6,7 +6,7 @@ using Zenject;
 
 public class MiniGameLevel : MonoBehaviour
 {
-    [Inject] private BasePlayer _player;
+    [Inject] private PlayerBase _player;
 
     void Start()
     {

@@ -242,7 +242,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""db2a0a4a-7b02-4782-93c4-05a57c4868e8"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -353,6 +353,15 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""name"": ""InternalProfiler"",
                     ""type"": ""Button"",
                     ""id"": ""be84af53-0276-4196-9ba9-41242654649a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""ec88e7b5-c8c8-4a39-8831-48a761484e94"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -590,6 +599,17 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                     ""action"": ""InternalProfiler"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22a16992-df77-4ccf-bd89-722e23ddb7bc"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard"",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -632,6 +652,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         m_Menu_Enter = m_Menu.FindAction("Enter", throwIfNotFound: true);
         m_Menu_Move = m_Menu.FindAction("Move", throwIfNotFound: true);
         m_Menu_InternalProfiler = m_Menu.FindAction("InternalProfiler", throwIfNotFound: true);
+        m_Menu_Pause = m_Menu.FindAction("Pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -760,6 +781,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
     private readonly InputAction m_Menu_Enter;
     private readonly InputAction m_Menu_Move;
     private readonly InputAction m_Menu_InternalProfiler;
+    private readonly InputAction m_Menu_Pause;
     public struct MenuActions
     {
         private @Controls m_Wrapper;
@@ -768,6 +790,7 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         public InputAction @Enter => m_Wrapper.m_Menu_Enter;
         public InputAction @Move => m_Wrapper.m_Menu_Move;
         public InputAction @InternalProfiler => m_Wrapper.m_Menu_InternalProfiler;
+        public InputAction @Pause => m_Wrapper.m_Menu_Pause;
         public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -789,6 +812,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @InternalProfiler.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnInternalProfiler;
                 @InternalProfiler.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnInternalProfiler;
                 @InternalProfiler.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnInternalProfiler;
+                @Pause.started -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                @Pause.performed -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
+                @Pause.canceled -= m_Wrapper.m_MenuActionsCallbackInterface.OnPause;
             }
             m_Wrapper.m_MenuActionsCallbackInterface = instance;
             if (instance != null)
@@ -805,6 +831,9 @@ public partial class @Controls : IInputActionCollection2, IDisposable
                 @InternalProfiler.started += instance.OnInternalProfiler;
                 @InternalProfiler.performed += instance.OnInternalProfiler;
                 @InternalProfiler.canceled += instance.OnInternalProfiler;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
         }
     }
@@ -841,5 +870,6 @@ public partial class @Controls : IInputActionCollection2, IDisposable
         void OnEnter(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnInternalProfiler(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
 }

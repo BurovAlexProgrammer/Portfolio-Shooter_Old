@@ -1,6 +1,8 @@
 using System;
+using _Project.Scripts.Extension.Attributes;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Extension
 {
@@ -39,6 +41,11 @@ namespace _Project.Scripts.Extension
         public static async UniTask WaitInSeconds(this float time, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update)
         {
             await UniTask.Delay(TimeSpan.FromSeconds(time), DelayType.DeltaTime, playerLoopTiming);
+        }
+
+        public static float GetRandomValue(this RangedFloat rangedFloat)
+        {
+            return Random.Range(rangedFloat.MinValue, rangedFloat.MaxValue);
         }
     }
 }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
+  m_Name: MonsterDeath
+  m_EditorClassIdentifier: 
+  _audioClips:
+  - {fileID: 8300000, guid: fe1bce2ac235fd844b8b8bf7edc36663, type: 3}
+  - {fileID: 8300000, guid: b1199900a8e30104983733b26093068c, type: 3}
+  - {fileID: 8300000, guid: f79d2be153fd9d94c9dbc46201cf2989, type: 3}
+  _volume:
+    MinValue: 0.5913073
+    MaxValue: 0.7729485
+  _pitch:
+    MinValue: 0.79468036
+    MaxValue: 1.203373

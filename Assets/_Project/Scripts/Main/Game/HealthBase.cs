@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Game
 {
-    public abstract class HealthBase : MonoWrapper
+    public abstract class HealthBase : MonoBeh
     {
         [SerializeField] private float _maxValue;
         [SerializeField] private float _currentValue;

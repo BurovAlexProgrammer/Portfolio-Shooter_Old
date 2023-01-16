@@ -13,6 +13,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private float _lifeTime = 5f;
 
         private Rigidbody _rigidbody;
+        private bool _collided;
 
         private void Awake()
         {
@@ -21,35 +22,63 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void OnCollisionEnter(Collision collision)
         {
+            if (_collided) return;
+
+            _collided = true;
+            var targetHealthRef = collision.gameObject.GetComponent<HealthRef>();
+
+            if (targetHealthRef != null)
+            {
+                TakeDamage(targetHealthRef.Health);
+                Destruct();
+                return;
+            }
+            
             var targetHealth = collision.gameObject.GetComponent<HealthBase>();
+            
             if (targetHealth != null)
             {
                 TakeDamage(targetHealth);
             }
+
             Destruct();
         }
 
         public void Shoot(Transform startPoint)
         {
-           gameObject.SetActive(true);
+            _collided = false;
+            gameObject.SetActive(true);
            _transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
            _rigidbody.velocity = _transform.forward * _shellConfig.InitSpeed;
         }
 
-        public async UniTask DestroyOnLifetimeEnd()
+        public void DestroyOnLifetimeEnd()
+        {
+            _ = DestroyOnLifetimeEndTask();
+        }
+
+        private async UniTask DestroyOnLifetimeEndTask()
         {
             await _lifeTime.WaitInSeconds();
-                
+            
             if (!_gameObject.activeSelf) return;
             
             Destruct();
         }
 
-        public void Destruct()
+        private void Destruct()
         {
-            var destructTransform = Instantiate(_destructionPrefab).transform;
-            destructTransform.SetPositionAndRotation(_transform.position, _transform.rotation);
-            destructTransform.SetParent(_transform.parent);
+            var destruction = Services.Services.PoolService.Get(_destructionPrefab);
+            var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
+            destruction._transform.position = _transform.position;
+            destruction._transform.rotation = _transform.rotation;
+            destruction._gameObject.SetActive(true);
+            
+            foreach (var rb in rigidbodies)
+            {
+                rb.velocity = _rigidbody.velocity / 5f;
+            }
+
             ReturnToPool();
         }
 

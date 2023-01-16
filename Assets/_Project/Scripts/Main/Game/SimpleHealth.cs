@@ -21,7 +21,9 @@ namespace _Project.Scripts.Main.Game
         {
             if (_destructionPrefab != null)
             {
-                Instantiate(_destructionPrefab, transform.parent);
+                var enemyParts = Instantiate(_destructionPrefab, transform.parent);
+                enemyParts._transform.position = _transform.position;
+                enemyParts._transform.rotation = _transform.rotation;
             }
 
             Destroy(gameObject);

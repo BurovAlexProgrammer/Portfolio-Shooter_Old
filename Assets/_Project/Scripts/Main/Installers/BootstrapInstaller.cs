@@ -4,6 +4,7 @@ using _Project.Scripts.Main.Services;
 using UnityEngine;
 using Zenject;
 using static _Project.Scripts.Main.Services.Services;
+using AudioService = _Project.Scripts.Main.Services.AudioService;
 
 namespace _Project.Scripts.Main.Installers
 {
@@ -15,23 +16,60 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
         [SerializeField] private LocalizationService _localizationServicePrefab;
         [SerializeField] private ControlService _controlServicePrefab;
+        [SerializeField] private DebugService _debugServicePrefab;
+        [SerializeField] private PoolService _poolServicePrefab;
+        [SerializeField] private AudioService _audioServicePrefab;
 
         public override void InstallBindings()
         {
             Application.logMessageReceived += LogToFile;
             InstallSceneLoaderService();
             InstallScreenService();
+            InstallAudioService();
             InstallGameManagerService();
             InstallSettingService();
             InstallLocalizationService();
             InstallControlService();
+            InstallDebugService();
+            InstallPoolService();
+        }
+        
+        
+
+        private void InstallAudioService()
+        {
+            Container
+                .Bind<AudioService>()
+                .FromComponentInNewPrefab(_audioServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((AudioService)instance))
+                .NonLazy();
+        }
+
+        private void InstallPoolService()
+        {
+            Container
+                .Bind<PoolService>()
+                .FromComponentInNewPrefab(_poolServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((PoolService)instance))
+                .NonLazy();
+        }
+
+        private void InstallDebugService()
+        {
+            Container
+                .Bind<DebugService>()
+                .FromComponentInNewPrefab(_debugServicePrefab)
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((DebugService)instance))
+                .NonLazy();
         }
 
         private void LogToFile(string condition, string stacktrace, LogType type)
         {
             var path = Application.persistentDataPath + "/log.txt";
             using var streamWriter = File.AppendText(path);
-            streamWriter.WriteLine("-----------------------------------------------------------------------------------------");
             streamWriter.WriteLine($"{condition}");
             streamWriter.WriteLine("----");
             streamWriter.WriteLine($"{stacktrace}");
@@ -45,10 +83,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_controlServicePrefab)
                 .AsSingle()
                 .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as ControlService;
-                    service.Init();
-                })
+                    (instance as ControlService)?.Init())
                 .NonLazy();
         }
 
@@ -63,7 +98,7 @@ namespace _Project.Scripts.Main.Installers
                     var service = (SettingsService)instance;
                     service.Init();
                     service.Load();
-                });
+                }).NonLazy();
         }
 
         private void InstallScreenService()
@@ -91,12 +126,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<GameManagerService>()
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as GameManagerService;
-                    SetService(service);
-                    service.Init();
-                })
+                .OnInstantiated((ctx, instance) => SetService(instance as GameManagerService))
                 .NonLazy();
         }
         
@@ -106,7 +136,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<LocalizationService>()
                 .FromComponentInNewPrefab(_localizationServicePrefab)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => (instance as LocalizationService).Init())
+                .OnInstantiated((ctx, instance) => (instance as LocalizationService)?.Init())
                 .NonLazy();
         }
     }

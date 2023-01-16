@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Extension
 {
@@ -43,6 +44,13 @@ namespace _Project.Scripts.Extension
             }
 
             return result;
+        }
+
+        public static T GetRandomItem<T>(this T[] array) where T : class
+        {
+            if (array.Length == 0) throw new Exception("Array is empty.");
+
+            return array[Random.Range(0, array.Length)];
         }
     }
 }

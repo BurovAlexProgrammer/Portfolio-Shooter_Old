@@ -3,6 +3,7 @@ using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
+using DG.Tweening;
 using static _Project.Scripts.Extension.Common;
 using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
 
@@ -13,8 +14,10 @@ namespace _Project.Scripts.Main
         public Action StateChanged;
         
         private GameStates _activeState;
-        
+
+        [Inject] private AudioService _audioService;
         [Inject] private SceneLoaderService _sceneLoader;
+        [Inject] private ControlService _controlService;
 
         public GameStates ActiveState => _activeState;
 
@@ -73,14 +76,21 @@ namespace _Project.Scripts.Main
                 case GameStates.MainMenu:
                     break;
                 case GameStates.PlayGame:
+                    ExitStatePlayGame();
                     break;
                 case GameStates.GamePause:
                     break;
                 case GameStates.CustomSceneBoot:
+                    ExitStateCustomBoot();
                     break;
                 default:
                     throw new Exception("GameManager: unknown state.");
             }
+        }
+
+        private void ExitStateCustomBoot()
+        {
+            _audioService.StopMusic();
         }
 
         private async UniTask EnterStateBoot()
@@ -92,12 +102,25 @@ namespace _Project.Scripts.Main
 
         private void EnterStateCustomBoot()
         {
-           _sceneLoader.ShowScene();
+            _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
+            _sceneLoader.ShowScene();
         }
 
         private void EnterStatePlayGame()
         {
+            _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
+            _controlService.LockCursor();
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
+        }
+        
+        private async void ExitStatePlayGame()
+        {
+            _audioService.StopMusic();
+            if (Time.timeScale == 0f)
+            {
+                DOVirtual.Float(0, 1f, 0.5f, x => Time.timeScale = x);
+            } 
+            _controlService.UnlockCursor();
         }
 
         private async UniTask ExitStateBoot()
@@ -107,6 +130,7 @@ namespace _Project.Scripts.Main
 
         private void EnterStateMainMenu()
         {
+            _ = _audioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
             _sceneLoader.LoadSceneAsync(SceneName.MainMenu);
         }
     }

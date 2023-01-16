@@ -13,3 +13,4 @@ MonoBehaviour:
   m_Name: Simple Gun
   m_EditorClassIdentifier: 
   _fireRateDelay: 0.3
+  _shootAudioEvent: {fileID: 11400000, guid: 047976e16f7636444af0f0bf1a1a3edd, type: 2}

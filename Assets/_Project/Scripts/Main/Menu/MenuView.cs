@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Project.Scripts.Main.Menu
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class MenuView : MonoWrapper
+    public class MenuView : MonoBeh
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 

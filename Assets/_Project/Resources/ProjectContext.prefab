@@ -86,3 +86,9 @@ MonoBehaviour:
     type: 3}
   _controlServicePrefab: {fileID: 447765536060407566, guid: 40119e48525aa3c43854e26c457a94a9,
     type: 3}
+  _debugServicePrefab: {fileID: 2020632961071291257, guid: 3a085f93678f3cf4392e1fdbd1158fbf,
+    type: 3}
+  _poolServicePrefab: {fileID: -738795846971750403, guid: 00dad4366aa56234cb5fe0a1783d0ecd,
+    type: 3}
+  _audioServicePrefab: {fileID: 8038940987799586734, guid: 8b6f6214da8ced64b87b305addfa7249,
+    type: 3}
