@@ -113,6 +113,7 @@ GameObject:
   - component: {fileID: 4410345919398440440}
   - component: {fileID: 4410345919398440441}
   - component: {fileID: 4410345919398440443}
+  - component: {fileID: 3354321304949212594}
   m_Layer: 5
   m_Name: Window Big
   m_TagString: Untagged
@@ -195,6 +196,19 @@ MonoBehaviour:
   _musicToggle: {fileID: 0}
   _returnGameButton: {fileID: 1695148727006435629}
   _quitGameButton: {fileID: 0}
+  _canvasGroup: {fileID: 3354321304949212594}
+--- !u!225 &3354321304949212594
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4410345919398440447}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8275825801278584059
 GameObject:
   m_ObjectHideFlags: 0
