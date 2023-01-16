@@ -25,8 +25,6 @@ namespace _Project.Scripts.Main.Services
         {
             SetService(this);
             Controls = new Controls();
-            Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
-            Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGameFromPause);
         }
 
         public void LockCursor()
@@ -37,24 +35,6 @@ namespace _Project.Scripts.Main.Services
         public void UnlockCursor()
         {
             Cursor.lockState = CursorLockMode.None;
-        }
-
-        private void PauseGame(InputAction.CallbackContext ctx)
-        {
-            if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame || 
-                Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot)
-            {
-                Services.GameManagerService.PauseGame();
-            } 
-        }
-        
-        private void ReturnGameFromPause(InputAction.CallbackContext ctx)
-        {
-            if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame || 
-                Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot)
-            {
-                Services.GameManagerService.ReturnGame();
-            }
         }
     }
 }
