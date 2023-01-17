@@ -16,7 +16,7 @@ namespace _Project.Scripts.UI
         [SerializeField] private Image _background;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public Action<bool> Confirm;
+        public Action<bool> OnConfirm;
 
         private RectTransform _rectTransform;
 
@@ -25,8 +25,8 @@ namespace _Project.Scripts.UI
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
-            _buttonOk.onClick.AddListener(() => Confirm?.Invoke(true));
-            _buttonCancel.onClick.AddListener(() => Confirm?.Invoke(false));
+            _buttonOk.onClick.AddListener(() => OnConfirm?.Invoke(true));
+            _buttonCancel.onClick.AddListener(() => OnConfirm?.Invoke(false));
         }
 
         private void OnDestroy()
@@ -46,13 +46,14 @@ namespace _Project.Scripts.UI
             await _fadeDuration.WaitInSeconds();
         }
         
-        public async UniTask Hide()
+        public async UniTask Close()
         {
-            _canvasGroup
+            await _canvasGroup
                 .DOFade(0f, _fadeDuration)
                 .SetUpdate(true)
-                .SetEase(Ease.InOutQuad);
-            await  _fadeDuration.WaitInSeconds();
+                .SetEase(Ease.InOutQuad)
+                .AsyncWaitForCompletion();
+            Debug.Log("Close");
             gameObject.SetActive(false);
         }
 

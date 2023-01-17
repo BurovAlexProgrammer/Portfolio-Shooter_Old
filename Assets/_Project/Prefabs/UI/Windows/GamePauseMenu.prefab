@@ -200,8 +200,9 @@ MonoBehaviour:
   _musicToggle: {fileID: 8820667186611097568}
   _soundsToggle: {fileID: 8820667187145616734}
   _returnGameButton: {fileID: 1695148727006435629}
-  _quitGameButton: {fileID: 0}
+  _quitGameButton: {fileID: 3076753450168884539}
   _canvasGroup: {fileID: 3354321304949212594}
+  _quitGameDialog: {fileID: 3506522321191524032}
 --- !u!225 &3354321304949212594
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -722,6 +723,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2123944912}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3076753450168884539 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3076753450866757355, guid: be979e44885e11a46a6fc3db58d9348e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2123944912}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4352425507456920007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -842,7 +855,7 @@ PrefabInstance:
     - target: {fileID: 2030025327502146565, guid: f2bb5f536fa7a99458a8dd6b3d88a2b1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2030025327502146566, guid: f2bb5f536fa7a99458a8dd6b3d88a2b1,
         type: 3}
@@ -854,6 +867,11 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6701521531741278314, guid: f2bb5f536fa7a99458a8dd6b3d88a2b1,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.9411765
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2bb5f536fa7a99458a8dd6b3d88a2b1, type: 3}
 --- !u!224 &2326939029471106499 stripped
@@ -862,6 +880,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4352425507456920007}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3506522321191524032 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 923027407345614599, guid: f2bb5f536fa7a99458a8dd6b3d88a2b1,
+    type: 3}
+  m_PrefabInstance: {fileID: 4352425507456920007}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40eb42dc1c114b8f8c030995f58458df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4410345919049498115
 PrefabInstance:
   m_ObjectHideFlags: 0

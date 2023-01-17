@@ -1657,11 +1657,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2326939029471106498, guid: d306ac274d71bc74987be7864ef1ed15,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4410345918875981625, guid: d306ac274d71bc74987be7864ef1ed15,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1772,30 +1767,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: GamePauseMenu
       objectReference: {fileID: 0}
-    - target: {fileID: 4410345919398440443, guid: d306ac274d71bc74987be7864ef1ed15,
-        type: 3}
-      propertyPath: _quitGameButton
-      value: 
-      objectReference: {fileID: 749861755}
-    - target: {fileID: 7018435212250167725, guid: d306ac274d71bc74987be7864ef1ed15,
-        type: 3}
-      propertyPath: m_Color.a
-      value: 0.9411765
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d306ac274d71bc74987be7864ef1ed15, type: 3}
---- !u!114 &749861755 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3076753450168884539, guid: d306ac274d71bc74987be7864ef1ed15,
-    type: 3}
-  m_PrefabInstance: {fileID: 749861754}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &766151869 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3630906042859957693, guid: 8992d79154906334e8a09528915ed4e7,
