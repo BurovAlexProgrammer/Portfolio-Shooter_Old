@@ -16,7 +16,7 @@ namespace _Project.Scripts.UI
         [SerializeField] private Image _background;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public Action<bool> Submit;
+        public Action<bool> Confirm;
 
         private RectTransform _rectTransform;
 
@@ -25,8 +25,8 @@ namespace _Project.Scripts.UI
         private void Awake()
         {
             _rectTransform = GetComponent<RectTransform>();
-            _buttonOk.onClick.AddListener(() => Submit?.Invoke(true));
-            _buttonCancel.onClick.AddListener(() => Submit?.Invoke(false));
+            _buttonOk.onClick.AddListener(() => Confirm?.Invoke(true));
+            _buttonCancel.onClick.AddListener(() => Confirm?.Invoke(false));
         }
 
         private void OnDestroy()

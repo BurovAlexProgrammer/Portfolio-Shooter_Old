@@ -89,11 +89,11 @@ public class WindowGamePause : MonoBehaviour
         _ = _quitGameDialog.Show();
     }
 
-    private void OnQuitDialogSubmitted(bool result)
+    private void OnQuitDialogResult(bool result)
     {
         if (result)
         {
-            //todo EXIT
+            
         }
         else
         {

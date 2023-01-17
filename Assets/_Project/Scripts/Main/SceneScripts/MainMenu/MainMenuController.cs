@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Extension.Attributes;
-using _Project.Scripts.Main.Menu;
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
