@@ -1,5 +1,5 @@
-using System;
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.UI;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +12,9 @@ public class WindowGamePause : MonoBehaviour
     [SerializeField] private Button _returnGameButton;
     [SerializeField] private Button _quitGameButton;
     [SerializeField] private CanvasGroup _canvasGroup;
+    [SerializeField] private DialogView _quitGameDialog;
 
+    [Inject] private GameManagerService _gameManager;
     [Inject] private SettingsService _settingsService;
     [Inject] private ControlService _controlService;
     
@@ -20,8 +22,10 @@ public class WindowGamePause : MonoBehaviour
     {
         Services.GameManagerService.SwitchPause += OnSwitchGamePause;
         _returnGameButton.onClick.AddListener(ReturnGame);
+        _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
         _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
         _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
+        _quitGameDialog.OnConfirm += OnQuitDialogResult; 
         _canvasGroup.interactable = false;
         gameObject.SetActive(false);
     }
@@ -36,6 +40,7 @@ public class WindowGamePause : MonoBehaviour
     {
         Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
         _returnGameButton.onClick.RemoveAllListeners();
+        _quitGameButton.onClick.RemoveAllListeners();
         _musicToggle.onValueChanged.RemoveAllListeners();
         _soundsToggle.onValueChanged.RemoveAllListeners();
     }
@@ -66,7 +71,7 @@ public class WindowGamePause : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    
+
     private void OnMusicSwitch(bool newValue)
     {
         _settingsService.Audio.MusicEnabled = newValue;
@@ -77,5 +82,21 @@ public class WindowGamePause : MonoBehaviour
     {
         _settingsService.Audio.SoundEnabled = newValue;
         _settingsService.Save();
+    }
+    
+    private void ShowQuitGameDialog()
+    {
+        _ = _quitGameDialog.Show();
+    }
+
+    private void OnQuitDialogResult(bool result)
+    {
+        if (result)
+        {
+            _gameManager.QuitGame();
+            return;
+        }
+        
+        _ = _quitGameDialog.Close();
     }
 }

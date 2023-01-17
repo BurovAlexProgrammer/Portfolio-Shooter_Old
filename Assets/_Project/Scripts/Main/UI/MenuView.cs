@@ -3,28 +3,28 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Menu
+namespace _Project.Scripts.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
-    public class MenuView : MonoBeh
+    public class MenuView : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        private const float _hideDuration = 0.3f;
+        private const float _fadeDuration = 0.3f;
 
         public async UniTask Show()
         {
             _canvasGroup.alpha = 0f;
-            _gameObject.SetActive(true);
-            _canvasGroup.DOFade(1f, _hideDuration).SetEase(Ease.InOutQuad);
-            await UniTask.Delay(_hideDuration.ToMillisecs());
+            gameObject.SetActive(true);
+            _canvasGroup.DOFade(1f, _fadeDuration).SetEase(Ease.InOutQuad);
+            await _fadeDuration.WaitInSeconds();
         }
         
         public async UniTask Hide()
         {
-            _canvasGroup.DOFade(0f, _hideDuration).SetEase(Ease.InOutQuad);
-            await UniTask.Delay(_hideDuration.ToMillisecs());
-            _gameObject.SetActive(false);
+            _canvasGroup.DOFade(0f, _fadeDuration).SetEase(Ease.InOutQuad);
+            await _fadeDuration.WaitInSeconds();
+            gameObject.SetActive(false);
         }
 
         public void Disable()
