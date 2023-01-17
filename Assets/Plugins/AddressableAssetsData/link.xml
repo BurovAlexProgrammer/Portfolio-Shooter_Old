@@ -1,9 +1,7 @@
 <linker>
   <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
-    <type fullname="_Project.Scripts.UI.Toggle.ToggleView" preserve="all" />
     <type fullname="Test" preserve="all" />
     <type fullname="TestEnemy" preserve="all" />
-    <type fullname="WindowGamePause" preserve="all" />
   </assembly>
   <assembly fullname="Main, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
     <type fullname="_Project.Scripts.Main.Audio.SimpleAudioEvent" preserve="all" />
@@ -26,13 +24,16 @@
     <type fullname="_Project.Scripts.Main.Localizations.TextMeshProUILocalized" preserve="all" />
     <type fullname="_Project.Scripts.Main.Menu.MenuSettingsController" preserve="all" />
     <type fullname="_Project.Scripts.Main.Menu.MenuSettingsView" preserve="all" />
-    <type fullname="_Project.Scripts.Main.Menu.MenuView" preserve="all" />
     <type fullname="_Project.Scripts.Main.SceneScripts.MainMenu.MainMenuController" preserve="all" />
     <type fullname="_Project.Scripts.Main.SceneScripts.MainMenu.MainMenuView" preserve="all" />
     <type fullname="_Project.Scripts.Main.Services.BrainControlService" preserve="all" />
+    <type fullname="_Project.Scripts.UI.DialogView" preserve="all" />
+    <type fullname="_Project.Scripts.UI.MenuView" preserve="all" />
+    <type fullname="_Project.Scripts.UI.Toggle.ToggleView" preserve="all" />
     <type fullname="AudioEventAutoplay" preserve="all" />
     <type fullname="CameraToCanvasOnAwake" preserve="all" />
     <type fullname="MiniGameLevel" preserve="all" />
+    <type fullname="WindowGamePause" preserve="all" />
     <type fullname="_Project.Scripts.Main.Menu.MenuSettingsView/GameSettingViews" preserve="nothing" serialized="true" />
     <type fullname="_Project.Scripts.Main.Menu.MenuSettingsView/VideoSettingViews" preserve="nothing" serialized="true" />
   </assembly>
