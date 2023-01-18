@@ -10,11 +10,13 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private Transform _playerStartPoint;
         [SerializeField] private BrainControlService _brainControlServicePrefab;
+        [SerializeField] private SpawnControlService _spawnControlServiceInstance;
 
         public override void InstallBindings()
         {
             InstallPlayer();
             InstallBrainControl();
+            InstallSpawnControl();
         }
 
         private void InstallPlayer()
@@ -38,6 +40,14 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<BrainControlService>()
                 .FromComponentInNewPrefab(_brainControlServicePrefab)
                 .WithGameObjectName("BrainControl Service")
+                .AsSingle();
+        }
+
+        private void InstallSpawnControl()
+        {
+            Container
+                .Bind<SpawnControlService>()
+                .FromInstance(_spawnControlServiceInstance)
                 .AsSingle();
         }
     }
