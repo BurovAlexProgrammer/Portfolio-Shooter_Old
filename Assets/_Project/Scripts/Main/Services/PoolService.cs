@@ -13,6 +13,13 @@ namespace _Project.Scripts.Main.Services
             _poolDictionary = new Dictionary<MonoPoolItemBase, MonoPool>();
         }
 
+        public MonoPoolItemBase GetAndActivate(MonoPoolItemBase prefab)
+        {
+            var result = Get(prefab);
+            result.gameObject.SetActive(true);
+            return result;
+        }
+
         public MonoPoolItemBase Get(MonoPoolItemBase prefab)
         {
             if (_poolDictionary.ContainsKey(prefab) == false)
