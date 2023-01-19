@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8439189612003186811, guid: 9d8836d9c2708a8478fc9d92178d1b67, type: 3}
+  - {fileID: 2100000, guid: ffdfcc82ca6e36d4e86456855a07bdc8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -203,7 +203,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: -8439189612003186811, guid: 9d8836d9c2708a8478fc9d92178d1b67, type: 3}
+  - {fileID: 2100000, guid: ffdfcc82ca6e36d4e86456855a07bdc8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 8435452138770299809}
   - component: {fileID: 4766088675235381070}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: MonsterBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -334,8 +334,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _data: {fileID: 11400000, guid: bbb715aab27468c42971395609e4a45c, type: 2}
-  _animator: {fileID: 0}
   _brainOwner: {fileID: 0}
+  _health: {fileID: 0}
+  _animator: {fileID: 0}
+  _idleState: {fileID: 7400000, guid: b761bb848f21f3d4e995c7d45a9c96c6, type: 2}
+  _moveState: {fileID: 7400000, guid: 6cafaf6c5ae4eee4ca14ccaf17aeea16, type: 2}
+  _attackClip: {fileID: 7400000, guid: 6cafaf6c5ae4eee4ca14ccaf17aeea16, type: 2}
 --- !u!114 &4766088675235381070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -421,7 +425,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 705700715551622967, guid: 9d8836d9c2708a8478fc9d92178d1b67, type: 3}
+  - {fileID: 2100000, guid: a3dc6c8d5ff2ad542985e07be7321420, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
