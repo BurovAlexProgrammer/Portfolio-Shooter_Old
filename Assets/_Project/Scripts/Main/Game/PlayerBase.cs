@@ -18,6 +18,7 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canRotate;
         [SerializeField] private bool _canShoot;
+        [SerializeField] private bool _useGravity;
         [SerializeField] private SimpleAudioEvent _startPhrase;
         
         [Inject] private ControlService _controlService;
@@ -33,6 +34,7 @@ namespace _Project.Scripts.Main.Game
         private Vector2 _rotateLerpValue;
         private float _rotationY;
         private bool _shootInputValue;
+        private Vector3 _playerMove;
 
         public CameraHolder CameraHolder => _cameraHolder;
         public HealthBase Health => _health;
@@ -101,10 +103,10 @@ namespace _Project.Scripts.Main.Game
         protected virtual void Move(Vector2 inputValue)
         {
             if (!_canMove) return;
-            if (inputValue == Vector2.zero) return;
             
-            var moveVector = inputValue * Time.deltaTime * _config.MoveSpeed;
-            _characterController.Move(_transform.right * moveVector.x + _transform.forward * moveVector.y);
+            var moveVector = inputValue * Time.fixedDeltaTime * _config.MoveSpeed;
+            var gravityVelocity = _useGravity ? Physics.gravity * Time.fixedDeltaTime : Vector3.zero;
+            _characterController.Move(_transform.right * moveVector.x + _transform.forward * moveVector.y + gravityVelocity);
         } 
 
         protected virtual void Rotate(Vector2 inputValue)
