@@ -4,6 +4,7 @@ using _Project.Scripts.Main.Services;
 using UnityEngine;
 using UnityEngine.AI;
 using Zenject;
+using SceneContext = _Project.Scripts.Main.Installers.SceneContext;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -15,22 +16,20 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private bool _isTargetExist;
         private NavMeshAgent _navMeshAgent;
-        [Inject] PlayerBase _player;
-        [Inject] private BrainControlService _brainControlService;
 
-        public PlayerBase Player => _player;
+        public PlayerBase Player => SceneContext.Instance.Player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         public HealthBase Target => _target;
         public bool IsTargetExist => _isTargetExist;
 
         private void OnEnable()
         {
-            _brainControlService.AddBrain(this);
+            SceneContext.Instance.BrainControl.AddBrain(this);
         }
 
         private void OnDisable()
         {
-            _brainControlService.RemoveBrain(this);
+            SceneContext.Instance.BrainControl.RemoveBrain(this);
         }
 
         private void Awake()

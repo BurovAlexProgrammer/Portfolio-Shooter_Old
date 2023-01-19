@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
@@ -5,15 +6,29 @@ using Zenject;
 
 namespace _Project.Scripts.Main.Installers
 {
-    public class SceneContextInstaller : MonoInstaller
+    public class SceneContext : MonoInstaller
     {
+        private static SceneContext _instance;
+        public static SceneContext Instance => _instance;
+        
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private Transform _playerStartPoint;
-        [SerializeField] private BrainControlService _brainControlServicePrefab;
+        [SerializeField] private BrainControlService _brainControlServiceInstance;
         [SerializeField] private SpawnControlService _spawnControlServiceInstance;
 
+        private PlayerBase _player;
+
+        public PlayerBase Player => _player;
+        public BrainControlService BrainControl => _brainControlServiceInstance;
+        public SpawnControlService SpawnControl => _spawnControlServiceInstance;
+        
+        
         public override void InstallBindings()
         {
+            if (_instance != null) throw new Exception("SceneContext singleton already exists");
+
+            _instance = this;
+            
             InstallPlayer();
             InstallBrainControl();
             InstallSpawnControl();
@@ -28,7 +43,8 @@ namespace _Project.Scripts.Main.Installers
                 .AsSingle()
                 .OnInstantiated((ctx, instance) =>
                 {
-                    var playerTransform = (instance as PlayerBase).transform;
+                    _player = instance as PlayerBase;
+                    var playerTransform = _player.transform;
                     playerTransform.position = _playerStartPoint.position;
                     playerTransform.rotation = _playerStartPoint.rotation;
                 });
@@ -38,8 +54,7 @@ namespace _Project.Scripts.Main.Installers
         {
             Container
                 .Bind<BrainControlService>()
-                .FromComponentInNewPrefab(_brainControlServicePrefab)
-                .WithGameObjectName("BrainControl Service")
+                .FromInstance(_brainControlServiceInstance)
                 .AsSingle();
         }
 

@@ -113,7 +113,7 @@ namespace _Project.Scripts.Main
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
         }
         
-        private async void ExitStatePlayGame()
+        private void ExitStatePlayGame()
         {
             _audioService.StopMusic();
             if (Time.timeScale == 0f)
