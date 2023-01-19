@@ -57,10 +57,8 @@ namespace _Project.Scripts.Main.Game
         {
             await _startDelay.WaitInSeconds();
 
-            while (enabled)
+            while (this != null && enabled)
             {
-                await UniTask.NextFrame();
-                
                 if (_pause) continue;
                 
                 _timer += Time.deltaTime;
@@ -71,6 +69,8 @@ namespace _Project.Scripts.Main.Game
                     Spawn();
                     SetSpawnTimer();
                 }
+                
+                await UniTask.NextFrame();
             }
         }
 
