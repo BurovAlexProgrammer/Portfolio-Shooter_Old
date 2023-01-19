@@ -25,7 +25,11 @@ namespace _Project.Scripts.Main.Game
             }
 
             LifeEnd += Destruct;
-            
+        }
+
+        private void OnDisable()
+        {
+            LifeEnd -= Destruct;
         }
 
         private void Destruct()
