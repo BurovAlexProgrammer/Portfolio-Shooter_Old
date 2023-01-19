@@ -333,6 +333,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e10fdba5979b44a4f9317bd2f7785161, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _data: {fileID: 11400000, guid: bbb715aab27468c42971395609e4a45c, type: 2}
+  _animator: {fileID: 0}
+  _brainOwner: {fileID: 0}
 --- !u!114 &4766088675235381070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,12 +350,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _brain: {fileID: 11400000, guid: 7a231c0c5e249c342a3754a0c1455732, type: 2}
   _target: {fileID: 0}
+  _targetHealth: {fileID: 0}
   _transformInfoTarget:
     Position: {x: 0, y: 0, z: 0}
     LocalPosition: {x: 0, y: 0, z: 0}
     Rotation: {x: 0, y: 0, z: 0, w: 0}
     LocalRotation: {x: 0, y: 0, z: 0, w: 0}
     LocalScale: {x: 0, y: 0, z: 0}
+  _character: {fileID: 0}
 --- !u!1 &7857661449351847821
 GameObject:
   m_ObjectHideFlags: 0

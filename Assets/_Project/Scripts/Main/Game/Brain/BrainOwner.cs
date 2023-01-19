@@ -1,26 +1,28 @@
-using System;
+using _Project.Data.Game;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Services;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 using SceneContext = _Project.Scripts.Main.Installers.SceneContext;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
-    public class BrainOwner : MonoBehaviour
+    public class BrainOwner : MonoBeh
     {
         [SerializeField] private Brain _brain;
-        [SerializeField] private HealthBase _target;
+        [SerializeField] private GameObject _target;
+        [SerializeField] private HealthBase _targetHealth;
         [SerializeField] private TransformInfo _transformInfoTarget;
+        [SerializeField] private Character _character;
 
         private bool _isTargetExist;
         private NavMeshAgent _navMeshAgent;
 
         public PlayerBase Player => SceneContext.Instance.Player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
-        public HealthBase Target => _target;
+        public GameObject Target => _target;
+        public HealthBase TargetHealth => _targetHealth;
         public bool IsTargetExist => _isTargetExist;
+        public Character Character => _character;
 
         private void OnEnable()
         {
@@ -35,6 +37,7 @@ namespace _Project.Scripts.Main.Game.Brain
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _character = GetComponent<Character>();
         }
 
         public void Think()
@@ -42,10 +45,11 @@ namespace _Project.Scripts.Main.Game.Brain
             _brain.Think(this);
         }
 
-        public void SetTargetHealth(HealthBase targetHealth)
+        public void SetTarget(GameObject target)
         {
-            _target = targetHealth;
-            _isTargetExist = targetHealth != null;
+            _target = target;
+            _targetHealth = target.GetComponent<HealthBase>();
+            _isTargetExist = _targetHealth != null;
         }
     }
 }
