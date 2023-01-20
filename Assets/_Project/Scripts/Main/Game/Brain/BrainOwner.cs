@@ -1,4 +1,5 @@
 using _Project.Scripts.Extension;
+using _Project.Scripts.Extension.Attributes;
 using UnityEngine;
 using UnityEngine.AI;
 using SceneContext = _Project.Scripts.Main.Installers.SceneContext;
@@ -11,10 +12,10 @@ namespace _Project.Scripts.Main.Game.Brain
         [SerializeField] private GameObject _target;
         [SerializeField] private HealthBase _targetHealth;
         [SerializeField] private TransformInfo _transformInfoTarget;
-        [SerializeField] private Character _character;
+        [SerializeField, ReadOnlyField] private Character _character;
+        [SerializeField, ReadOnlyField] NavMeshAgent _navMeshAgent;
 
         private bool _isTargetExist;
-        private NavMeshAgent _navMeshAgent;
 
         public PlayerBase Player => SceneContext.Instance.Player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;

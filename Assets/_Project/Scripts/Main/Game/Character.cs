@@ -1,7 +1,8 @@
+using System.ComponentModel;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Wrappers;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using static _Project.Scripts.Extension.Common;
@@ -11,12 +12,12 @@ namespace _Project.Scripts.Main.Game
     public class Character : MonoPoolItemBase
     {
         [SerializeField] private CharacterData _data;
-        [SerializeField] private BrainOwner _brainOwner;
-        [SerializeField] private HealthBase _health;
-        [SerializeField] private Attacker _attacker;
-        [SerializeField] private Animator _animator;
+        [SerializeField, ReadOnlyField] private BrainOwner _brainOwner;
+        [SerializeField, ReadOnlyField] private HealthBase _health;
+        [SerializeField, ReadOnlyField] private Attacker _attacker;
+        [SerializeField, ReadOnlyField] private Animator _animator;
         [Header("Audio")] 
-        [SerializeField] private AudioSource _audioSource;
+        [SerializeField, ReadOnlyField] private AudioSource _audioSource;
         [SerializeField] private AudioEvent _attackEvent;
 
         private NavMeshAgent _navMeshAgent;
@@ -64,11 +65,6 @@ namespace _Project.Scripts.Main.Game
         {
             _attacker.DamageTargetAction -= OnDamageTarget;
             _attacker.PlayAttackSoundAction -= OnPlayAttackSound;
-        }
-
-        public void SetTarget(GameObject target)
-        {
-            _brainOwner.SetTarget(target);
         }
 
         public void PlayAttack(GameObject target)
