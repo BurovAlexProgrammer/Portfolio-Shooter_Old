@@ -11,18 +11,13 @@ namespace _Project.Scripts.Main.Game
 
         private bool _inProgress;
         public Action DamageTargetAction;
+        public Action PlayAttackSoundAction;
 
         public bool ReadyToAttack => !_inProgress && _attackTimer <= 0f;
 
         public void Init(Character character)
         {
             _characterData = character.Data;
-        }
-
-        //Animation Event
-        public void DamageTarget()
-        {
-            DamageTargetAction?.Invoke();
         }
 
         public void StartAttack()
@@ -44,6 +39,18 @@ namespace _Project.Scripts.Main.Game
                 await UniTask.NextFrame();
                 _attackTimer -= Time.deltaTime;
             }
+        }
+        
+        //Animation Event
+        public void DamageTarget()
+        {
+            DamageTargetAction?.Invoke();
+        }
+        
+        //Animation Event
+        public void PlayAttackSound()
+        {
+            PlayAttackSoundAction?.Invoke();
         }
     }
 }

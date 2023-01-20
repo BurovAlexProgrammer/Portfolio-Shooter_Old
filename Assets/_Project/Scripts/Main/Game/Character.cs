@@ -4,6 +4,7 @@ using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -13,13 +14,14 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private BrainOwner _brainOwner;
         [SerializeField] private HealthBase _health;
         [SerializeField] private Attacker _attacker;
-        [SerializeField] private AudioSource _audioSource;
-        [Header("Animation")] [SerializeField] private Animator _animator;
-        [SerializeField] private AnimationClip _idleState;
-        [SerializeField] private AnimationClip _moveState;
+        [SerializeField] private Animator _animator;
         [SerializeField] private AnimationClip _attackState;
+        [Header("Audio")] 
+        [SerializeField] private AudioSource _audioSource;
+        [SerializeField] private AudioEvent _attackEvent;
 
         private NavMeshAgent _navMeshAgent;
+        private AnimatorInfo _animatorInfo;
 
         public CharacterData Data => _data;
         public Attacker Attacker => _attacker;
@@ -33,6 +35,8 @@ namespace _Project.Scripts.Main.Game
             _attacker = GetComponent<Attacker>();
             _audioSource = GetComponent<AudioSource>();
 
+            var t = AnimatorParameters;
+            
             if (_navMeshAgent != null)
             {
                 _navMeshAgent.acceleration = _data.Acceleration;
@@ -49,12 +53,20 @@ namespace _Project.Scripts.Main.Game
             {
                 _attacker.Init(this);
                 _attacker.DamageTargetAction += OnDamageTarget;
+                _attacker.PlayAttackSoundAction += OnPlayAttackSound;
+            }
+
+            if (_animator != null)
+            {
+                _animatorInfo = new AnimatorInfo(_animator);
+                _animator.ValidateParameters();
             }
         }
 
         private void OnDestroy()
         {
             _attacker.DamageTargetAction -= OnDamageTarget;
+            _attacker.PlayAttackSoundAction -= OnPlayAttackSound;
         }
 
         public void SetTarget(GameObject target)
@@ -64,13 +76,9 @@ namespace _Project.Scripts.Main.Game
 
         public async UniTask PlayAttack(GameObject target)
         {
-            _animator.Play(_attackState.name);
+            //_animator.SetTrigger(AnimatorParameters[AnimatorParameterNames.Attack]);
+            _animatorInfo.Get(AnimatorParameterNames.Attack).SetTrigger();
             await _attackState.length.WaitInSeconds();
-
-            if (_animator.isActiveAndEnabled)
-            {
-                _animator.Play(_idleState.name);
-            }
         }
 
         private void OnDamageTarget()
@@ -78,9 +86,9 @@ namespace _Project.Scripts.Main.Game
             _brainOwner.TargetHealth.TakeDamage(_data.MeleeDamage);
         }
 
-        //Animation Event
-        public void PlayAttackSound()
+        private void OnPlayAttackSound()
         {
+            _attackEvent.Play(_audioSource);
         }
     }
 }
