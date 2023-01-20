@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using _Project.Scripts.Main.Game.Brain;
 
 namespace _Project.Scripts.Main.Services
@@ -13,11 +12,7 @@ namespace _Project.Scripts.Main.Services
         {
             if (_brains.Count == 0) return;
 
-            if (_brainNode?.Next == null)
-            {
-                _brainNode = _brains.First;
-            }
-            
+            _brainNode = _brainNode?.Next ?? _brains.First;
             _brainNode.Value.Think();
         }
 

@@ -99,6 +99,7 @@ namespace _Project.Scripts.Main.Wrappers
             }
             
             var instance = Object.Instantiate(_prefab, _container);
+            instance.gameObject.name = _prefab.name + " " + (_inactivePool.Count + _activePool.Count + 1);
             instance.gameObject.SetActive(false);
             instance.Returned += OnItemReturn;
             _inactivePool.Enqueue(instance);
