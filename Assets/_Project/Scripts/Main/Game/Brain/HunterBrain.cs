@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -6,7 +7,7 @@ namespace _Project.Scripts.Main.Game.Brain
     public class HunterBrain : Brain
     {
         private float _targetDistance;
-        
+
         public override void Think(BrainOwner brainOwner)
         {
             if (brainOwner.IsTargetExist)
@@ -29,9 +30,15 @@ namespace _Project.Scripts.Main.Game.Brain
             }
         }
 
-        private void AttackTarget(BrainOwner brainOwner)
+        private async void AttackTarget(BrainOwner brainOwner)
         {
-            brainOwner.Character.PlayAttack(brainOwner.Target);
+            if (brainOwner.Character.Attacker.ReadyToAttack == false) return;
+            Debug.Log("Attack");
+            
+            brainOwner.Character.Attacker.StartAttack();
+            await brainOwner.Character.PlayAttack(brainOwner.Target);
+            brainOwner.Character.Attacker.RunAttackDelay();
+            brainOwner.Character.Attacker.EndAttack();
         }
 
         private void MoveToTarget(BrainOwner brainOwner)

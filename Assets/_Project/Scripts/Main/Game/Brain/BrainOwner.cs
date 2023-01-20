@@ -49,7 +49,7 @@ namespace _Project.Scripts.Main.Game.Brain
         {
             _target = target;
             _targetHealth = target.GetComponent<HealthBase>();
-            _isTargetExist = _targetHealth != null;
+            _isTargetExist = _target != null;
         }
     }
 }

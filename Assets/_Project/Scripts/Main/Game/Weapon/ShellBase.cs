@@ -84,7 +84,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void TakeDamage(HealthBase target)
         {
-            target.GetDamage(_shellConfig.Damage);
+            target.TakeDamage(_shellConfig.Damage);
         }
     }
 }
