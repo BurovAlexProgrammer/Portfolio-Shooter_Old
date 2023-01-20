@@ -10,15 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
-  m_Name: MonsterDeath
+  m_Name: MonsterBox_Attack
   m_EditorClassIdentifier: 
-  _audioClips:
-  - {fileID: 8300000, guid: fe1bce2ac235fd844b8b8bf7edc36663, type: 3}
-  - {fileID: 8300000, guid: b1199900a8e30104983733b26093068c, type: 3}
-  - {fileID: 8300000, guid: f79d2be153fd9d94c9dbc46201cf2989, type: 3}
+  _audioClips: []
   _volume:
-    MinValue: 0.5913073
-    MaxValue: 0.7729485
+    MinValue: 0.8
+    MaxValue: 1
   _pitch:
-    MinValue: 0.79468036
-    MaxValue: 1.203373
+    MinValue: 0.8
+    MaxValue: 1.2
