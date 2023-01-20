@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Main.Game.Weapon;
+﻿using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using static _Project.Scripts.Main.Services.Services;

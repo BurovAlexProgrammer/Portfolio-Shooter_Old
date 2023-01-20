@@ -1,4 +1,3 @@
-using _Project.Data.Game;
 using _Project.Scripts.Extension;
 using UnityEngine;
 using UnityEngine.AI;

@@ -1,14 +1,11 @@
-using System;
-using System.Diagnostics.Tracing;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace _Project.Data.Game
+namespace _Project.Scripts.Main.Game
 {
     public class Character : MonoPoolItemBase
     {

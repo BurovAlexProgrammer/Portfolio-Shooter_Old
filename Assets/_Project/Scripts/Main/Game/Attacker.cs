@@ -1,5 +1,4 @@
 ﻿using System;
-using _Project.Data.Game;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -12,14 +11,14 @@ namespace _Project.Scripts.Main.Game
 
         private bool _inProgress;
         public Action DamageTargetAction;
-        
+
         public bool ReadyToAttack => !_inProgress && _attackTimer <= 0f;
 
         public void Init(Character character)
         {
             _characterData = character.Data;
         }
-        
+
         //Animation Event
         public void DamageTarget()
         {

@@ -7,7 +7,7 @@ namespace _Project.Scripts.Main.Game
     {
         [SerializeField] private float _maxValue;
         [SerializeField] private float _currentValue;
-        
+
         public Action LifeEnd;
         public Action GotDamage;
 
@@ -19,16 +19,16 @@ namespace _Project.Scripts.Main.Game
             _currentValue = currentHealth;
             _maxValue = maxHealth;
         }
-        
+
         public void SetValue(float value)
         {
             _currentValue = value;
         }
-        
+
         public void TakeDamage(float value)
         {
             if (_currentValue == 0f) return;
-            
+
             _currentValue -= value;
 
             if (_currentValue <= 0f)
