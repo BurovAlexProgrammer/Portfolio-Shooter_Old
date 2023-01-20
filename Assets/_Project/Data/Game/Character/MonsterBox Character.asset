@@ -17,4 +17,4 @@ MonoBehaviour:
   _acceleration: 12
   _attackDelay: 2
   _meleeRange: 2
-  _meleeDamage: 0
+  _meleeDamage: 5

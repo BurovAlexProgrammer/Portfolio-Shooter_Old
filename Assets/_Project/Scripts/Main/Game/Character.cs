@@ -15,13 +15,11 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private HealthBase _health;
         [SerializeField] private Attacker _attacker;
         [SerializeField] private Animator _animator;
-        [SerializeField] private AnimationClip _attackState;
         [Header("Audio")] 
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private AudioEvent _attackEvent;
 
         private NavMeshAgent _navMeshAgent;
-        private AnimatorInfo _animatorInfo;
 
         public CharacterData Data => _data;
         public Attacker Attacker => _attacker;
@@ -58,7 +56,6 @@ namespace _Project.Scripts.Main.Game
 
             if (_animator != null)
             {
-                _animatorInfo = new AnimatorInfo(_animator);
                 _animator.ValidateParameters();
             }
         }
@@ -74,11 +71,9 @@ namespace _Project.Scripts.Main.Game
             _brainOwner.SetTarget(target);
         }
 
-        public async UniTask PlayAttack(GameObject target)
+        public void PlayAttack(GameObject target)
         {
-            //_animator.SetTrigger(AnimatorParameters[AnimatorParameterNames.Attack]);
-            _animatorInfo.Get(AnimatorParameterNames.Attack).SetTrigger();
-            await _attackState.length.WaitInSeconds();
+            _animator.SetTrigger(AnimatorParameterNames.Attack);
         }
 
         private void OnDamageTarget()

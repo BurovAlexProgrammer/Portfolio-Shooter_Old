@@ -48,5 +48,51 @@ namespace _Project.Scripts.Extension
         {
             return animator.parameters.Single(x => x.name.Equals(key.ToString()));
         }
+
+        public static void SetTrigger(this Animator animator, AnimatorParameterNames name)
+        {
+            var parameter = animator.GetParameter(name);
+            
+            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+                throw new Exception(ExceptionMessages.AnimatorParameterInvalidType(parameter));
+            
+            animator.SetTrigger(AnimatorParameters[AnimatorParameterNames.Attack]);
+        }
+        
+        public static void SetFloat(this Animator animator, AnimatorParameterNames name, float value)
+        {
+            var parameter = animator.GetParameter(name);
+            
+            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+                throw new Exception(ExceptionMessages.AnimatorParameterInvalidType(parameter));
+            
+            animator.SetFloat(AnimatorParameters[AnimatorParameterNames.Attack], value);
+        }
+        
+        public static void SetInt(this Animator animator, AnimatorParameterNames name, int value)
+        {
+            var parameter = animator.GetParameter(name);
+            
+            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+                throw new Exception(ExceptionMessages.AnimatorParameterInvalidType(parameter));
+            
+            animator.SetInteger(AnimatorParameters[AnimatorParameterNames.Attack], value);
+        }
+        
+        public static void SetBool(this Animator animator, AnimatorParameterNames name, bool value)
+        {
+            var parameter = animator.GetParameter(name);
+            
+            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+                throw new Exception();
+
+            animator.SetBool(AnimatorParameters[AnimatorParameterNames.Attack], value);
+        }
+
+        public static class ExceptionMessages
+        {
+            public static string AnimatorParameterInvalidType(AnimatorControllerParameter parameter) =>
+                $"AnimatorParameter '{parameter.name}' is not Bool type. (Current type: {parameter.type.ToString()})";
+        }
     }
 }

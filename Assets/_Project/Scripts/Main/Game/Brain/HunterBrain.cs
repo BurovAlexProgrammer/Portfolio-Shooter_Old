@@ -35,7 +35,7 @@ namespace _Project.Scripts.Main.Game.Brain
             Debug.Log("Attack");
             
             brainOwner.Character.Attacker.StartAttack();
-            await brainOwner.Character.PlayAttack(brainOwner.Target);
+            brainOwner.Character.PlayAttack(brainOwner.Target);
             brainOwner.Character.Attacker.RunAttackDelay();
             brainOwner.Character.Attacker.EndAttack();
         }
