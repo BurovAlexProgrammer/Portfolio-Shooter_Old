@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: MonsterBox_Attack
   m_EditorClassIdentifier: 
   _audioClips:
-  - {fileID: 8300000, guid: 3775ed1335600bc4db376fb09e04f966, type: 3}
+  - {fileID: 8300000, guid: ae40939158546c14db576e7162fd3c2a, type: 3}
+  - {fileID: 8300000, guid: f2c0c8b14a2d33d4899f12dcf1cf9e84, type: 3}
+  - {fileID: 8300000, guid: a3ae4d5cb30e4be498b2b1488f36d666, type: 3}
   _volume:
     MinValue: 0.8
     MaxValue: 1

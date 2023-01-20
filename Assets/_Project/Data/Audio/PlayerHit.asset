@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
-  m_Name: GameOver
+  m_Name: PlayerHit
   m_EditorClassIdentifier: 
   _audioClips:
-  - {fileID: 8300000, guid: 9cbe6b31a2fefcc43993c353e3d4783d, type: 3}
-  - {fileID: 8300000, guid: b06468c30990d61428d802672db67d15, type: 3}
+  - {fileID: 8300000, guid: df43d77a892ecc34dab5520ac9820d97, type: 3}
   _volume:
-    MinValue: 0.8
-    MaxValue: 1
+    MinValue: 0.29050177
+    MaxValue: 0.49050143
   _pitch:
     MinValue: 0.8
     MaxValue: 1.2
