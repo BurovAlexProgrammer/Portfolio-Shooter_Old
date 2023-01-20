@@ -8,8 +8,8 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _maxValue;
         [SerializeField] private float _currentValue;
 
-        public Action LifeEnd;
-        public Action GotDamage;
+        public Action LifeEndAction;
+        public Action GotDamageAction;
 
         public float MaxValue => _maxValue;
         public float CurrentValue => _currentValue;
@@ -20,7 +20,7 @@ namespace _Project.Scripts.Main.Game
             _maxValue = maxHealth;
         }
 
-        public void SetValue(float value)
+        protected void SetValue(float value)
         {
             _currentValue = value;
         }
@@ -34,11 +34,11 @@ namespace _Project.Scripts.Main.Game
             if (_currentValue <= 0f)
             {
                 _currentValue = 0f;
-                LifeEnd?.Invoke();
+                LifeEndAction?.Invoke();
             }
             else
             {
-                GotDamage?.Invoke();
+                GotDamageAction?.Invoke();
             }
         }
     }

@@ -1,6 +1,6 @@
 using System;
 using _Project.Scripts.Extension;
-using Cysharp.Threading.Tasks;
+using _Project.Scripts.Extension.Attributes;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,8 +10,8 @@ namespace _Project.Scripts.Main.Services
 {
     public class GameManagerService : BaseService
     {
-        [SerializeField] private GameStateMachine _gameStateMachine;
-        [SerializeField] private bool _gamePause;
+        [SerializeField, ReadOnlyField] private GameStateMachine _gameStateMachine;
+        [SerializeField, ReadOnlyField] private bool _isGamePause;
 
         [Inject] private ControlService _controlService;
         [Inject] private SceneLoaderService _sceneLoader;
@@ -22,7 +22,7 @@ namespace _Project.Scripts.Main.Services
         private bool _transaction;
 
         public GameStates CurrentGameState => _gameStateMachine.ActiveState;
-        public bool GamePause => _gamePause;
+        public bool IsGamePause => _isGamePause;
 
         public void SetGameState(GameStates newState)
         {
@@ -36,7 +36,6 @@ namespace _Project.Scripts.Main.Services
                 _sceneLoader.Init();
             }
 
-            
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
             _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _gameStateMachine.Init();
@@ -54,14 +53,14 @@ namespace _Project.Scripts.Main.Services
         public async void PauseGame(InputAction.CallbackContext ctx)
         {
             if (_transaction) return;
-            
+
             if (CurrentGameState != GameStates.PlayGame && CurrentGameState != GameStates.CustomSceneBoot) return;
 
             var fixedDeltaTime = Time.fixedDeltaTime;
             _transaction = true;
-            _gamePause = true;
+            _isGamePause = true;
             _controlService.Controls.Player.Disable();
-            SwitchPause?.Invoke(_gamePause);
+            SwitchPause?.Invoke(_isGamePause);
 
             await DOVirtual.Float(1f, 0f, 1f, SetTimeSpeed)
                 .SetUpdate(true)
@@ -74,14 +73,13 @@ namespace _Project.Scripts.Main.Services
 
         public async void ReturnGame()
         {
-            
             if (_transaction) return;
-            
+
             if (CurrentGameState != GameStates.PlayGame && CurrentGameState != GameStates.CustomSceneBoot) return;
-            
+
             _transaction = true;
-            _gamePause = false;
-            SwitchPause?.Invoke(_gamePause);
+            _isGamePause = false;
+            SwitchPause?.Invoke(_isGamePause);
             _controlService.Controls.Player.Enable();
 
             await DOVirtual.Float(0f, 1f, 1f, SetTimeSpeed)
@@ -91,7 +89,12 @@ namespace _Project.Scripts.Main.Services
             _controlService.Controls.Menu.Disable();
             _transaction = false;
         }
-        
+
+        public void GameOver()
+        {
+            Debug.Log("Game Over");
+        }
+
         private void ReturnGame(InputAction.CallbackContext ctx)
         {
             ReturnGame();
