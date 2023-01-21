@@ -1,5 +1,4 @@
 using System.IO;
-using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Services;
 using DG.Tweening;
 using UnityEngine;
@@ -20,6 +19,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private DebugService _debugServicePrefab;
         [SerializeField] private PoolService _poolServicePrefab;
         [SerializeField] private AudioService _audioServicePrefab;
+        [SerializeField] private StatisticService _statisticServicePrefab;
 
         public override void InstallBindings()
         {
@@ -35,9 +35,19 @@ namespace _Project.Scripts.Main.Installers
             InstallControlService();
             InstallDebugService();
             InstallPoolService();
+            InstallStatisticService();
         }
-        
-        
+
+        private void InstallStatisticService()
+        {
+            Container
+                .Bind<StatisticService>()
+                .FromComponentInNewPrefab(_statisticServicePrefab)
+                .WithGameObjectName("Statistic Service")
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((StatisticService)instance))
+                .NonLazy();
+        }
 
         private void InstallAudioService()
         {

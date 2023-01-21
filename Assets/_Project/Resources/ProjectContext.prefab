@@ -92,3 +92,5 @@ MonoBehaviour:
     type: 3}
   _audioServicePrefab: {fileID: 8038940987799586734, guid: 8b6f6214da8ced64b87b305addfa7249,
     type: 3}
+  _statisticServicePrefab: {fileID: 5626246306657612973, guid: 14118570835f0dd4a94f9a6929fc83c3,
+    type: 3}
