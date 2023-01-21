@@ -1,9 +1,8 @@
 using System;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.Game;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.Services.SceneServices;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace _Project.Scripts.Main.Installers

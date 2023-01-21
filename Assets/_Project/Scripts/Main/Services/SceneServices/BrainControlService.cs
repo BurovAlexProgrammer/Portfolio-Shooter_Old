@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using _Project.Scripts.Main.Game.Brain;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.Services.SceneServices
 {
     public class BrainControlService : BaseService
     {

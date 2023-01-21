@@ -1,12 +1,7 @@
-﻿using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Game;
-using _Project.Scripts.Main.Wrappers;
-using Cysharp.Threading.Tasks;
+﻿using _Project.Scripts.Main.Game;
 using UnityEngine;
-using Zenject;
-using Random = UnityEngine.Random;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.Services.SceneServices
 {
     public class SpawnControlService : BaseService
     {

@@ -4,7 +4,7 @@ using _Project.Scripts.Main.UI.Window;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.Services.SceneServices
 {
     public class GameUiService : BaseService
     {
