@@ -1,7 +1,9 @@
 using System;
+using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace _Project.Scripts.Main.Installers
@@ -12,9 +14,12 @@ namespace _Project.Scripts.Main.Installers
         public static SceneContext Instance => _instance;
         
         [SerializeField] private PlayerBase _playerPrefab;
+        [SerializeField] private GameUiService _gameUiServicePrefab;
         [SerializeField] private Transform _playerStartPoint;
         [SerializeField] private BrainControlService _brainControlServiceInstance;
         [SerializeField] private SpawnControlService _spawnControlServiceInstance;
+
+        [SerializeField, ReadOnlyField] private GameUiService _gameUiServiceInstance;
 
         private PlayerBase _player;
 
@@ -30,8 +35,25 @@ namespace _Project.Scripts.Main.Installers
             _instance = this;
             
             InstallPlayer();
+            InstallGameUI();
             InstallBrainControl();
             InstallSpawnControl();
+        }
+
+        private void InstallGameUI()
+        {
+            Container
+                .Bind<GameUiService>()
+                .FromComponentInNewPrefab(_gameUiServicePrefab)
+                .WithGameObjectName("Game UI Service")
+                .AsSingle()
+                .OnInstantiated((ctx, instance) =>
+                {
+                    var service = instance as GameUiService;
+                    service.Init();
+                    _gameUiServiceInstance = service;
+                })
+                .NonLazy();
         }
 
         private void InstallPlayer()

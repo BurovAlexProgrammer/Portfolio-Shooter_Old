@@ -29,7 +29,7 @@ namespace _Project.Scripts.Main.Game.Brain
             }
         }
 
-        private async void AttackTarget(BrainOwner brainOwner)
+        private void AttackTarget(BrainOwner brainOwner)
         {
             if (brainOwner.Character.Attacker.ReadyToAttack == false) return;
             Debug.Log("Attack");

@@ -5,98 +5,94 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-public class WindowGamePause : MonoBehaviour
+namespace _Project.Scripts.Main.UI.Window
 {
-    [SerializeField] private Toggle _musicToggle;
-    [SerializeField] private Toggle _soundsToggle;
-    [SerializeField] private Button _returnGameButton;
-    [SerializeField] private Button _quitGameButton;
-    [SerializeField] private CanvasGroup _canvasGroup;
-    [SerializeField] private DialogView _quitGameDialog;
-
-    [Inject] private GameManagerService _gameManager;
-    [Inject] private SettingsService _settingsService;
-    [Inject] private ControlService _controlService;
-    
-    private void Awake()
+    public class WindowGamePause : MonoBehaviour
     {
-        Services.GameManagerService.SwitchPause += OnSwitchGamePause;
-        _returnGameButton.onClick.AddListener(ReturnGame);
-        _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
-        _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
-        _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
-        _quitGameDialog.OnConfirm += OnQuitDialogResult; 
-        _canvasGroup.interactable = false;
-        gameObject.SetActive(false);
-    }
+        [SerializeField] private Toggle _musicToggle;
+        [SerializeField] private Toggle _soundsToggle;
+        [SerializeField] private Button _returnGameButton;
+        [SerializeField] private Button _quitGameButton;
+        [SerializeField] private CanvasGroup _canvasGroup;
+        [SerializeField] private DialogView _quitGameDialog;
 
-    private void Start()
-    {
-        _musicToggle.isOn = _settingsService.Audio.MusicEnabled;
-        _soundsToggle.isOn = _settingsService.Audio.SoundEnabled;
-    }
+        [Inject] private GameManagerService _gameManager;
+        [Inject] private SettingsService _settingsService;
 
-    private void OnDestroy()
-    {
-        Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
-        _returnGameButton.onClick.RemoveAllListeners();
-        _quitGameButton.onClick.RemoveAllListeners();
-        _musicToggle.onValueChanged.RemoveAllListeners();
-        _soundsToggle.onValueChanged.RemoveAllListeners();
-    }
-
-    private void ReturnGame()
-    {
-        Services.GameManagerService.ReturnGame();
-    }
-
-    private async void OnSwitchGamePause(bool isPause)
-    {
-        if (isPause)
+        private void Awake()
         {
-            _controlService.UnlockCursor();
+            _returnGameButton.onClick.AddListener(ReturnGame);
+            _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
+            _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
+            _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
+            _quitGameDialog.OnConfirm += OnQuitDialogResult; 
+            _canvasGroup.interactable = false;
+            gameObject.SetActive(false);
+        }
+
+        private void Start()
+        {
+            _musicToggle.isOn = _settingsService.Audio.MusicEnabled;
+            _soundsToggle.isOn = _settingsService.Audio.SoundEnabled;
+        }
+
+        private void OnDestroy()
+        {
+            _returnGameButton.onClick.RemoveAllListeners();
+            _quitGameButton.onClick.RemoveAllListeners();
+            _musicToggle.onValueChanged.RemoveAllListeners();
+            _soundsToggle.onValueChanged.RemoveAllListeners();
+        }
+
+        public async void Show()
+        {
             gameObject.SetActive(true);
             await transform.DOScale(1f, 0.3f).From(0f)
                 .SetUpdate(true)
                 .AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
         }
-        else
+
+        public async void Close()
         {
-            _controlService.LockCursor();
             _canvasGroup.interactable = false;
             await transform.DOScale(0f, 0.3f)
                 .SetUpdate(true)
                 .AsyncWaitForCompletion();
             gameObject.SetActive(false);
         }
-    }
 
-    private void OnMusicSwitch(bool newValue)
-    {
-        _settingsService.Audio.MusicEnabled = newValue;
-        _settingsService.Save();
-    }
-    
-    private void OnSoundsSwitch(bool newValue)
-    {
-        _settingsService.Audio.SoundEnabled = newValue;
-        _settingsService.Save();
-    }
-    
-    private void ShowQuitGameDialog()
-    {
-        _ = _quitGameDialog.Show();
-    }
-
-    private void OnQuitDialogResult(bool result)
-    {
-        if (result)
+        private void ReturnGame()
         {
-            _gameManager.QuitGame();
-            return;
+            Services.Services.GameManagerService.ReturnGame();
         }
+
+        private void OnMusicSwitch(bool newValue)
+        {
+            _settingsService.Audio.MusicEnabled = newValue;
+            _settingsService.Save();
+        }
+    
+        private void OnSoundsSwitch(bool newValue)
+        {
+            _settingsService.Audio.SoundEnabled = newValue;
+            _settingsService.Save();
+        }
+    
+        private void ShowQuitGameDialog()
+        {
+            _ = _quitGameDialog.Show();
+        }
+
+        private void OnQuitDialogResult(bool result)
+        {
+            if (result)
+            {
+                _gameManager.QuitGame();
+                return;
+            }
         
-        _ = _quitGameDialog.Close();
+            _ = _quitGameDialog.Close();
+        }
     }
 }
