@@ -2,7 +2,7 @@
 using UnityEngine;
 using static _Project.Scripts.Main.Services.Services;
 
-namespace _Project.Scripts.Main.Game
+namespace _Project.Scripts.Main.Game.Health
 {
     public class PlayerHealth : HealthBase
     {
@@ -22,13 +22,13 @@ namespace _Project.Scripts.Main.Game
                 SetValue(MaxValue);
             }
 
-            GotDamageAction += OnGotDamage;
+            ChangedAction += OnChangedHealth;
             LifeEndAction += OnLifeEnd;
         }
 
         private void OnDisable()
         {
-            GotDamageAction -= OnGotDamage;
+            ChangedAction -= OnChangedHealth;
             LifeEndAction -= OnLifeEnd;
         }
         
@@ -38,7 +38,7 @@ namespace _Project.Scripts.Main.Game
             GameManagerService.GameOver();
         }
         
-        private void OnGotDamage()
+        private void OnChangedHealth(HealthBase health)
         {
             _takeDamageAudioEvent.Play(_audioSource);
         }

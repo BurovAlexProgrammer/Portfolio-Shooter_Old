@@ -9,7 +9,7 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _currentValue;
 
         public Action LifeEndAction;
-        public Action GotDamageAction;
+        public Action<HealthBase> ChangedAction;
 
         public float MaxValue => _maxValue;
         public float CurrentValue => _currentValue;
@@ -38,7 +38,7 @@ namespace _Project.Scripts.Main.Game
             }
             else
             {
-                GotDamageAction?.Invoke();
+                ChangedAction?.Invoke(this);
             }
         }
     }

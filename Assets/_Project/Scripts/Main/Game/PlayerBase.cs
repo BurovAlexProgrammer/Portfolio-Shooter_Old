@@ -23,7 +23,7 @@ namespace _Project.Scripts.Main.Game
         
         [Inject] private ControlService _controlService;
         [Inject] private SettingsService _settingsService;
-        
+
         private CharacterController _characterController;
         private AudioSource _audioSource;
         private HealthBase _health;
