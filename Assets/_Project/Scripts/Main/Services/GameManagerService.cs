@@ -44,11 +44,7 @@ namespace _Project.Scripts.Main.Services
 
         public void QuitGame()
         {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
+            _gameStateMachine.SetState(GameStates.GameQuit);
         }
 
         public async void PauseGame(InputAction.CallbackContext ctx)

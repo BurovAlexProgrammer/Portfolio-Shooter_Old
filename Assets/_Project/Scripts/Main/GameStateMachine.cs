@@ -13,7 +13,7 @@ namespace _Project.Scripts.Main
     {
         public Action StateChanged;
         
-        private GameStates _activeState;
+        private GameStates _activeState = GameStates.None;
 
         [Inject] private AudioService _audioService;
         [Inject] private SceneLoaderService _sceneLoader;
@@ -26,11 +26,11 @@ namespace _Project.Scripts.Main
         {
             if (_sceneLoader.InitialSceneEquals(SceneName.Boot))
             {
-                _ = EnterState(GameStates.Boot);
+                SetState(GameStates.Boot);
                 return;
             }
             
-            _ = EnterState(GameStates.CustomSceneBoot);
+            SetState(GameStates.CustomSceneBoot);
         }
 
         public async void SetState(GameStates newState)
@@ -42,7 +42,15 @@ namespace _Project.Scripts.Main
 
         private async UniTask EnterState(GameStates newState)
         {
+            if (_activeState == newState)
+            {
+                Debug.Log("GameState Enter: " + newState + " (Already entered, skipped)", this);
+                return;
+            }
+
+            _activeState = newState;
             Debug.Log("GameState Enter: " + newState, this);
+
             switch (newState)
             {
                 case GameStates.CustomSceneBoot:
@@ -60,15 +68,25 @@ namespace _Project.Scripts.Main
                 case GameStates.GamePause:
                     break;
                 case GameStates.GameQuit:
+                    EnterStateQuitGame();
                     break;
                 default:
                     throw new Exception("GameManager: unknown state.");
             }
         }
-        
+
+        private void EnterStateQuitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
+        }
+
         private async UniTask ExitState(GameStates oldState)
         {
-            Debug.Log("GameState ExitState: " + oldState, this);
+            Debug.Log("GameState Exit: " + oldState, this);
             switch (oldState)
             {
                 case GameStates.Boot:
@@ -83,6 +101,8 @@ namespace _Project.Scripts.Main
                     break;
                 case GameStates.CustomSceneBoot:
                     ExitStateCustomBoot();
+                    break;
+                case GameStates.None:
                     break;
                 default:
                     throw new Exception("GameManager: unknown state.");
@@ -123,6 +143,7 @@ namespace _Project.Scripts.Main
                 DOVirtual.Float(0, 1f, 0.5f, x => Time.timeScale = x);
             } 
             _controlService.UnlockCursor();
+            _statisticService.SaveToFile();
         }
 
         private async UniTask ExitStateBoot()
@@ -139,6 +160,6 @@ namespace _Project.Scripts.Main
 
     public enum GameStates
     {
-        CustomSceneBoot, Boot, MainMenu, PlayGame, GamePause, GameQuit
+         None, Boot, MainMenu, PlayGame, GamePause, GameQuit, CustomSceneBoot
     }
 }
