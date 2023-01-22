@@ -10,8 +10,10 @@ namespace _Project.Scripts.Main
     [Serializable]
     public class StatisticData
     {
-        public Dictionary<RecordName, string> Records;
-
+        public Dictionary<RecordName, string> CommonRecords;
+        public Dictionary<RecordName, string> SessionRecords;
+        public string str = "";
+        
         private static string DefaultRecordValue(RecordName recordName) =>
             RecordTypes[recordName] switch
             {
@@ -24,12 +26,17 @@ namespace _Project.Scripts.Main
 
         public StatisticData()
         {
-            Records = 
+            SetDefaultRecords(out CommonRecords);
+            SetDefaultRecords(out SessionRecords);
+        }
+
+        private void SetDefaultRecords(out Dictionary<RecordName, string> dictionary)
+        {
+            dictionary =               
                 Enum.GetValues(typeof(RecordName))
                 .Cast<RecordName>()
                 .ToDictionary(key => key, DefaultRecordValue);
-        } 
-        
+        }
         
         [JsonConverter(typeof(StringEnumConverter))]
         public enum RecordName
