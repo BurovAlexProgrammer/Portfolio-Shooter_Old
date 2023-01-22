@@ -23,6 +23,7 @@ namespace _Project.Scripts.Main.Game
         
         [Inject] private ControlService _controlService;
         [Inject] private SettingsService _settingsService;
+        [Inject] private StatisticService _statisticService;
 
         private CharacterController _characterController;
         private AudioSource _audioSource;
@@ -107,6 +108,11 @@ namespace _Project.Scripts.Main.Game
             var moveVector = inputValue * Time.fixedDeltaTime * _config.MoveSpeed;
             var gravityVelocity = _useGravity ? Physics.gravity * Time.fixedDeltaTime : Vector3.zero;
             _characterController.Move(_transform.right * moveVector.x + _transform.forward * moveVector.y + gravityVelocity);
+
+            if (_characterController.velocity != Vector3.zero)
+            {
+                _statisticService.AddValueToRecord(StatisticData.RecordName.Movement, _characterController.velocity.magnitude * Time.fixedDeltaTime); 
+            }
         } 
 
         protected virtual void Rotate(Vector2 inputValue)
@@ -123,7 +129,10 @@ namespace _Project.Scripts.Main.Game
 
         protected virtual void TryShoot()
         {
-            _gun.TryShoot();
+            if (_gun.TryShoot())
+            {
+                _statisticService.AddValueToRecord(StatisticData.RecordName.FireCount, 1);
+            }
         }
     }
 }

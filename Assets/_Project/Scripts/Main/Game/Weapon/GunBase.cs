@@ -12,14 +12,17 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private float _shootTimer;
 
-        public virtual void TryShoot()
+        public virtual bool TryShoot()
         {
             if (_shootTimer <= 0f)
             {
                 _shootTimer = _weaponConfig.FireRateDelay;
                 _ = RunTimer();
                 Shoot();
+                return true;
             }
+
+            return false;
         }
 
         protected virtual void Shoot()

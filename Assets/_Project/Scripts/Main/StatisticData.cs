@@ -11,8 +11,9 @@ namespace _Project.Scripts.Main
     public class StatisticData
     {
         public Dictionary<RecordName, string> CommonRecords;
+        
+        [NonSerialized]
         public Dictionary<RecordName, string> SessionRecords;
-        public string str = "";
         
         private static string DefaultRecordValue(RecordName recordName) =>
             RecordTypes[recordName] switch
@@ -29,6 +30,11 @@ namespace _Project.Scripts.Main
             SetDefaultRecords(out CommonRecords);
             SetDefaultRecords(out SessionRecords);
         }
+        
+        public void ResetSessionData()
+        {
+            SetDefaultRecords(out SessionRecords);
+        }
 
         private void SetDefaultRecords(out Dictionary<RecordName, string> dictionary)
         {
@@ -42,11 +48,12 @@ namespace _Project.Scripts.Main
         public enum RecordName
         {
             GameSessionCount,
-            LongestGameSession,
-            AverageLongGameSession,
+            LongestGameSessionDuration,
+            AverageGameSessionDuration,
             FireCount,
             Movement,
             KillMonsterCount,
+            LastGameSessionDuration,
         }
 
         public enum DataType
@@ -56,15 +63,21 @@ namespace _Project.Scripts.Main
             Float,
             String,
         }
+
+        public enum FormatType
+        {
+            Common, Session
+        }
         
         private static readonly Dictionary<RecordName, DataType> RecordTypes = new ()
         {
             {GameSessionCount, DataType.Integer},
-            {LongestGameSession, DataType.Float},
-            {AverageLongGameSession, DataType.Float},
+            {LongestGameSessionDuration, DataType.Float},
+            {AverageGameSessionDuration, DataType.Float},
             {FireCount, DataType.Integer},
             {Movement, DataType.Float},
             {KillMonsterCount, DataType.Integer},
+            {LastGameSessionDuration, DataType.Float}
         };
     }
 }

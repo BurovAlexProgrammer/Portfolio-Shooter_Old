@@ -16,6 +16,7 @@ namespace _Project.Scripts.Main.Services
         [Inject] private ControlService _controlService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private LocalizationService _localizationService;
+        [Inject] private StatisticService _statisticService;
 
         public Action<bool> SwitchPause;
 
@@ -93,6 +94,8 @@ namespace _Project.Scripts.Main.Services
         public void GameOver()
         {
             Debug.Log("Game Over");
+            _statisticService.CalculateSessionDuration();
+            _statisticService.SaveToFile();
         }
 
         private void ReturnGame(InputAction.CallbackContext ctx)

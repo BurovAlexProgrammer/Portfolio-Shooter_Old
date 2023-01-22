@@ -22,14 +22,14 @@ namespace _Project.Scripts.Main.Game.Health
                 SetValue(MaxValue);
             }
 
-            ChangedAction += OnChangedHealth;
-            LifeEndAction += OnLifeEnd;
+            Changed += OnChangedHealth;
+            Dead += OnLifeEnd;
         }
 
         private void OnDisable()
         {
-            ChangedAction -= OnChangedHealth;
-            LifeEndAction -= OnLifeEnd;
+            Changed -= OnChangedHealth;
+            Dead -= OnLifeEnd;
         }
         
         private void OnLifeEnd()

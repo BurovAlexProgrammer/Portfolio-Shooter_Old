@@ -18,6 +18,7 @@ namespace _Project.Scripts.Main
         [Inject] private AudioService _audioService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private ControlService _controlService;
+        [Inject] private StatisticService _statisticService;
 
         public GameStates ActiveState => _activeState;
 
@@ -111,6 +112,7 @@ namespace _Project.Scripts.Main
             _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
             _controlService.LockCursor();
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
+            _statisticService.ResetSessionRecords();
         }
         
         private void ExitStatePlayGame()

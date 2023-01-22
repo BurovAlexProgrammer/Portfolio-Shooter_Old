@@ -17,14 +17,14 @@ namespace _Project.Scripts.Main.Services.SceneServices
         private void OnDestroy()
         {
             Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
-            _player.Health.ChangedAction -= OnPlayerHealthChanged;
+            _player.Health.Changed -= OnPlayerHealthChanged;
         }
 
         public void Init()
         {
             Services.GameManagerService.SwitchPause += OnSwitchGamePause;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
-            _player.Health.ChangedAction += OnPlayerHealthChanged;
+            _player.Health.Changed += OnPlayerHealthChanged;
         }
         
         private void OnSwitchGamePause(bool isPause)

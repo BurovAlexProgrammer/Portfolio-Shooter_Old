@@ -21,7 +21,6 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField, ReadOnlyField] private GameUiService _gameUiServiceInstance;
 
         private PlayerBase _player;
-
         public PlayerBase Player => _player;
         public BrainControlService BrainControl => _brainControlServiceInstance;
         public SpawnControlService SpawnControl => _spawnControlServiceInstance;

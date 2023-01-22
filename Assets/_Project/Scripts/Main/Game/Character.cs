@@ -1,4 +1,3 @@
-using System.ComponentModel;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.Game.Brain;
@@ -6,6 +5,7 @@ using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AI;
 using static _Project.Scripts.Extension.Common;
+using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -46,6 +46,7 @@ namespace _Project.Scripts.Main.Game
             if (_health != null)
             {
                 _health.Init(_data.Health, _data.Health);
+                _health.Dead += OnDead;
             }
 
             if (_attacker != null)
@@ -58,6 +59,14 @@ namespace _Project.Scripts.Main.Game
             if (_animator != null)
             {
                 _animator.ValidateParameters();
+            }
+        }
+
+        private void OnDead()
+        {
+            if (_brainOwner != null && _attacker != null)
+            {
+                StatisticService.AddValueToRecord(StatisticData.RecordName.KillMonsterCount, 1);
             }
         }
 

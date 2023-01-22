@@ -23,12 +23,12 @@ namespace _Project.Scripts.Main.Game
                 SetValue(MaxValue);
             }
 
-            LifeEndAction += Destruct;
+            Dead += Destruct;
         }
 
         private void OnDisable()
         {
-            LifeEndAction -= Destruct;
+            Dead -= Destruct;
         }
 
         private void Destruct()
