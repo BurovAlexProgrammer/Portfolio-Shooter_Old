@@ -24,6 +24,7 @@ namespace _Project.Scripts.Main.Game
 
         public CharacterData Data => _data;
         public Attacker Attacker => _attacker;
+        public HealthBase Health => _health;
 
         private void Awake()
         {
@@ -33,9 +34,8 @@ namespace _Project.Scripts.Main.Game
             _health = GetComponent<HealthBase>();
             _attacker = GetComponent<Attacker>();
             _audioSource = GetComponent<AudioSource>();
+            EventListenerService.SubscribeCharacter(this);
 
-            var t = AnimatorParameters;
-            
             if (_navMeshAgent != null)
             {
                 _navMeshAgent.acceleration = _data.Acceleration;
@@ -43,10 +43,10 @@ namespace _Project.Scripts.Main.Game
                 _navMeshAgent.stoppingDistance = _data.MeleeRange - 0.1f;
             }
 
-            if (_health != null)
+            if (Health != null)
             {
-                _health.Init(_data.Health, _data.Health);
-                _health.Dead += OnDead;
+                Health.Init(_data.Health, _data.Health);
+                Health.Dead += OnDead;
             }
 
             if (_attacker != null)

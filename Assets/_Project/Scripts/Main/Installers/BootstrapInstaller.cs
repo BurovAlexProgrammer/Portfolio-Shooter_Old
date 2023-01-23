@@ -20,6 +20,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private PoolService _poolServicePrefab;
         [SerializeField] private AudioService _audioServicePrefab;
         [SerializeField] private StatisticService _statisticServicePrefab;
+        [SerializeField] private EventListenerService _eventListenerServicePrefab;
 
         public override void InstallBindings()
         {
@@ -36,6 +37,18 @@ namespace _Project.Scripts.Main.Installers
             InstallDebugService();
             InstallPoolService();
             InstallStatisticService();
+            InstallEventListenerService();
+        }
+
+        private void InstallEventListenerService()
+        {
+            Container
+                .Bind<EventListenerService>()
+                .FromComponentInNewPrefab(_eventListenerServicePrefab)
+                .WithGameObjectName("Event Listener")
+                .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService(instance as EventListenerService))
+                .NonLazy();
         }
 
         private void InstallStatisticService()
@@ -135,7 +148,7 @@ namespace _Project.Scripts.Main.Installers
            Container
                 .Bind<SceneLoaderService>()
                 .FromComponentInNewPrefab(_sceneLoaderServicePrefab)
-                .WithGameObjectName("SceneLoader Service")
+                .WithGameObjectName("Scene Loader")
                 .AsSingle()
                 .NonLazy();
         }
@@ -145,7 +158,7 @@ namespace _Project.Scripts.Main.Installers
             Container
                 .Bind<GameManagerService>()
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
-                .WithGameObjectName("GameManager")
+                .WithGameObjectName("Game Manager")
                 .AsSingle()
                 .OnInstantiated((ctx, instance) => SetService(instance as GameManagerService))
                 .NonLazy();

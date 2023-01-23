@@ -94,3 +94,5 @@ MonoBehaviour:
     type: 3}
   _statisticServicePrefab: {fileID: 5626246306657612973, guid: 14118570835f0dd4a94f9a6929fc83c3,
     type: 3}
+  _eventListenerServicePrefab: {fileID: -8389408465381316366, guid: 84182a93e9fe4e84888c80879cf46187,
+    type: 3}

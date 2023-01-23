@@ -1,6 +1,7 @@
 using System;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.Game;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,11 +13,13 @@ namespace _Project.Scripts.Main.Services
     {
         [SerializeField, ReadOnlyField] private GameStateMachine _gameStateMachine;
         [SerializeField, ReadOnlyField] private bool _isGamePause;
+        [SerializeField, ReadOnlyField] private int _scores;
 
         [Inject] private ControlService _controlService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private LocalizationService _localizationService;
         [Inject] private StatisticService _statisticService;
+        [Inject] private EventListenerService _eventListener;
 
         public Action<bool> SwitchPause;
 
@@ -30,17 +33,25 @@ namespace _Project.Scripts.Main.Services
             _gameStateMachine.SetState(newState);
         }
 
+        private void OnDestroy()
+        {
+            _eventListener.CharacterDead -= AddScoresOnCharacterDead;
+        }
+
         public void Init()
         {
             if (string.IsNullOrEmpty(_sceneLoader.InitialScene.name))
             {
                 _sceneLoader.Init();
             }
-
+            
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
             _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _gameStateMachine.Init();
+
+            _eventListener.CharacterDead += AddScoresOnCharacterDead;
         }
+
 
         public void QuitGame()
         {
@@ -90,10 +101,26 @@ namespace _Project.Scripts.Main.Services
         public void GameOver()
         {
             Debug.Log("Game Over");
+            _statisticService.SetScores(_scores);
             _statisticService.CalculateSessionDuration();
             _statisticService.SaveToFile();
         }
 
+        public void AddScores(int value)
+        {
+            if (value < 0)
+            {
+                throw new Exception("Adding scores cannot be below zero.");
+            }
+            
+            _scores += value;
+        }
+
+        private void AddScoresOnCharacterDead(Character character)
+        {
+            AddScores(character.Data.Score);
+        }
+        
         private void ReturnGame(InputAction.CallbackContext ctx)
         {
             ReturnGame();

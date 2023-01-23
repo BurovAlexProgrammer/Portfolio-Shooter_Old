@@ -54,6 +54,8 @@ namespace _Project.Scripts.Main
             Movement,
             KillMonsterCount,
             LastGameSessionDuration,
+            Scores,
+            MaxScores,
         }
 
         public enum DataType
@@ -77,7 +79,9 @@ namespace _Project.Scripts.Main
             {FireCount, DataType.Integer},
             {Movement, DataType.Float},
             {KillMonsterCount, DataType.Integer},
-            {LastGameSessionDuration, DataType.Float}
+            {LastGameSessionDuration, DataType.Float},
+            {Scores, DataType.Integer},
+            {MaxScores, DataType.Integer},
         };
     }
 }

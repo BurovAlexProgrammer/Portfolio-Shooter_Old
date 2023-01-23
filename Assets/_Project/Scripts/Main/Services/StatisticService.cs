@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
+using Zenject;
 using static _Project.Scripts.Main.StatisticData;
 
 namespace _Project.Scripts.Main.Services
@@ -56,6 +58,16 @@ namespace _Project.Scripts.Main.Services
                 _ => throw new ArgumentOutOfRangeException(nameof(formatType), formatType, null)
             };
         }
+        
+        public int GetIntegerValue(RecordName recordName, FormatType formatType = FormatType.Common)
+        {
+            return formatType switch
+            {
+                FormatType.Common => int.Parse(_statisticData.CommonRecords[recordName]),
+                FormatType.Session => int.Parse(_statisticData.SessionRecords[recordName]),
+                _ => throw new ArgumentOutOfRangeException(nameof(formatType), formatType, null)
+            };
+        }
 
         public void ResetSessionRecords()
         {
@@ -78,10 +90,23 @@ namespace _Project.Scripts.Main.Services
             SetRecord(RecordName.LongestGameSessionDuration, longestSession.ToString());
             SetRecord(RecordName.AverageGameSessionDuration, averageSession.ToString());
         }
+
+        public void SetScores(int value)
+        {
+            SetSessionRecord(RecordName.Scores, value.ToString());
+            var maxScores = GetIntegerValue(RecordName.MaxScores);
+            maxScores = Mathf.Max(maxScores, maxScores);
+            SetRecord(RecordName.MaxScores, maxScores.ToString());
+        }
         
         private void SetRecord(RecordName recordName, string value)
         {
             _statisticData.CommonRecords[recordName] = value;
+        }
+        
+        private void SetSessionRecord(RecordName recordName, string value)
+        {
+            _statisticData.SessionRecords[recordName] = value;
         }
 
         private async void TimerExecuting()

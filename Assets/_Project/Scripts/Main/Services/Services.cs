@@ -10,6 +10,7 @@ namespace _Project.Scripts.Main.Services
         public static PoolService PoolService { get; private set; }
         public static AudioService AudioService { get; private set; }
         public static StatisticService StatisticService { get; private set; }
+        public static EventListenerService EventListenerService { get; private set; }
 
         public static void SetService<T>(T instance) where T : BaseService
         {
@@ -42,6 +43,9 @@ namespace _Project.Scripts.Main.Services
                 case StatisticService service:
                     service.Init();
                     StatisticService = service;
+                    break;
+                case EventListenerService service:
+                    EventListenerService = service;
                     break;
             }
         }
