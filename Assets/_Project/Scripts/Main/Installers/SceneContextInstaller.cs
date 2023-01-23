@@ -7,10 +7,10 @@ using Zenject;
 
 namespace _Project.Scripts.Main.Installers
 {
-    public class SceneContext : MonoInstaller
+    public class SceneContextInstaller : MonoInstaller
     {
-        private static SceneContext _instance;
-        public static SceneContext Instance => _instance;
+        private static SceneContextInstaller _instance;
+        public static SceneContextInstaller Instance => _instance;
         
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private GameUiService _gameUiServicePrefab;
@@ -24,8 +24,7 @@ namespace _Project.Scripts.Main.Installers
         public PlayerBase Player => _player;
         public BrainControlService BrainControl => _brainControlServiceInstance;
         public SpawnControlService SpawnControl => _spawnControlServiceInstance;
-        
-        
+
         public override void InstallBindings()
         {
             if (_instance != null) throw new Exception("SceneContext singleton already exists");
@@ -67,6 +66,7 @@ namespace _Project.Scripts.Main.Installers
                     var playerTransform = _player.transform;
                     playerTransform.position = _playerStartPoint.position;
                     playerTransform.rotation = _playerStartPoint.rotation;
+                    Destroy(_playerStartPoint.gameObject);
                 });
         }
 
