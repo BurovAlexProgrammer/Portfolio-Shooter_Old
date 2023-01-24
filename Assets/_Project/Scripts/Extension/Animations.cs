@@ -37,8 +37,9 @@ namespace _Project.Scripts.Extension
 
         public static void ValidateParameters(this Animator animator)
         {
-            foreach (var parameter in animator.parameters)
+            for (var i = 0; i < animator.parameters.Length; i++)
             {
+                var parameter = animator.parameters[i];
                 if (Enum.GetNames(typeof(AnimatorParameterNames)).Contains(parameter.name)) continue;
                 throw new Exception($"Common.AnimatorKeys does not contain key '{parameter.name}'.");
             }

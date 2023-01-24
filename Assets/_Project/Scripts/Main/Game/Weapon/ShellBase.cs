@@ -74,10 +74,10 @@ namespace _Project.Scripts.Main.Game.Weapon
             destruction._transform.position = _transform.position;
             destruction._transform.rotation = _transform.rotation;
             destruction._gameObject.SetActive(true);
-            
-            foreach (var rb in rigidbodies)
+
+            for (var i = 0; i < rigidbodies.Length; i++)
             {
-                rb.velocity = _rigidbody.velocity / 5f;
+                rigidbodies[i].velocity = _rigidbody.velocity / 5f;
             }
 
             ReturnToPool();

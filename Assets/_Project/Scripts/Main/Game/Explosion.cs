@@ -37,13 +37,14 @@ namespace _Project.Scripts.Main.Game
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-            
-            foreach (var targetCollider in _colliders)
+
+            for (var i = 0; i < _colliders.Length; i++)
             {
+                var targetCollider = _colliders[i];
                 var targetRigidbody = targetCollider.GetComponent<Rigidbody>();
 
                 if (targetRigidbody == null) continue;
-                
+
                 targetRigidbody.WakeUp();
                 _rigidbodies.Add(targetRigidbody);
             }
@@ -53,13 +54,13 @@ namespace _Project.Scripts.Main.Game
         {
             DebugService.CreateExplosionGizmo(transform, _radius);
 
-            foreach (var targetRigidbody in _rigidbodies)
+            for (var i = 0; i < _rigidbodies.Count; i++)
             {
                 await UniTask.NextFrame();
-                
-                if (targetRigidbody == null) continue;
-                
-                targetRigidbody.AddExplosionForce(_force, transform.position, _radius, _liftForce,
+
+                if (_rigidbodies[i] == null) continue;
+
+                _rigidbodies[i].AddExplosionForce(_force, transform.position, _radius, _liftForce,
                     _forceMode);
             }
         }

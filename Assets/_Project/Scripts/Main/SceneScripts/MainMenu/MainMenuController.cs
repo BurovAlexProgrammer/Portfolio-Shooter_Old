@@ -97,21 +97,21 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
 
         private void DisableAllMenus()
         {
-            foreach (var menu in _menus)
+            for (var i = 0; i < _menus.Length; i++)
             {
-                menu.Disable();
+                _menus[i].Disable();
             }
         }
 
         private async UniTask HideAllMenus()
         {
-
             var tasks = new List<UniTask>();
-            foreach (var menu in _menus)
+
+            for (var i = 0; i < _menus.Length; i++)
             {
-                tasks.Add(menu.Hide());
+                tasks.Add(_menus[i].Hide());
             }
-            
+
             await UniTask.WhenAll(tasks);
         }
 

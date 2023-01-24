@@ -61,20 +61,21 @@ namespace _Project.Scripts.Main.Game.Weapon
         private async void FadeScaleChildren()
         {
             await (_lifeTime / 2f).WaitInSeconds();
-
-            foreach (Transform child in _transform)
+            var children = _transform.GetChildrenTransforms();
+            
+            for (var i = 0; i < children.Length; i++) 
             {
-                child.DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f));
+                children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f));
             }
 
             await (_lifeTime / 2f).WaitInSeconds();
             
-            foreach (Transform child in _transform)
+            for (var i = 0; i < children.Length; i++)
             {
-                child.DOComplete();
-                child.localScale = Vector3.one;
+                children[i].DOComplete();
+                children[i].localScale = Vector3.one;
             }
-            
+
             ReturnToPool();
         }
 

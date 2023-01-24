@@ -9,33 +9,33 @@ namespace _Project.Scripts.Main.Services.SceneServices
         
         public void StartSpawn()
         {
-            foreach (var spawner in _spawners)
+            for (var i = 0; i < _spawners.Length; i++)
             {
-                spawner.StartSpawn();
+                _spawners[i].StartSpawn();
             }
         }
 
         public void StopSpawn()
         {
-            foreach (var spawner in _spawners)
+            for (var i = 0; i < _spawners.Length; i++)
             {
-                spawner.StopSpawn();
+                _spawners[i].StopSpawn();
             }
         }
 
         public void PauseSpawn()
         {
-            foreach (var spawner in _spawners)
+            for (var i = 0; i < _spawners.Length; i++)
             {
-                spawner.PauseSpawn();
+                _spawners[i].PauseSpawn();
             }
         }
 
         public void ContinueSpawn()
         {
-            foreach (var spawner in _spawners)
+            for (var i = 0; i < _spawners.Length; i++)
             {
-                spawner.ContinueSpawn();
+                _spawners[i].ContinueSpawn();
             }
         }
     }
