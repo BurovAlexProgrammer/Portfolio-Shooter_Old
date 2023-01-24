@@ -19,7 +19,6 @@ namespace _Project.Scripts.Main.Services
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private LocalizationService _localizationService;
         [Inject] private StatisticService _statisticService;
-        [Inject] private EventListenerService _eventListener;
 
         public Action<bool> SwitchPause;
 
@@ -33,9 +32,14 @@ namespace _Project.Scripts.Main.Services
             _gameStateMachine.SetState(newState);
         }
 
+        private void Awake()
+        {
+            Services.EventListenerService.CharacterDead += AddScoresOnCharacterDead;
+        }
+
         private void OnDestroy()
         {
-            _eventListener.CharacterDead -= AddScoresOnCharacterDead;
+            Services.EventListenerService.CharacterDead -= AddScoresOnCharacterDead;
         }
 
         public void Init()
@@ -48,8 +52,6 @@ namespace _Project.Scripts.Main.Services
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
             _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _gameStateMachine.Init();
-
-            _eventListener.CharacterDead += AddScoresOnCharacterDead;
         }
 
 
@@ -114,6 +116,7 @@ namespace _Project.Scripts.Main.Services
             }
             
             _scores += value;
+            _statisticService.SetScores(_scores);
         }
 
         private void AddScoresOnCharacterDead(Character character)

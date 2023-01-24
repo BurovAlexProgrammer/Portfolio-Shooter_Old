@@ -1,16 +1,16 @@
 ﻿using System;
-using System.Globalization;
 using System.IO;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
-using Zenject;
 using static _Project.Scripts.Main.StatisticData;
 
 namespace _Project.Scripts.Main.Services
 {
     public class StatisticService : BaseService
     {
+        public Action<RecordName, string> RecordChanged; 
+        
         private StatisticData _statisticData;
         private string _storedFolder;
         private string _storedFolderPath;
@@ -37,6 +37,7 @@ namespace _Project.Scripts.Main.Services
             _statisticData.CommonRecords[recordName] = (commonRecordValue + value).ToString();
             var sessionRecordValue = int.Parse(_statisticData.SessionRecords[recordName]);
             _statisticData.SessionRecords[recordName] = (sessionRecordValue + value).ToString();
+            RecordChanged?.Invoke(recordName, _statisticData.SessionRecords[recordName]);
         }
 
         public void AddValueToRecord(RecordName recordName, float value)
@@ -47,6 +48,7 @@ namespace _Project.Scripts.Main.Services
             _statisticData.CommonRecords[recordName] = (commonRecordValue + value).ToString();
             var sessionRecordValue = float.Parse(_statisticData.SessionRecords[recordName]);
             _statisticData.SessionRecords[recordName] = (sessionRecordValue + value).ToString();
+            RecordChanged?.Invoke(recordName, _statisticData.SessionRecords[recordName]);
         }
 
         public float GetFloatValue(RecordName recordName, FormatType formatType = FormatType.Common)
@@ -72,6 +74,11 @@ namespace _Project.Scripts.Main.Services
         public void ResetSessionRecords()
         {
             _statisticData.ResetSessionData();
+            
+            foreach (var pair in _statisticData.SessionRecords)
+            {
+                RecordChanged?.Invoke(pair.Key, pair.Value);
+            }
         }
 
         public void SaveToFile()
@@ -93,7 +100,7 @@ namespace _Project.Scripts.Main.Services
 
         public void SetScores(int value)
         {
-            SetSessionRecord(RecordName.Scores, value.ToString());
+            SetRecord(RecordName.Scores, value.ToString());
             var maxScores = GetIntegerValue(RecordName.MaxScores);
             maxScores = Mathf.Max(maxScores, maxScores);
             SetRecord(RecordName.MaxScores, maxScores.ToString());
@@ -102,11 +109,8 @@ namespace _Project.Scripts.Main.Services
         private void SetRecord(RecordName recordName, string value)
         {
             _statisticData.CommonRecords[recordName] = value;
-        }
-        
-        private void SetSessionRecord(RecordName recordName, string value)
-        {
             _statisticData.SessionRecords[recordName] = value;
+            RecordChanged?.Invoke(recordName, _statisticData.SessionRecords[recordName]);
         }
 
         private async void TimerExecuting()

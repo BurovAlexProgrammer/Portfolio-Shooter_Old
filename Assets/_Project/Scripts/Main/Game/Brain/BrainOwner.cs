@@ -1,5 +1,6 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;

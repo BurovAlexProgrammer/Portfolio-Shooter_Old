@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace _Project.Scripts.Main.Game.Health
 {
     public abstract class HealthBase : MonoBeh
     {
@@ -34,12 +34,12 @@ namespace _Project.Scripts.Main.Game
             if (_currentValue <= 0f)
             {
                 _currentValue = 0f;
-                Dead?.Invoke();
-            }
-            else
-            {
                 Changed?.Invoke(this);
-            }
+                Dead?.Invoke();
+                return;
+            } 
+            
+            Changed?.Invoke(this);
         }
     }
 }

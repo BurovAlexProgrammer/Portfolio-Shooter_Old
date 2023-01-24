@@ -4,6 +4,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main
 {
+    [RequireComponent(typeof(Canvas))]
     public class CameraToCanvasOnAwake : MonoBehaviour
     {
         [SerializeField] private CameraTypes _camera;
@@ -18,8 +19,8 @@ namespace _Project.Scripts.Main
 
         private void OnEnable()
         {
-            GetComponent<Canvas>().worldCamera =
-                _camera == CameraTypes.MainCamera ? _screenService.MainCamera : _screenService.UICamera;
+            var canvas = GetComponent<Canvas>();
+            canvas.worldCamera = _camera == CameraTypes.MainCamera ? _screenService.MainCamera : _screenService.UICamera;
             enabled = false;
         }
     }

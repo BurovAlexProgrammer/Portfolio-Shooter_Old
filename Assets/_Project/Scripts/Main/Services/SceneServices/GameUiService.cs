@@ -1,6 +1,8 @@
 ﻿using _Project.Scripts.Main.Game;
+using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.UI;
 using _Project.Scripts.Main.UI.Window;
+using TMPro;
 using UnityEngine;
 using Zenject;
 
@@ -10,7 +12,10 @@ namespace _Project.Scripts.Main.Services.SceneServices
     {
         [SerializeField] private BarView _healthBarView;
         [SerializeField] private WindowGamePause _windowGamePause;
-        
+        [SerializeField] private TextMeshProUGUI _killCountText;
+        [SerializeField] private TextMeshProUGUI _scoreCountText;
+
+        [Inject] private StatisticService _statisticService;
         [Inject] private ControlService _controlService;
         [Inject] private PlayerBase _player;
         
@@ -18,6 +23,7 @@ namespace _Project.Scripts.Main.Services.SceneServices
         {
             Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
             _player.Health.Changed -= OnPlayerHealthChanged;
+            _statisticService.RecordChanged -= OnStaticRecordChanged;
         }
 
         public void Init()
@@ -25,6 +31,7 @@ namespace _Project.Scripts.Main.Services.SceneServices
             Services.GameManagerService.SwitchPause += OnSwitchGamePause;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
             _player.Health.Changed += OnPlayerHealthChanged;
+            _statisticService.RecordChanged += OnStaticRecordChanged;
         }
         
         private void OnSwitchGamePause(bool isPause)
@@ -44,6 +51,19 @@ namespace _Project.Scripts.Main.Services.SceneServices
         private void OnPlayerHealthChanged(HealthBase playerHealth)
         {
             _healthBarView.SetValue(playerHealth.CurrentValue);
+        }
+
+        private void OnStaticRecordChanged(StatisticData.RecordName recordName, string value)
+        {
+            switch (recordName)
+            {
+                case StatisticData.RecordName.KillMonsterCount:
+                    _killCountText.text = value;
+                    break;
+                case StatisticData.RecordName.Scores:
+                    _scoreCountText.text = value;
+                    break;
+            }
         }
     }
 }

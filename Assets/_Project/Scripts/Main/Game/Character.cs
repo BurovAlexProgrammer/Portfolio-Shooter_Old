@@ -1,6 +1,7 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.Game.Brain;
+using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AI;

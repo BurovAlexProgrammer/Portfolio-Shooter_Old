@@ -12,7 +12,7 @@ namespace _Project.Scripts.Main.Services
         {
             character.Health.Dead += () =>
             {
-                Debug.Log("Character Dead (click to select)", character);
+                Debug.Log($"Character '{character.gameObject.name}' Dead (click to select)", character);
                 CharacterDead?.Invoke(character);
             };
         }

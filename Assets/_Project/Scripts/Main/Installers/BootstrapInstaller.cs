@@ -26,7 +26,7 @@ namespace _Project.Scripts.Main.Installers
         {
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
-            Application.logMessageReceived += LogToFile;
+            InstallEventListenerService();
             InstallSceneLoaderService();
             InstallScreenService();
             InstallAudioService();
@@ -37,7 +37,11 @@ namespace _Project.Scripts.Main.Installers
             InstallDebugService();
             InstallPoolService();
             InstallStatisticService();
-            InstallEventListenerService();
+            
+            if (_debugServicePrefab.SaveLogToFile)
+            {
+                Application.logMessageReceived += LogToFile;
+            }
         }
 
         private void InstallEventListenerService()
