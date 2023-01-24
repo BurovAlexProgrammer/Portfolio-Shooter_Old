@@ -1,19 +1,18 @@
 using _Project.Scripts.Main.Services;
 using _Project.Scripts.UI;
-using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
 namespace _Project.Scripts.Main.UI.Window
 {
-    public class WindowGamePause : MonoBehaviour
+    public class WindowGamePause : WindowView
     {
         [SerializeField] private Toggle _musicToggle;
         [SerializeField] private Toggle _soundsToggle;
         [SerializeField] private Button _returnGameButton;
+        [SerializeField] private Button _restartGameButton;
         [SerializeField] private Button _quitGameButton;
-        [SerializeField] private CanvasGroup _canvasGroup;
         [SerializeField] private DialogView _quitGameDialog;
 
         [Inject] private GameManagerService _gameManager;
@@ -21,6 +20,7 @@ namespace _Project.Scripts.Main.UI.Window
 
         private void Awake()
         {
+            _restartGameButton.onClick.AddListener(RestartGame);
             _returnGameButton.onClick.AddListener(ReturnGame);
             _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
             _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
@@ -44,27 +44,16 @@ namespace _Project.Scripts.Main.UI.Window
             _soundsToggle.onValueChanged.RemoveAllListeners();
         }
 
-        public async void Show()
+        private async void RestartGame()
         {
-            gameObject.SetActive(true);
-            await transform.DOScale(1f, 0.3f).From(0f)
-                .SetUpdate(true)
-                .AsyncWaitForCompletion();
-            _canvasGroup.interactable = true;
+            await Close();
+            _gameManager.RestartGame();
         }
-
-        public async void Close()
+        
+        private async void ReturnGame()
         {
-            _canvasGroup.interactable = false;
-            await transform.DOScale(0f, 0.3f)
-                .SetUpdate(true)
-                .AsyncWaitForCompletion();
-            gameObject.SetActive(false);
-        }
-
-        private void ReturnGame()
-        {
-            Services.Services.GameManagerService.ReturnGame();
+            await Close();
+            _gameManager.ReturnGame();
         }
 
         private void OnMusicSwitch(bool newValue)

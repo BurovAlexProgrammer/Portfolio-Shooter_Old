@@ -16,5 +16,8 @@ MonoBehaviour:
   PostProcessAntiAliasing: 1
   PostProcessBloom: 1
   PostProcessVignette: 1
-  PostProcessAmbientOcclusion: 0
-  PostProcessDepthOfField: 0
+  PostProcessAmbientOcclusion: 1
+  PostProcessDepthOfField: 1
+  PostProcessChromaticAberration: 1
+  PostProcessLensDistortion: 1
+  PostProcessMotionBlur: 1

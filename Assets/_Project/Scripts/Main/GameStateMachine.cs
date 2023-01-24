@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 using static _Project.Scripts.Extension.Common;
 using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
 
@@ -19,6 +20,7 @@ namespace _Project.Scripts.Main
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private ControlService _controlService;
         [Inject] private StatisticService _statisticService;
+        [Inject] private PoolService _poolService;
 
         public GameStates ActiveState => _activeState;
 
@@ -65,23 +67,13 @@ namespace _Project.Scripts.Main
                 case GameStates.PlayGame:
                     EnterStatePlayGame();
                     break;
-                case GameStates.GamePause:
-                    break;
                 case GameStates.GameQuit:
                     EnterStateQuitGame();
                     break;
-                default:
-                    throw new Exception("GameManager: unknown state.");
+                case GameStates.RestartGame:
+                    await EnterStateRestartGame();
+                    break;
             }
-        }
-
-        private void EnterStateQuitGame()
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-            Application.Quit();
-#endif
         }
 
         private async UniTask ExitState(GameStates oldState)
@@ -92,8 +84,6 @@ namespace _Project.Scripts.Main
                 case GameStates.Boot:
                     await ExitStateBoot();
                     break;
-                case GameStates.MainMenu:
-                    break;
                 case GameStates.PlayGame:
                     ExitStatePlayGame();
                     break;
@@ -102,11 +92,28 @@ namespace _Project.Scripts.Main
                 case GameStates.CustomSceneBoot:
                     ExitStateCustomBoot();
                     break;
-                case GameStates.None:
-                    break;
-                default:
-                    throw new Exception("GameManager: unknown state.");
             }
+        }
+        
+        private async UniTask EnterStateRestartGame()
+        {
+            _poolService.Restart();
+            var currentScene = SceneManager.GetActiveScene();
+            var newScene = SceneManager.CreateScene("Empty");
+            newScene.SetActive(true);
+            
+            await SceneManager.UnloadSceneAsync(currentScene);
+            
+            SetState(GameStates.PlayGame);
+        }
+
+        private void EnterStateQuitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private void ExitStateCustomBoot()
@@ -131,6 +138,8 @@ namespace _Project.Scripts.Main
         {
             _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
             _controlService.LockCursor();
+            _controlService.Controls.Player.Enable();
+            _controlService.Controls.Menu.Disable();
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
             _statisticService.ResetSessionRecords();
         }
@@ -160,6 +169,7 @@ namespace _Project.Scripts.Main
 
     public enum GameStates
     {
-         None, Boot, MainMenu, PlayGame, GamePause, GameQuit, CustomSceneBoot
+         None, Boot, MainMenu, PlayGame, GamePause, GameQuit, CustomSceneBoot,
+         RestartGame
     }
 }

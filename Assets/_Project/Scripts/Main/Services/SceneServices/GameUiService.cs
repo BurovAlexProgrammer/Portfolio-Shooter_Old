@@ -16,7 +16,6 @@ namespace _Project.Scripts.Main.Services.SceneServices
         [SerializeField] private TextMeshProUGUI _scoreCountText;
 
         [Inject] private StatisticService _statisticService;
-        [Inject] private ControlService _controlService;
         [Inject] private PlayerBase _player;
         
         private void OnDestroy()
@@ -29,22 +28,20 @@ namespace _Project.Scripts.Main.Services.SceneServices
         public void Init()
         {
             Services.GameManagerService.SwitchPause += OnSwitchGamePause;
-            _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
             _player.Health.Changed += OnPlayerHealthChanged;
             _statisticService.RecordChanged += OnStaticRecordChanged;
+            _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
         }
         
         private void OnSwitchGamePause(bool isPause)
         {
             if (isPause)
             {
-                _controlService.UnlockCursor();
                 _windowGamePause.Show();
             }
             else
             {
-                _controlService.LockCursor();
-                _windowGamePause.Close();
+                _ = _windowGamePause.Close();
             }
         }
 

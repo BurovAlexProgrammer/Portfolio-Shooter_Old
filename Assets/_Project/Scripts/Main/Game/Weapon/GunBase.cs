@@ -45,10 +45,5 @@ namespace _Project.Scripts.Main.Game.Weapon
                 _shootTimer -= Time.deltaTime;
             }
         }
-
-        private void OnDestroy()
-        {
-            Debug.Log("Destroy GUN");
-        }
     }
 }

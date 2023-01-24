@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace _Project.Scripts.Main.Services
 {
     public class PoolService : BaseService
     {
-        public Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
+        private Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
 
         public void Init()
         {
@@ -31,6 +32,14 @@ namespace _Project.Scripts.Main.Services
             }
 
             return _poolDictionary[prefab].Get();
+        }
+
+        public void Restart()
+        {
+            foreach (var item in _poolDictionary)
+            {
+                item.Value.DeactivateItems();
+            }
         }
     }
 }

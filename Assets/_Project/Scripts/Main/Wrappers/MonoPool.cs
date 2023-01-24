@@ -60,7 +60,7 @@ namespace _Project.Scripts.Main.Wrappers
 
             if (_inactivePool != null)
             {
-                foreach (var item in _inactivePool)
+                foreach (var item in _inactivePool.ToArray())
                 {
                     Object.DestroyImmediate(item.gameObject);
                 }
@@ -68,7 +68,7 @@ namespace _Project.Scripts.Main.Wrappers
 
             if (_activePool != null)
             {
-                foreach (var item in _activePool)
+                foreach (var item in _activePool.ToArray())
                 {
                     Object.DestroyImmediate(item);
                 }
@@ -76,6 +76,19 @@ namespace _Project.Scripts.Main.Wrappers
             
             _inactivePool = new Queue<MonoPoolItemBase>();
             _activePool = new List<MonoPoolItemBase>();
+        }
+
+        public void DeactivateItems()
+        {
+            if (_activePool != null)
+            {
+                foreach (var item in _activePool.ToArray())
+                {
+                    if (item._gameObject.activeSelf == false) continue; 
+                        
+                    item.ReturnToPool();
+                }
+            }
         }
 
         private void AddInstance()

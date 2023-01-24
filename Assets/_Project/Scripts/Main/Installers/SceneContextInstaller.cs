@@ -37,6 +37,14 @@ namespace _Project.Scripts.Main.Installers
             InstallSpawnControl();
         }
 
+        private void OnDestroy()
+        {
+            Container.Unbind<GameUiService>();
+            Container.Unbind<Player>();
+            Container.Unbind<BrainControlService>();
+            Container.Unbind<SpawnControlService>();
+        }
+
         private void InstallGameUI()
         {
             Container
