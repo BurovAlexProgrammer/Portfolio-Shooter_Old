@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1034308960680850745}
   - component: {fileID: 1034308960680850744}
   m_Layer: 5
-  m_Name: Window Big
+  m_Name: BaseWindow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
