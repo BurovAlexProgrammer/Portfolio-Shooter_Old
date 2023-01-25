@@ -62,7 +62,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             await _lifeTime.WaitInSeconds();
             
-            if (!_gameObject.activeSelf) return;
+            if (!Available) return;
             
             Destruct();
         }

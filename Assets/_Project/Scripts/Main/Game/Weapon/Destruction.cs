@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -61,20 +63,18 @@ namespace _Project.Scripts.Main.Game.Weapon
         private async void FadeScaleChildren()
         {
             await (_lifeTime / 2f).WaitInSeconds();
-            var children = _transform.GetChildrenTransforms();
+
+            if (Destroyed) return;
             
+            var children = _transform.GetChildrenTransforms();
+            var sequence = DOTween.Sequence();
+
             for (var i = 0; i < children.Length; i++) 
             {
-                children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f));
+                sequence.Join(children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f)));
             }
 
-            await (_lifeTime / 2f).WaitInSeconds();
-            
-            for (var i = 0; i < children.Length; i++)
-            {
-                children[i].DOComplete();
-                children[i].localScale = Vector3.one;
-            }
+            await sequence.Play().ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, DestroyCancellationToken);
 
             ReturnToPool();
         }

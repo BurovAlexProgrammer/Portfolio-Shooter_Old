@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3566602067585820973}
   - component: {fileID: 8993838149418634902}
   - component: {fileID: 6628451794915386892}
+  - component: {fileID: 6376781669664444959}
   m_Layer: 0
   m_Name: ExplosionGizmo
   m_TagString: Untagged
@@ -97,3 +98,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShowTime: 1
+--- !u!114 &6376781669664444959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8419434100455006636}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4afdcb1cbadf954ba8b1cf465429e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

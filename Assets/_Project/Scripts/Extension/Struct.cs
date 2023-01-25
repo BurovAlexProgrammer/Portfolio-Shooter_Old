@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using _Project.Scripts.Extension.Attributes;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -47,9 +48,9 @@ namespace _Project.Scripts.Extension
             return color;
         }
 
-        public static async UniTask WaitInSeconds(this float time, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update)
+        public static async UniTask WaitInSeconds(this float time, PlayerLoopTiming playerLoopTiming = PlayerLoopTiming.Update, CancellationToken cancellationToken = default)
         {
-            await UniTask.Delay(TimeSpan.FromSeconds(time), DelayType.DeltaTime, playerLoopTiming);
+            await UniTask.Delay(TimeSpan.FromSeconds(time), DelayType.DeltaTime, playerLoopTiming, cancellationToken);
         }
 
         public static float GetRandomValue(this RangedFloat rangedFloat)
