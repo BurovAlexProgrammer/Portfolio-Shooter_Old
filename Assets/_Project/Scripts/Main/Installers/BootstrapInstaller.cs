@@ -17,7 +17,6 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private LocalizationService _localizationServicePrefab;
         [SerializeField] private ControlService _controlServicePrefab;
         [SerializeField] private DebugService _debugServicePrefab;
-        [SerializeField] private PoolService _poolServicePrefab;
         [SerializeField] private AudioService _audioServicePrefab;
         [SerializeField] private StatisticService _statisticServicePrefab;
         [SerializeField] private EventListenerService _eventListenerServicePrefab;
@@ -35,7 +34,6 @@ namespace _Project.Scripts.Main.Installers
             InstallLocalizationService();
             InstallControlService();
             InstallDebugService();
-            InstallPoolService();
             InstallStatisticService();
             
             if (_debugServicePrefab.SaveLogToFile)
@@ -74,17 +72,6 @@ namespace _Project.Scripts.Main.Installers
                 .WithGameObjectName("Audio Service")
                 .AsSingle()
                 .OnInstantiated((ctx, instance) => SetService((AudioService)instance))
-                .NonLazy();
-        }
-
-        private void InstallPoolService()
-        {
-            Container
-                .Bind<PoolService>()
-                .FromComponentInNewPrefab(_poolServicePrefab)
-                .WithGameObjectName("Pool Service")
-                .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService((PoolService)instance))
                 .NonLazy();
         }
 

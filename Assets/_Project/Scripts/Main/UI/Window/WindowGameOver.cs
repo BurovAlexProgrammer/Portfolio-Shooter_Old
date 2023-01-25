@@ -8,7 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 using static _Project.Scripts.Main.StatisticData.FormatType;
-using Services = _Project.Scripts.Main.Services.Services;
+using static _Project.Scripts.Main.StatisticData.RecordName;
 
 namespace _Project.Scripts.Main.UI.Window
 {
@@ -51,10 +51,9 @@ namespace _Project.Scripts.Main.UI.Window
             _buttonPanel.localScale = _buttonPanel.localScale.SetAsNew(x: 0f);
             _buttonPanel.SetScale(x: 0f);
             var calculateTime = 0.8f;
-            var kills = _statisticService.GetIntegerValue(StatisticData.RecordName.KillMonsterCount,
-                Session);
+            var kills = _statisticService.GetIntegerValue(KillMonsterCount, Session);
             var surviveTime =
-                Mathf.RoundToInt(_statisticService.GetFloatValue(StatisticData.RecordName.LastGameSessionDuration, Session));
+                Mathf.RoundToInt(_statisticService.GetFloatValue(LastGameSessionDuration, Session));
             await base.Show();
 
 

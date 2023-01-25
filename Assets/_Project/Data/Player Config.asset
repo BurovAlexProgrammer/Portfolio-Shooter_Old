@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3089b85bd441421cb03dfdf951d76370, type: 3}
   m_Name: Player Config
   m_EditorClassIdentifier: 
-  _moveSpeed: 10
-  _runSpeed: 20
+  _moveSpeed: 7
+  _runSpeed: 10
   _rotateSpeed: 32
   _shootSpeed: 0.5
   _maxVerticalAngle: 80

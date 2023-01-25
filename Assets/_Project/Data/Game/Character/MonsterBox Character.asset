@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ede9512ab5e7497d938c27ec9f20b48e, type: 3}
   m_Name: MonsterBox Character
   m_EditorClassIdentifier: 
+  _score: 1
   _health: 100
   _speed: 5
   _acceleration: 12
   _attackDelay: 2.5
   _meleeRange: 2
-  _meleeDamage: 5
+  _meleeDamage: 30

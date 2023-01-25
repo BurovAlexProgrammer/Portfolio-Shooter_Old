@@ -1,3 +1,5 @@
+using _Project.Scripts.Main.Services.SceneServices;
+
 namespace _Project.Scripts.Main.Services
 {
     public static class Services
@@ -11,6 +13,7 @@ namespace _Project.Scripts.Main.Services
         public static AudioService AudioService { get; private set; }
         public static StatisticService StatisticService { get; private set; }
         public static EventListenerService EventListenerService { get; private set; }
+        public static BrainControlService BrainControl { get; private set; }
 
         public static void SetService<T>(T instance) where T : BaseService
         {
@@ -46,6 +49,43 @@ namespace _Project.Scripts.Main.Services
                     break;
                 case EventListenerService service:
                     EventListenerService = service;
+                    break;
+                case BrainControlService service:
+                    BrainControl = service;
+                    break;
+            }
+        }
+        
+        public static void KillService<T>(T instance) where T : BaseService
+        {
+            switch (instance)
+            {
+                case Main.Services.ScreenService:
+                    ScreenService = null;
+                    break;
+                case Main.Services.SceneLoaderService:
+                    SceneLoaderService = null;
+                    break;
+                case Main.Services.GameManagerService:
+                    GameManagerService = null;
+                    break;
+                case Main.Services.LocalizationService:
+                    LocalizationService = null;
+                    break;
+                case Main.Services.DebugService:
+                    DebugService = null;
+                    break;
+                case Main.Services.PoolService:
+                    PoolService = null;
+                    break;
+                case Main.Services.AudioService:
+                    AudioService = null;
+                    break;
+                case Main.Services.StatisticService:
+                    StatisticService = null;
+                    break;
+                case Main.Services.EventListenerService:
+                    EventListenerService = null;
                     break;
             }
         }

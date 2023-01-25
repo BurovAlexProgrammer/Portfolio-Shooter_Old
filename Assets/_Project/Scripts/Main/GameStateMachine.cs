@@ -20,7 +20,6 @@ namespace _Project.Scripts.Main
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private ControlService _controlService;
         [Inject] private StatisticService _statisticService;
-        [Inject] private PoolService _poolService;
 
         public GameStates ActiveState => _activeState;
 
@@ -97,7 +96,6 @@ namespace _Project.Scripts.Main
         
         private async UniTask EnterStateRestartGame()
         {
-            _poolService.Restart();
             var currentScene = SceneManager.GetActiveScene();
             var newScene = SceneManager.CreateScene("Empty");
             newScene.SetActive(true);

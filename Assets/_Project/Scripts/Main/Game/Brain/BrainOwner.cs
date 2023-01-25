@@ -4,6 +4,7 @@ using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;
+using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -18,7 +19,7 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private bool _isTargetExist;
 
-        public PlayerBase Player => SceneContextInstaller.Instance.Player;
+        public PlayerBase Player => GameContext.Instance.Player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         public GameObject Target => _target;
         public HealthBase TargetHealth => _targetHealth;
@@ -27,12 +28,12 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void OnEnable()
         {
-            SceneContextInstaller.Instance.BrainControl.AddBrain(this);
+            BrainControl.AddBrain(this);
         }
 
         private void OnDisable()
         {
-            SceneContextInstaller.Instance.BrainControl.RemoveBrain(this);
+            BrainControl.RemoveBrain(this);
         }
 
         private void Awake()

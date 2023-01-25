@@ -49,12 +49,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playerPrefab: {fileID: 6778786076881365828, guid: 3782a075fd3f2194a847e91c166340c8,
     type: 3}
+  _playerStartPoint: {fileID: 0}
   _gameUiServicePrefab: {fileID: 5324163876009045125, guid: d306ac274d71bc74987be7864ef1ed15,
     type: 3}
-  _playerStartPoint: {fileID: 0}
+  _poolServicePrefab: {fileID: -738795846971750403, guid: 00dad4366aa56234cb5fe0a1783d0ecd,
+    type: 3}
   _brainControlServiceInstance: {fileID: 3683564098966155251}
   _spawnControlServiceInstance: {fileID: 8172655143994255025}
-  _gameUiServiceInstance: {fileID: 0}
 --- !u!114 &5179691451027068979
 MonoBehaviour:
   m_ObjectHideFlags: 0
