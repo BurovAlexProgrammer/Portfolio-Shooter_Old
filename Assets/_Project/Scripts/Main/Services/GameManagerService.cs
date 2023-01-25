@@ -21,11 +21,13 @@ namespace _Project.Scripts.Main.Services
         [Inject] private StatisticService _statisticService;
 
         public Action<bool> SwitchPause;
+        public Action GameOver;
 
         private bool _transaction;
 
         public GameStates CurrentGameState => _gameStateMachine.ActiveState;
         public bool IsGamePause => _isGamePause;
+        public int Scores => _scores;
 
         public void SetGameState(GameStates newState)
         {
@@ -57,7 +59,7 @@ namespace _Project.Scripts.Main.Services
         public void RestartGame()
         {
             RestoreTimeSpeed();
-            GameOver();
+            _statisticService.EndGameDataSaving(this);
             _gameStateMachine.SetState(GameStates.RestartGame);
         }
         
@@ -66,9 +68,9 @@ namespace _Project.Scripts.Main.Services
             _gameStateMachine.SetState(GameStates.GameQuit);
         }
 
-        public void ReturnMainMenu()
+        public void GoToMainMenu()
         {
-            GameOver();
+            _statisticService.EndGameDataSaving(this);
             _gameStateMachine.SetState(GameStates.MainMenu);
         }
 
@@ -112,15 +114,20 @@ namespace _Project.Scripts.Main.Services
             _transaction = false;
         }
 
-        public void GameOver()
+        public async void RunGameOver()
         {
             Debug.Log("Game Over");
-            _statisticService.SetScores(_scores);
-            _statisticService.CalculateSessionDuration();
-            _statisticService.SaveToFile();
+            _statisticService.EndGameDataSaving(this);
+            _controlService.Controls.Player.Disable();
+
+            await FluentSetTimeScale(1f);
+            
+            _controlService.UnlockCursor();
+            _controlService.Controls.Menu.Enable();
+            GameOver?.Invoke();
         }
 
-        public void AddScores(int value)
+        private void AddScores(int value)
         {
             if (value < 0)
             {
@@ -131,7 +138,7 @@ namespace _Project.Scripts.Main.Services
             _statisticService.SetScores(_scores);
         }
 
-        public void RestoreTimeSpeed()
+        private void RestoreTimeSpeed()
         {
             SetTimeScale(1f);
         }

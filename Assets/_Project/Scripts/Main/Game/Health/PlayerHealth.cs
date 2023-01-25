@@ -35,7 +35,7 @@ namespace _Project.Scripts.Main.Game.Health
         private void OnLifeEnd()
         {
             _gameOverAudioEvent.Play(_audioSource);
-            GameManagerService.GameOver();
+            GameManagerService.RunGameOver();
         }
         
         private void OnChangedHealth(HealthBase health)

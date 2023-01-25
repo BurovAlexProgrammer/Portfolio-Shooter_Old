@@ -13,6 +13,7 @@ namespace _Project.Scripts.Main.UI.Window
         [SerializeField] private Button _returnGameButton;
         [SerializeField] private Button _restartGameButton;
         [SerializeField] private Button _quitGameButton;
+        [SerializeField] private Button _mainMenuButton;
         [SerializeField] private DialogView _quitGameDialog;
 
         [Inject] private GameManagerService _gameManager;
@@ -23,11 +24,17 @@ namespace _Project.Scripts.Main.UI.Window
             _restartGameButton.onClick.AddListener(RestartGame);
             _returnGameButton.onClick.AddListener(ReturnGame);
             _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
+            _mainMenuButton.onClick.AddListener(GoToMainMenu);
             _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
             _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
-            _quitGameDialog.OnConfirm += OnQuitDialogResult; 
+            _quitGameDialog.Confirm += OnQuitDialogConfirm; 
             _canvasGroup.interactable = false;
             gameObject.SetActive(false);
+        }
+
+        private void GoToMainMenu()
+        {
+            _gameManager.GoToMainMenu();
         }
 
         private void Start()
@@ -38,8 +45,10 @@ namespace _Project.Scripts.Main.UI.Window
 
         private void OnDestroy()
         {
+            _restartGameButton.onClick.RemoveAllListeners();
             _returnGameButton.onClick.RemoveAllListeners();
             _quitGameButton.onClick.RemoveAllListeners();
+            _mainMenuButton.onClick.RemoveAllListeners();
             _musicToggle.onValueChanged.RemoveAllListeners();
             _soundsToggle.onValueChanged.RemoveAllListeners();
         }
@@ -73,7 +82,7 @@ namespace _Project.Scripts.Main.UI.Window
             _ = _quitGameDialog.Show();
         }
 
-        private void OnQuitDialogResult(bool result)
+        private void OnQuitDialogConfirm(bool result)
         {
             if (result)
             {

@@ -14,6 +14,15 @@ namespace _Project.Scripts.Extension
 
         public static int ToMillisecs(this float value) => Mathf.RoundToInt(value * 1000);
 
+        public static Vector3 SetAsNew(this Vector3 vector3, float x = float.NaN, float y = float.NaN, float z = float.NaN)
+        {
+            var result = vector3;
+            if (float.IsNaN(x) == false) result.x = x;
+            if (float.IsNaN(y) == false) result.y = y;
+            if (float.IsNaN(z) == false) result.z = z;
+            return result;
+        }
+        
         public static void Set(this ref Vector3 vector3, float x = float.NaN, float y = float.NaN, float z = float.NaN)
         {
             if (float.IsNaN(x) == false) vector3.x = x;
@@ -21,7 +30,7 @@ namespace _Project.Scripts.Extension
             if (float.IsNaN(z) == false) vector3.z = z;
         }
         
-        public static void Set(this Quaternion quaternion, float x = float.NaN, float y = float.NaN, float z = float.NaN, float w = float.NaN)
+        public static void Set(this ref Quaternion quaternion, float x = float.NaN, float y = float.NaN, float z = float.NaN, float w = float.NaN)
         {
             if (float.IsNaN(x) == false) quaternion.x = x;
             if (float.IsNaN(y) == false) quaternion.y = y;
@@ -29,7 +38,7 @@ namespace _Project.Scripts.Extension
             if (float.IsNaN(w) == false) quaternion.w = w;
         }
 
-        public static Color Set(this Color color, float r = float.NaN, float g= float.NaN, float b = float.NaN, float a= float.NaN)
+        public static Color Set(this ref Color color, float r = float.NaN, float g= float.NaN, float b = float.NaN, float a= float.NaN)
         {
             if (float.IsNaN(r) == false) color.r = r;
             if (float.IsNaN(g) == false) color.g = g;

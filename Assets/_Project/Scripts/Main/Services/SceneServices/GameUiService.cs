@@ -12,6 +12,7 @@ namespace _Project.Scripts.Main.Services.SceneServices
     {
         [SerializeField] private BarView _healthBarView;
         [SerializeField] private WindowGamePause _windowGamePause;
+        [SerializeField] private WindowGameOver _windowGameOver;
         [SerializeField] private TextMeshProUGUI _killCountText;
         [SerializeField] private TextMeshProUGUI _scoreCountText;
 
@@ -21,6 +22,7 @@ namespace _Project.Scripts.Main.Services.SceneServices
         private void OnDestroy()
         {
             Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
+            Services.GameManagerService.GameOver -= OnGameOver;
             _player.Health.Changed -= OnPlayerHealthChanged;
             _statisticService.RecordChanged -= OnStaticRecordChanged;
         }
@@ -28,16 +30,22 @@ namespace _Project.Scripts.Main.Services.SceneServices
         public void Init()
         {
             Services.GameManagerService.SwitchPause += OnSwitchGamePause;
+            Services.GameManagerService.GameOver += OnGameOver;
             _player.Health.Changed += OnPlayerHealthChanged;
             _statisticService.RecordChanged += OnStaticRecordChanged;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
         }
-        
+
+        private void OnGameOver()
+        {
+            _ = _windowGameOver.Show();
+        }
+
         private void OnSwitchGamePause(bool isPause)
         {
             if (isPause)
             {
-                _windowGamePause.Show();
+                _ = _windowGamePause.Show();
             }
             else
             {

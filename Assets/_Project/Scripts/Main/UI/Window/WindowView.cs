@@ -9,7 +9,7 @@ namespace _Project.Scripts.Main.UI.Window
     {
         [SerializeField] protected CanvasGroup _canvasGroup;
 
-        public async void Show()
+        public virtual async UniTask Show()
         {
             gameObject.SetActive(true);
             await transform.DOScale(1f, 0.3f).From(0f)
@@ -18,7 +18,7 @@ namespace _Project.Scripts.Main.UI.Window
             _canvasGroup.interactable = true;
         }
 
-        public async UniTask Close()
+        public virtual async UniTask Close()
         {
             _canvasGroup.interactable = false;
             await transform.DOScale(0f, 0.3f)

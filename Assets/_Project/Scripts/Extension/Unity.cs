@@ -7,6 +7,15 @@ namespace _Project.Scripts.Extension
 {
     public static partial class Common
     {
+        public static void SetScale(this RectTransform rectTransform, float x = float.NaN, float y = float.NaN, float z = float.NaN)
+        {
+            var localScale = rectTransform.localScale;
+            if (float.IsNaN(x) == false) localScale = new Vector3(x, localScale.y, localScale.z);
+            if (float.IsNaN(y) == false) localScale = new Vector3(localScale.x, y, localScale.z);
+            if (float.IsNaN(z) == false) localScale = new Vector3(localScale.x, localScale.y, z);
+            rectTransform.localScale = localScale;
+        }
+        
         public static void SetActive(this Scene scene, bool state)
         {
             foreach (var rootGameObject in scene.GetRootGameObjects())

@@ -89,7 +89,7 @@ namespace _Project.Scripts.Main.Services
         
         public void CalculateSessionDuration()
         {
-            var sessionDuration = GetFloatValue(RecordName.LastGameSessionDuration);
+            var sessionDuration = GetFloatValue(RecordName.LastGameSessionDuration, FormatType.Session);
             var longestSession = GetFloatValue(RecordName.LongestGameSessionDuration);
             var averageSession = GetFloatValue(RecordName.AverageGameSessionDuration);
             longestSession = Mathf.Max(longestSession, sessionDuration);
@@ -104,6 +104,13 @@ namespace _Project.Scripts.Main.Services
             var maxScores = GetIntegerValue(RecordName.MaxScores);
             maxScores = Mathf.Max(maxScores, maxScores);
             SetRecord(RecordName.MaxScores, maxScores.ToString());
+        }
+
+        public void EndGameDataSaving(GameManagerService gameManager)
+        {
+            SetScores(gameManager.Scores);
+            CalculateSessionDuration();
+            SaveToFile();
         }
         
         private void SetRecord(RecordName recordName, string value)
