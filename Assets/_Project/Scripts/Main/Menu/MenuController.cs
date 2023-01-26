@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.UI;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -91,6 +92,8 @@ namespace _Project.Scripts.Main.Menu
             Settings,
             QuitGame,
             NewGame,
+            Statistic,
+            About,
         }
     }
 }

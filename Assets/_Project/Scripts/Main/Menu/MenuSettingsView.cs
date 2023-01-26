@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.UI;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using TMPro;

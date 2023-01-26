@@ -33,3 +33,8 @@ Retry;;Retry;Retry;
 SurviveTime;;Survive Time;Survive Time;
 RestartGameRequire;;Restart Game Require;Restart Game Require;
 Button.Save;;Save;Save;
+TotalMovement;;Total Movement;Total Movement;
+AverageSurviveTime;;Average Survive Time;Average Survive Time;
+LongestSurviveTime;;Longest Survive Time;Longest Survive Time;
+KillsCommon;;Totel Kills;Totel Kills;
+Statistic;;Statistic;Statistic;

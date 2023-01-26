@@ -1,4 +1,3 @@
-using System;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Services;
 using _Project.Scripts.UI;
@@ -8,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using static _Project.Scripts.Extension.Common;
 using static _Project.Scripts.Main.StatisticData.FormatType;
 using static _Project.Scripts.Main.StatisticData.RecordName;
 
@@ -59,7 +59,7 @@ namespace _Project.Scripts.Main.UI.Window
 
 
             await DOVirtual
-                .Int(0, surviveTime, duration, x => _surviveTimeText.text = ToTime(x))
+                .Int(0, surviveTime, duration, x => _surviveTimeText.text = x.Format(StringFormat.Time))
                 .AsyncWaitForCompletion();
             
             await DOVirtual
@@ -91,12 +91,6 @@ namespace _Project.Scripts.Main.UI.Window
             }
         
             _ = _quitGameDialog.Close();
-        }
-
-        private string ToTime(int seconds)
-        {
-            var result = TimeSpan.FromSeconds(seconds);
-            return result.ToString("hh':'mm':'ss");
         }
     }
 }

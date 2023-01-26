@@ -10,8 +10,7 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
     {
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private GameManagerService _gameManager;
-
-
+        
         private void Start()
         {
             _ = EnterState(MenuStates.MainMenu);
@@ -38,7 +37,6 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
                 case MenuStates.MainMenu:
                     break;
                 case MenuStates.Settings:
-                    await EnterStateBoot();
                     break;
                 case MenuStates.QuitGame:
                     break;
@@ -60,11 +58,6 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
                 case MenuStates.NewGame:
                     break;
             }
-        }
-        
-        private async UniTask EnterStateBoot()
-        {
-            await Wait(1f);
         }
     }
 }

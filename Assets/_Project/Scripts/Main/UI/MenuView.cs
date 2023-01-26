@@ -1,19 +1,16 @@
-using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Menu;
-using _Project.Scripts.Main.SceneScripts.MainMenu;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace _Project.Scripts.UI
+namespace _Project.Scripts.Main.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class MenuView : MonoBehaviour
     {
         [SerializeField] private MenuController _menuController;
         [SerializeField] private CanvasGroup _canvasGroup;
-        
+
         private const float _fadeDuration = 0.3f;
 
         public MenuController MenuController => _menuController;
@@ -23,7 +20,7 @@ namespace _Project.Scripts.UI
             _menuController = menuController;
         }
         
-        public async UniTask Show()
+        public virtual async UniTask Show()
         {
             _canvasGroup.alpha = 0f;
             gameObject.SetActive(true);
@@ -32,7 +29,7 @@ namespace _Project.Scripts.UI
                 .AsyncWaitForCompletion();
         }
         
-        public async UniTask Hide()
+        public virtual async UniTask Hide()
         {
             await _canvasGroup
                 .DOFade(0f, _fadeDuration).SetEase(Ease.InOutQuad)

@@ -33,3 +33,8 @@ Retry;;Retry;Еще разок;
 SurviveTime;;Survive Time;Продержался;
 RestartGameRequire;;Restart Game Require;Требуется перезагрузка;
 Button.Save;;Save;Сохранить;
+TotalMovement;;Total Movement;Всего нашагал;
+AverageSurviveTime;;Average Survive Time;Время выживания (среднее);
+LongestSurviveTime;;Longest Survive Time;Время выживания (макс);
+KillsCommon;;Totel Kills;Всего убито;
+Statistic;;Statistic;Статистика;
