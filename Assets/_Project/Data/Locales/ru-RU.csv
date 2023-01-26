@@ -36,5 +36,6 @@ Button.Save;;Save;Сохранить;
 TotalMovement;;Total Movement;Всего нашагал;
 AverageSurviveTime;;Average Survive Time;Время выживания (среднее);
 LongestSurviveTime;;Longest Survive Time;Время выживания (макс);
-KillsCommon;;Totel Kills;Всего убито;
+KillsCommon;;Total Kills;Всего убито;
 Statistic;;Statistic;Статистика;
+TotalShootCount;;Total Shoot Count;Всего выстрелов;

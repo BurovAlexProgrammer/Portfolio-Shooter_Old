@@ -11,9 +11,9 @@ namespace _Project.Scripts.Main.UI
         [SerializeField] private MenuController _menuController;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        private const float _fadeDuration = 0.3f;
+        private const float FadeDuration = 0.3f;
 
-        public MenuController MenuController => _menuController;
+        protected MenuController MenuController => _menuController;
 
         public void Init(MenuController menuController)
         {
@@ -25,14 +25,14 @@ namespace _Project.Scripts.Main.UI
             _canvasGroup.alpha = 0f;
             gameObject.SetActive(true);
             await _canvasGroup
-                .DOFade(1f, _fadeDuration).SetEase(Ease.InOutQuad)
+                .DOFade(1f, FadeDuration).SetEase(Ease.InOutQuad)
                 .AsyncWaitForCompletion();
         }
         
         public virtual async UniTask Hide()
         {
             await _canvasGroup
-                .DOFade(0f, _fadeDuration).SetEase(Ease.InOutQuad)
+                .DOFade(0f, FadeDuration).SetEase(Ease.InOutQuad)
                 .AsyncWaitForCompletion();
             gameObject.SetActive(false);
         }

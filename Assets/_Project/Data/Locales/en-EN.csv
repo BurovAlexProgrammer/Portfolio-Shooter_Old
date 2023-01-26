@@ -36,5 +36,6 @@ Button.Save;;Save;Save;
 TotalMovement;;Total Movement;Total Movement;
 AverageSurviveTime;;Average Survive Time;Average Survive Time;
 LongestSurviveTime;;Longest Survive Time;Longest Survive Time;
-KillsCommon;;Totel Kills;Totel Kills;
+KillsCommon;;Total Kills;Total Kills;
 Statistic;;Statistic;Statistic;
+TotalShootCount;;Total Shoot Count;Total Shoot Count;
