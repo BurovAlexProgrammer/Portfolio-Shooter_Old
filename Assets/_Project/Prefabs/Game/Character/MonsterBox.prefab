@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 4766088675235381070}
   - component: {fileID: 3696388881695278998}
   - component: {fileID: 5340095020283275801}
+  - component: {fileID: 2874458519813175707}
   m_Layer: 0
   m_Name: MonsterBox
   m_TagString: Untagged
@@ -340,9 +341,6 @@ MonoBehaviour:
   _health: {fileID: 0}
   _attacker: {fileID: 0}
   _animator: {fileID: 0}
-  _idleState: {fileID: 7400000, guid: b761bb848f21f3d4e995c7d45a9c96c6, type: 2}
-  _moveState: {fileID: 7400000, guid: 6cafaf6c5ae4eee4ca14ccaf17aeea16, type: 2}
-  _attackState: {fileID: 7400000, guid: 6cafaf6c5ae4eee4ca14ccaf17aeea16, type: 2}
   _audioSource: {fileID: 0}
   _attackEvent: {fileID: 11400000, guid: 62f844c1d87421f44816aabf96874dbe, type: 2}
 --- !u!114 &4766088675235381070
@@ -367,6 +365,7 @@ MonoBehaviour:
     LocalRotation: {x: 0, y: 0, z: 0, w: 0}
     LocalScale: {x: 0, y: 0, z: 0}
   _character: {fileID: 0}
+  _navMeshAgent: {fileID: 0}
 --- !u!114 &3696388881695278998
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +476,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &2874458519813175707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7574077792932038324}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4afdcb1cbadf954ba8b1cf465429e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7857661449351847821
 GameObject:
   m_ObjectHideFlags: 0

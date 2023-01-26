@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2768585404830625208}
   - component: {fileID: 8802677151122954958}
   - component: {fileID: 4292875084513145365}
+  - component: {fileID: -7913161024779972780}
   m_Layer: 8
   m_Name: SimpleShell
   m_TagString: Untagged
@@ -131,3 +132,15 @@ MonoBehaviour:
   _destructionPrefab: {fileID: 964906427476198745, guid: 3587412afb611844eba9d666f797c25a,
     type: 3}
   _lifeTime: 3
+--- !u!114 &-7913161024779972780
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2056946358374497243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4afdcb1cbadf954ba8b1cf465429e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

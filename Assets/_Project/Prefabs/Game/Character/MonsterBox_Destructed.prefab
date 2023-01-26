@@ -6673,6 +6673,7 @@ GameObject:
   - component: {fileID: 7820591838005934829}
   - component: {fileID: 7827707916483970444}
   - component: {fileID: 1298671287617619141}
+  - component: {fileID: 3762824414785290461}
   m_Layer: 11
   m_Name: MonsterBox_Destructed
   m_TagString: Untagged
@@ -6886,6 +6887,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _behaviour: 0
   _audioEvent: {fileID: 11400000, guid: 8997959612f17f9409d02c2df7a07909, type: 2}
+--- !u!114 &3762824414785290461
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8230415621094627738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4afdcb1cbadf954ba8b1cf465429e17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8280586995752084955
 GameObject:
   m_ObjectHideFlags: 0

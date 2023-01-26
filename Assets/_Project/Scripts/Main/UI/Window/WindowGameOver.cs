@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Services;
 using _Project.Scripts.UI;
@@ -50,7 +51,7 @@ namespace _Project.Scripts.Main.UI.Window
         {
             _buttonPanel.localScale = _buttonPanel.localScale.SetAsNew(x: 0f);
             _buttonPanel.SetScale(x: 0f);
-            var calculateTime = 0.8f;
+            const float duration = 0.8f;
             var kills = _statisticService.GetIntegerValue(KillMonsterCount, Session);
             var surviveTime =
                 Mathf.RoundToInt(_statisticService.GetFloatValue(LastGameSessionDuration, Session));
@@ -58,11 +59,11 @@ namespace _Project.Scripts.Main.UI.Window
 
 
             await DOVirtual
-                .Int(0, surviveTime, calculateTime, x => _surviveTimeText.text = x.ToString())
+                .Int(0, surviveTime, duration, x => _surviveTimeText.text = ToTime(x))
                 .AsyncWaitForCompletion();
             
             await DOVirtual
-                .Int(0, kills, calculateTime, x => _killsCountText.text = x.ToString())
+                .Int(0, kills, duration, x => _killsCountText.text = x.ToString())
                 .AsyncWaitForCompletion();
 
             await DOVirtual
@@ -90,6 +91,12 @@ namespace _Project.Scripts.Main.UI.Window
             }
         
             _ = _quitGameDialog.Close();
+        }
+
+        private string ToTime(int seconds)
+        {
+            var result = TimeSpan.FromSeconds(seconds);
+            return result.ToString("hh':'mm':'ss");
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using _Project.Scripts.Extension;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -12,18 +13,14 @@ namespace _Project.Scripts.Main.UI.Window
         public virtual async UniTask Show()
         {
             gameObject.SetActive(true);
-            await transform.DOScale(1f, 0.3f).From(0f)
-                .SetUpdate(true)
-                .AsyncWaitForCompletion();
+            await transform.DOCustomShowWindow().AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
         }
 
         public virtual async UniTask Close()
         {
             _canvasGroup.interactable = false;
-            await transform.DOScale(0f, 0.3f)
-                .SetUpdate(true)
-                .AsyncWaitForCompletion();
+            await transform.DOCustomHideWindow().AsyncWaitForCompletion();
             gameObject.SetActive(false);
         }
     }

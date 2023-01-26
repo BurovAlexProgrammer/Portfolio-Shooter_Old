@@ -71,7 +71,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
             for (var i = 0; i < children.Length; i++) 
             {
-                sequence.Join(children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f)));
+                await sequence.Join(children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f)));
             }
 
             await sequence.Play().ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, DestroyCancellationToken);
