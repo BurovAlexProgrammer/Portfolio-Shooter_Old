@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
@@ -11,13 +12,14 @@ using Button = UnityEngine.UI.Button;
 
 namespace _Project.Scripts.Main.Menu
 {
-    public class MenuSettingsView : MonoBehaviour
+    public class MenuSettingsView : MenuView
     {
         [SerializeField] private MenuSettingsController _controller;
-        [SerializeField] private Button _buttonApply;
+        [SerializeField] private Button _buttonSave;
         [SerializeField] private Button _buttonReset;
         [SerializeField] private VideoSettingViews _videoSettingViews;
         [SerializeField] private GameSettingViews _gameSettingViews;
+        [SerializeField] private TextMeshProUGUI _textRestartRequire;
 
         [Inject] private LocalizationService _localizationService;
 
@@ -28,7 +30,7 @@ namespace _Project.Scripts.Main.Menu
         
         private void Awake()
         {
-            _buttonApply.onClick.AddListener(_controller.Apply);
+            _buttonSave.onClick.AddListener(SaveSettings);
             _buttonReset.onClick.AddListener(ResetToDefault);
             _videoSettingViews.AntiAliasing.onValueChanged.AddListener(
                 value => _controller.Bind(value, ref _controller.VideoSettings.PostProcessAntiAliasing));
@@ -47,6 +49,7 @@ namespace _Project.Scripts.Main.Menu
 
             _gameSettingViews.CurrentLanguage.onValueChanged.AddListener(value =>
             {
+                _textRestartRequire.gameObject.SetActive(true);
                 _controller.GameSettings.CurrentLocale = (Locales)value;
             });
 
@@ -55,7 +58,7 @@ namespace _Project.Scripts.Main.Menu
         
         private void OnDestroy()
         {
-            _buttonApply.onClick.RemoveAllListeners();
+            _buttonSave.onClick.RemoveAllListeners();
             _buttonReset.onClick.RemoveAllListeners();
             _videoSettingViews.AntiAliasing.onValueChanged.RemoveAllListeners();
             _videoSettingViews.Bloom.onValueChanged.RemoveAllListeners();
@@ -71,8 +74,6 @@ namespace _Project.Scripts.Main.Menu
             _gameSettingViews.CurrentLanguage.options = localizations.Values.Select(x => new TMP_Dropdown.OptionData(x.Info.fullName)).ToList();
         }
 
-
-
         private void Init()
         {
             _videoSettingViews.AntiAliasing.isOn = _controller.VideoSettings.PostProcessAntiAliasing;
@@ -83,6 +84,12 @@ namespace _Project.Scripts.Main.Menu
             _gameSettingViews.CurrentLanguage.value = (int)_controller.GameSettings.CurrentLocale;
         }
 
+        private void SaveSettings()
+        {
+            _controller.Save();
+            MenuController.GoToPrevMenu();
+        }
+        
         private void ResetToDefault()
         {
             _controller.ResetToDefault();

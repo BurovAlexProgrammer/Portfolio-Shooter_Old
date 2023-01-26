@@ -31,3 +31,5 @@ MainMenu;;Main Menu;Main Menu;
 GameOver;;Game Over;Game Over;
 Retry;;Retry;Retry;
 SurviveTime;;Survive Time;Survive Time;
+RestartGameRequire;;Restart Game Require;Restart Game Require;
+Button.Save;;Save;Save;

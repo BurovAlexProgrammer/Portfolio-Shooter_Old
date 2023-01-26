@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static _Project.Scripts.Main.Menu.MenuController;
 
 namespace _Project.Scripts.Main.SceneScripts.MainMenu
 {

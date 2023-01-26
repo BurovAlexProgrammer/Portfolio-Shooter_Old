@@ -38,12 +38,12 @@ namespace _Project.Scripts.UI
         public async UniTask Show()
         {
             gameObject.SetActive(true);
-            _canvasGroup
+            await _canvasGroup
                 .DOFade(1f, _fadeDuration)
                 .From(0f)
                 .SetUpdate(true)
-                .SetEase(Ease.InOutQuad);
-            await _fadeDuration.WaitInSeconds();
+                .SetEase(Ease.InOutQuad)
+                .AsyncWaitForCompletion();
         }
         
         public async UniTask Close()

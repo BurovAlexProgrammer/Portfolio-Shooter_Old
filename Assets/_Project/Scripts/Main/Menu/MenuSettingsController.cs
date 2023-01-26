@@ -18,6 +18,12 @@ namespace _Project.Scripts.Main.Menu
             _settings.Apply();
         }
 
+        public void Save()
+        {
+            _settings.Save();
+            _settings.Apply();
+        }
+
         public void ResetToDefault()
         {
             _settings.Restore();
