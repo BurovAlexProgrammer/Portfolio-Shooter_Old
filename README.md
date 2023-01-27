@@ -17,10 +17,13 @@
 * Локализация с автоматическим созданием ключей и редактор словаря.
 
 Редактор локализации
+
 ![CubeNukem_localizationEditor_v0 0 3](https://user-images.githubusercontent.com/7298288/215090782-34911a4d-f940-4c3f-830d-8478fe27c338.png)
 
 Addressable Groups
+
 ![CubeNukem_addressableGroups_v0 0 3](https://user-images.githubusercontent.com/7298288/215092390-514c34c4-70fc-416f-bfe5-739d2766b71f.png)
 
 New InputSystem
+
 ![CubeNukem_inputSystem_v0 0 3](https://user-images.githubusercontent.com/7298288/215092401-0d70ed22-e65e-47d8-aba3-0fef6ae874dc.png)
