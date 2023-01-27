@@ -50,8 +50,10 @@ SpriteAtlas:
     cachedData: {fileID: 0}
   m_MasterAtlas: {fileID: 0}
   m_PackedSprites:
+  - {fileID: 21300000, guid: e5f43213c797efe47a556f210253633f, type: 3}
   - {fileID: 21300000, guid: 89c29483812c2514e9891a08c65523fa, type: 3}
   m_PackedSpriteNamesToIndex:
+  - Logo
   - HealthBar
   m_RenderDataMap: {}
   m_Tag: GameUI
