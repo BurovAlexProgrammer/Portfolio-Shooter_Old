@@ -126,6 +126,11 @@ namespace _Project.Scripts.Main.Services
             _controlService.Controls.Menu.Enable();
             GameOver?.Invoke();
         }
+        
+        public void RestoreTimeSpeed()
+        {
+            SetTimeScale(1f);
+        }
 
         private void AddScores(int value)
         {
@@ -136,11 +141,6 @@ namespace _Project.Scripts.Main.Services
             
             _scores += value;
             _statisticService.SetScores(_scores);
-        }
-
-        private void RestoreTimeSpeed()
-        {
-            SetTimeScale(1f);
         }
 
         private void AddScoresOnCharacterDead(Character character)

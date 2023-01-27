@@ -1,3 +1,4 @@
+using System;
 using _Project.Scripts.Main.Menu;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -8,18 +9,12 @@ namespace _Project.Scripts.Main.UI
     [RequireComponent(typeof(CanvasGroup))]
     public class MenuView : MonoBehaviour
     {
-        [SerializeField] private MenuController _menuController;
         [SerializeField] private CanvasGroup _canvasGroup;
 
+        public Action GoBack;
+        
         private const float FadeDuration = 0.3f;
 
-        protected MenuController MenuController => _menuController;
-
-        public void Init(MenuController menuController)
-        {
-            _menuController = menuController;
-        }
-        
         public virtual async UniTask Show()
         {
             _canvasGroup.alpha = 0f;
@@ -52,9 +47,9 @@ namespace _Project.Scripts.Main.UI
             _canvasGroup.interactable = true;
         }
 
-        public void GoToPrevMenu()
+        public void GoPrevMenu()
         {
-            _menuController.GoToPrevMenu();
+            GoBack?.Invoke();
         }
     }
 }

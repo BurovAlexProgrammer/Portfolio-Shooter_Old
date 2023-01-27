@@ -11,8 +11,6 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private ShellBase _shellPrefab;
 
-        private int i = 0;
-
         private float _shootTimer;
 
         public virtual bool TryShoot()
@@ -30,8 +28,6 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         protected virtual void Shoot()
         {
-            i++;
-            //if (i > 1) EditorApplication.isPaused = true;
             var shell = PoolService.Get(_shellPrefab).GetComponent<ShellBase>();
             shell.Shoot(transform);
             shell.DestroyOnLifetimeEnd();

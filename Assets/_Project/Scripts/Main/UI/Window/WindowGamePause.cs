@@ -32,8 +32,9 @@ namespace _Project.Scripts.Main.UI.Window
             gameObject.SetActive(false);
         }
 
-        private void GoToMainMenu()
+        private async void GoToMainMenu()
         {
+            await Close();
             _gameManager.GoToMainMenu();
         }
 

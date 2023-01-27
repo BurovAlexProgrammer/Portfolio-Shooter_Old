@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.UI;
-using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -17,8 +16,6 @@ namespace _Project.Scripts.Main.Menu
         private MenuStates _activeState;
         private MenuStates _prevState;
         
-        public MenuStates ActiveState => _activeState;
-        
         private void Awake()
         {
             if (_menus.Length != Enum.GetNames(typeof(MenuStates)).Length)
@@ -28,11 +25,19 @@ namespace _Project.Scripts.Main.Menu
 
             for (var i = 0; i < _menus.Length; i++)
             {
-                _menus[i].Init(this);
+                _menus[i].GoBack += GoToPrevMenu;
                 _menus[i].HideImmediate();
             }
         }
-        
+
+        private void OnDestroy()
+        {
+            for (var i = 0; i < _menus.Length; i++)
+            {
+                _menus[i].GoBack -= GoToPrevMenu;
+            }
+        }
+
         public async void SetState(MenuStates newState)
         {
             await ExitState(_activeState);

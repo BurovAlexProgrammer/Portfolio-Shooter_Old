@@ -378,7 +378,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16501884563444e58fe8f8a226677bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuController: {fileID: 0}
   _canvasGroup: {fileID: 70671531}
 --- !u!1001 &118219517
 PrefabInstance:
@@ -630,9 +629,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ebc649ab624d864ab4e30cc29d5453a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuController: {fileID: 952032934}
   _canvasGroup: {fileID: 130390876}
-  _controller: {fileID: 952032938}
+  _settingsController: {fileID: 952032938}
   _buttonSave: {fileID: 202186696}
   _buttonReset: {fileID: 1571416317}
   _videoSettingViews:
@@ -2176,7 +2174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b3311d2e76f492c8c071b33f3f37b69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuController: {fileID: 952032934}
   _canvasGroup: {fileID: 475193531}
   _buttonBack: {fileID: 1593325736}
   _textFields:
@@ -4224,7 +4221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 953a32caaa1848a59154a250fe3697ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuController: {fileID: 952032934}
   _canvasGroup: {fileID: 1220690588}
   _layout: {fileID: 1715458134}
   _buttonBack: {fileID: 434845688}
@@ -7982,7 +7978,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16501884563444e58fe8f8a226677bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _menuController: {fileID: 0}
   _canvasGroup: {fileID: 428575551348867004}
 --- !u!224 &9155450930190112100
 RectTransform:

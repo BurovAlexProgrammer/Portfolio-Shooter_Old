@@ -16,7 +16,7 @@ namespace _Project.Scripts.Main.Menu
 
         private void Awake()
         {
-            _buttonBack.onClick.AddListener(MenuController.GoToPrevMenu);
+            _buttonBack.onClick.AddListener(GoPrevMenu);
         }
 
         private void OnDestroy()
