@@ -1,11 +1,12 @@
 using System;
-using _Project.Scripts.Main.Menu;
+using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.UI
 {
+    [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]
     public class MenuView : MonoBehaviour
     {
@@ -13,22 +14,26 @@ namespace _Project.Scripts.Main.UI
 
         public Action GoBack;
         
-        private const float FadeDuration = 0.3f;
+        // private const float FadeDuration = 0.3f;
 
         public virtual async UniTask Show()
         {
-            _canvasGroup.alpha = 0f;
+            // _canvasGroup.alpha = 0f;
             gameObject.SetActive(true);
-            await _canvasGroup
-                .DOFade(1f, FadeDuration).SetEase(Ease.InOutQuad)
-                .AsyncWaitForCompletion();
+            // await _canvasGroup
+            //     .DOFade(1f, FadeDuration).SetEase(Ease.InOutQuad)
+            //     .AsyncWaitForCompletion();
+
+            await transform.DOCustomShowWindow().AsyncWaitForCompletion();
         }
         
         public virtual async UniTask Hide()
         {
-            await _canvasGroup
-                .DOFade(0f, FadeDuration).SetEase(Ease.InOutQuad)
-                .AsyncWaitForCompletion();
+            // await _canvasGroup
+            //     .DOFade(0f, FadeDuration).SetEase(Ease.InOutQuad)
+            //     .AsyncWaitForCompletion();
+
+            await transform.DOCustomHideWindow().AsyncWaitForCompletion();
             gameObject.SetActive(false);
         }
 

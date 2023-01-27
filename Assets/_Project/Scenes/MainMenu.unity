@@ -4531,7 +4531,7 @@ MonoBehaviour:
   _buttonBack: {fileID: 434845688}
   _startPositionY: -1050
   _endPositionY: 2750
-  _scrollDuration: 20
+  _scrollDuration: 15
 --- !u!1001 &1222759861
 PrefabInstance:
   m_ObjectHideFlags: 0
