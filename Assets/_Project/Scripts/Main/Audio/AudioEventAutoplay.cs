@@ -1,3 +1,4 @@
+using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class AudioEventAutoplay : MonoBehaviour
 {
     [SerializeField] private Behaviours _behaviour;
     [SerializeField] private AudioEvent _audioEvent;
+    [SerializeField] private float _timer;
     
     private AudioSource _audioSource;
     private Collider _collider;
@@ -26,16 +28,26 @@ public class AudioEventAutoplay : MonoBehaviour
                 break;
             case Behaviours.OnCollideOnce:
                 if (_collider == null) Debug.LogError("Collider not found. (Click for info)", gameObject);
-                _ = CheckColliding();
+                CheckColliding();
+                break;
+            case Behaviours.ByTimer:
+                PlayByTimer();
                 break;
         }
     }
 
-    private async UniTask CheckColliding()
+    private async void CheckColliding()
     {
         var trigger = this.GetAsyncCollisionEnterTrigger();
         var handler = trigger.GetOnCollisionEnterAsyncHandler();
         await handler.OnCollisionEnterAsync();
+        Play();
+    }
+
+    private async void PlayByTimer()
+    {
+        await _timer.WaitInSeconds();
+        
         Play();
     }
 
@@ -48,6 +60,7 @@ public class AudioEventAutoplay : MonoBehaviour
     {
         OnStart,
         OnCollideOnce,
+        ByTimer,
     }
 }
 

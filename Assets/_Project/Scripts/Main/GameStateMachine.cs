@@ -122,7 +122,7 @@ namespace _Project.Scripts.Main
         private async UniTask EnterStateBoot()
         {
             _sceneLoader.ShowScene();
-            await Wait(1f);
+            await Wait(3f);
             SetState(GameStates.MainMenu);
         }
 
