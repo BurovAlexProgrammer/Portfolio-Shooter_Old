@@ -1328,11 +1328,11 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   shutterAngle:
-    overrideState: 0
-    value: 270
+    overrideState: 1
+    value: 360
   sampleCount:
-    overrideState: 0
-    value: 10
+    overrideState: 1
+    value: 4
 --- !u!114 &-5062130868052955552
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -1343,7 +1343,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 40b924e2dad56384a8df2a1e111bb675, type: 3}
-  m_Name: Vignette
+  m_Name: Vignette(Clone)
   m_EditorClassIdentifier: 
   active: 1
   enabled:
@@ -1360,16 +1360,16 @@ MonoBehaviour:
     value: {x: 0.5, y: 0.5}
   intensity:
     overrideState: 1
-    value: 0.678
+    value: 0.613
   smoothness:
     overrideState: 1
-    value: 0.58
+    value: 1
   roundness:
     overrideState: 1
-    value: 0.115
+    value: 0
   rounded:
     overrideState: 0
-    value: 0
+    value: 1
   mask:
     overrideState: 0
     value: {fileID: 0}

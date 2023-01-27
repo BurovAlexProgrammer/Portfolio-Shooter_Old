@@ -7,6 +7,8 @@ namespace _Project.Scripts.Main.Localizations
     public class TextMeshProUILocalized : LocalizedTextComponent
     {
         [SerializeField] private string _localizedTextKey;
+        [SerializeField] private string _prefix;
+        [SerializeField] private string _postfix;
 
         private TextMeshProUGUI _textMesh;
 
@@ -22,7 +24,7 @@ namespace _Project.Scripts.Main.Localizations
                 _textMesh.text = "---NO KEY---";
                 return;
             }
-            _textMesh.text = _localization.GetLocalizedText(_localizedTextKey);
+            _textMesh.text = _prefix + _localization.GetLocalizedText(_localizedTextKey) + _postfix;
         }
     }
 }

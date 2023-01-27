@@ -1,4 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
+using UnityEditor;
 using UnityEngine;
 using static _Project.Scripts.Main.Services.Services;
 
@@ -12,14 +13,17 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private float _shootTimer;
 
-        public virtual void TryShoot()
+        public virtual bool TryShoot()
         {
             if (_shootTimer <= 0f)
             {
                 _shootTimer = _weaponConfig.FireRateDelay;
                 _ = RunTimer();
                 Shoot();
+                return true;
             }
+
+            return false;
         }
 
         protected virtual void Shoot()
@@ -41,11 +45,6 @@ namespace _Project.Scripts.Main.Game.Weapon
                 await UniTask.NextFrame();
                 _shootTimer -= Time.deltaTime;
             }
-        }
-
-        private void OnDestroy()
-        {
-            Debug.Log("Destroy GUN");
         }
     }
 }

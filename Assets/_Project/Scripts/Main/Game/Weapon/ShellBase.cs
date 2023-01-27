@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Extension;
+using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -61,7 +62,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             await _lifeTime.WaitInSeconds();
             
-            if (!_gameObject.activeSelf) return;
+            if (!Available) return;
             
             Destruct();
         }
@@ -73,10 +74,10 @@ namespace _Project.Scripts.Main.Game.Weapon
             destruction._transform.position = _transform.position;
             destruction._transform.rotation = _transform.rotation;
             destruction._gameObject.SetActive(true);
-            
-            foreach (var rb in rigidbodies)
+
+            for (var i = 0; i < rigidbodies.Length; i++)
             {
-                rb.velocity = _rigidbody.velocity / 5f;
+                rigidbodies[i].velocity = _rigidbody.velocity / 5f;
             }
 
             ReturnToPool();
@@ -84,7 +85,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void TakeDamage(HealthBase target)
         {
-            target.GetDamage(_shellConfig.Damage);
+            target.TakeDamage(_shellConfig.Damage);
         }
     }
 }

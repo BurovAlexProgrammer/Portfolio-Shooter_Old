@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using static _Project.Scripts.Main.Menu.MenuController;
 
 namespace _Project.Scripts.Main.SceneScripts.MainMenu
 {
@@ -12,6 +13,8 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
         [SerializeField] private Button _buttonQuitNo;
         [SerializeField] private Button _buttonQuitYes;
         [SerializeField] private Button _buttonNewGame;
+        [SerializeField] private Button _buttonStatistic;
+        [SerializeField] private Button _buttonAbout;
 
         void Start()
         {
@@ -21,6 +24,8 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
             _buttonQuitNo.onClick.AddListener(() => _menuController.SetState(MenuStates.MainMenu));
             _buttonQuitYes.onClick.AddListener(_menuController.QuitGame);
             _buttonNewGame.onClick.AddListener(_menuController.StartNewGame);
+            _buttonStatistic.onClick.AddListener(() => _menuController.SetState(MenuStates.Statistic));
+            _buttonAbout.onClick.AddListener(() => _menuController.SetState(MenuStates.About));
         }
 
         private void OnDestroy()
@@ -31,6 +36,8 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
             _buttonQuitNo.onClick.RemoveAllListeners();
             _buttonQuitYes.onClick.RemoveAllListeners();
             _buttonNewGame.onClick.RemoveAllListeners();
+            _buttonStatistic.onClick.RemoveAllListeners();
+            _buttonAbout.onClick.RemoveAllListeners();
         }
     }
 }

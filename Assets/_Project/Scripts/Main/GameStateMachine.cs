@@ -4,6 +4,7 @@ using UnityEngine;
 using Zenject;
 using _Project.Scripts.Main.Services;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 using static _Project.Scripts.Extension.Common;
 using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
 
@@ -13,11 +14,12 @@ namespace _Project.Scripts.Main
     {
         public Action StateChanged;
         
-        private GameStates _activeState;
+        private GameStates _activeState = GameStates.None;
 
         [Inject] private AudioService _audioService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private ControlService _controlService;
+        [Inject] private StatisticService _statisticService;
 
         public GameStates ActiveState => _activeState;
 
@@ -25,11 +27,11 @@ namespace _Project.Scripts.Main
         {
             if (_sceneLoader.InitialSceneEquals(SceneName.Boot))
             {
-                _ = EnterState(GameStates.Boot);
+                SetState(GameStates.Boot);
                 return;
             }
             
-            _ = EnterState(GameStates.CustomSceneBoot);
+            SetState(GameStates.CustomSceneBoot);
         }
 
         public async void SetState(GameStates newState)
@@ -41,7 +43,15 @@ namespace _Project.Scripts.Main
 
         private async UniTask EnterState(GameStates newState)
         {
+            if (_activeState == newState)
+            {
+                Debug.Log("GameState Enter: " + newState + " (Already entered, skipped)", this);
+                return;
+            }
+
+            _activeState = newState;
             Debug.Log("GameState Enter: " + newState, this);
+
             switch (newState)
             {
                 case GameStates.CustomSceneBoot:
@@ -56,24 +66,22 @@ namespace _Project.Scripts.Main
                 case GameStates.PlayGame:
                     EnterStatePlayGame();
                     break;
-                case GameStates.GamePause:
-                    break;
                 case GameStates.GameQuit:
+                    EnterStateQuitGame();
                     break;
-                default:
-                    throw new Exception("GameManager: unknown state.");
+                case GameStates.RestartGame:
+                    await EnterStateRestartGame();
+                    break;
             }
         }
-        
+
         private async UniTask ExitState(GameStates oldState)
         {
-            Debug.Log("GameState ExitState: " + oldState, this);
+            Debug.Log("GameState Exit: " + oldState, this);
             switch (oldState)
             {
                 case GameStates.Boot:
                     await ExitStateBoot();
-                    break;
-                case GameStates.MainMenu:
                     break;
                 case GameStates.PlayGame:
                     ExitStatePlayGame();
@@ -83,9 +91,27 @@ namespace _Project.Scripts.Main
                 case GameStates.CustomSceneBoot:
                     ExitStateCustomBoot();
                     break;
-                default:
-                    throw new Exception("GameManager: unknown state.");
             }
+        }
+        
+        private async UniTask EnterStateRestartGame()
+        {
+            var currentScene = SceneManager.GetActiveScene();
+            var newScene = SceneManager.CreateScene("Empty");
+            newScene.SetActive(true);
+            
+            await SceneManager.UnloadSceneAsync(currentScene);
+            
+            SetState(GameStates.PlayGame);
+        }
+
+        private void EnterStateQuitGame()
+        {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+            Application.Quit();
+#endif
         }
 
         private void ExitStateCustomBoot()
@@ -96,7 +122,7 @@ namespace _Project.Scripts.Main
         private async UniTask EnterStateBoot()
         {
             _sceneLoader.ShowScene();
-            await Wait(1f);
+            await Wait(3f);
             SetState(GameStates.MainMenu);
         }
 
@@ -110,10 +136,13 @@ namespace _Project.Scripts.Main
         {
             _ = _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
             _controlService.LockCursor();
+            _controlService.Controls.Player.Enable();
+            _controlService.Controls.Menu.Disable();
             _sceneLoader.LoadSceneAsync(SceneName.MiniGameLevel);
+            _statisticService.ResetSessionRecords();
         }
         
-        private async void ExitStatePlayGame()
+        private void ExitStatePlayGame()
         {
             _audioService.StopMusic();
             if (Time.timeScale == 0f)
@@ -121,6 +150,7 @@ namespace _Project.Scripts.Main
                 DOVirtual.Float(0, 1f, 0.5f, x => Time.timeScale = x);
             } 
             _controlService.UnlockCursor();
+            _statisticService.SaveToFile();
         }
 
         private async UniTask ExitStateBoot()
@@ -137,6 +167,7 @@ namespace _Project.Scripts.Main
 
     public enum GameStates
     {
-        CustomSceneBoot, Boot, MainMenu, PlayGame, GamePause, GameQuit
+         None, Boot, MainMenu, PlayGame, GamePause, GameQuit, CustomSceneBoot,
+         RestartGame
     }
 }

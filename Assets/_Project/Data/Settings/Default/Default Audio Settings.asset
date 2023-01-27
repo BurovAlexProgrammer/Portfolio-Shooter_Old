@@ -13,8 +13,7 @@ MonoBehaviour:
   m_Name: Default Audio Settings
   m_EditorClassIdentifier: 
   Description: Audio settings
-  VolumeMin: 0
-  VolumeMax: 100
-  MusicEnabled: 1
   SoundEnabled: 1
+  SoundVolume: 10
+  MusicEnabled: 1
   MusicVolume: 50

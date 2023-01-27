@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Scripts.Main.Audio;
+using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
@@ -18,11 +19,13 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canRotate;
         [SerializeField] private bool _canShoot;
+        [SerializeField] private bool _useGravity;
         [SerializeField] private SimpleAudioEvent _startPhrase;
         
         [Inject] private ControlService _controlService;
         [Inject] private SettingsService _settingsService;
-        
+        [Inject] private StatisticService _statisticService;
+
         private CharacterController _characterController;
         private AudioSource _audioSource;
         private HealthBase _health;
@@ -33,6 +36,7 @@ namespace _Project.Scripts.Main.Game
         private Vector2 _rotateLerpValue;
         private float _rotationY;
         private bool _shootInputValue;
+        private Vector3 _playerMove;
 
         public CameraHolder CameraHolder => _cameraHolder;
         public HealthBase Health => _health;
@@ -101,10 +105,15 @@ namespace _Project.Scripts.Main.Game
         protected virtual void Move(Vector2 inputValue)
         {
             if (!_canMove) return;
-            if (inputValue == Vector2.zero) return;
             
-            var moveVector = inputValue * Time.deltaTime * _config.MoveSpeed;
-            _characterController.Move(_transform.right * moveVector.x + _transform.forward * moveVector.y);
+            var moveVector = inputValue * Time.fixedDeltaTime * _config.MoveSpeed;
+            var gravityVelocity = _useGravity ? Physics.gravity * Time.fixedDeltaTime : Vector3.zero;
+            _characterController.Move(_transform.right * moveVector.x + _transform.forward * moveVector.y + gravityVelocity);
+
+            if (_characterController.velocity != Vector3.zero)
+            {
+                _statisticService.AddValueToRecord(StatisticData.RecordName.Movement, _characterController.velocity.magnitude * Time.fixedDeltaTime); 
+            }
         } 
 
         protected virtual void Rotate(Vector2 inputValue)
@@ -121,7 +130,10 @@ namespace _Project.Scripts.Main.Game
 
         protected virtual void TryShoot()
         {
-            _gun.TryShoot();
+            if (_gun.TryShoot())
+            {
+                _statisticService.AddValueToRecord(StatisticData.RecordName.FireCount, 1);
+            }
         }
     }
 }

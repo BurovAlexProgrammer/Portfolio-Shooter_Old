@@ -42,6 +42,21 @@ namespace _Project.Scripts.Main.Services
             ActivatePreparedScene();
             ShowScene();
         }
+
+        public async void ReloadActiveScene()
+        {
+            await SceneManager.UnloadSceneAsync(_currentScene);
+            var asyncOperationHandle = Addressables.LoadSceneAsync(_currentScene.name, LoadSceneMode.Additive);
+            await asyncOperationHandle.Task;
+            var sceneInstance = asyncOperationHandle.Result;
+            _preparedScene = sceneInstance.Scene;
+            _preparedScene.SetActive(false);
+        }
+        
+        public async void UnloadActiveScene()
+        {
+            await SceneManager.UnloadSceneAsync(_currentScene);
+        }
         
         public void ShowScene()
         {

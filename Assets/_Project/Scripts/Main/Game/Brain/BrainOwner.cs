@@ -1,41 +1,45 @@
-using System;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.Game.Health;
+using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
+using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
-    public class BrainOwner : MonoBehaviour
+    public class BrainOwner : MonoBeh
     {
         [SerializeField] private Brain _brain;
-        [SerializeField] private HealthBase _target;
+        [SerializeField] private GameObject _target;
+        [SerializeField] private HealthBase _targetHealth;
         [SerializeField] private TransformInfo _transformInfoTarget;
+        [SerializeField, ReadOnlyField] private Character _character;
+        [SerializeField, ReadOnlyField] NavMeshAgent _navMeshAgent;
 
         private bool _isTargetExist;
-        private NavMeshAgent _navMeshAgent;
-        [Inject] PlayerBase _player;
-        [Inject] private BrainControlService _brainControlService;
 
-        public PlayerBase Player => _player;
+        public PlayerBase Player => GameContext.Instance.Player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
-        public HealthBase Target => _target;
+        public GameObject Target => _target;
+        public HealthBase TargetHealth => _targetHealth;
         public bool IsTargetExist => _isTargetExist;
+        public Character Character => _character;
 
         private void OnEnable()
         {
-            _brainControlService.AddBrain(this);
+            BrainControl.AddBrain(this);
         }
 
         private void OnDisable()
         {
-            _brainControlService.RemoveBrain(this);
+            BrainControl.RemoveBrain(this);
         }
 
         private void Awake()
         {
             _navMeshAgent = GetComponent<NavMeshAgent>();
+            _character = GetComponent<Character>();
         }
 
         public void Think()
@@ -43,10 +47,11 @@ namespace _Project.Scripts.Main.Game.Brain
             _brain.Think(this);
         }
 
-        public void SetTargetHealth(HealthBase targetHealth)
+        public void SetTarget(GameObject target)
         {
-            _target = targetHealth;
-            _isTargetExist = targetHealth != null;
+            _target = target;
+            _targetHealth = target.GetComponent<HealthBase>();
+            _isTargetExist = _target != null;
         }
     }
 }

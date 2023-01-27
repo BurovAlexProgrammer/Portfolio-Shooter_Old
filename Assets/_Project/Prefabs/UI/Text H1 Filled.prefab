@@ -119,6 +119,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
         type: 3}
+      propertyPath: m_fontStyle
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
+        type: 3}
       propertyPath: m_fontColor.b
       value: 0.078431375
       objectReference: {fileID: 0}
@@ -134,8 +139,33 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
         type: 3}
+      propertyPath: m_fontSizeMax
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
+        type: 3}
+      propertyPath: m_fontSizeMin
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
+        type: 3}
       propertyPath: m_fontSizeBase
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
+        type: 3}
+      propertyPath: m_overflowMode
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
+        type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2763149789302690779, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
+        type: 3}
+      propertyPath: m_enableWordWrapping
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2763149789302690781, guid: 0b308cd0e33b8a54fbe9d6932066a11b,
         type: 3}

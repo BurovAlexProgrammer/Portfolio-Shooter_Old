@@ -205,6 +205,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2030025327502146564}
     m_Modifications:
+    - target: {fileID: 2707566565361145070, guid: c3c7c103005c4b6488a7585e06883318,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -138
+      objectReference: {fileID: 0}
     - target: {fileID: 3094190689438903879, guid: c3c7c103005c4b6488a7585e06883318,
         type: 3}
       propertyPath: m_text
@@ -364,6 +369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_fontStyle
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5286126624759100412, guid: c3c7c103005c4b6488a7585e06883318,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 138
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c3c7c103005c4b6488a7585e06883318, type: 3}

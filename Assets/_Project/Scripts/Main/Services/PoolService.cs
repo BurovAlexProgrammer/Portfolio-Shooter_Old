@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 
@@ -6,11 +7,18 @@ namespace _Project.Scripts.Main.Services
 {
     public class PoolService : BaseService
     {
-        public Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
+        private Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
 
         public void Init()
         {
             _poolDictionary = new Dictionary<MonoPoolItemBase, MonoPool>();
+        }
+
+        public MonoPoolItemBase GetAndActivate(MonoPoolItemBase prefab)
+        {
+            var result = Get(prefab);
+            result.gameObject.SetActive(true);
+            return result;
         }
 
         public MonoPoolItemBase Get(MonoPoolItemBase prefab)
@@ -24,6 +32,14 @@ namespace _Project.Scripts.Main.Services
             }
 
             return _poolDictionary[prefab].Get();
+        }
+
+        public void Restart()
+        {
+            foreach (var item in _poolDictionary)
+            {
+                item.Value.DeactivateItems();
+            }
         }
     }
 }

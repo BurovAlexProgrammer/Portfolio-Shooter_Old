@@ -20,8 +20,8 @@ namespace _Project.Scripts.Main.Wrappers
                 return _id;
             }
         }
-
-        protected void ReturnToPool()
+        
+        public void ReturnToPool()
         {
             gameObject.SetActive(false);
             Returned?.Invoke(this);

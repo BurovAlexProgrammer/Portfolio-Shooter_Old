@@ -1,29 +1,44 @@
+using System;
 using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.Scripts.UI
+namespace _Project.Scripts.Main.UI
 {
+    [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]
     public class MenuView : MonoBehaviour
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        private const float _fadeDuration = 0.3f;
+        public Action GoBack;
+        
+        // private const float FadeDuration = 0.3f;
 
-        public async UniTask Show()
+        public virtual async UniTask Show()
         {
-            _canvasGroup.alpha = 0f;
+            // _canvasGroup.alpha = 0f;
             gameObject.SetActive(true);
-            _canvasGroup.DOFade(1f, _fadeDuration).SetEase(Ease.InOutQuad);
-            await _fadeDuration.WaitInSeconds();
+            // await _canvasGroup
+            //     .DOFade(1f, FadeDuration).SetEase(Ease.InOutQuad)
+            //     .AsyncWaitForCompletion();
+
+            await transform.DOCustomShowWindow().AsyncWaitForCompletion();
         }
         
-        public async UniTask Hide()
+        public virtual async UniTask Hide()
         {
-            _canvasGroup.DOFade(0f, _fadeDuration).SetEase(Ease.InOutQuad);
-            await _fadeDuration.WaitInSeconds();
+            // await _canvasGroup
+            //     .DOFade(0f, FadeDuration).SetEase(Ease.InOutQuad)
+            //     .AsyncWaitForCompletion();
+
+            await transform.DOCustomHideWindow().AsyncWaitForCompletion();
+            gameObject.SetActive(false);
+        }
+
+        public void HideImmediate()
+        {
             gameObject.SetActive(false);
         }
 
@@ -35,6 +50,11 @@ namespace _Project.Scripts.UI
         public void Enable()
         {
             _canvasGroup.interactable = true;
+        }
+
+        public void GoPrevMenu()
+        {
+            GoBack?.Invoke();
         }
     }
 }

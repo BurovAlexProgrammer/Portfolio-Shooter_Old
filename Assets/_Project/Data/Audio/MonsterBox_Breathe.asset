@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
+  m_Name: MonsterBox_Breathe
+  m_EditorClassIdentifier: 
+  _audioClips:
+  - {fileID: 8300000, guid: ab32d2f79a49bf54782d90f214685373, type: 3}
+  - {fileID: 8300000, guid: d5e378109d74c434da5bfb8247093216, type: 3}
+  - {fileID: 8300000, guid: 79bc82f3666ffa1429256ac63eb0381d, type: 3}
+  - {fileID: 8300000, guid: 975948757e1f5dc4b9738d2c6f914e4d, type: 3}
+  _volume:
+    MinValue: 0.3576061
+    MaxValue: 0.5856309
+  _pitch:
+    MinValue: 0.82225084
+    MaxValue: 1.1761277

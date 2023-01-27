@@ -9,16 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02e2ff58e326714478848a6a79d9f969, type: 3}
+  m_Script: {fileID: 11500000, guid: 9eb11362c0664dab93f008a54a0a7e22, type: 3}
   m_Name: GameOver
   m_EditorClassIdentifier: 
-  audioSource: {fileID: 0}
-  audioClips:
+  _audioClips:
   - {fileID: 8300000, guid: 9cbe6b31a2fefcc43993c353e3d4783d, type: 3}
   - {fileID: 8300000, guid: b06468c30990d61428d802672db67d15, type: 3}
-  volume:
-    minValue: 0.8557259
-    maxValue: 1
-  pitch:
-    minValue: 0.964833
-    maxValue: 1.1812441
+  _volume:
+    MinValue: 0.8
+    MaxValue: 1
+  _pitch:
+    MinValue: 0.8
+    MaxValue: 1.2

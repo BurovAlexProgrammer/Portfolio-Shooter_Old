@@ -10,6 +10,8 @@ namespace _Project.Scripts.Main.Services
         [SerializeField] private GizmoItem _explosionGizmoPrefab;
         [SerializeField] private Transform _gizmosContainer;
 
+        public bool SaveLogToFile => _serviceConfig.SaveLogToFile;
+        
         public void CreateExplosionGizmo(Transform targetTransform, float radius)
         {
             if (_serviceConfig.ShowExplosionSphere == false) return;

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Threading;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -62,19 +64,18 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             await (_lifeTime / 2f).WaitInSeconds();
 
-            foreach (Transform child in _transform)
+            if (Destroyed) return;
+            
+            var children = _transform.GetChildrenTransforms();
+            var sequence = DOTween.Sequence();
+
+            for (var i = 0; i < children.Length; i++) 
             {
-                child.DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f));
+                _ = sequence.Join(children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f)));
             }
 
-            await (_lifeTime / 2f).WaitInSeconds();
-            
-            foreach (Transform child in _transform)
-            {
-                child.DOComplete();
-                child.localScale = Vector3.one;
-            }
-            
+            await sequence.Play().ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, DestroyCancellationToken);
+
             ReturnToPool();
         }
 

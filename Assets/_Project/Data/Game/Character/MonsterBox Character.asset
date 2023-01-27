@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ede9512ab5e7497d938c27ec9f20b48e, type: 3}
+  m_Name: MonsterBox Character
+  m_EditorClassIdentifier: 
+  _score: 1
+  _health: 100
+  _speed: 5
+  _acceleration: 12
+  _attackDelay: 2.5
+  _meleeRange: 2
+  _meleeDamage: 30

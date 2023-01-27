@@ -50,7 +50,7 @@ namespace _Project.Scripts.Main.Services
             while (_currentState == lastState)
             {
                 await UniTask.WaitForFixedUpdate();
-                if (gameObject.IsDestroyed() == false && _musicAudioSource.isPlaying == false)
+                if (_musicAudioSource != null && _musicAudioSource.isPlaying == false)
                 {
                     PlayRandomTrack();
                 } 
@@ -65,6 +65,8 @@ namespace _Project.Scripts.Main.Services
 
         private void PlayRandomTrack()
         {
+            if (_musicAudioSource.isActiveAndEnabled == false) return;
+            
             switch (_currentState)
             {
                 case MusicPlayerState.None:
