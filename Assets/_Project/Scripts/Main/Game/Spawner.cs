@@ -24,13 +24,26 @@ namespace _Project.Scripts.Main.Game
         [Inject] private PlayerBase _player;
 
         private bool _pause;
+        private bool _started;
 
-        private void Awake()
+        private void Start()
         {
-            if (_startOnAwake) StartSpawn();
+            if (!_started && _startOnAwake)
+            {
+                _started = true;
+            }
         }
-        
-        private void OnEnable() {}
+
+        private void OnEnable()
+        {
+            if (!_started) return;
+            StartSpawn();
+        }
+
+        private void OnDisable()
+        {
+            StopSpawn();
+        }
 
         public void StartSpawn()
         {
