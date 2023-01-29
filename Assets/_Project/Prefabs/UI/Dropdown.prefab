@@ -1031,6 +1031,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _localizedTextKey: Language
+  _prefix: 
+  _postfix: 
 --- !u!114 &6361975054980307459
 MonoBehaviour:
   m_ObjectHideFlags: 0

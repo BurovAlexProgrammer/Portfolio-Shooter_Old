@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Ground 1
-  m_Shader: {fileID: 35, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: cff54a34f752fac45be65f536d4d4dc9, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 0
@@ -44,6 +44,10 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
+    - _HeightMap:
+        m_Texture: {fileID: 2800000, guid: 6f72551c4c5028545a35064fe0909164, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Illum:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -61,7 +65,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _ParallaxMap:
-        m_Texture: {fileID: 2800000, guid: 6f72551c4c5028545a35064fe0909164, type: 3}
+        m_Texture: {fileID: 2800000, guid: ce43d47f9ba33b64199c32841ae12587, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _TerrainHolesTexture:
@@ -81,7 +85,8 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Parallax: 0.0591
+    - _Parallax: 0.0261
+    - _ParallaxSamples: 58.8
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
