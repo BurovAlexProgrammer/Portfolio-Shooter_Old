@@ -49,8 +49,8 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             _collided = false;
             gameObject.SetActive(true);
-           _transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
-           _rigidbody.velocity = _transform.forward * _shellConfig.InitSpeed;
+           Transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
+           _rigidbody.velocity = Transform.forward * _shellConfig.InitSpeed;
         }
 
         public void DestroyOnLifetimeEnd()
@@ -62,7 +62,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             await _lifeTime.WaitInSeconds();
             
-            if (!Available) return;
+            if (!IsAvailable) return;
             
             Destruct();
         }
@@ -71,9 +71,9 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             var destruction = Services.Services.PoolService.Get(_destructionPrefab);
             var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
-            destruction._transform.position = _transform.position;
-            destruction._transform.rotation = _transform.rotation;
-            destruction._gameObject.SetActive(true);
+            destruction.Transform.position = Transform.position;
+            destruction.Transform.rotation = Transform.rotation;
+            destruction.GameObject.SetActive(true);
 
             for (var i = 0; i < rigidbodies.Length; i++)
             {

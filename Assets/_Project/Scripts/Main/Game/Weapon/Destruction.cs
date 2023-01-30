@@ -19,8 +19,8 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void Awake()
         {
-            _childrenTransforms = _transform.GetChildrenTransforms();
-            _childrenInitTransformInfos = _transform.GetChildrenTransformInfo();
+            _childrenTransforms = Transform.GetChildrenTransforms();
+            _childrenInitTransformInfos = Transform.GetChildrenTransformInfo();
         }
 
         private void OnEnable()
@@ -64,9 +64,9 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             await (_lifeTime / 2f).WaitInSeconds();
 
-            if (Destroyed) return;
+            if (IsDestroyed) return;
             
-            var children = _transform.GetChildrenTransforms();
+            var children = Transform.GetChildrenTransforms();
             var sequence = DOTween.Sequence();
 
             for (var i = 0; i < children.Length; i++) 

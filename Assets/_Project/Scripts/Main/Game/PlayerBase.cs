@@ -86,6 +86,11 @@ namespace _Project.Scripts.Main.Game
             { 
                 Move(_moveLerpValue);
             }
+            
+            if (transform.position.y < 1)
+            {
+                Debug.LogError("ERROR");
+            } 
         }
 
         public void Disable()
@@ -108,7 +113,7 @@ namespace _Project.Scripts.Main.Game
             
             var moveVector = inputValue * Time.fixedDeltaTime * _config.MoveSpeed;
             var gravityVelocity = _useGravity ? Physics.gravity * Time.fixedDeltaTime : Vector3.zero;
-            _characterController.Move(_transform.right * moveVector.x + _transform.forward * moveVector.y + gravityVelocity);
+            _characterController.Move(Transform.right * moveVector.x + Transform.forward * moveVector.y + gravityVelocity);
 
             if (_characterController.velocity != Vector3.zero)
             {

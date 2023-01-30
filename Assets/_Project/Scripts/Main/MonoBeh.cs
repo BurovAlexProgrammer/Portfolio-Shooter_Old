@@ -1,6 +1,9 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
+using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
+using UnityEngine.PlayerLoop;
 
 namespace _Project.Scripts.Main
 {
@@ -9,24 +12,40 @@ namespace _Project.Scripts.Main
         private GameObject _gameObjectRef;
         private Transform _transformRef;
         private CancellationToken _destroyCancellationToken;
+        private bool _isDestroyed;
+        private bool _isInitialized;
 
-        public GameObject _gameObject => _gameObjectRef ?? gameObject;
-        public Transform _transform => _transformRef ?? transform;
+        public GameObject GameObject => _isInitialized ? _gameObjectRef : gameObject;
+        public Transform Transform => _isInitialized ? _transformRef : transform;
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
-        public bool Destroyed => _destroyCancellationToken.IsCancellationRequested;
-        public bool Available => _gameObject != null && _gameObject.activeSelf && !Destroyed;
+        public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
+        public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;
+        protected GameObject _gameObject => GameObject;
+        protected Transform _transform => Transform;
 
         protected MonoBeh()
         {
             Init();
         }
 
-        async void Init()
-        {
+        private async void Init()
+        { 
             await UniTask.Yield();
-            _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
-            _gameObjectRef = gameObject;
-            _transformRef = transform;
+
+            _isInitialized = true;
+
+            try
+            {
+                _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
+                _gameObjectRef = gameObject;
+                _transformRef = transform;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+
         }
     }
 }

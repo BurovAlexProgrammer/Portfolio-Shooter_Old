@@ -48,7 +48,7 @@ namespace _Project.Scripts.Main.Game
         public void StartSpawn()
         {
             enabled = true;
-            Spawning().Forget();
+            _ = Spawning();
         }
 
         public void StopSpawn()
@@ -99,7 +99,7 @@ namespace _Project.Scripts.Main.Game
         {
             var t = _player;
             var instance = Services.Services.PoolService.Get(_prefab);
-            instance._transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
+            instance.Transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
             instance.gameObject.SetActive(true);
         }
 
