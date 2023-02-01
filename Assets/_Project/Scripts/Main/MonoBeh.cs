@@ -1,9 +1,7 @@
 using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
-using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 
 namespace _Project.Scripts.Main
 {

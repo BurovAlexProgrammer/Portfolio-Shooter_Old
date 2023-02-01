@@ -93,14 +93,7 @@ namespace _Project.Scripts.Main.Installers
                     var playerTransform = _player.Transform;
                     playerTransform.position = _playerStartPoint.position;
                     playerTransform.rotation = _playerStartPoint.rotation;
-                    if (_player.transform.position.y < 1)
-                    {
-                        Debug.LogError("ERROR");
-                    }
-                    else
-                    {
-                        Destroy(_playerStartPoint.gameObject);
-                    }
+                    Destroy(_playerStartPoint.gameObject);
                 });
         }
 

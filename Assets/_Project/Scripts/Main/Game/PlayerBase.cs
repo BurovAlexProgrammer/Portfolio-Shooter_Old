@@ -86,11 +86,6 @@ namespace _Project.Scripts.Main.Game
             { 
                 Move(_moveLerpValue);
             }
-            
-            if (transform.position.y < 1)
-            {
-                Debug.LogError("ERROR");
-            } 
         }
 
         public void Disable()

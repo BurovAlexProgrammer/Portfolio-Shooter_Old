@@ -1,7 +1,5 @@
 using _Project.Scripts.Main.Game;
-using _Project.Scripts.Main.Services;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using Zenject;
 
 public class MiniGameLevel : MonoBehaviour
