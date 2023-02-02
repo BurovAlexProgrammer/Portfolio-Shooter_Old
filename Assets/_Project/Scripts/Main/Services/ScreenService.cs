@@ -1,7 +1,7 @@
 using _Project.Scripts.Extension;
 using Tayx.Graphy;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+// using UnityEngine.Rendering.PostProcessing;
 using Zenject;
 
 namespace _Project.Scripts.Main.Services
@@ -10,8 +10,8 @@ namespace _Project.Scripts.Main.Services
     {
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Camera _uiCamera;
-        [SerializeField] private PostProcessVolume _postProcessVolume;
-        [SerializeField] private PostProcessLayer _postProcessLayer;
+        // [SerializeField] private PostProcessVolume _postProcessVolume;
+        // [SerializeField] private PostProcessLayer _postProcessLayer;
         [SerializeField] private GraphyManager _internalProfiler;
         [SerializeField] private bool _showProfilerOnStartup;
 
@@ -19,8 +19,8 @@ namespace _Project.Scripts.Main.Services
 
         public Camera MainCamera => _mainCamera;
         public Camera UICamera => _uiCamera;
-        public PostProcessVolume PostProcessVolume => _postProcessVolume;
-        public PostProcessLayer PostProcessLayer => _postProcessLayer;
+        // public PostProcessVolume PostProcessVolume => _postProcessVolume;
+        // public PostProcessLayer PostProcessLayer => _postProcessLayer;
 
         private void Awake()
         {

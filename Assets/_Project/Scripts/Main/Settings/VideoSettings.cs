@@ -2,9 +2,9 @@ using System;
 using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
+// using UnityEngine.Rendering.PostProcessing;
 using Zenject;
-using static UnityEngine.Rendering.PostProcessing.PostProcessLayer.Antialiasing;
+// using static UnityEngine.Rendering.PostProcessing.PostProcessLayer.Antialiasing;
 
 namespace _Project.Scripts.Main.Settings
 {
@@ -29,40 +29,40 @@ namespace _Project.Scripts.Main.Settings
         
         public override void ApplySettings(SettingsService settingsService)
         {
-            var postProcessLayer = Services.Services.ScreenService.PostProcessLayer;   //Crutch instead of injection
-            var postProcessVolume = Services.Services.ScreenService.PostProcessVolume; //Crutch instead of injection
-            postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
-            foreach (var effectSettings in postProcessVolume.profile.settings)
-            {
-                switch (effectSettings)
-                {
-                    case AmbientOcclusion:
-                        effectSettings.enabled.Override(PostProcessAmbientOcclusion);
-                        break;
-                    case Bloom:
-                        effectSettings.enabled.Override(PostProcessBloom);
-                        break;
-                    case ChromaticAberration:
-                        effectSettings.enabled.Override(PostProcessChromaticAberration);
-                        break;
-                    case DepthOfField:
-                        effectSettings.enabled.Override(PostProcessDepthOfField);
-                        break;
-                    case LensDistortion:
-                        effectSettings.enabled.Override(PostProcessLensDistortion);
-                        break;
-                    case MotionBlur:
-                        effectSettings.enabled.Override(PostProcessMotionBlur);
-                        break;
-                    case Vignette:
-                        effectSettings.enabled.Override(PostProcessVignette);
-                        break;
-                    case ColorGrading:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(effectSettings));
-                }
-            }
+            // var postProcessLayer = Services.Services.ScreenService.PostProcessLayer;   //Crutch instead of injection
+            // var postProcessVolume = Services.Services.ScreenService.PostProcessVolume; //Crutch instead of injection
+            // postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
+            // foreach (var effectSettings in postProcessVolume.profile.settings)
+            // {
+            //     switch (effectSettings)
+            //     {
+            //         case AmbientOcclusion:
+            //             effectSettings.enabled.Override(PostProcessAmbientOcclusion);
+            //             break;
+            //         case Bloom:
+            //             effectSettings.enabled.Override(PostProcessBloom);
+            //             break;
+            //         case ChromaticAberration:
+            //             effectSettings.enabled.Override(PostProcessChromaticAberration);
+            //             break;
+            //         case DepthOfField:
+            //             effectSettings.enabled.Override(PostProcessDepthOfField);
+            //             break;
+            //         case LensDistortion:
+            //             effectSettings.enabled.Override(PostProcessLensDistortion);
+            //             break;
+            //         case MotionBlur:
+            //             effectSettings.enabled.Override(PostProcessMotionBlur);
+            //             break;
+            //         case Vignette:
+            //             effectSettings.enabled.Override(PostProcessVignette);
+            //             break;
+            //         case ColorGrading:
+            //             break;
+            //         default:
+            //             throw new ArgumentOutOfRangeException(nameof(effectSettings));
+            //     }
+            // }
         }
     }
 

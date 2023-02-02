@@ -13,8 +13,8 @@ namespace _Project.Scripts.Main
         private bool _isDestroyed;
         private bool _isInitialized;
 
-        public GameObject GameObject => _isInitialized ? _gameObjectRef : gameObject;
-        public Transform Transform => _isInitialized ? _transformRef : transform;
+        public GameObject GameObject => gameObject;
+        public Transform Transform => transform;
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
         public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
         public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;
@@ -23,7 +23,7 @@ namespace _Project.Scripts.Main
 
         protected MonoBeh()
         {
-            Init();
+           // Init();
         }
 
         private async void Init()
@@ -40,7 +40,7 @@ namespace _Project.Scripts.Main
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Debug.LogError(e, this);
                 throw;
             }
 
