@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4061449570706663943}
   - component: {fileID: 8371950804692792567}
   - component: {fileID: 3393658238616258502}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -146,7 +146,7 @@ GameObject:
   - component: {fileID: 2078918046153866366}
   - component: {fileID: 2975865535017603515}
   - component: {fileID: 5889702213947815059}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LampPart.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 7298472242744329747}
   - component: {fileID: 2626234642351651144}
   - component: {fileID: 2706484842431907272}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LampPart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -374,7 +374,7 @@ GameObject:
   - component: {fileID: 6058863566217552390}
   - component: {fileID: 4827441754546365337}
   - component: {fileID: 3200293718274972629}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: BasePart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3135315035467115492}
   - component: {fileID: 8092972541514889902}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -537,7 +537,7 @@ GameObject:
   - component: {fileID: 3491562527293427491}
   - component: {fileID: 8799890652842973359}
   - component: {fileID: 3334542430354403561}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LampPart.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +651,7 @@ GameObject:
   - component: {fileID: 4434254722190706654}
   - component: {fileID: 8165902312166918982}
   - component: {fileID: 7564328628096633557}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LampPart.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -765,7 +765,7 @@ GameObject:
   - component: {fileID: 5363640214383983873}
   - component: {fileID: 4761687755120616315}
   - component: {fileID: 353165866197218489}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LampPart.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -881,7 +881,7 @@ GameObject:
   - component: {fileID: 3673776449811125219}
   - component: {fileID: 5029978524075406042}
   - component: {fileID: 7602450946699175921}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: BasePart.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -993,7 +993,7 @@ GameObject:
   - component: {fileID: 6930328702078251001}
   - component: {fileID: 5726770232576015754}
   - component: {fileID: 1038543789156297597}
-  m_Layer: 11
+  m_Layer: 8
   m_Name: LampDestructed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1115,6 +1115,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_Sparks
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913174526223994201, guid: 7e433e6b468666844a1022d68baf603a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e433e6b468666844a1022d68baf603a, type: 3}

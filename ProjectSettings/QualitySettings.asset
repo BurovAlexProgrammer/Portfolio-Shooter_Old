@@ -4,7 +4,7 @@
 QualitySettings:
   m_ObjectHideFlags: 0
   serializedVersion: 5
-  m_CurrentQuality: 0
+  m_CurrentQuality: 2
   m_QualitySettings:
   - serializedVersion: 2
     name: Performant
@@ -114,7 +114,7 @@ QualitySettings:
     asyncUploadBufferSize: 16
     asyncUploadPersistentBuffer: 1
     resolutionScalingFixedDPIFactor: 1
-    customRenderPipeline: {fileID: 11400000, guid: 78822bbc49d4a2b4cb1d483b7bfbc56c,
+    customRenderPipeline: {fileID: 11400000, guid: eed70e211faa29f428332ffc22c24421,
       type: 2}
     excludedTargetPlatforms: []
   m_PerPlatformDefaultQuality:

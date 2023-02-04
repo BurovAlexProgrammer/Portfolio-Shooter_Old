@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: Post-process Profile(URP)
+  m_Name: Post-process Profile (URP)
   m_EditorClassIdentifier: 
   components:
   - {fileID: 128813406416924178}
@@ -309,10 +309,10 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.503
+    m_Value: 0.634
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.401
+    m_Value: 0.477
   rounded:
     m_OverrideState: 0
     m_Value: 1
@@ -328,16 +328,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66f335fb1ffd8684294ad653bf1c7564, type: 3}
   m_Name: ColorAdjustments
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   postExposure:
     m_OverrideState: 0
     m_Value: 0
   contrast:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1.5
   colorFilter:
-    m_OverrideState: 0
-    m_Value: {r: 1, g: 1, b: 1, a: 1}
+    m_OverrideState: 1
+    m_Value: {r: 1, g: 0, b: 0.30727762, a: 1}
   hueShift:
     m_OverrideState: 0
     m_Value: 0

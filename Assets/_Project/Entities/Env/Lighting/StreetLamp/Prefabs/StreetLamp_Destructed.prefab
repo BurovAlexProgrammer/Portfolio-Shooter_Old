@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8748700953231107584}
   - component: {fileID: 6361696401882584970}
   - component: {fileID: 9042127559146690879}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp001_cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ GameObject:
   - component: {fileID: 3963783916383587907}
   - component: {fileID: 4181489126474128076}
   - component: {fileID: 2332633131996074695}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -257,7 +257,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1314720711248153090}
   - component: {fileID: 7837284571703752360}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp_Destructed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -312,7 +312,7 @@ GameObject:
   - component: {fileID: 9143989469253264133}
   - component: {fileID: 767682402096719370}
   - component: {fileID: 5769731759971034091}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp001_cell.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -426,7 +426,7 @@ GameObject:
   - component: {fileID: 2416370315335696808}
   - component: {fileID: 4954667831017177431}
   - component: {fileID: 4432849700204667713}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp002_cell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,7 @@ GameObject:
   - component: {fileID: 2384405415925892867}
   - component: {fileID: 5950191274370548830}
   - component: {fileID: 507905558113327579}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp001_cell.002
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -657,7 +657,7 @@ GameObject:
   - component: {fileID: 3553126234877023336}
   - component: {fileID: 5371178219094450586}
   - component: {fileID: 725952686930878151}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp001_cell.003
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -771,7 +771,7 @@ GameObject:
   - component: {fileID: 2479677440263065877}
   - component: {fileID: 4311697109394573497}
   - component: {fileID: 2358836022424585440}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: StreetLamp002_cell.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -919,6 +919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FX_Sparks
+      objectReference: {fileID: 0}
+    - target: {fileID: 8913174526223994201, guid: 7e433e6b468666844a1022d68baf603a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e433e6b468666844a1022d68baf603a, type: 3}
