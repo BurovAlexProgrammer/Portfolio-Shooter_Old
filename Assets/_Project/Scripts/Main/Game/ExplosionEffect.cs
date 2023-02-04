@@ -6,7 +6,7 @@ using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Game
 {
-    public class Explosion : MonoBehaviour
+    public class ExplosionEffect : MonoBehaviour
     {
         [SerializeField] private Dependencies _dependencies = Dependencies.Siblings;
         [SerializeField] private float _radius = 2;
