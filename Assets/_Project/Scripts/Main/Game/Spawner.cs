@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Extension;
+﻿using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _startDelay = 3f;
         [SerializeField] private float _maxSpawnTime = 5f;
         [SerializeField] private AnimationCurve _difficultCurve;
-        [SerializeField] private bool _startOnAwake;
         [SerializeField] private MonoPoolItemBase _prefab;
         [Header("Info")]
         [SerializeField] private float _spawnRate;
@@ -23,23 +21,8 @@ namespace _Project.Scripts.Main.Game
         
         [Inject] private PlayerBase _player;
 
-        private bool _pause;
-        private bool _started;
-
-        private void Start()
-        {
-            if (!_started && _startOnAwake)
-            {
-                _started = true;
-            }
-        }
-
-        private void OnEnable()
-        {
-            if (!_started) return;
-            StartSpawn();
-        }
-
+        private bool _paused;
+        
         private void OnDisable()
         {
             StopSpawn();
@@ -58,12 +41,12 @@ namespace _Project.Scripts.Main.Game
 
         public void PauseSpawn()
         {
-            _pause = true;
+            _paused = true;
         }
 
         public void ContinueSpawn()
         {
-            _pause = false;
+            _paused = false;
         }
 
         private async UniTask Spawning()
@@ -72,7 +55,7 @@ namespace _Project.Scripts.Main.Game
 
             while (this != null && enabled)
             {
-                if (_pause) continue;
+                if (_paused) continue;
                 
                 _timer += Time.deltaTime;
                 _spawnTimer -= Time.deltaTime;

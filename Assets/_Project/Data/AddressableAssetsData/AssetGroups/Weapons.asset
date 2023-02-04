@@ -21,10 +21,6 @@ MonoBehaviour:
     m_Address: Shell
     m_ReadOnly: 0
     m_SerializedLabels: []
-  - m_GUID: bba15b4516633d04787c94ed7aab0619
-    m_Address: Weapon
-    m_ReadOnly: 0
-    m_SerializedLabels: []
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: fd73b48df9aa6a04aad1743f5397afa7, type: 2}
   m_SchemaSet:
