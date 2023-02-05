@@ -40,14 +40,24 @@ namespace _Project.Scripts.Main.Game
 
         private async void OnEnable()
         {
+            await UniTask.NextFrame(_cancellationToken);
+            
             for (var i = 0; i < _lights.Count; i++)
             {
-                await UniTask.NextFrame();
 
                 if (_lights[i] == null) continue;
 
                 _lights[i].enabled = true;
-                RunDestroy(i, _lights[i]);
+                
+                switch (_forceMode)
+                {
+                    case Mode.Destroy:
+                        _ = RunDestroy(i, _lights[i]).AttachExternalCancellation(_cancellationToken);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+                
             }
         }
 
@@ -74,10 +84,10 @@ namespace _Project.Scripts.Main.Game
                 
                 if (!firstPeriod)
                 {
-                    sequence.Append(light.DOIntensity(_initIntensity, period / 2));
+                    await sequence.Append(light.DOIntensity(_initIntensity, period / 2));
                 }
 
-                sequence.Append(light.DOIntensity(0f, period / 2));
+                await sequence.Append(light.DOIntensity(0f, period / 2));
                 firstPeriod = false;
             }
 

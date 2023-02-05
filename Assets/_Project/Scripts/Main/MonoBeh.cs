@@ -11,7 +11,7 @@ namespace _Project.Scripts.Main
         private Transform _transformRef;
         private CancellationToken _destroyCancellationToken;
         private bool _isDestroyed;
-        private bool _isInitialized;
+        // private bool _isInitialized;
 
         public GameObject GameObject => gameObject;
         public Transform Transform => transform;
@@ -30,7 +30,7 @@ namespace _Project.Scripts.Main
         { 
             await UniTask.Yield();
 
-            _isInitialized = true;
+            // _isInitialized = true;
 
             try
             {
