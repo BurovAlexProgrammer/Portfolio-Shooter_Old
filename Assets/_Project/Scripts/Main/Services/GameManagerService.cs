@@ -15,7 +15,6 @@ namespace _Project.Scripts.Main.Services
         [SerializeField, ReadOnlyField] private GameStateMachine _gameStateMachine;
         [SerializeField, ReadOnlyField] private bool _isGamePause;
         [SerializeField, ReadOnlyField] private int _scores;
-
         [Inject] private ControlService _controlService;
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private StatisticService _statisticService;

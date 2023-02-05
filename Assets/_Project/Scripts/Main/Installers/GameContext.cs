@@ -90,7 +90,7 @@ namespace _Project.Scripts.Main.Installers
                 .OnInstantiated((ctx, instance) =>
                 {
                     _player = instance as PlayerBase;
-                    var playerTransform = _player.transform;
+                    var playerTransform = _player.Transform;
                     playerTransform.position = _playerStartPoint.position;
                     playerTransform.rotation = _playerStartPoint.rotation;
                     Destroy(_playerStartPoint.gameObject);

@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using UnityEngine;
 
 namespace _Project.Scripts.Extension
@@ -19,6 +21,24 @@ namespace _Project.Scripts.Extension
 
             await tween.ToUniTask(cancelBehaviour, token);
         }
+    //     
+    //     public static Tween DOPunch(this ref float value, float endValue,float duration,int vibrato = 10)
+    //     {
+    //         var initValue = value;
+    //         var sequence = DOTween.Sequence();
+    //         
+    //         for (int i = 0; i < vibrato; i++)
+    //         {
+    //             sequence
+    //                 .Append(DOVirtual.Float())
+    //             
+    //         }
+    //         
+    //         return sequence;
+    //         
+    //         return DOTween.To(() => value, x => value = x, duration, vibrato).SetTarget<TweenerCore<float, float[], FloatOptions>>(value);
+    //         
+    //         return null;
     }
 
     public static class TweenTemplates

@@ -4,10 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - UICamera
   - CollectItem
   - Enemy
   - Explosion
+  - UICamera
+  - Light
+  - Shell
   layers:
   - Default
   - TransparentFX
@@ -15,12 +17,12 @@ TagManager:
   - 
   - Water
   - UI
-  - PostProcess
-  - NoPostProcess
+  - Character
   - Shell
-  - Player
-  - Enemy
-  - Destructions
+  - Destruction
+  - 
+  - 
+  - 
   - 
   - 
   - 

@@ -1,5 +1,4 @@
-﻿using System;
-using _Project.Scripts.Extension;
+﻿using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -13,7 +12,6 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _startDelay = 3f;
         [SerializeField] private float _maxSpawnTime = 5f;
         [SerializeField] private AnimationCurve _difficultCurve;
-        [SerializeField] private bool _startOnAwake;
         [SerializeField] private MonoPoolItemBase _prefab;
         [Header("Info")]
         [SerializeField] private float _spawnRate;
@@ -23,19 +21,17 @@ namespace _Project.Scripts.Main.Game
         
         [Inject] private PlayerBase _player;
 
-        private bool _pause;
-
-        private void Awake()
-        {
-            if (_startOnAwake) StartSpawn();
-        }
+        private bool _paused;
         
-        private void OnEnable() {}
+        private void OnDisable()
+        {
+            StopSpawn();
+        }
 
         public void StartSpawn()
         {
             enabled = true;
-            Spawning().Forget();
+            _ = Spawning();
         }
 
         public void StopSpawn()
@@ -45,12 +41,12 @@ namespace _Project.Scripts.Main.Game
 
         public void PauseSpawn()
         {
-            _pause = true;
+            _paused = true;
         }
 
         public void ContinueSpawn()
         {
-            _pause = false;
+            _paused = false;
         }
 
         private async UniTask Spawning()
@@ -59,7 +55,7 @@ namespace _Project.Scripts.Main.Game
 
             while (this != null && enabled)
             {
-                if (_pause) continue;
+                if (_paused) continue;
                 
                 _timer += Time.deltaTime;
                 _spawnTimer -= Time.deltaTime;
@@ -86,7 +82,7 @@ namespace _Project.Scripts.Main.Game
         {
             var t = _player;
             var instance = Services.Services.PoolService.Get(_prefab);
-            instance._transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
+            instance.Transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
             instance.gameObject.SetActive(true);
         }
 

@@ -16,7 +16,7 @@ namespace _Project.Scripts.Main.Game
         {
             await time.WaitInSeconds();
             
-            Destroy(_gameObject);
+            Destroy(GameObject);
         }
     }
 }

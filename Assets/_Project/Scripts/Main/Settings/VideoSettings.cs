@@ -1,10 +1,8 @@
 using System;
-using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Services;
 using UnityEngine;
-using UnityEngine.Rendering.PostProcessing;
-using Zenject;
-using static UnityEngine.Rendering.PostProcessing.PostProcessLayer.Antialiasing;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace _Project.Scripts.Main.Settings
 {
@@ -12,62 +10,43 @@ namespace _Project.Scripts.Main.Settings
     [CreateAssetMenu(menuName = "Custom/Settings/Video Settings")]
     public class VideoSettings: SettingsSO
     {
-        public bool PostProcessAntiAliasing;
+        public bool PostProcessAntiAliasing; //TODO impl
         public bool PostProcessBloom;
         public bool PostProcessVignette;
-        public bool PostProcessAmbientOcclusion;
+        public bool PostProcessAmbientOcclusion; //TODO impl
         public bool PostProcessDepthOfField;
-        public bool PostProcessChromaticAberration;
+        public bool PostProcessFilmGrain;
         public bool PostProcessLensDistortion;
         public bool PostProcessMotionBlur;
 
-        [Inject]
-        public void Construct(ScreenService screenService)
-        {
-            //TODO Research. Inject does not call, dont know why.
-        }
-        
+        private VolumeProfile _volumeProfile;
+        private VolumeComponent _volumeComponent;
+
         public override void ApplySettings(SettingsService settingsService)
         {
-            var postProcessLayer = Services.Services.ScreenService.PostProcessLayer;   //Crutch instead of injection
-            var postProcessVolume = Services.Services.ScreenService.PostProcessVolume; //Crutch instead of injection
-            postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
-            foreach (var effectSettings in postProcessVolume.profile.settings)
+            _volumeProfile = settingsService.ScreenService.VolumeProfile;
+            SetVolumeActive(typeof(Bloom), PostProcessBloom);
+            SetVolumeActive(typeof(DepthOfField), PostProcessDepthOfField);
+            SetVolumeActive(typeof(Vignette), PostProcessVignette);
+            SetVolumeActive(typeof(FilmGrain), PostProcessFilmGrain);
+            SetVolumeActive(typeof(MotionBlur), PostProcessMotionBlur);
+            SetVolumeActive(typeof(LensDistortion), PostProcessLensDistortion);
+            // postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
+        }
+
+        private void SetVolumeActive(Type type, bool state)
+        {
+            if (_volumeProfile.TryGet(type, out _volumeComponent))
             {
-                switch (effectSettings)
-                {
-                    case AmbientOcclusion:
-                        effectSettings.enabled.Override(PostProcessAmbientOcclusion);
-                        break;
-                    case Bloom:
-                        effectSettings.enabled.Override(PostProcessBloom);
-                        break;
-                    case ChromaticAberration:
-                        effectSettings.enabled.Override(PostProcessChromaticAberration);
-                        break;
-                    case DepthOfField:
-                        effectSettings.enabled.Override(PostProcessDepthOfField);
-                        break;
-                    case LensDistortion:
-                        effectSettings.enabled.Override(PostProcessLensDistortion);
-                        break;
-                    case MotionBlur:
-                        effectSettings.enabled.Override(PostProcessMotionBlur);
-                        break;
-                    case Vignette:
-                        effectSettings.enabled.Override(PostProcessVignette);
-                        break;
-                    case ColorGrading:
-                        break;
-                    default:
-                        throw new ArgumentOutOfRangeException(nameof(effectSettings));
-                }
+                _volumeComponent.active = state;
+                return;
             }
+
+            throw new Exception($"VolumeProfile {type.FullName} not found.");
         }
     }
 
     public static class VideoSettingsAttributes
     {
-        
     }
 }

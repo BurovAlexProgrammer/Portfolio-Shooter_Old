@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -9,24 +10,40 @@ namespace _Project.Scripts.Main
         private GameObject _gameObjectRef;
         private Transform _transformRef;
         private CancellationToken _destroyCancellationToken;
+        private bool _isDestroyed;
+        // private bool _isInitialized;
 
-        public GameObject _gameObject => _gameObjectRef ?? gameObject;
-        public Transform _transform => _transformRef ?? transform;
+        public GameObject GameObject => gameObject;
+        public Transform Transform => transform;
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
-        public bool Destroyed => _destroyCancellationToken.IsCancellationRequested;
-        public bool Available => _gameObject != null && _gameObject.activeSelf && !Destroyed;
+        public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
+        public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;
+        protected GameObject _gameObject => GameObject;
+        protected Transform _transform => Transform;
 
         protected MonoBeh()
         {
-            Init();
+           // Init();
         }
 
-        async void Init()
-        {
+        private async void Init()
+        { 
             await UniTask.Yield();
-            _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
-            _gameObjectRef = gameObject;
-            _transformRef = transform;
+
+            // _isInitialized = true;
+
+            try
+            {
+                _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
+                _gameObjectRef = gameObject;
+                _transformRef = transform;
+            }
+            catch (Exception e)
+            {
+                Debug.LogError(e, this);
+                throw;
+            }
+
         }
     }
 }

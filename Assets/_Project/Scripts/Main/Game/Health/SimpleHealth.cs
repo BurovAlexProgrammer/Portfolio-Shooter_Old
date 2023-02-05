@@ -1,10 +1,9 @@
-﻿using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.Game.Weapon;
+﻿using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using static _Project.Scripts.Main.Services.Services;
 
-namespace _Project.Scripts.Main.Game
+namespace _Project.Scripts.Main.Game.Health
 {
     public class SimpleHealth : HealthBase
     {
@@ -37,8 +36,8 @@ namespace _Project.Scripts.Main.Game
             if (_destructionPrefab != null)
             {
                 var enemyParts = PoolService.GetAndActivate(_destructionPrefab);
-                enemyParts._transform.position = _transform.position;
-                enemyParts._transform.rotation = _transform.rotation;
+                enemyParts.Transform.position = Transform.position;
+                enemyParts.Transform.rotation = Transform.rotation;
             }
 
             if (_poolItem != null)

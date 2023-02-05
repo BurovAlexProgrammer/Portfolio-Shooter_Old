@@ -1,7 +1,4 @@
-using System;
-using _Project.Scripts.Extension;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Services
