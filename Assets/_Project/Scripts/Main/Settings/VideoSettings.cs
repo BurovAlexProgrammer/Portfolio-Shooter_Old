@@ -3,7 +3,6 @@ using _Project.Scripts.Main.Services;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 
 namespace _Project.Scripts.Main.Settings
 {
@@ -26,15 +25,12 @@ namespace _Project.Scripts.Main.Settings
         public override void ApplySettings(SettingsService settingsService)
         {
             _volumeProfile = settingsService.ScreenService.VolumeProfile;
-            var components = settingsService.ScreenService.VolumeProfile.components;
-            
             SetVolumeActive(typeof(Bloom), PostProcessBloom);
             SetVolumeActive(typeof(DepthOfField), PostProcessDepthOfField);
             SetVolumeActive(typeof(Vignette), PostProcessVignette);
             SetVolumeActive(typeof(FilmGrain), PostProcessFilmGrain);
             SetVolumeActive(typeof(MotionBlur), PostProcessMotionBlur);
             SetVolumeActive(typeof(LensDistortion), PostProcessLensDistortion);
-            
             // postProcessLayer.antialiasingMode = PostProcessAntiAliasing ? PostProcessLayer.Antialiasing.FastApproximateAntialiasing : None;
         }
 
@@ -52,6 +48,5 @@ namespace _Project.Scripts.Main.Settings
 
     public static class VideoSettingsAttributes
     {
-        
     }
 }

@@ -33,21 +33,13 @@ namespace _Project.Scripts.Main.Menu
         {
             _buttonSave.onClick.AddListener(SaveSettings);
             _buttonReset.onClick.AddListener(ResetToDefault);
-            _videoSettingViews.AntiAliasing.onValueChanged.AddListener(
-                value => _settingsController.Bind(value, ref _settingsController.VideoSettings.PostProcessAntiAliasing));
-            
-            _videoSettingViews.Bloom.onValueChanged.AddListener(
-                value => _settingsController.Bind(value, ref _settingsController.VideoSettings.PostProcessBloom));
-            
-            _videoSettingViews.Vignette.onValueChanged.AddListener(
-                value => _settingsController.Bind(value, ref _settingsController.VideoSettings.PostProcessVignette));
-            
-            _videoSettingViews.AmbientOcclusion.onValueChanged.AddListener(
-                value => _settingsController.Bind(value, ref _settingsController.VideoSettings.PostProcessAmbientOcclusion));
-            
-            _videoSettingViews.DepthOfField.onValueChanged.AddListener(
-                value => _settingsController.Bind(value, ref _settingsController.VideoSettings.PostProcessDepthOfField));
-
+            var videoSettings = _settingsController.VideoSettings;
+            _videoSettingViews.AntiAliasingToggle.onValueChanged.AddListener(value => videoSettings.PostProcessAntiAliasing = value);
+            _videoSettingViews.BloomToggle.onValueChanged.AddListener(value => videoSettings.PostProcessBloom = value);
+            _videoSettingViews.VignetteToggle.onValueChanged.AddListener(value => videoSettings.PostProcessVignette = value);
+            _videoSettingViews.AmbientOcclusionToggle.onValueChanged.AddListener(value => videoSettings.PostProcessAmbientOcclusion = value);
+            _videoSettingViews.DepthOfFieldToggle.onValueChanged.AddListener(value => videoSettings.PostProcessDepthOfField = value);
+            _videoSettingViews.FilmGrainToggle.onValueChanged.AddListener(value => videoSettings.PostProcessFilmGrain = value);
             _gameSettingViews.CurrentLanguage.onValueChanged.AddListener(value =>
             {
                 _textRestartRequire.gameObject.SetActive(true);
@@ -61,11 +53,12 @@ namespace _Project.Scripts.Main.Menu
         {
             _buttonSave.onClick.RemoveAllListeners();
             _buttonReset.onClick.RemoveAllListeners();
-            _videoSettingViews.AntiAliasing.onValueChanged.RemoveAllListeners();
-            _videoSettingViews.Bloom.onValueChanged.RemoveAllListeners();
-            _videoSettingViews.Vignette.onValueChanged.RemoveAllListeners();
-            _videoSettingViews.AmbientOcclusion.onValueChanged.RemoveAllListeners();
-            _videoSettingViews.DepthOfField.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.AntiAliasingToggle.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.BloomToggle.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.VignetteToggle.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.AmbientOcclusionToggle.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.DepthOfFieldToggle.onValueChanged.RemoveAllListeners();
+            _videoSettingViews.FilmGrainToggle.onValueChanged.RemoveAllListeners();
             _gameSettingViews.CurrentLanguage.onValueChanged.RemoveAllListeners();
         }
         
@@ -77,11 +70,12 @@ namespace _Project.Scripts.Main.Menu
 
         private void Init()
         {
-            _videoSettingViews.AntiAliasing.isOn = _settingsController.VideoSettings.PostProcessAntiAliasing;
-            _videoSettingViews.Bloom.isOn = _settingsController.VideoSettings.PostProcessBloom;
-            _videoSettingViews.Vignette.isOn = _settingsController.VideoSettings.PostProcessVignette;
-            _videoSettingViews.AmbientOcclusion.isOn = _settingsController.VideoSettings.PostProcessAmbientOcclusion;
-            _videoSettingViews.DepthOfField.isOn = _settingsController.VideoSettings.PostProcessDepthOfField;
+            _videoSettingViews.AntiAliasingToggle.isOn = _settingsController.VideoSettings.PostProcessAntiAliasing;
+            _videoSettingViews.BloomToggle.isOn = _settingsController.VideoSettings.PostProcessBloom;
+            _videoSettingViews.VignetteToggle.isOn = _settingsController.VideoSettings.PostProcessVignette;
+            _videoSettingViews.AmbientOcclusionToggle.isOn = _settingsController.VideoSettings.PostProcessAmbientOcclusion;
+            _videoSettingViews.DepthOfFieldToggle.isOn = _settingsController.VideoSettings.PostProcessDepthOfField;
+            _videoSettingViews.FilmGrainToggle.isOn = _settingsController.VideoSettings.PostProcessFilmGrain;
             _gameSettingViews.CurrentLanguage.value = (int)_settingsController.GameSettings.CurrentLocale;
         }
 
@@ -100,11 +94,12 @@ namespace _Project.Scripts.Main.Menu
         [Serializable]
         private class VideoSettingViews
         {
-            public Toggle AntiAliasing;
-            public Toggle Bloom;
-            public Toggle Vignette;
-            public Toggle AmbientOcclusion;
-            public Toggle DepthOfField;
+            public Toggle AntiAliasingToggle;
+            public Toggle BloomToggle;
+            public Toggle VignetteToggle;
+            public Toggle AmbientOcclusionToggle;
+            public Toggle DepthOfFieldToggle;
+            public Toggle FilmGrainToggle;
         }
         
         [Serializable]
