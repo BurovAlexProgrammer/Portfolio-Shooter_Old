@@ -2328,7 +2328,7 @@ MonoBehaviour:
   _radius: 2
   _force: 4.57
   _liftForce: 0.56
-  _forceMode: 0
+  _forceMode: 1
 --- !u!1 &3047047315249268734
 GameObject:
   m_ObjectHideFlags: 0

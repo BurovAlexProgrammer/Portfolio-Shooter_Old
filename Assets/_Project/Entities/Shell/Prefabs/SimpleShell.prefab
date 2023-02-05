@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -7913161024779972780}
   m_Layer: 7
   m_Name: SimpleShell
-  m_TagString: Shell
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
