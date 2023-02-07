@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -52,7 +53,7 @@ namespace _Project.Scripts.Main.Game
                 switch (_forceMode)
                 {
                     case Mode.Destroy:
-                        _ = RunDestroy(i, _lights[i]).AttachExternalCancellation(_cancellationToken);
+                        RunDestroy(i, _lights[i]);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
@@ -69,34 +70,30 @@ namespace _Project.Scripts.Main.Game
             }
         }
 
-        private async UniTask RunDestroy(int sequenceIndex, Light light)
+        private void RunDestroy(int sequenceIndex, Light light)
         {
             var period = _duration;
             var firstPeriod = true;
             var sequence = _sequences[sequenceIndex];
-            
             sequence?.Kill();
             sequence = DOTween.Sequence();
             
-            for (int i = 0; i < _flashCount; i++)
+            for (var i = 0; i < _flashCount; i++)
             {
                 period /= 2f;
                 
                 if (!firstPeriod)
                 {
-                    _ = sequence.Append(light.DOIntensity(_initIntensity, period / 2));
+                    sequence.Append(light.DOIntensity(_initIntensity, period / 2));
                 }
 
-                _ = sequence.Append(light.DOIntensity(0f, period / 2));
+                sequence.Append(light.DOIntensity(0f, period / 2));
                 firstPeriod = false;
             }
 
-            await sequence.Play()
-                .AsyncWaitForCompletion()
-                .AsUniTask()
-                .AttachExternalCancellation(_cancellationToken);
-
-            light.enabled = false;
+            sequence.OnComplete(() => light.enabled = false);
+            sequence.WithCancellation(_cancellationToken);
+            sequence.Play();
         }
 
         private enum Dependencies
