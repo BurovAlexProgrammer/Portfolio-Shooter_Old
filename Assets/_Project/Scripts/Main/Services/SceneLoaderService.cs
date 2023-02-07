@@ -35,7 +35,7 @@ namespace _Project.Scripts.Main.Services
             ShowScene();
         }
 
-        public async void LoadSceneAsync(Scenes scene)
+        public async UniTask LoadSceneAsync(Scenes scene)
         {
             var sceneName = GetSceneName(scene);
             await UniTask.WhenAll(HideScene(), PrepareScene(sceneName));

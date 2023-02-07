@@ -103,8 +103,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_controlServicePrefab)
                 .WithGameObjectName("Control Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                    (instance as ControlService)?.Init())
+                .OnInstantiated((ctx, instance) => SetService(instance as ControlService))
                 .NonLazy();
         }
 
@@ -141,6 +140,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_sceneLoaderServicePrefab)
                 .WithGameObjectName("Scene Loader")
                 .AsSingle()
+                .OnInstantiated((ctx, instance) => SetService((SceneLoaderService)instance))
                 .NonLazy();
         }
 

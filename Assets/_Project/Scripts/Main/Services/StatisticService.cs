@@ -131,8 +131,8 @@ namespace _Project.Scripts.Main.Services
 
                 if (delta < 1f) continue;
 
-                if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame ||
-                    Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot) //TODO Temp remove!! 
+                // if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame ||
+                    // Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot) //TODO Temp remove!! 
                 {
                     AddValueToRecord(RecordName.LastGameSessionDuration, delta);
                 }

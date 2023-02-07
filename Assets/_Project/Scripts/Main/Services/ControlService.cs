@@ -20,7 +20,6 @@ namespace _Project.Scripts.Main.Services
 
         public void Init()
         {
-            SetService(this);
             Controls = new Controls();
         }
 

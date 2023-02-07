@@ -1,10 +1,9 @@
-using _Project.Scripts.Main.Menu;
+using _Project.Scripts.Main.Game.GameState;
 using _Project.Scripts.Main.Services;
 using Cysharp.Threading.Tasks;
 using Zenject;
-using static _Project.Scripts.Extension.Common;
 
-namespace _Project.Scripts.Main.SceneScripts.MainMenu
+namespace _Project.Scripts.Main.Menu
 {
     public class MainMenuController : MenuController
     {
@@ -25,7 +24,7 @@ namespace _Project.Scripts.Main.SceneScripts.MainMenu
 
         public void StartNewGame()
         {
-            _gameManager.SetGameState(GameStates.PlayGame);
+            _gameManager.SetGameState(new GameStates.PlayGame()).Forget();
         }
 
         protected override async UniTask EnterState(MenuStates newState)

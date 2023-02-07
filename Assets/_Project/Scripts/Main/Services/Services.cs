@@ -1,3 +1,4 @@
+using System.Runtime.CompilerServices;
 using _Project.Scripts.Main.Services.SceneServices;
 
 namespace _Project.Scripts.Main.Services
@@ -14,6 +15,7 @@ namespace _Project.Scripts.Main.Services
         public static StatisticService StatisticService { get; private set; }
         public static EventListenerService EventListenerService { get; private set; }
         public static BrainControlService BrainControl { get; private set; }
+        public static ControlService ControlService { get; private set; }
 
         public static void SetService<T>(T instance) where T : BaseService
         {
@@ -53,6 +55,12 @@ namespace _Project.Scripts.Main.Services
                 case BrainControlService service:
                     BrainControl = service;
                     break;
+                case ControlService service:
+                    service.Init();
+                    ControlService = service;
+                    break;
+                default:
+                    throw new SwitchExpressionException();
             }
         }
         
