@@ -21,12 +21,12 @@ namespace _Project.Scripts.Main.Services
         [Inject] private SceneLoaderService _sceneLoader;
         [Inject] private StatisticService _statisticService;
 
-        public Action<bool> SwitchPause;
-        public Action GameOver;
+        public event Action<bool> SwitchPause;
+        public event Action GameOver;
 
         private bool _transaction;
 
-        public GameState CurrentGameState => _gameStateMachine.ActiveState;
+        public GameState ActiveGameState => _gameStateMachine.ActiveState;
         public bool IsGamePause => _isGamePause;
         public int Scores => _scores;
 
@@ -80,10 +80,11 @@ namespace _Project.Scripts.Main.Services
         {
             if (_transaction) return;
 
-            if (IsCurrentState(typeof(GameStates.PlayGame)) == false &&
-                IsCurrentState(typeof(GameStates.CustomScene)) == false) return;
+            if (ActiveStateEquals<GameStates.PlayGame>() == false &&
+                ActiveStateEquals<GameStates.CustomScene>() == false) return;
 
             Debug.Log("Game paused to menu.");
+
             var fixedDeltaTime = Time.fixedDeltaTime;
             _transaction = true;
             _isGamePause = true;
@@ -102,7 +103,8 @@ namespace _Project.Scripts.Main.Services
         {
             if (_transaction) return;
 
-            if (!IsCurrentState(typeof(GameStates.PlayGame)) && !IsCurrentState(typeof(GameStates.CustomScene))) return;
+            if (ActiveStateEquals<GameStates.PlayGame>() == false &&
+                ActiveStateEquals<GameStates.CustomScene>() == false) return;
 
             Debug.Log("Game returned from pause.");
             _transaction = true;
@@ -130,19 +132,14 @@ namespace _Project.Scripts.Main.Services
             GameOver?.Invoke();
         }
 
-        public void RestoreTimeSpeed()
+        public bool ActiveStateEquals<T>() where T : GameState
         {
-            SetTimeScale(1f);
+            return ActiveGameState.EqualsState(typeof(T));
         }
 
-        private bool IsCurrentState(Type type)
+        private void RestoreTimeSpeed()
         {
-            return CurrentGameState switch
-            {
-                null when type == null => true,
-                null => false,
-                _ => CurrentGameState.EqualsState(type)
-            };
+            SetTimeScale(1f);
         }
 
         private void AddScores(int value)

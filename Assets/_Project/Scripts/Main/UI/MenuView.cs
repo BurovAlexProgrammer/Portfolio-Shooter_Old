@@ -12,7 +12,7 @@ namespace _Project.Scripts.Main.UI
     {
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public Action GoBack;
+        public event Action GoBack;
         
         // private const float FadeDuration = 0.3f;
 

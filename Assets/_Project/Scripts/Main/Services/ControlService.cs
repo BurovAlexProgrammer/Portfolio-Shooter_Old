@@ -1,5 +1,4 @@
 using UnityEngine;
-using static _Project.Scripts.Main.Services.Services;
 
 namespace _Project.Scripts.Main.Services
 {

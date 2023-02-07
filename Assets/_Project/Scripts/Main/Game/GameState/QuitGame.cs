@@ -8,6 +8,7 @@ namespace _Project.Scripts.Main.Game.GameState
         {
             public override async UniTask EnterState()
             {
+                await UniTask.Yield();
 #if UNITY_EDITOR
                 UnityEditor.EditorApplication.isPlaying = false;
 #else

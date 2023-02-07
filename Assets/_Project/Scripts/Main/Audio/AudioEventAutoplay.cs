@@ -1,66 +1,68 @@
 using _Project.Scripts.Extension;
-using Cysharp.Threading.Tasks;
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
-public class AudioEventAutoplay : MonoBehaviour
+namespace _Project.Scripts.Main.Audio
 {
-    [SerializeField] private Behaviours _behaviour;
-    [SerializeField] private AudioEvent _audioEvent;
-    [SerializeField] private float _timer;
-    
-    private AudioSource _audioSource;
-    private Collider _collider;
-    
-    private void Awake()
+    [RequireComponent(typeof(AudioSource))]
+    public class AudioEventAutoplay : MonoBehaviour
     {
-        _audioSource = GetComponent<AudioSource>();
-        _collider = GetComponent<Collider>();
-    }
-
-    private void Start()
-    {
-        switch (_behaviour)
+        [SerializeField] private Behaviours _behaviour;
+        [SerializeField] private AudioEvent _audioEvent;
+        [SerializeField] private float _timer;
+    
+        private AudioSource _audioSource;
+        private Collider _collider;
+    
+        private void Awake()
         {
-            case Behaviours.OnStart:
-                Play();
-                break;
-            case Behaviours.OnCollideOnce:
-                if (_collider == null) Debug.LogError("Collider not found. (Click for info)", gameObject);
-                CheckColliding();
-                break;
-            case Behaviours.ByTimer:
-                PlayByTimer();
-                break;
+            _audioSource = GetComponent<AudioSource>();
+            _collider = GetComponent<Collider>();
         }
-    }
 
-    private async void CheckColliding()
-    {
-        var trigger = this.GetAsyncCollisionEnterTrigger();
-        var handler = trigger.GetOnCollisionEnterAsyncHandler();
-        await handler.OnCollisionEnterAsync();
-        Play();
-    }
+        private void Start()
+        {
+            switch (_behaviour)
+            {
+                case Behaviours.OnStart:
+                    Play();
+                    break;
+                case Behaviours.OnCollideOnce:
+                    if (_collider == null) Debug.LogError("Collider not found. (Click for info)", gameObject);
+                    CheckColliding();
+                    break;
+                case Behaviours.ByTimer:
+                    PlayByTimer();
+                    break;
+            }
+        }
 
-    private async void PlayByTimer()
-    {
-        await _timer.WaitInSeconds();
+        private async void CheckColliding()
+        {
+            var trigger = this.GetAsyncCollisionEnterTrigger();
+            var handler = trigger.GetOnCollisionEnterAsyncHandler();
+            await handler.OnCollisionEnterAsync();
+            Play();
+        }
+
+        private async void PlayByTimer()
+        {
+            await _timer.WaitInSeconds();
         
-        Play();
-    }
+            Play();
+        }
 
-    private void Play()
-    {
-        _audioEvent.Play(_audioSource);
-    }
+        private void Play()
+        {
+            _audioEvent.Play(_audioSource);
+        }
 
-    private enum Behaviours
-    {
-        OnStart,
-        OnCollideOnce,
-        ByTimer,
+        private enum Behaviours
+        {
+            OnStart,
+            OnCollideOnce,
+            ByTimer,
+        }
     }
 }
 

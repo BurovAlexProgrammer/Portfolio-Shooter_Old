@@ -1,8 +1,10 @@
 ﻿using System;
 using System.IO;
+using _Project.Scripts.Main.Game.GameState;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
 using UnityEngine;
+using Zenject;
 using static _Project.Scripts.Main.StatisticData;
 
 namespace _Project.Scripts.Main.Services
@@ -14,6 +16,8 @@ namespace _Project.Scripts.Main.Services
         private StatisticData _statisticData;
         private string _storedFolder;
         private string _storedFolderPath;
+        
+        [Inject] private GameManagerService _gameManager;
 
         public void Init()
         {
@@ -131,8 +135,7 @@ namespace _Project.Scripts.Main.Services
 
                 if (delta < 1f) continue;
 
-                // if (Services.GameManagerService.CurrentGameState == GameStates.PlayGame ||
-                    // Services.GameManagerService.CurrentGameState == GameStates.CustomSceneBoot) //TODO Temp remove!! 
+                if (_gameManager.ActiveStateEquals<GameStates.PlayGame>())
                 {
                     AddValueToRecord(RecordName.LastGameSessionDuration, delta);
                 }

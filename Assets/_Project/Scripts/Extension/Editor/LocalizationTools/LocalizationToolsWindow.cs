@@ -49,7 +49,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             Debug.Log("Init");
             _localizations = LocalizationTools.Instance.Localizations;
             _originalLocalization = LocalizationTools.Instance.OriginalLocalization;
-            _localeNames = _localizations.Values.Select(x => x.Info.name).ToArray();
+            _localeNames = _localizations.Values.Select(x => x.Info.Name).ToArray();
             _selectedLocalizationInstance = new Localization(_originalLocalization);
             _selectedOriginal = true;
             RefreshView();
@@ -178,7 +178,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
         {
             for (var i = 0; i < _localeNames.Length; i++)
             {
-                if (_localeNames[i] == _originalLocalization.Info.name) _localeNames[i] += " *";
+                if (_localeNames[i] == _originalLocalization.Info.Name) _localeNames[i] += " *";
             }
         }
 
@@ -201,10 +201,10 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             GUILayout.Label("Info ", GUILayout.ExpandWidth(false));
             GUILayout.BeginHorizontal();
                 EditorGUIUtility.labelWidth = 40;
-                info.name = EditorGUILayout.TextField("Name", info.name, textFieldOptions);
+                info.Name = EditorGUILayout.TextField("Name", info.Name, textFieldOptions);
                 GUILayout.Space(16);
                 EditorGUIUtility.labelWidth = 60;
-                info.fullName = EditorGUILayout.TextField("FullName", info.fullName, textFieldOptions);
+                info.FullName = EditorGUILayout.TextField("FullName", info.FullName, textFieldOptions);
             GUILayout.EndHorizontal();
             
             if (GUI.changed) { }
@@ -216,7 +216,7 @@ namespace _Project.Scripts.Extension.Editor.LocalizationTools
             _selectedLocaleIndex = newIndex;
             var selectedLocalization = _localizations.Where((x, i) => i == newIndex).Single().Value;
             _selectedLocalizationInstance = new Localization(selectedLocalization);
-            _selectedOriginal = selectedLocalization.Info.name == _originalLocalization.Info.name;
+            _selectedOriginal = selectedLocalization.Info.Name == _originalLocalization.Info.Name;
             RefreshView();
         }
 

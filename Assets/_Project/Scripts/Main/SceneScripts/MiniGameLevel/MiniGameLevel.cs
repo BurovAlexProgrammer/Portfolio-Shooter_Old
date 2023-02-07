@@ -2,13 +2,16 @@ using _Project.Scripts.Main.Game;
 using UnityEngine;
 using Zenject;
 
-public class MiniGameLevel : MonoBehaviour
+namespace _Project.Scripts.Main.SceneScripts.MiniGameLevel
 {
-    [Inject] private PlayerBase _player;
-
-    void Start()
+    public class MiniGameLevel : MonoBehaviour
     {
-        _player.CameraHolder.SetCamera();
-        _player.Enable();
+        [Inject] private PlayerBase _player;
+
+        void Start()
+        {
+            _player.CameraHolder.SetCamera();
+            _player.Enable();
+        }
     }
 }

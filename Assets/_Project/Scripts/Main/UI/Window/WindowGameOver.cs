@@ -79,7 +79,7 @@ namespace _Project.Scripts.Main.UI.Window
 
         private void ShowQuitGameDialog()
         {
-            _ = _quitGameDialog.Show();
+            _quitGameDialog.Show().Forget();
         }
 
         private void OnQuitDialogConfirm(bool result)
@@ -90,7 +90,7 @@ namespace _Project.Scripts.Main.UI.Window
                 return;
             }
         
-            _ = _quitGameDialog.Close();
+            _quitGameDialog.Close().Forget();
         }
     }
 }

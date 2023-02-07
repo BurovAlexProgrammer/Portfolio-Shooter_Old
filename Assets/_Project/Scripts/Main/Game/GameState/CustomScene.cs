@@ -9,6 +9,7 @@ namespace _Project.Scripts.Main.Game.GameState
         {
             public override async UniTask EnterState()
             {
+                await UniTask.Yield();
                 AudioService.StopMusic();
             }
         }

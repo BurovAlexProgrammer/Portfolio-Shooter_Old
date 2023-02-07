@@ -83,7 +83,7 @@ namespace _Project.Scripts.Main.Services
             var asyncOperationHandle = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             await asyncOperationHandle.Task;
             var sceneInstance = asyncOperationHandle.Result;
-            _preparedScene = sceneInstance.Scene;//SceneManager.GetSceneByName(sceneName);
+            _preparedScene = sceneInstance.Scene;
             _preparedScene.SetActive(false);
         }
 

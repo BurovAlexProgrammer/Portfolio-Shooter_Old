@@ -84,10 +84,10 @@ namespace _Project.Scripts.Main.Game
                 
                 if (!firstPeriod)
                 {
-                    sequence.Append(light.DOIntensity(_initIntensity, period / 2));
+                    _ = sequence.Append(light.DOIntensity(_initIntensity, period / 2));
                 }
 
-                sequence.Append(light.DOIntensity(0f, period / 2));
+                _ = sequence.Append(light.DOIntensity(0f, period / 2));
                 firstPeriod = false;
             }
 

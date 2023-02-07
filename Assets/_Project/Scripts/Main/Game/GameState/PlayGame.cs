@@ -1,5 +1,4 @@
-﻿using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Services;
+﻿using _Project.Scripts.Main.Services;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;

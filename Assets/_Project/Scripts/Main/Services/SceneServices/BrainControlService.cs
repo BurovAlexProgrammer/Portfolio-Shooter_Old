@@ -5,7 +5,7 @@ namespace _Project.Scripts.Main.Services.SceneServices
 {
     public class BrainControlService : BaseService
     {
-        private LinkedList<BrainOwner> _brains = new ();
+        private readonly LinkedList<BrainOwner> _brains = new ();
         private LinkedListNode<BrainOwner> _brainNode;
         
         private void Update()

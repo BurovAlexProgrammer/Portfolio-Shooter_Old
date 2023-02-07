@@ -23,7 +23,7 @@ namespace _Project.Scripts.Main.Menu
 
         private void OnDestroy()
         {
-            _buttonBack.onClick.RemoveAllListeners();
+            _buttonBack.onClick.RemoveListener(GoPrevMenu);
         }
 
         public override UniTask Show()
@@ -32,7 +32,6 @@ namespace _Project.Scripts.Main.Menu
             {
                 var recordName = Enum.Parse<RecordName>(_textFields[i].Key);
                 var intValue = 0;
-                var stringValue = "";
 
                 switch (recordName)
                 {
@@ -45,7 +44,7 @@ namespace _Project.Scripts.Main.Menu
                         _textFields[i].ValueText.text = intValue.Format(StringFormat.Time);
                         break;
                     default:
-                        stringValue = StatisticService.GetRecord(recordName);
+                        var stringValue = StatisticService.GetRecord(recordName);
                         _textFields[i].ValueText.text = stringValue;
                         break;
                 }

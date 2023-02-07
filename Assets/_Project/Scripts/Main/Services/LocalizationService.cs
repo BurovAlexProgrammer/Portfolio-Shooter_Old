@@ -20,7 +20,6 @@ namespace _Project.Scripts.Main.Services
         private Localization _currentLocalization;
         private bool _isLoaded;
 
-        public Dictionary<Locales, Localization> Localizations => _localizations;
         public bool IsLoaded => _isLoaded;
 
         [Inject] private SettingsService _settingsService;

@@ -51,8 +51,8 @@ namespace _Project.Scripts.Main.Menu
         
         private void OnDestroy()
         {
-            _buttonSave.onClick.RemoveAllListeners();
-            _buttonReset.onClick.RemoveAllListeners();
+            _buttonSave.onClick.RemoveListener(SaveSettings);
+            _buttonReset.onClick.RemoveListener(ResetToDefault);
             _videoSettingViews.AntiAliasingToggle.onValueChanged.RemoveAllListeners();
             _videoSettingViews.BloomToggle.onValueChanged.RemoveAllListeners();
             _videoSettingViews.VignetteToggle.onValueChanged.RemoveAllListeners();
@@ -65,7 +65,7 @@ namespace _Project.Scripts.Main.Menu
         private async UniTask LoadLocalizationOptions()
         {
             var localizations = await _localizationService.GetLocalizationsAsync();
-            _gameSettingViews.CurrentLanguage.options = localizations.Values.Select(x => new TMP_Dropdown.OptionData(x.Info.fullName)).ToList();
+            _gameSettingViews.CurrentLanguage.options = localizations.Values.Select(x => new TMP_Dropdown.OptionData(x.Info.FullName)).ToList();
         }
 
         private void Init()

@@ -3,7 +3,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.UI.Toggle
+namespace _Project.Scripts.Main.UI.ToggleView
 {
     [RequireComponent(typeof(UnityEngine.UI.Toggle))]
     public class ToggleView : MonoBehaviour

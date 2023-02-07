@@ -2,6 +2,7 @@
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.UI;
 using _Project.Scripts.Main.UI.Window;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using Zenject;
@@ -38,18 +39,18 @@ namespace _Project.Scripts.Main.Services.SceneServices
 
         private void OnGameOver()
         {
-            _ = _windowGameOver.Show();
+            _windowGameOver.Show().Forget();
         }
 
         private void OnSwitchGamePause(bool isPause)
         {
             if (isPause)
             {
-                _ = _windowGamePause.Show();
+                _windowGamePause.Show().Forget();
             }
             else
             {
-                _ = _windowGamePause.Close();
+                _windowGamePause.Close().Forget();
             }
         }
 
