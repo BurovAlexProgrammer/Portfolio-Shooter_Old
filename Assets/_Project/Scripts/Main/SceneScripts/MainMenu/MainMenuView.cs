@@ -1,3 +1,4 @@
+using _Project.Scripts.Main.Menu;
 using UnityEngine;
 using UnityEngine.UI;
 using static _Project.Scripts.Main.Menu.MenuController;

@@ -13,8 +13,8 @@ namespace _Project.Scripts.Main
         private bool _isDestroyed;
         // private bool _isInitialized;
 
-        public GameObject GameObject => gameObject;
-        public Transform Transform => transform;
+        public GameObject GameObject => IsDestroyed ? null : gameObject;
+        public Transform Transform => IsDestroyed ? null : transform;
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
         public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
         public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;

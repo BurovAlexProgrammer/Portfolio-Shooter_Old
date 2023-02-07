@@ -39,7 +39,7 @@ namespace _Project.Scripts.Main.Services
             SwitchSoundEffects(settingsService.Audio.SoundEnabled);
         }
 
-        public async UniTask PlayMusic(MusicPlayerState playerState)
+        public async UniTaskVoid PlayMusic(MusicPlayerState playerState)
         {
             if (_currentState == playerState) return;
             
