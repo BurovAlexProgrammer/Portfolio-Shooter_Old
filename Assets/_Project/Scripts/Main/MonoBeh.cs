@@ -12,8 +12,14 @@ namespace _Project.Scripts.Main
         private CancellationToken _destroyCancellationToken;
         private bool _isDestroyed;
 
-        public GameObject GameObject => !IsDestroyed ? _gameObjectRef ?? gameObject: throw new Exception("GameObject is already destroyed.");
-        public Transform Transform => !IsDestroyed ? _transformRef ?? transform: throw new Exception("Transform is already destroyed.");
+        public GameObject GameObject => !IsDestroyed
+            ? _gameObjectRef ?? gameObject
+            : throw new Exception("GameObject is already destroyed.");
+
+        public Transform Transform => !IsDestroyed
+            ? _transformRef ?? transform
+            : throw new Exception("Transform is already destroyed.");
+
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
         public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
         public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;

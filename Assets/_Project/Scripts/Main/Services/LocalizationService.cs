@@ -20,6 +20,7 @@ namespace _Project.Scripts.Main.Services
         private Localization _currentLocalization;
         private bool _isLoaded;
 
+        public Dictionary<Locales, Localization> Localizations => _localizations;
         public bool IsLoaded => _isLoaded;
 
         [Inject] private SettingsService _settingsService;
@@ -28,8 +29,8 @@ namespace _Project.Scripts.Main.Services
         {
             _currentLocale = _settingsService.GameSettings.CurrentLocale;
             _localizations = new Dictionary<Locales, Localization>();
-            var aoHandles = new List<AsyncOperationHandle<TextAsset>>();
-            var resourceLocations = Addressables.LoadResourceLocationsAsync("locales").WaitForCompletion();
+            var tasks = new List<Task<TextAsset>>();
+            var resourceLocations = await Addressables.LoadResourceLocationsAsync("locale").Task;
 
             for (var i = 0; i < resourceLocations.Count; i++)
             {
@@ -38,14 +39,15 @@ namespace _Project.Scripts.Main.Services
                     resourceLocations.RemoveAt(i--);
                     continue;
                 }
-                aoHandles.Add(Addressables.LoadAssetAsync<TextAsset>(resourceLocations[i]));
+                
+                tasks.Add(Addressables.LoadAssetAsync<TextAsset>(resourceLocations[i]).Task);
             }
+            
+            await Task.WhenAll(tasks);
 
-            await Task.WhenAll(aoHandles.Select(x => x.Task).ToArray());
-
-            for (var i = 0; i < aoHandles.Count; i++)
+            for (var i = 0; i < tasks.Count; i++)
             {
-                var localeText = aoHandles[i].Result;
+                var localeText = tasks[i].Result;
                 var filePath = resourceLocations[i].ToString();
                 var localization = LoadLocaleFile(localeText, filePath);
                 _localizations.Add(localization.Locale, localization);
