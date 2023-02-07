@@ -8,9 +8,9 @@ namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class PlayGame : IGameState
+        public class PlayGame : GameState
         {
-            public async UniTask EnterState()
+            public override async UniTask EnterState()
             {
                 Services.Services.AudioService.PlayMusic(AudioService.MusicPlayerState.Battle).Forget();
                 Services.Services.ControlService.LockCursor();
@@ -20,7 +20,7 @@ namespace _Project.Scripts.Main.Game.GameState
                 Services.Services.StatisticService.ResetSessionRecords();
             }
 
-            public async UniTask ExitState()
+            public override async UniTask ExitState()
             {
                 Services.Services.AudioService.StopMusic();
                 
@@ -31,11 +31,6 @@ namespace _Project.Scripts.Main.Game.GameState
 
                 Services.Services.ControlService.UnlockCursor();
                 Services.Services.StatisticService.SaveToFile();
-            }
-
-            public UniTask Update()
-            {
-                throw new System.NotImplementedException();
             }
         }
     }

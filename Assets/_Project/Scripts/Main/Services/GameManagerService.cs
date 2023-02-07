@@ -26,11 +26,11 @@ namespace _Project.Scripts.Main.Services
 
         private bool _transaction;
 
-        public IGameState CurrentGameState => _gameStateMachine.ActiveState;
+        public GameState CurrentGameState => _gameStateMachine.ActiveState;
         public bool IsGamePause => _isGamePause;
         public int Scores => _scores;
 
-        public async UniTask SetGameState(IGameState newState)
+        public async UniTask SetGameState(GameState newState)
         {
             await _gameStateMachine.SetState(newState);
         }

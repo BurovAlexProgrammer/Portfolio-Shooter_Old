@@ -6,20 +6,12 @@ namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class Bootstrap : IGameState
+        public class Bootstrap : GameState
         {
-            public async UniTask EnterState()
+            public override async UniTask EnterState()
             {
                 SceneLoaderService.ShowScene();
                 await 3f.WaitInSeconds();
-            }
-
-            public async UniTask ExitState()
-            {
-            }
-
-            public async UniTask Update()
-            {
             }
         }
     }
