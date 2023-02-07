@@ -21,7 +21,7 @@ MonoBehaviour:
     m_Address: Assets/_Project/Data/Locales
     m_ReadOnly: 0
     m_SerializedLabels:
-    - locales
+    - locale
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: fd73b48df9aa6a04aad1743f5397afa7, type: 2}
   m_SchemaSet:
