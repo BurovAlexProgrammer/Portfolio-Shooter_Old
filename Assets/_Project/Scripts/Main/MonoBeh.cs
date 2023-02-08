@@ -21,8 +21,8 @@ namespace _Project.Scripts.Main
             : throw new Exception("Transform is already destroyed.");
 
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
-        public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
-        public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;
+        public bool IsDestroyed => this == null || _destroyCancellationToken.IsCancellationRequested;
+        public bool IsAvailable => !IsDestroyed && GameObject.activeSelf;
         protected GameObject _gameObject => GameObject;
         protected Transform _transform => Transform;
 
@@ -32,7 +32,7 @@ namespace _Project.Scripts.Main
 
         private void Awake()
         {
-            _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
+            _destroyCancellationToken = this.GetCancellationTokenOnDestroy();
             _gameObjectRef = gameObject;
             _transformRef = transform;
             OnAwake();

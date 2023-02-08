@@ -23,6 +23,8 @@ namespace _Project.Scripts.Main.Wrappers
         
         public void ReturnToPool()
         {
+            if (IsDestroyed) return;
+            
             gameObject.SetActive(false);
             Returned?.Invoke(this);
         }

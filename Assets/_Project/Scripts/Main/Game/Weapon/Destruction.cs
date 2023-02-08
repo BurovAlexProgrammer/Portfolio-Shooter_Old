@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
@@ -60,23 +59,21 @@ namespace _Project.Scripts.Main.Game.Weapon
             ReturnToPool();
         }
 
-        private async void FadeScaleChildren()
+        private void FadeScaleChildren()
         {
-            await (_lifeTime / 2f).WaitInSeconds();
-
-            if (IsDestroyed) return;
-            
             var children = Transform.GetChildrenTransforms();
             var sequence = DOTween.Sequence();
+            sequence.AppendInterval(_lifeTime / 2f);
+            sequence.OnComplete(ReturnToPool);
 
-            for (var i = 0; i < children.Length; i++) 
+            foreach (var child in children)
             {
-                _ = sequence.Join(children[i].DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f)));
+                sequence.Join(child.DOScale(0f, _lifeTime / 2f * Random.Range(0.5f, 1f))).WithCancellation(child.gameObject.GetCancellationTokenOnDestroy());
             }
 
-            await sequence.Play().ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, DestroyCancellationToken);
-
-            ReturnToPool();
+            sequence.Play()
+                .ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, DestroyCancellationToken)
+                .Forget();
         }
 
         private enum Behaviors
