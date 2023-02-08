@@ -25,9 +25,11 @@ namespace _Project.Scripts.Main.Services
         public event Action GameOver;
 
         private bool _transaction;
+        private bool _isGameOver;
 
         public GameState ActiveGameState => _gameStateMachine.ActiveState;
         public bool IsGamePause => _isGamePause;
+        public bool IsGameOver => _isGameOver;
         public int Scores => _scores;
 
         public async UniTask SetGameState(GameState newState)
@@ -59,6 +61,7 @@ namespace _Project.Scripts.Main.Services
 
         public void RestartGame()
         {
+            _isGameOver = false;
             RestoreTimeSpeed();
             _statisticService.EndGameDataSaving(this);
             _gameStateMachine.SetState(new GameStates.RestartGame()).Forget();
@@ -129,6 +132,8 @@ namespace _Project.Scripts.Main.Services
 
             _controlService.UnlockCursor();
             _controlService.Controls.Menu.Enable();
+
+            _isGameOver = true;
             GameOver?.Invoke();
         }
 
@@ -137,7 +142,7 @@ namespace _Project.Scripts.Main.Services
             return ActiveGameState.EqualsState(typeof(T));
         }
 
-        private void RestoreTimeSpeed()
+        public void RestoreTimeSpeed()
         {
             SetTimeScale(1f);
         }

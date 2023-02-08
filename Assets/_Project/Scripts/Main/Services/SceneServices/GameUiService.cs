@@ -17,6 +17,7 @@ namespace _Project.Scripts.Main.Services.SceneServices
         [SerializeField] private TextMeshProUGUI _killCountText;
         [SerializeField] private TextMeshProUGUI _scoreCountText;
 
+        [Inject] private GameManagerService _gameManager;
         [Inject] private StatisticService _statisticService;
         [Inject] private PlayerBase _player;
         
@@ -44,6 +45,8 @@ namespace _Project.Scripts.Main.Services.SceneServices
 
         private void OnSwitchGamePause(bool isPause)
         {
+            if (_gameManager.IsGameOver) return;
+            
             if (isPause)
             {
                 _windowGamePause.Show().Forget();
