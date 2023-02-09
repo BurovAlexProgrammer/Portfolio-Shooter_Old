@@ -16,8 +16,7 @@ namespace _Project.Scripts.UI
         [SerializeField] private CanvasGroup _canvasGroup;
 
         public event Action<bool> Confirm;
-        public event Action Showed;
-        public event Action Closed;
+        public event Action<bool> Switched;
 
         private const float FadeDuration = 0.3f;
 
@@ -35,6 +34,7 @@ namespace _Project.Scripts.UI
 
         public async UniTask Show()
         {
+            Switched?.Invoke(true);
             gameObject.SetActive(true);
             await _canvasGroup
                 .DOFade(1f, FadeDuration)
@@ -46,12 +46,12 @@ namespace _Project.Scripts.UI
         
         public async UniTask Close()
         {
+            Switched?.Invoke(false);
             await _canvasGroup
                 .DOFade(0f, FadeDuration)
                 .SetUpdate(true)
                 .SetEase(Ease.InOutQuad)
                 .AsyncWaitForCompletion();
-            Debug.Log("Close");
             gameObject.SetActive(false);
         }
 

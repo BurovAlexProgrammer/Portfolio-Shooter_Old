@@ -55,7 +55,6 @@ namespace _Project.Scripts.Main.Services
             }
 
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
-            _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _gameStateMachine.Init().Forget();
         }
 
@@ -65,7 +64,7 @@ namespace _Project.Scripts.Main.Services
             RestoreTimeSpeed();
             _statisticService.EndGameDataSaving(this);
             _gameStateMachine.SetState(new GameStates.RestartGame()).Forget();
-            _gameStateMachine.SetState(new GameStates.PlayGame()).Forget();
+            _gameStateMachine.SetState(new GameStates.PlayNewGame()).Forget();
         }
 
         public void QuitGame()
@@ -79,11 +78,20 @@ namespace _Project.Scripts.Main.Services
             _gameStateMachine.SetState(new GameStates.MainMenu()).Forget();
         }
 
+        public void PrepareToPlay()
+        {
+            Services.AudioService.PlayMusic(AudioService.MusicPlayerState.Battle).Forget();
+            Services.ControlService.LockCursor();
+            Services.ControlService.Controls.Player.Enable();
+            Services.ControlService.Controls.Menu.Disable();
+            Services.StatisticService.ResetSessionRecords();
+        }
+
         public async void PauseGame(InputAction.CallbackContext ctx)
         {
             if (_transaction) return;
 
-            if (ActiveStateEquals<GameStates.PlayGame>() == false &&
+            if (ActiveStateEquals<GameStates.PlayNewGame>() == false &&
                 ActiveStateEquals<GameStates.CustomScene>() == false) return;
 
             Debug.Log("Game paused to menu.");
@@ -104,9 +112,10 @@ namespace _Project.Scripts.Main.Services
 
         public async void ReturnGame()
         {
+            if (_isGameOver) return;
             if (_transaction) return;
 
-            if (ActiveStateEquals<GameStates.PlayGame>() == false &&
+            if (ActiveStateEquals<GameStates.PlayNewGame>() == false &&
                 ActiveStateEquals<GameStates.CustomScene>() == false) return;
 
             Debug.Log("Game returned from pause.");

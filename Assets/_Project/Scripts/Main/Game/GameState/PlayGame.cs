@@ -7,16 +7,13 @@ namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class PlayGame : GameState
+        public class PlayNewGame : GameState
         {
             public override async UniTask EnterState()
             {
-                Services.Services.AudioService.PlayMusic(AudioService.MusicPlayerState.Battle).Forget();
-                Services.Services.ControlService.LockCursor();
-                Services.Services.ControlService.Controls.Player.Enable();
-                Services.Services.ControlService.Controls.Menu.Disable();
+                await UniTask.Yield();
+                Services.Services.GameManagerService.PrepareToPlay();
                 await Services.Services.SceneLoaderService.LoadSceneAsync(SceneLoaderService.Scenes.MiniGameLevel);
-                Services.Services.StatisticService.ResetSessionRecords();
             }
 
             public override async UniTask ExitState()

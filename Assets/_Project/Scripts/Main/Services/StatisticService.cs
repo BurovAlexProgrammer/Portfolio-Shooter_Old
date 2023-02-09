@@ -135,7 +135,7 @@ namespace _Project.Scripts.Main.Services
 
                 if (delta < 1f) continue;
 
-                if (_gameManager.ActiveStateEquals<GameStates.PlayGame>())
+                if (_gameManager.ActiveStateEquals<GameStates.PlayNewGame>())
                 {
                     AddValueToRecord(RecordName.LastGameSessionDuration, delta);
                 }

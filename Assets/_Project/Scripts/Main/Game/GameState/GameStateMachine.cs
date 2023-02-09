@@ -25,7 +25,7 @@ namespace _Project.Scripts.Main.Game.GameState
                 await SetState(new GameStates.MainMenu());
                 return;
             }
-
+            
             await SetState(new GameStates.CustomScene());
         }
 

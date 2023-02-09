@@ -20,6 +20,10 @@ namespace _Project.Scripts.Main.Services.SceneServices
         [Inject] private GameManagerService _gameManager;
         [Inject] private StatisticService _statisticService;
         [Inject] private PlayerBase _player;
+
+        private bool _dialogShowing;
+
+        public bool DialogShowing => _dialogShowing;
         
         private void OnDestroy()
         {
@@ -27,6 +31,13 @@ namespace _Project.Scripts.Main.Services.SceneServices
             Services.GameManagerService.GameOver -= OnGameOver;
             _player.Health.Changed -= OnPlayerHealthChanged;
             _statisticService.RecordChanged -= OnStaticRecordChanged;
+            _windowGamePause.DialogSwitched -= OnDialogSwitched;
+            _windowGameOver.DialogSwitched -= OnDialogSwitched;
+        }
+
+        private void OnDialogSwitched(bool state)
+        {
+            _dialogShowing = state;
         }
 
         public void Init()
@@ -36,6 +47,8 @@ namespace _Project.Scripts.Main.Services.SceneServices
             _player.Health.Changed += OnPlayerHealthChanged;
             _statisticService.RecordChanged += OnStaticRecordChanged;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
+            _windowGamePause.DialogSwitched += OnDialogSwitched;
+            _windowGameOver.DialogSwitched += OnDialogSwitched;
         }
 
         private void OnGameOver()

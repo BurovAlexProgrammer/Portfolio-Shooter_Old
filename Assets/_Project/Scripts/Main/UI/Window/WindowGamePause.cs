@@ -1,7 +1,10 @@
+using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.Services.SceneServices;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Zenject;
 
@@ -19,11 +22,12 @@ namespace _Project.Scripts.Main.UI.Window
 
         [Inject] private GameManagerService _gameManager;
         [Inject] private SettingsService _settingsService;
-
-        private bool _dialogOpened;
+        [Inject] private ControlService _controlService;
+        [Inject] private GameUiService _gameUiService;
 
         private void Awake()
         {
+            _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _restartGameButton.onClick.AddListener(RestartGame);
             _returnGameButton.onClick.AddListener(ReturnGame);
             _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
@@ -31,8 +35,7 @@ namespace _Project.Scripts.Main.UI.Window
             _musicToggle.onValueChanged.AddListener(OnMusicSwitch);
             _soundsToggle.onValueChanged.AddListener(OnSoundsSwitch);
             _quitGameDialog.Confirm += OnQuitDialogConfirm;
-            _quitGameDialog.Showed += OnDialogOpened;
-            _quitGameDialog.Closed += OnDialogClosed;
+            _quitGameDialog.Switched += OnSwitchDialog;
             _canvasGroup.interactable = false;
             gameObject.SetActive(false);
         }
@@ -45,6 +48,7 @@ namespace _Project.Scripts.Main.UI.Window
 
         private void OnDestroy()
         {
+            _controlService.Controls.Menu.Pause.UnbindAction(BindActions.Started, ReturnGame);
             _restartGameButton.onClick.RemoveListener(RestartGame);
             _returnGameButton.onClick.RemoveListener(ReturnGame);
             _quitGameButton.onClick.RemoveListener(ShowQuitGameDialog);
@@ -52,18 +56,12 @@ namespace _Project.Scripts.Main.UI.Window
             _musicToggle.onValueChanged.RemoveListener(OnMusicSwitch);
             _soundsToggle.onValueChanged.RemoveListener(OnSoundsSwitch);
             _quitGameDialog.Confirm -= OnQuitDialogConfirm;
-            _quitGameDialog.Showed -= OnDialogOpened;
-            _quitGameDialog.Closed -= OnDialogClosed;
+            _quitGameDialog.Switched -= OnSwitchDialog;
         }
 
-        private void OnDialogOpened()
+        private void OnSwitchDialog(bool state)
         {
-            _dialogOpened = true;
-        }
-
-        private void OnDialogClosed()
-        {
-            _dialogOpened = false;
+            base.OnDialogSwitched(state);
         }
 
         private async void GoToMainMenu()
@@ -83,6 +81,13 @@ namespace _Project.Scripts.Main.UI.Window
         {
             await Close();
             _gameManager.ReturnGame();
+        }
+
+        private void ReturnGame(InputAction.CallbackContext ctx)
+        {
+            if (_gameUiService.DialogShowing) return;
+            
+            ReturnGame();
         }
 
         private void OnMusicSwitch(bool newValue)
