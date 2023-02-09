@@ -2,7 +2,7 @@
 using _Project.Scripts.Main.Game;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public class EventListenerService : BaseService
     {

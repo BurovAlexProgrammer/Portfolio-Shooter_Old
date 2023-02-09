@@ -1,5 +1,5 @@
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Game.GameState;
-using _Project.Scripts.Main.Services;
 using Cysharp.Threading.Tasks;
 using Zenject;
 

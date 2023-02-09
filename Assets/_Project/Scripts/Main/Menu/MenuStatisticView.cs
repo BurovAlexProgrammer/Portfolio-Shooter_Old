@@ -5,7 +5,7 @@ using _Project.Scripts.Main.UI;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using static _Project.Scripts.Extension.Common;
-using static _Project.Scripts.Main.Services.Services;
+using static _Project.Scripts.Main.AppServices.Services;
 using static _Project.Scripts.Main.StatisticData;
 using Button = UnityEngine.UI.Button;
 

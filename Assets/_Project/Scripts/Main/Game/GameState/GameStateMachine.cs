@@ -1,9 +1,9 @@
 using System;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
-using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
+using SceneName = _Project.Scripts.Main.AppServices.SceneLoaderService.Scenes;
 
 namespace _Project.Scripts.Main.Game.GameState
 {

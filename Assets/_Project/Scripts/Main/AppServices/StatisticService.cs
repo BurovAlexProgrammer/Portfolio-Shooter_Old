@@ -7,7 +7,7 @@ using UnityEngine;
 using Zenject;
 using static _Project.Scripts.Main.StatisticData;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public class StatisticService : BaseService
     {

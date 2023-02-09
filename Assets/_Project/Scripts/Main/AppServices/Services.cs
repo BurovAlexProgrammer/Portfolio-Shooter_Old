@@ -1,7 +1,7 @@
 using System.Runtime.CompilerServices;
-using _Project.Scripts.Main.Services.SceneServices;
+using _Project.Scripts.Main.AppServices.SceneServices;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public static class Services
     {
@@ -68,31 +68,31 @@ namespace _Project.Scripts.Main.Services
         {
             switch (instance)
             {
-                case Main.Services.ScreenService:
+                case AppServices.ScreenService:
                     ScreenService = null;
                     break;
-                case Main.Services.SceneLoaderService:
+                case AppServices.SceneLoaderService:
                     SceneLoaderService = null;
                     break;
-                case Main.Services.GameManagerService:
+                case AppServices.GameManagerService:
                     GameManagerService = null;
                     break;
-                case Main.Services.LocalizationService:
+                case AppServices.LocalizationService:
                     LocalizationService = null;
                     break;
-                case Main.Services.DebugService:
+                case AppServices.DebugService:
                     DebugService = null;
                     break;
-                case Main.Services.PoolService:
+                case AppServices.PoolService:
                     PoolService = null;
                     break;
-                case Main.Services.AudioService:
+                case AppServices.AudioService:
                     AudioService = null;
                     break;
-                case Main.Services.StatisticService:
+                case AppServices.StatisticService:
                     StatisticService = null;
                     break;
-                case Main.Services.EventListenerService:
+                case AppServices.EventListenerService:
                     EventListenerService = null;
                     break;
             }

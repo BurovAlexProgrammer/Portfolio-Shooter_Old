@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public class PoolService : BaseService
     {

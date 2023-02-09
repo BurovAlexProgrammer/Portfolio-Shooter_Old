@@ -1,10 +1,10 @@
 using System.IO;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
-using static _Project.Scripts.Main.Services.Services;
-using AudioService = _Project.Scripts.Main.Services.AudioService;
+using static _Project.Scripts.Main.AppServices.Services;
+using AudioService = _Project.Scripts.Main.AppServices.AudioService;
 
 namespace _Project.Scripts.Main.Installers
 {

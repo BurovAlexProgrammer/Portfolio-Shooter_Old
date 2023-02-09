@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
-using UnityEngine.SceneManagement;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using UnityEngine.SceneManagement;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public class SceneLoaderService : BaseService
     {

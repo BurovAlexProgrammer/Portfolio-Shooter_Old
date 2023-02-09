@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using Zenject;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(AudioSource))]

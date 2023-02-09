@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using Zenject;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public class ScreenService : BaseService
     {

@@ -1,6 +1,6 @@
 using System;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;

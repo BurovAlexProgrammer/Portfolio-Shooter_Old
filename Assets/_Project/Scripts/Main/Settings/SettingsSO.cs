@@ -1,4 +1,4 @@
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Settings

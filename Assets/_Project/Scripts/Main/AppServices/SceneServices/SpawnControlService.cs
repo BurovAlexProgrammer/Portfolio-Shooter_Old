@@ -1,7 +1,7 @@
 ﻿using _Project.Scripts.Main.Game;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Services.SceneServices
+namespace _Project.Scripts.Main.AppServices.SceneServices
 {
     public class SpawnControlService : BaseService
     {

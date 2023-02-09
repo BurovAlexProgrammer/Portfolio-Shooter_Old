@@ -4,7 +4,7 @@ using UnityEngine;
 using Zenject;
 using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
-namespace _Project.Scripts.Main.Services
+namespace _Project.Scripts.Main.AppServices
 {
     public class SettingsService : BaseService
     {

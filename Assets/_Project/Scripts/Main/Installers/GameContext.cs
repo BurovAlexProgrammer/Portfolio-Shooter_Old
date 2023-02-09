@@ -1,10 +1,10 @@
 using System;
+using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.Game;
-using _Project.Scripts.Main.Services;
-using _Project.Scripts.Main.Services.SceneServices;
 using UnityEngine;
 using Zenject;
-using static _Project.Scripts.Main.Services.Services;
+using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Installers
 {

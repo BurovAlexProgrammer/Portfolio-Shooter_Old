@@ -7,7 +7,7 @@ using TMPro;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Main.Services.SceneServices
+namespace _Project.Scripts.Main.AppServices.SceneServices
 {
     public class GameUiService : BaseService
     {
@@ -27,8 +27,8 @@ namespace _Project.Scripts.Main.Services.SceneServices
         
         private void OnDestroy()
         {
-            Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
-            Services.GameManagerService.GameOver -= OnGameOver;
+            AppServices.Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
+            AppServices.Services.GameManagerService.GameOver -= OnGameOver;
             _player.Health.Changed -= OnPlayerHealthChanged;
             _statisticService.RecordChanged -= OnStaticRecordChanged;
             _windowGamePause.DialogSwitched -= OnDialogSwitched;
@@ -42,8 +42,8 @@ namespace _Project.Scripts.Main.Services.SceneServices
 
         public void Init()
         {
-            Services.GameManagerService.SwitchPause += OnSwitchGamePause;
-            Services.GameManagerService.GameOver += OnGameOver;
+            AppServices.Services.GameManagerService.SwitchPause += OnSwitchGamePause;
+            AppServices.Services.GameManagerService.GameOver += OnGameOver;
             _player.Health.Changed += OnPlayerHealthChanged;
             _statisticService.RecordChanged += OnStaticRecordChanged;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);

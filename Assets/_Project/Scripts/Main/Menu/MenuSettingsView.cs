@@ -1,12 +1,11 @@
 using System;
 using System.Linq;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Localizations;
-using _Project.Scripts.Main.Services;
 using _Project.Scripts.Main.UI;
 using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Zenject;
 using Button = UnityEngine.UI.Button;
