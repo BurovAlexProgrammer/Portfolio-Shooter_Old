@@ -81,7 +81,7 @@ namespace _Project.Scripts.Main.Game
         private void Spawn()
         {
             var t = _player;
-            var instance = Services.Services.PoolService.Get(_prefab);
+            var instance = AppServices.Services.PoolService.Get(_prefab);
             instance.Transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
             instance.gameObject.SetActive(true);
         }

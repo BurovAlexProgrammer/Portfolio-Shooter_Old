@@ -1,5 +1,4 @@
 ﻿using System;
-using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -16,15 +15,13 @@ namespace _Project.Scripts.UI
         [SerializeField] private Image _background;
         [SerializeField] private CanvasGroup _canvasGroup;
 
-        public Action<bool> Confirm;
+        public event Action<bool> Confirm;
+        public event Action<bool> Switched;
 
-        private RectTransform _rectTransform;
-
-        private const float _fadeDuration = 0.3f;
+        private const float FadeDuration = 0.3f;
 
         private void Awake()
         {
-            _rectTransform = GetComponent<RectTransform>();
             _buttonOk.onClick.AddListener(() => Confirm?.Invoke(true));
             _buttonCancel.onClick.AddListener(() => Confirm?.Invoke(false));
         }
@@ -37,9 +34,10 @@ namespace _Project.Scripts.UI
 
         public async UniTask Show()
         {
+            Switched?.Invoke(true);
             gameObject.SetActive(true);
             await _canvasGroup
-                .DOFade(1f, _fadeDuration)
+                .DOFade(1f, FadeDuration)
                 .From(0f)
                 .SetUpdate(true)
                 .SetEase(Ease.InOutQuad)
@@ -48,12 +46,12 @@ namespace _Project.Scripts.UI
         
         public async UniTask Close()
         {
+            Switched?.Invoke(false);
             await _canvasGroup
-                .DOFade(0f, _fadeDuration)
+                .DOFade(0f, FadeDuration)
                 .SetUpdate(true)
                 .SetEase(Ease.InOutQuad)
                 .AsyncWaitForCompletion();
-            Debug.Log("Close");
             gameObject.SetActive(false);
         }
 

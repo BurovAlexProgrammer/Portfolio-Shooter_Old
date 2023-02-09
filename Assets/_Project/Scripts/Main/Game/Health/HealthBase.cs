@@ -8,8 +8,8 @@ namespace _Project.Scripts.Main.Game.Health
         [SerializeField] private float _maxValue;
         [SerializeField] private float _currentValue;
 
-        public Action Dead;
-        public Action<HealthBase> Changed;
+        public event Action Dead;
+        public event Action<HealthBase> Changed;
 
         public float MaxValue => _maxValue;
         public float CurrentValue => _currentValue;

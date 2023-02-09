@@ -5157,6 +5157,7 @@ GameObject:
   - component: {fileID: 1797443276}
   - component: {fileID: 1797443275}
   - component: {fileID: 1797443274}
+  - component: {fileID: 1797443277}
   m_Layer: 0
   m_Name: Wall
   m_TagString: Untagged
@@ -5212,7 +5213,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1fab880d694583d45bb80f843c27f019, type: 2}
+  - {fileID: 2100000, guid: 0753fabe9a91ddb4ba0d308dd3d18d4c, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5242,6 +5243,44 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1797443272}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1839735485 &1797443277
+Tilemap:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797443272}
+  m_Enabled: 1
+  m_Tiles: {}
+  m_AnimatedTiles: {}
+  m_TileAssetArray: []
+  m_TileSpriteArray: []
+  m_TileMatrixArray: []
+  m_TileColorArray: []
+  m_TileObjectToInstantiateArray: []
+  m_AnimationFrameRate: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Origin: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0, y: 0, z: 1}
+  m_TileAnchor: {x: 0.17, y: 1.01, z: 0}
+  m_TileOrientation: 6
+  m_TileOrientationMatrix:
+    e00: 91.83
+    e01: 0
+    e02: 0
+    e03: 0
+    e10: 0
+    e11: 1
+    e12: 0
+    e13: 0
+    e20: 0
+    e21: 0
+    e22: 1
+    e23: 0
+    e30: 0
+    e31: 0
+    e32: 0
+    e33: 1
 --- !u!1 &1806810240 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8397782431620868509, guid: 667a5afa6104ff749b60793d7c93e0e6,
@@ -6290,6 +6329,11 @@ PrefabInstance:
     - target: {fileID: 5179691451027068979, guid: 6df24e5231092664f9627c7e06a43ea5,
         type: 3}
       propertyPath: _autoRun
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7859300148348721686, guid: 6df24e5231092664f9627c7e06a43ea5,
+        type: 3}
+      propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8172655143994255025, guid: 6df24e5231092664f9627c7e06a43ea5,

@@ -1,12 +1,13 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AI;
 using static _Project.Scripts.Extension.Common;
-using static _Project.Scripts.Main.Services.Services;
+using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Game
 {

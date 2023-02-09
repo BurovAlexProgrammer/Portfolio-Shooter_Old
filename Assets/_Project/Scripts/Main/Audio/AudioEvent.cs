@@ -1,6 +1,9 @@
 using UnityEngine;
 
-public abstract class AudioEvent : ScriptableObject
+namespace _Project.Scripts.Main.Audio
 {
-    public abstract void Play(AudioSource _audioSource);
+    public abstract class AudioEvent : ScriptableObject
+    {
+        public abstract void Play(AudioSource audioSource);
+    }
 }

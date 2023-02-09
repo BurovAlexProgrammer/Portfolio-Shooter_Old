@@ -4,7 +4,7 @@ using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;
-using static _Project.Scripts.Main.Services.Services;
+using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Game.Brain
 {

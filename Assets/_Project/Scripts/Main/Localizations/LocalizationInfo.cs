@@ -4,22 +4,22 @@ namespace _Project.Scripts.Main.Localizations
 {
     public class LocalizationInfo: IEquatable<LocalizationInfo>
     {
-        public string name;
-        public string fullName;
+        public string Name;
+        public string FullName;
         
         public LocalizationInfo() {}
 
         public LocalizationInfo(LocalizationInfo other)
         {
             if (other == null) return;
-            name = other.name;
-            fullName = other.fullName;
+            Name = other.Name;
+            FullName = other.FullName;
         }
 
         public bool Equals(LocalizationInfo other)
         {
             if (other == null) return false;
-            return name == other.name && fullName == other.fullName;
+            return Name == other.Name && FullName == other.FullName;
         }
     }
 }

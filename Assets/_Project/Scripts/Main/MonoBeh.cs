@@ -11,39 +11,31 @@ namespace _Project.Scripts.Main
         private Transform _transformRef;
         private CancellationToken _destroyCancellationToken;
         private bool _isDestroyed;
-        // private bool _isInitialized;
 
-        public GameObject GameObject => IsDestroyed ? null : gameObject;
-        public Transform Transform => IsDestroyed ? null : transform;
+        public GameObject GameObject => !IsDestroyed
+            ? _gameObjectRef ?? gameObject
+            : throw new Exception("GameObject is already destroyed.");
+
+        public Transform Transform => !IsDestroyed
+            ? _transformRef ?? transform
+            : throw new Exception("Transform is already destroyed.");
+
         public CancellationToken DestroyCancellationToken => _destroyCancellationToken;
-        public bool IsDestroyed => _destroyCancellationToken.IsCancellationRequested;
-        public bool IsAvailable => GameObject != null && GameObject.activeSelf && !IsDestroyed;
+        public bool IsDestroyed => this == null || _destroyCancellationToken.IsCancellationRequested;
+        public bool IsAvailable => !IsDestroyed && GameObject.activeSelf;
         protected GameObject _gameObject => GameObject;
         protected Transform _transform => Transform;
 
-        protected MonoBeh()
+        protected virtual void OnAwake()
         {
-           // Init();
         }
 
-        private async void Init()
-        { 
-            await UniTask.Yield();
-
-            // _isInitialized = true;
-
-            try
-            {
-                _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
-                _gameObjectRef = gameObject;
-                _transformRef = transform;
-            }
-            catch (Exception e)
-            {
-                Debug.LogError(e, this);
-                throw;
-            }
-
+        private void Awake()
+        {
+            _destroyCancellationToken = this.GetCancellationTokenOnDestroy();
+            _gameObjectRef = gameObject;
+            _transformRef = transform;
+            OnAwake();
         }
     }
 }

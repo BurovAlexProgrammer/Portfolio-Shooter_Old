@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using static _Project.Scripts.Main.Services.Services;
+using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {

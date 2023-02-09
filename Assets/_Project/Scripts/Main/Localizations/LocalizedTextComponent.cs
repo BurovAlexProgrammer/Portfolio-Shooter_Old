@@ -1,4 +1,4 @@
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;

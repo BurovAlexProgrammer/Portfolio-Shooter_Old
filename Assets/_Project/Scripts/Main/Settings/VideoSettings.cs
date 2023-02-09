@@ -1,5 +1,5 @@
 using System;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;

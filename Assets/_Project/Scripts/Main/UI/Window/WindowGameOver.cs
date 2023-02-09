@@ -1,5 +1,6 @@
+using System;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
@@ -25,6 +26,9 @@ namespace _Project.Scripts.Main.UI.Window
 
         [Inject] private GameManagerService _gameManager;
         [Inject] private StatisticService _statisticService;
+
+        public event Action Opened;
+        public event Action Closed;
 
         private void Awake()
         {
@@ -79,7 +83,7 @@ namespace _Project.Scripts.Main.UI.Window
 
         private void ShowQuitGameDialog()
         {
-            _ = _quitGameDialog.Show();
+            _quitGameDialog.Show().Forget();
         }
 
         private void OnQuitDialogConfirm(bool result)
@@ -90,7 +94,7 @@ namespace _Project.Scripts.Main.UI.Window
                 return;
             }
         
-            _ = _quitGameDialog.Close();
+            _quitGameDialog.Close().Forget();
         }
     }
 }

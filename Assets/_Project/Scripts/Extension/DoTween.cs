@@ -21,24 +21,6 @@ namespace _Project.Scripts.Extension
 
             await tween.ToUniTask(cancelBehaviour, token);
         }
-    //     
-    //     public static Tween DOPunch(this ref float value, float endValue,float duration,int vibrato = 10)
-    //     {
-    //         var initValue = value;
-    //         var sequence = DOTween.Sequence();
-    //         
-    //         for (int i = 0; i < vibrato; i++)
-    //         {
-    //             sequence
-    //                 .Append(DOVirtual.Float())
-    //             
-    //         }
-    //         
-    //         return sequence;
-    //         
-    //         return DOTween.To(() => value, x => value = x, duration, vibrato).SetTarget<TweenerCore<float, float[], FloatOptions>>(value);
-    //         
-    //         return null;
     }
 
     public static class TweenTemplates
@@ -47,9 +29,9 @@ namespace _Project.Scripts.Extension
         {
             var sequence = DOTween.Sequence();
             sequence
-                .Append(transform.DOScale(0.01f, 0f))
-                .Append(transform.DOScaleY(1f, 0.3f).SetEase(Ease.OutCubic))
-                .Append(transform.DOScaleX(1f, 0.3f).SetEase(Ease.OutCubic))
+                .Append(transform.DOScale(0.005f, 0f))
+                .Append(transform.DOScaleY(1f, 0.12f).SetEase(Ease.OutCubic))
+                .Append(transform.DOScaleX(1f, 0.12f).SetEase(Ease.OutCubic))
                 .SetUpdate(true);
             return sequence;
         }
@@ -58,8 +40,8 @@ namespace _Project.Scripts.Extension
         {
             var sequence = DOTween.Sequence();
             sequence
-                .Append(transform.DOScaleY(0.01f, 0.3f).SetEase(Ease.OutQuad))
-                .Append(transform.DOScaleX(0f, 0.3f).SetEase(Ease.OutQuad))
+                .Append(transform.DOScaleY(0.01f, 0.12f).SetEase(Ease.OutQuad))
+                .Append(transform.DOScaleX(0f, 0.12f).SetEase(Ease.OutQuad))
                 .Append(transform.DOScale(0f, 0f))
                 .SetUpdate(true);
             return sequence;

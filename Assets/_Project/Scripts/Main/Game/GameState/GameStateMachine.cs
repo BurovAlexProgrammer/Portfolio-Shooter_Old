@@ -1,9 +1,9 @@
 using System;
-using _Project.Scripts.Main.Services;
+using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
-using SceneName = _Project.Scripts.Main.Services.SceneLoaderService.Scenes;
+using SceneName = _Project.Scripts.Main.AppServices.SceneLoaderService.Scenes;
 
 namespace _Project.Scripts.Main.Game.GameState
 {
@@ -11,11 +11,11 @@ namespace _Project.Scripts.Main.Game.GameState
     {
         public event Action StateChanged;
 
-        private IGameState _activeState;
+        private GameState _activeState;
 
         [Inject] private SceneLoaderService _sceneLoader;
 
-        public IGameState ActiveState => _activeState;
+        public GameState ActiveState => _activeState;
 
         public async UniTaskVoid Init()
         {
@@ -25,11 +25,11 @@ namespace _Project.Scripts.Main.Game.GameState
                 await SetState(new GameStates.MainMenu());
                 return;
             }
-
+            
             await SetState(new GameStates.CustomScene());
         }
 
-        public async UniTask SetState(IGameState newState)
+        public async UniTask SetState(GameState newState)
         {
             if (_activeState == newState)
             {

@@ -21,7 +21,7 @@ namespace _Project.Scripts.Main.Menu
 
         private void OnDestroy()
         {
-            _buttonBack.onClick.RemoveAllListeners();
+            _buttonBack.onClick.RemoveListener(GoPrevMenu);
         }
 
         public override async UniTask Show()

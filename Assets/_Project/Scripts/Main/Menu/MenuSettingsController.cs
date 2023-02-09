@@ -1,7 +1,7 @@
 using _Project.Scripts.Main.Settings;
 using UnityEngine;
 using Zenject;
-using SettingsService = _Project.Scripts.Main.Services.SettingsService;
+using SettingsService = _Project.Scripts.Main.AppServices.SettingsService;
 
 namespace _Project.Scripts.Main.Menu
 {

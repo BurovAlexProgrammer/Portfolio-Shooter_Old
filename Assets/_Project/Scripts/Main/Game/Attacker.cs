@@ -10,8 +10,8 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _attackTimer;
 
         private bool _inProgress;
-        public Action DamageTargetAction;
-        public Action PlayAttackSoundAction;
+        public event Action DamageTargetAction;
+        public event Action PlayAttackSoundAction;
 
         public bool ReadyToAttack => !_inProgress && _attackTimer <= 0f;
 

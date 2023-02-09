@@ -32,6 +32,24 @@ namespace _Project.Scripts.Extension
             }
         }
 
+        public static void UnbindAction(this InputAction inputAction, BindActions bindAction, Action<InputAction.CallbackContext> action)
+        {
+            switch (bindAction)
+            {
+                case BindActions.Performed:
+                    //inputAction.started -= (ctx) => BindPerformed(ctx, action); TODO store Unitask to unbind
+                    break;
+                case BindActions.Started:
+                    inputAction.started -= action;
+                    break;
+                case BindActions.Canceled:
+                    inputAction.canceled -= action;
+                    break;
+                default:
+                    throw new Exception("Error while BindAction for InputSystem.");
+            }
+        }
+
         private static async UniTask BindPerformed(InputAction.CallbackContext ctx,
             Action<InputAction.CallbackContext> action)
         {

@@ -1,25 +1,26 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-[CreateAssetMenu(menuName = "Custom/GameColors")]
-public class GameColors : ScriptableObject
+namespace _Project.Scripts.Main
 {
-    [SerializeField] public GameColor[] colors;
-
-    public GameColor GetRandom()
+    [CreateAssetMenu(menuName = "Custom/GameColors")]
+    public class GameColors : ScriptableObject
     {
-        var colorIndex = Random.Range(0, colors.Length);
-        return colors[colorIndex];
-    }
-}
+        [SerializeField] public GameColor[] colors;
 
-[Serializable]
-public class GameColor
-{
-    public string name;
-    public Material material;
-    public Color color;
+        public GameColor GetRandom()
+        {
+            var colorIndex = Random.Range(0, colors.Length);
+            return colors[colorIndex];
+        }
+    }
+
+    [Serializable]
+    public class GameColor
+    {
+        public string name;
+        public Material material;
+        public Color color;
+    }
 }
