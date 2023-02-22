@@ -1,15 +1,19 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using _Project.Scripts.Main.AppServices;
+using Cysharp.Threading.Tasks;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class CustomScene : GameState
+        public class CustomScene : IGameState
         {
-            public override async UniTask EnterState()
+            [Inject] private GameManagerService _gameManager;
+
+            public async UniTask EnterState()
             {
                 await UniTask.Yield();
-                AppServices.Services.GameManagerService.PrepareToPlay();
+                _gameManager.PrepareToPlay();
             }
         }
     }

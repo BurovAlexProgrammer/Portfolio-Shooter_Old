@@ -3,11 +3,11 @@ using _Project.Scripts.Main.Game.Brain;
 
 namespace _Project.Scripts.Main.AppServices.SceneServices
 {
-    public class BrainControlService : BaseService
+    public class BrainControlService : MonoServiceBase
     {
         private readonly LinkedList<BrainOwner> _brains = new ();
         private LinkedListNode<BrainOwner> _brainNode;
-        
+
         private void Update()
         {
             if (_brains.Count == 0) return;
@@ -25,5 +25,6 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
         {
             _brains.Remove(brainOwner);
         }
+
     }
 }

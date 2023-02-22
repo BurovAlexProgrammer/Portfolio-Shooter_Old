@@ -4,15 +4,20 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class PoolService : BaseService
+    public class PoolService : IService
     {
-        private Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
-
-        public void Init()
+        private GameObject _gameObject;
+        private Transform _transform;
+        
+        public PoolService()
         {
             _poolDictionary = new Dictionary<MonoPoolItemBase, MonoPool>();
+            _gameObject = GameObject.Instantiate(new GameObject("Pool Service"));
+            _transform = _gameObject.transform;
         }
-
+        
+        private Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
+        
         public MonoPoolItemBase GetAndActivate(MonoPoolItemBase prefab)
         {
             var result = Get(prefab);
@@ -25,7 +30,7 @@ namespace _Project.Scripts.Main.AppServices
             if (_poolDictionary.ContainsKey(prefab) == false)
             {
                 var newContainer = new GameObject(prefab.name);
-                newContainer.transform.SetParent(transform);
+                newContainer.transform.SetParent(_transform);
                 var newPool = new MonoPool(prefab, newContainer.transform, 10, 20);
                 _poolDictionary.Add(prefab, newPool);
             }

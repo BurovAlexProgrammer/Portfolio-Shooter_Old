@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using static _Project.Scripts.Main.AppServices.Services;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -14,6 +15,8 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _liftForce = 0.1f;
         [SerializeField] private ForceMode _forceMode = ForceMode.Force;
 
+        [Inject] private DebugService _debugService;
+        
         private Collider[] _colliders;
         private List<Rigidbody> _rigidbodies;
 
@@ -52,7 +55,7 @@ namespace _Project.Scripts.Main.Game
 
         private async void OnEnable()
         {
-            DebugService.CreateExplosionGizmo(transform, _radius);
+            _debugService.CreateExplosionGizmo(transform, _radius);
 
             for (var i = 0; i < _rigidbodies.Count; i++)
             {

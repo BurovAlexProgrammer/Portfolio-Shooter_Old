@@ -6,10 +6,11 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class SceneLoaderService : BaseService
+    public class SceneLoaderService : MonoServiceBase
     {
         [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;
@@ -28,7 +29,8 @@ namespace _Project.Scripts.Main.AppServices
         public string MainMenuScene => _mainMenuScene.scenePath;
         public Scene InitialScene => _initialScene;
 
-        public void Init()
+        [Inject]
+        public void Construct()
         {
             _initialScene = SceneManager.GetActiveScene();
             _blackFrame.alpha = 1f;

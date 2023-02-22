@@ -5,9 +5,9 @@ namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class QuitGame : GameState
+        public class QuitGame : IGameState
         {
-            public override async UniTask EnterState()
+            public async UniTask EnterState()
             {
                 await UniTask.Yield();
 #if UNITY_EDITOR

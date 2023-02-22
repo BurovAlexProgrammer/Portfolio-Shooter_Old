@@ -3,31 +3,12 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.AppServices.SceneServices
 {
-    public class SpawnControlService : BaseService
+    public class SpawnControlService : MonoServiceBase
     {
         [SerializeField] private bool _startOnEnable;
         [SerializeField] private Spawner[] _spawners;
 
         private bool _started;
-
-        private void Start()
-        {
-            if (!_started && _startOnEnable)
-            {
-                _started = true;
-                StartSpawn();
-            }
-        }
-        
-        private void OnEnable()
-        {
-            if (!_started) return;
-
-            if (_startOnEnable)
-            {
-                StartSpawn();
-            }
-        }
 
         public void StartSpawn()
         {
@@ -58,6 +39,25 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
             for (var i = 0; i < _spawners.Length; i++)
             {
                 _spawners[i].ContinueSpawn();
+            }
+        }
+        
+        private void Start()
+        {
+            if (!_started && _startOnEnable)
+            {
+                _started = true;
+                StartSpawn();
+            }
+        }
+        
+        private void OnEnable()
+        {
+            if (!_started) return;
+
+            if (_startOnEnable)
+            {
+                StartSpawn();
             }
         }
     }

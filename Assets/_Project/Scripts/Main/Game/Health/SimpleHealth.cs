@@ -1,14 +1,17 @@
-﻿using _Project.Scripts.Main.Game.Weapon;
+﻿using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
-using static _Project.Scripts.Main.AppServices.Services;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.Health
 {
     public class SimpleHealth : HealthBase
     {
         [SerializeField] private Destruction _destructionPrefab;
-
+        
+        [Inject] private PoolService _poolService;
+        
         private MonoPoolItemBase _poolItem;
 
         private void Awake()
@@ -35,7 +38,7 @@ namespace _Project.Scripts.Main.Game.Health
         {
             if (_destructionPrefab != null)
             {
-                var enemyParts = PoolService.GetAndActivate(_destructionPrefab);
+                var enemyParts = _poolService.GetAndActivate(_destructionPrefab);
                 enemyParts.Transform.position = Transform.position;
                 enemyParts.Transform.rotation = Transform.rotation;
             }

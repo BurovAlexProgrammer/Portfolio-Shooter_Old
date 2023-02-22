@@ -6,27 +6,29 @@ using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class SettingsService : BaseService
+    public class SettingsService : MonoServiceBase
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
         [SerializeField] private SettingGroup<GameSettings> _gameSettings;
 
-        [Inject] private AudioService _audioService;
-        [Inject] private ScreenService _screenService;
-        
-        
+        private AudioService _audioService;
+        private ScreenService _screenService;
+
         private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
         public AudioSettings Audio => _audioSettings.CurrentSettings;
         public GameSettings GameSettings => _gameSettings.CurrentSettings;
-
         public AudioService AudioService => _audioService;
         public ScreenService ScreenService => _screenService;
 
-        public void Init()
+        [Inject]
+        public void Construct(AudioService audioService, ScreenService screenService)
         {
+            _audioService = audioService; 
+            _screenService = screenService;
+            
             _settingList = new List<ISettingGroup>
             {
                 _audioSettings, 
@@ -38,6 +40,8 @@ namespace _Project.Scripts.Main.AppServices
             {
                 settingGroup.Init(this);
             }
+            
+            Load();
         }
 
         public void Load()

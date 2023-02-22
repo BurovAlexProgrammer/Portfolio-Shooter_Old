@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -20,9 +21,10 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _timerMinutes;
         
         [Inject] private PlayerBase _player;
+        [Inject] private PoolService _poolService;
 
         private bool _paused;
-        
+
         private void OnDisable()
         {
             StopSpawn();
@@ -81,7 +83,7 @@ namespace _Project.Scripts.Main.Game
         private void Spawn()
         {
             var t = _player;
-            var instance = AppServices.Services.PoolService.Get(_prefab);
+            var instance = _poolService.Get(_prefab);
             instance.Transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
             instance.gameObject.SetActive(true);
         }

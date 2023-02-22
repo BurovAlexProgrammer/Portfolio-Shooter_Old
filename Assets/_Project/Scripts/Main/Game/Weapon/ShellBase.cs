@@ -1,8 +1,10 @@
 ﻿using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
@@ -12,7 +14,9 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private ShellConfig _shellConfig;
         [SerializeField] private Destruction _destructionPrefab;
         [SerializeField] private float _lifeTime = 5f;
-
+        
+        [Inject] private PoolService _poolService;
+        
         private Rigidbody _rigidbody;
         private bool _collided;
 
@@ -69,7 +73,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void Destruct()
         {
-            var destruction = AppServices.Services.PoolService.Get(_destructionPrefab);
+            var destruction = _poolService.Get(_destructionPrefab);
             var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
             destruction.Transform.position = Transform.position;
             destruction.Transform.rotation = Transform.rotation;

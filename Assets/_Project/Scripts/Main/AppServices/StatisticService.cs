@@ -9,7 +9,7 @@ using static _Project.Scripts.Main.StatisticData;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class StatisticService : BaseService
+    public class StatisticService : MonoServiceBase
     {
         public Action<RecordName, string> RecordChanged; 
         
@@ -17,9 +17,10 @@ namespace _Project.Scripts.Main.AppServices
         private string _storedFolder;
         private string _storedFolderPath;
         
-        [Inject] private GameManagerService _gameManager;
+        private GameManagerService _gameManager;
 
-        public void Init()
+        [Inject]
+        public StatisticService(GameManagerService gameManager)
         {
             _statisticData = new StatisticData();
             _storedFolder ??= Application.dataPath + "/StoredData/";

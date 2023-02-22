@@ -9,7 +9,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.AppServices.SceneServices
 {
-    public class GameUiService : BaseService
+    public class GameUiService : MonoServiceBase
     {
         [SerializeField] private BarView _healthBarView;
         [SerializeField] private WindowGamePause _windowGamePause;
@@ -17,18 +17,27 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
         [SerializeField] private TextMeshProUGUI _killCountText;
         [SerializeField] private TextMeshProUGUI _scoreCountText;
 
-        [Inject] private GameManagerService _gameManager;
-        [Inject] private StatisticService _statisticService;
-        [Inject] private PlayerBase _player;
+        GameManagerService _gameManager;
+        StatisticService _statisticService;
+        PlayerBase _player;
 
         private bool _dialogShowing;
 
         public bool DialogShowing => _dialogShowing;
-        
+
+        [Inject]
+        public void Construct(GameManagerService gameManager, StatisticService statisticService, PlayerBase player)
+        {
+            _gameManager = gameManager;
+            _statisticService = statisticService;
+            _player = player;
+            Init();
+        }
+
         private void OnDestroy()
         {
-            AppServices.Services.GameManagerService.SwitchPause -= OnSwitchGamePause;
-            AppServices.Services.GameManagerService.GameOver -= OnGameOver;
+            _gameManager.SwitchPause -= OnSwitchGamePause;
+            _gameManager.GameOver -= OnGameOver;
             _player.Health.Changed -= OnPlayerHealthChanged;
             _statisticService.RecordChanged -= OnStaticRecordChanged;
             _windowGamePause.DialogSwitched -= OnDialogSwitched;
@@ -40,10 +49,10 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
             _dialogShowing = state;
         }
 
-        public void Init()
+        private void Init()
         {
-            AppServices.Services.GameManagerService.SwitchPause += OnSwitchGamePause;
-            AppServices.Services.GameManagerService.GameOver += OnGameOver;
+            _gameManager.SwitchPause += OnSwitchGamePause;
+            _gameManager.GameOver += OnGameOver;
             _player.Health.Changed += OnPlayerHealthChanged;
             _statisticService.RecordChanged += OnStaticRecordChanged;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
@@ -59,7 +68,7 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
         private void OnSwitchGamePause(bool isPause)
         {
             if (_gameManager.IsGameOver) return;
-            
+
             if (isPause)
             {
                 _windowGamePause.Show().Forget();

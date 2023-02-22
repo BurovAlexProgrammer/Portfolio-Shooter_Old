@@ -2,31 +2,38 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class PlayNewGame : GameState
+        public class PlayNewGame : IGameState
         {
-            public override async UniTask EnterState()
+            [Inject] private GameManagerService _gameManager;
+            [Inject] private AudioService _audioService;
+            [Inject] private ControlService _controlService;
+            [Inject] private SceneLoaderService _sceneLoaderService;
+            [Inject] private StatisticService _statisticService;
+
+            public async UniTask EnterState()
             {
                 await UniTask.Yield();
-                Services.GameManagerService.PrepareToPlay();
-                await Services.SceneLoaderService.LoadSceneAsync(SceneLoaderService.Scenes.MiniGameLevel);
+                _gameManager.PrepareToPlay();
+                await _sceneLoaderService.LoadSceneAsync(SceneLoaderService.Scenes.MiniGameLevel);
             }
 
-            public override async UniTask ExitState()
+            public async UniTask ExitState()
             {
-                Services.AudioService.StopMusic();
+                _audioService.StopMusic();
                 
                 if (Time.timeScale == 0f)
                 {
                     await DOVirtual.Float(0, 1f, 0.5f, x => Time.timeScale = x).AwaitForComplete();
                 }
 
-                Services.ControlService.UnlockCursor();
-                Services.StatisticService.SaveToFile();
+                _controlService.UnlockCursor();
+                _statisticService.SaveToFile();
             }
         }
     }

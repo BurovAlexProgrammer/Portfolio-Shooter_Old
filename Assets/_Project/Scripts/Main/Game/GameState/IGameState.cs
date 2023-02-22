@@ -3,7 +3,7 @@ using Cysharp.Threading.Tasks;
 
 namespace _Project.Scripts.Main.Game.GameState
 {
-    public abstract class GameState
+    public interface IGameState
     {
         public bool EqualsState(Type type) => GetType() == type;
         

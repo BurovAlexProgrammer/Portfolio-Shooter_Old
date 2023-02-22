@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class EventListenerService : BaseService
+    public class EventListenerService : MonoServiceBase
     {
         public Action<Character> CharacterDead;
 
@@ -16,5 +16,6 @@ namespace _Project.Scripts.Main.AppServices
                 CharacterDead?.Invoke(character);
             };
         }
+
     }
 }

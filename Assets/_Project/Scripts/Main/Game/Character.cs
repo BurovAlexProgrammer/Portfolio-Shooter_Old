@@ -1,13 +1,14 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 using static _Project.Scripts.Extension.Common;
-using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -21,7 +22,10 @@ namespace _Project.Scripts.Main.Game
         [Header("Audio")] 
         [SerializeField, ReadOnlyField] private AudioSource _audioSource;
         [SerializeField] private AudioEvent _attackEvent;
-
+        
+        [Inject] private EventListenerService _eventListener;
+        [Inject] private StatisticService _statisticService;
+        
         private NavMeshAgent _navMeshAgent;
 
         public CharacterData Data => _data;
@@ -36,7 +40,7 @@ namespace _Project.Scripts.Main.Game
             _health = GetComponent<HealthBase>();
             _attacker = GetComponent<Attacker>();
             _audioSource = GetComponent<AudioSource>();
-            EventListenerService.SubscribeCharacter(this);
+            _eventListener.SubscribeCharacter(this);
 
             if (_navMeshAgent != null)
             {
@@ -68,7 +72,7 @@ namespace _Project.Scripts.Main.Game
         {
             if (_brainOwner != null && _attacker != null)
             {
-                StatisticService.AddValueToRecord(StatisticData.RecordName.KillMonsterCount, 1);
+                _statisticService.AddValueToRecord(StatisticData.RecordName.KillMonsterCount, 1);
             }
         }
 

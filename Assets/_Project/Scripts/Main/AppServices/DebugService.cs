@@ -1,17 +1,18 @@
 ﻿using _Project.Scripts.Main.Game;
 using DG.Tweening;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class DebugService : BaseService
+    public class DebugService : MonoServiceBase
     {
         [SerializeField] private DebugServiceConfig _serviceConfig;
         [SerializeField] private GizmoItem _explosionGizmoPrefab;
         [SerializeField] private Transform _gizmosContainer;
 
         public bool SaveLogToFile => _serviceConfig.SaveLogToFile;
-        
+
         public void CreateExplosionGizmo(Transform targetTransform, float radius)
         {
             if (_serviceConfig.ShowExplosionSphere == false) return;

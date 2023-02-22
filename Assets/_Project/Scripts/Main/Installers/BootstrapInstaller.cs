@@ -1,9 +1,10 @@
 using System.IO;
 using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.Game.GameState;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Zenject;
-using static _Project.Scripts.Main.AppServices.Services;
 using AudioService = _Project.Scripts.Main.AppServices.AudioService;
 
 namespace _Project.Scripts.Main.Installers
@@ -14,8 +15,6 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private ScreenService _screenServicePrefab;
         [SerializeField] private SettingsService _settingsServicePrefab;
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
-        [SerializeField] private LocalizationService _localizationServicePrefab;
-        [SerializeField] private ControlService _controlServicePrefab;
         [SerializeField] private DebugService _debugServicePrefab;
         [SerializeField] private AudioService _audioServicePrefab;
         [SerializeField] private StatisticService _statisticServicePrefab;
@@ -49,7 +48,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_eventListenerServicePrefab)
                 .WithGameObjectName("Event Listener")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService(instance as EventListenerService))
+                // .OnInstantiated((ctx, instance) => SetService(instance as EventListenerService))
                 .NonLazy();
         }
 
@@ -60,7 +59,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_statisticServicePrefab)
                 .WithGameObjectName("Statistic Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService((StatisticService)instance))
+                // .OnInstantiated((ctx, instance) => SetService((StatisticService)instance))
                 .NonLazy();
         }
 
@@ -71,7 +70,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_audioServicePrefab)
                 .WithGameObjectName("Audio Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService((AudioService)instance))
+                // .OnInstantiated((ctx, instance) => SetService((AudioService)instance))
                 .NonLazy();
         }
 
@@ -82,7 +81,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_debugServicePrefab)
                 .WithGameObjectName("Debug Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService((DebugService)instance))
+                // .OnInstantiated((ctx, instance) => SetService((DebugService)instance))
                 .NonLazy();
         }
 
@@ -100,10 +99,8 @@ namespace _Project.Scripts.Main.Installers
         {
             Container
                 .Bind<ControlService>()
-                .FromComponentInNewPrefab(_controlServicePrefab)
-                .WithGameObjectName("Control Service")
+                .FromNew()
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService(instance as ControlService))
                 .NonLazy();
         }
 
@@ -114,12 +111,13 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_settingsServicePrefab)
                 .WithGameObjectName("Settings Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    var service = (SettingsService)instance;
-                    service.Init();
-                    service.Load();
-                }).NonLazy();
+                // .OnInstantiated((ctx, instance) =>
+                // {
+                //     (instance as MonoServiceBase).Init();
+                //     // service.Init();
+                //     // service.Load();
+                // })
+                .NonLazy();
         }
 
         private void InstallScreenService()
@@ -129,7 +127,7 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_screenServicePrefab)
                 .WithGameObjectName("Screen Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService((ScreenService)instance))
+                // .OnInstantiated((ctx, instance) => SetService((ScreenService)instance))
                 .NonLazy();
         }
 
@@ -140,7 +138,6 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_sceneLoaderServicePrefab)
                 .WithGameObjectName("Scene Loader")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService((SceneLoaderService)instance))
                 .NonLazy();
         }
 
@@ -151,18 +148,17 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_gameManagerServicePrefab)
                 .WithGameObjectName("Game Manager")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => SetService(instance as GameManagerService))
+                // .OnInstantiated((ctx, instance) => SetService(instance as GameManagerService))
                 .NonLazy();
+            //Container.Resolve<GameStateMachine>();
+            
         }
         
         void InstallLocalizationService()
         {
             Container
                 .Bind<LocalizationService>()
-                .FromComponentInNewPrefab(_localizationServicePrefab)
-                .WithGameObjectName("Localization Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) => (instance as LocalizationService)?.Init())
                 .NonLazy();
         }
     }

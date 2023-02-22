@@ -6,7 +6,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class ScreenService : BaseService
+    public class ScreenService : MonoServiceBase
     {
         [SerializeField] private Camera _mainCamera;
         [SerializeField] private Volume _volume;
@@ -18,7 +18,7 @@ namespace _Project.Scripts.Main.AppServices
         public Camera MainCamera => _mainCamera;
         public VolumeProfile VolumeProfile => _volume.profile;
 
-        private void Awake()
+        public void Init()
         {
             var controls = _controlService.Controls;
             _internalProfiler.enabled = _showProfilerOnStartup;

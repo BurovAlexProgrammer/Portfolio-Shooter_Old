@@ -1,10 +1,11 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;
-using static _Project.Scripts.Main.AppServices.Services;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -17,6 +18,8 @@ namespace _Project.Scripts.Main.Game.Brain
         [SerializeField, ReadOnlyField] private Character _character;
         [SerializeField, ReadOnlyField] NavMeshAgent _navMeshAgent;
 
+        [Inject] private BrainControlService _brainControl;
+
         private bool _isTargetExist;
 
         public PlayerBase Player => GameContext.Instance.Player;
@@ -28,12 +31,12 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void OnEnable()
         {
-            BrainControl.AddBrain(this);
+            _brainControl.AddBrain(this);
         }
 
         private void OnDisable()
         {
-            BrainControl.RemoveBrain(this);
+            _brainControl.RemoveBrain(this);
         }
 
         private void Awake()

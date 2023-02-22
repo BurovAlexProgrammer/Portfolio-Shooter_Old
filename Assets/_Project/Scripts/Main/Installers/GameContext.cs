@@ -4,7 +4,6 @@ using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
 using Zenject;
-using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Installers
 {
@@ -40,9 +39,6 @@ namespace _Project.Scripts.Main.Installers
         
         private void OnDestroy()
         {
-            KillService(_poolServicePrefab);
-            KillService(_brainControlServiceInstance);
-            KillService(_spawnControlServiceInstance);
             Container.Unbind<GameUiService>();
             Container.Unbind<Player>();
             Container.Unbind<BrainControlService>();
@@ -53,15 +49,14 @@ namespace _Project.Scripts.Main.Installers
         {
             Container
                 .Bind<PoolService>()
-                .FromComponentInNewPrefab(_poolServicePrefab)
-                .WithGameObjectName("Pool Service")
+                .FromNew()
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as PoolService;
-                    service.Init();
-                    SetService(service);
-                })
+                // .OnInstantiated((ctx, instance) =>
+                // {
+                //     var service = instance as PoolService;
+                //     service.Init();
+                //     SetService(service);
+                // })
                 .NonLazy();
         }
 
@@ -72,11 +67,11 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_gameUiServicePrefab)
                 .WithGameObjectName("Game UI Service")
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as GameUiService;
-                    service.Init();
-                })
+                // .OnInstantiated((ctx, instance) =>
+                // {
+                //     var service = instance as GameUiService;
+                //     service.Init();
+                // })
                 .NonLazy();
         }
 
@@ -103,11 +98,6 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<BrainControlService>()
                 .FromInstance(_brainControlServiceInstance)
                 .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    var service = instance as BrainControlService;
-                    SetService(service);
-                })
                 .NonLazy(); 
         }
 
