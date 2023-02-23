@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.PoolService;
 using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private float _shootTimer;
 
-        [Inject] private PoolService _poolService;
+        [Inject] private PoolServiceBase _poolService;
 
         public virtual bool TryShoot()
         {

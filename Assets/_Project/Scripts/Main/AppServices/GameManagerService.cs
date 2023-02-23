@@ -46,8 +46,6 @@ namespace _Project.Scripts.Main.AppServices
             _audioService = audioService;
 
             _gameStateMachine = _diContainer.Instantiate<GameStateMachine>();
-            _gameStateMachine.Init();
-            
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
         }
 
@@ -59,6 +57,11 @@ namespace _Project.Scripts.Main.AppServices
         private void Awake()
         {
             _eventListenerService.CharacterDead += AddScoresOnCharacterDead;
+        }
+
+        private void Start()
+        {
+            _gameStateMachine.Start().Forget();
         }
 
         private void OnDestroy()

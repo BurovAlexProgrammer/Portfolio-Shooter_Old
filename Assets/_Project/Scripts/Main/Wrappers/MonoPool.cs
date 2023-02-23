@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -84,7 +85,7 @@ namespace _Project.Scripts.Main.Wrappers
             {
                 foreach (var item in _activePool.ToArray())
                 {
-                    if (item.GameObject.activeSelf == false) continue; 
+                    if (item.gameObject.activeSelf == false) continue; 
                         
                     item.ReturnToPool();
                 }
@@ -111,7 +112,7 @@ namespace _Project.Scripts.Main.Wrappers
                 }
             }
             
-            var instance = Object.Instantiate(_prefab, _container);
+            var instance = SceneContext.DiContainer.InstantiatePrefabForComponent<MonoPoolItemBase>(_prefab, _container);
             instance.gameObject.name = _prefab.name + " " + (_inactivePool.Count + _activePool.Count + 1);
             instance.gameObject.SetActive(false);
             instance.Returned += OnItemReturn;

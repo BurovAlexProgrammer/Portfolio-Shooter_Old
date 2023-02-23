@@ -18,8 +18,8 @@ namespace _Project.Scripts.Main.AppServices
             if (_serviceConfig.ShowExplosionSphere == false) return;
             
             var gizmoInstance = Instantiate(_explosionGizmoPrefab, _gizmosContainer);
-            gizmoInstance.Transform.position = targetTransform.position;
-            gizmoInstance.Transform.DOScale(Vector3.one * radius * 2f, 0.2f).From(0f);
+            gizmoInstance.transform.position = targetTransform.position;
+            gizmoInstance.transform.DOScale(Vector3.one * radius * 2f, 0.2f).From(0f);
         }
     }
 }

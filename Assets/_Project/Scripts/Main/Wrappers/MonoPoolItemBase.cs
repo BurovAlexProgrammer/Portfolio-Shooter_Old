@@ -1,9 +1,10 @@
 ﻿using System;
+using _Project.Scripts.Extension;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Wrappers
 {
-    public abstract class MonoPoolItemBase : MonoBeh
+    public abstract class MonoPoolItemBase : MonoBehaviour
     {
         private static int _idGenerator;
         private static int NewId => _idGenerator++;
@@ -23,7 +24,7 @@ namespace _Project.Scripts.Main.Wrappers
         
         public void ReturnToPool()
         {
-            if (IsDestroyed) return;
+            if (gameObject.IsDestroyed()) return;
             
             gameObject.SetActive(false);
             Returned?.Invoke(this);

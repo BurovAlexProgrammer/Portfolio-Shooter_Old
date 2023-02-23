@@ -12,7 +12,7 @@ namespace _Project.Scripts.Main.Game.Brain
             if (brainOwner.IsTargetExist)
             {
                 _targetDistance =
-                    Vector3.Distance(brainOwner.Transform.position, brainOwner.TargetHealth.Transform.position);
+                    Vector3.Distance(brainOwner.transform.position, brainOwner.TargetHealth.transform.position);
 
                 if (_targetDistance <= brainOwner.Character.Data.MeleeRange)
                 {

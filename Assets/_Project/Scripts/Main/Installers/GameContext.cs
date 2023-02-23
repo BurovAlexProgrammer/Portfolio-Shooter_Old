@@ -1,5 +1,5 @@
 using System;
-using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.PoolService;
 using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
@@ -15,7 +15,7 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private Transform _playerStartPoint;
         [SerializeField] private GameUiService _gameUiServicePrefab;
-        [SerializeField] private PoolService _poolServicePrefab;
+        [SerializeField] private PoolServiceBase _poolServicePrefab;
         [SerializeField] private BrainControlService _brainControlServiceInstance;
         [SerializeField] private SpawnControlService _spawnControlServiceInstance;
 
@@ -48,15 +48,10 @@ namespace _Project.Scripts.Main.Installers
         private void InstallPoolService()
         {
             Container
-                .Bind<PoolService>()
+                .Bind<IPoolService>()
+                .To<PoolService>()
                 .FromNew()
                 .AsSingle()
-                // .OnInstantiated((ctx, instance) =>
-                // {
-                //     var service = instance as PoolService;
-                //     service.Init();
-                //     SetService(service);
-                // })
                 .NonLazy();
         }
 
@@ -67,11 +62,6 @@ namespace _Project.Scripts.Main.Installers
                 .FromComponentInNewPrefab(_gameUiServicePrefab)
                 .WithGameObjectName("Game UI Service")
                 .AsSingle()
-                // .OnInstantiated((ctx, instance) =>
-                // {
-                //     var service = instance as GameUiService;
-                //     service.Init();
-                // })
                 .NonLazy();
         }
 
@@ -85,7 +75,7 @@ namespace _Project.Scripts.Main.Installers
                 .OnInstantiated((ctx, instance) =>
                 {
                     _player = instance as PlayerBase;
-                    var playerTransform = _player.Transform;
+                    var playerTransform = _player.transform;
                     playerTransform.position = _playerStartPoint.position;
                     playerTransform.rotation = _playerStartPoint.rotation;
                     Destroy(_playerStartPoint.gameObject);
@@ -107,6 +97,16 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<SpawnControlService>()
                 .FromInstance(_spawnControlServiceInstance)
                 .AsSingle();
+        }
+    }
+    
+    public static class SceneContext {
+        private static DiContainer _diContainer;
+
+        public static DiContainer DiContainer
+        {
+            get => _diContainer;
+            set => _diContainer ??= value;
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using _Project.Scripts.Main.AppServices;
+﻿using _Project.Scripts.Main.AppServices.PoolService;
 using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
@@ -10,7 +10,7 @@ namespace _Project.Scripts.Main.Game.Health
     {
         [SerializeField] private Destruction _destructionPrefab;
         
-        [Inject] private PoolService _poolService;
+        [Inject] private PoolServiceBase _poolService;
         
         private MonoPoolItemBase _poolItem;
 
@@ -39,8 +39,8 @@ namespace _Project.Scripts.Main.Game.Health
             if (_destructionPrefab != null)
             {
                 var enemyParts = _poolService.GetAndActivate(_destructionPrefab);
-                enemyParts.Transform.position = Transform.position;
-                enemyParts.Transform.rotation = Transform.rotation;
+                enemyParts.transform.position = transform.position;
+                enemyParts.transform.rotation = transform.rotation;
             }
 
             if (_poolItem != null)

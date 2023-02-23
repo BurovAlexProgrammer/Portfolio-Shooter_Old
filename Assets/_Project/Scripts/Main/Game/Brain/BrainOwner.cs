@@ -9,7 +9,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
-    public class BrainOwner : MonoBeh
+    public class BrainOwner : MonoBehaviour
     {
         [SerializeField] private Brain _brain;
         [SerializeField] private GameObject _target;

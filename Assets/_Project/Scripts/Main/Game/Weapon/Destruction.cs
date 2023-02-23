@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
@@ -15,11 +16,13 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private Transform[] _childrenTransforms;
         private TransformInfo[] _childrenInitTransformInfos;
+        private CancellationToken _destroyCancellationToken;
 
         private void Awake()
         {
-            _childrenTransforms = Transform.GetChildrenTransforms();
-            _childrenInitTransformInfos = Transform.GetChildrenTransformInfo();
+            _destroyCancellationToken = gameObject.GetCancellationTokenOnDestroy();
+            _childrenTransforms = transform.GetChildrenTransforms();
+            _childrenInitTransformInfos = transform.GetChildrenTransformInfo();
         }
 
         private void OnEnable()
@@ -61,7 +64,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void FadeScaleChildren()
         {
-            var children = Transform.GetChildrenTransforms();
+            var children = transform.GetChildrenTransforms();
             var sequence = DOTween.Sequence();
             sequence.AppendInterval(_lifeTime / 2f);
             sequence.OnComplete(ReturnToPool);
@@ -72,7 +75,7 @@ namespace _Project.Scripts.Main.Game.Weapon
             }
 
             sequence.Play()
-                .ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, DestroyCancellationToken)
+                .ToUniTaskWithCancel(TweenCancelBehaviour.KillAndCancelAwait, _destroyCancellationToken)
                 .Forget();
         }
 

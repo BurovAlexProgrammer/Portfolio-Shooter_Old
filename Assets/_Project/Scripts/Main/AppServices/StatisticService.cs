@@ -20,8 +20,9 @@ namespace _Project.Scripts.Main.AppServices
         private GameManagerService _gameManager;
 
         [Inject]
-        public StatisticService(GameManagerService gameManager)
+        public void Construct(GameManagerService gameManager)
         {
+            _gameManager = gameManager;
             _statisticData = new StatisticData();
             _storedFolder ??= Application.dataPath + "/StoredData/";
             _storedFolderPath = _storedFolder + "Statistic.data";

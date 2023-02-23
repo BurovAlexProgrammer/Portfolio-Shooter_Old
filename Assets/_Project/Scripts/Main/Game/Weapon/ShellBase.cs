@@ -1,5 +1,6 @@
 ﻿using _Project.Scripts.Extension;
 using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.PoolService;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private Destruction _destructionPrefab;
         [SerializeField] private float _lifeTime = 5f;
         
-        [Inject] private PoolService _poolService;
+        [Inject] private PoolServiceBase _poolService;
         
         private Rigidbody _rigidbody;
         private bool _collided;
@@ -53,8 +54,8 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             _collided = false;
             gameObject.SetActive(true);
-           Transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
-           _rigidbody.velocity = Transform.forward * _shellConfig.InitSpeed;
+           transform.SetPositionAndRotation(startPoint.position, startPoint.rotation);
+           _rigidbody.velocity = transform.forward * _shellConfig.InitSpeed;
         }
 
         public void DestroyOnLifetimeEnd()
@@ -66,7 +67,7 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             await _lifeTime.WaitInSeconds();
             
-            if (!IsAvailable) return;
+            if (!gameObject.IsDestroyed()) return;
             
             Destruct();
         }
@@ -75,9 +76,9 @@ namespace _Project.Scripts.Main.Game.Weapon
         {
             var destruction = _poolService.Get(_destructionPrefab);
             var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
-            destruction.Transform.position = Transform.position;
-            destruction.Transform.rotation = Transform.rotation;
-            destruction.GameObject.SetActive(true);
+            destruction.transform.position = transform.position;
+            destruction.transform.rotation = transform.rotation;
+            destruction.gameObject.SetActive(true);
 
             for (var i = 0; i < rigidbodies.Length; i++)
             {

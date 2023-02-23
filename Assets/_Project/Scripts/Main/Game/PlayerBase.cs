@@ -4,18 +4,20 @@ using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Game.Weapon;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
+using Context = _Project.Scripts.Main.Installers.Context;
 
 namespace _Project.Scripts.Main.Game
 {
     [RequireComponent(typeof(HealthBase))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public abstract class PlayerBase : MonoBeh
+    public abstract class PlayerBase : MonoBehaviour
     {
         [SerializeField] private CameraHolder _cameraHolder;
         [SerializeField] private PlayerConfig _config;
-        [SerializeField] private GunBase _gun;
+        [FormerlySerializedAs("_gun")] [SerializeField] private GunBase _gunPrefab;
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canRotate;
         [SerializeField] private bool _canShoot;
@@ -37,12 +39,14 @@ namespace _Project.Scripts.Main.Game
         private float _rotationY;
         private bool _shootInputValue;
         private Vector3 _playerMove;
+        private GunBase _gun;
 
         public CameraHolder CameraHolder => _cameraHolder;
         public HealthBase Health => _health;
 
         private void Awake()
         {
+            _gun = Context.DiContainer.InstantiatePrefabForComponent<GunBase>(_gunPrefab);
             _health = GetComponent<HealthBase>();
             _characterController = GetComponent<CharacterController>();
             _audioSource = GetComponent<AudioSource>();
@@ -108,7 +112,7 @@ namespace _Project.Scripts.Main.Game
             
             var moveVector = inputValue * Time.fixedDeltaTime * _config.MoveSpeed;
             var gravityVelocity = _useGravity ? Physics.gravity * Time.fixedDeltaTime : Vector3.zero;
-            _characterController.Move(Transform.right * moveVector.x + Transform.forward * moveVector.y + gravityVelocity);
+            _characterController.Move(transform.right * moveVector.x + transform.forward * moveVector.y + gravityVelocity);
 
             if (_characterController.velocity != Vector3.zero)
             {

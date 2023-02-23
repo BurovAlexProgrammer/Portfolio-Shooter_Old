@@ -24,18 +24,14 @@ namespace _Project.Scripts.Main.Game.GameState
         public void Construct(SceneLoaderService sceneLoaderService)
         {
             _sceneLoader = sceneLoaderService;
-            Init();
         }
         
-        public async UniTask Init()
+        public async UniTask Start()
         {
             if (_sceneLoader.InitialSceneEquals(SceneName.Boot))
             {
-                Debug.LogWarning("Init");
                 await SetState<GameStates.Bootstrap>();
-                Debug.LogWarning("After boot");
                 await SetState<GameStates.MainMenu>();
-                Debug.LogWarning("After MainMenu");
                 return;
             }
             
@@ -48,19 +44,19 @@ namespace _Project.Scripts.Main.Game.GameState
             
             if (_activeState?.GetType() == newStateType)
             {
-                Debug.Log("GameState Enter: " + newStateType + " (Already entered, skipped)");
+                Debug.Log("GameState Enter: " + newStateType.Name + " (Already entered, skipped)");
                 return;
             }
 
             if (_activeState != null)
             {
-                Debug.Log("GameState Exit: " + _activeState);
+                Debug.Log("GameState Exit: " + _activeState.GetType().Name);
                 await _activeState.ExitState();
             }
 
             _activeState = _diContainer.Instantiate<T>();
 
-            Debug.Log("GameState Enter: " + _activeState);
+            Debug.Log("GameState Enter: " + _activeState.GetType().Name);
             await _activeState.EnterState();
             StateChanged?.Invoke();
         }

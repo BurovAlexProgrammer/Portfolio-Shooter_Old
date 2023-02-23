@@ -2,18 +2,16 @@
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices
+namespace _Project.Scripts.Main.AppServices.PoolService
 {
-    public class PoolService : IService
+    public abstract class PoolServiceBase : IPoolService
     {
-        private GameObject _gameObject;
-        private Transform _transform;
+        private readonly Transform _transform;
         
-        public PoolService()
+        public PoolServiceBase()
         {
             _poolDictionary = new Dictionary<MonoPoolItemBase, MonoPool>();
-            _gameObject = GameObject.Instantiate(new GameObject("Pool Service"));
-            _transform = _gameObject.transform;
+            _transform = Object.Instantiate(new GameObject("Pool Service")).transform;
         }
         
         private Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;
@@ -31,14 +29,14 @@ namespace _Project.Scripts.Main.AppServices
             {
                 var newContainer = new GameObject(prefab.name);
                 newContainer.transform.SetParent(_transform);
-                var newPool = new MonoPool(prefab, newContainer.transform, 10, 20);
+                var newPool = new MonoPool(prefab, newContainer.transform, 1, 100);
                 _poolDictionary.Add(prefab, newPool);
             }
 
             return _poolDictionary[prefab].Get();
         }
 
-        public void Restart()
+        public void Disable()
         {
             foreach (var item in _poolDictionary)
             {
