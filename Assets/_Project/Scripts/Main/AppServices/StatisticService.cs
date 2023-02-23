@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game.GameState;
 using Cysharp.Threading.Tasks;
 using Newtonsoft.Json;
@@ -26,6 +27,7 @@ namespace _Project.Scripts.Main.AppServices
             _statisticData = new StatisticData();
             _storedFolder ??= Application.dataPath + "/StoredData/";
             _storedFolderPath = _storedFolder + "Statistic.data";
+            this.RegisterService();
             LoadFromFile();
             TimerExecuting();
         }

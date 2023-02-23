@@ -1,13 +1,13 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.Game
@@ -19,13 +19,14 @@ namespace _Project.Scripts.Main.Game
         [SerializeField, ReadOnlyField] private HealthBase _health;
         [SerializeField, ReadOnlyField] private Attacker _attacker;
         [SerializeField, ReadOnlyField] private Animator _animator;
-        [Header("Audio")] 
-        [SerializeField, ReadOnlyField] private AudioSource _audioSource;
+
+        [Header("Audio")] [SerializeField, ReadOnlyField]
+        private AudioSource _audioSource;
+
         [SerializeField] private AudioEvent _attackEvent;
-        
-        [Inject] private EventListenerService _eventListener;
-        [Inject] private StatisticService _statisticService;
-        
+
+        private EventListenerService _eventListener;
+        private StatisticService _statisticService;
         private NavMeshAgent _navMeshAgent;
 
         public CharacterData Data => _data;
@@ -34,6 +35,8 @@ namespace _Project.Scripts.Main.Game
 
         private void Awake()
         {
+            _eventListener = Services.EventListenerService;
+            _statisticService = Services.StatisticService;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _brainOwner = GetComponent<BrainOwner>();
             _animator = GetComponent<Animator>();

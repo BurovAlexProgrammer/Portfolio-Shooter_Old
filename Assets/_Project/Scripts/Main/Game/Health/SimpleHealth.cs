@@ -1,8 +1,8 @@
-﻿using _Project.Scripts.Main.AppServices.PoolService;
+﻿using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Game.Health
 {
@@ -10,12 +10,13 @@ namespace _Project.Scripts.Main.Game.Health
     {
         [SerializeField] private Destruction _destructionPrefab;
         
-        [Inject] private PoolServiceBase _poolService;
+        private IPoolService _poolService;
         
         private MonoPoolItemBase _poolItem;
 
         private void Awake()
         {
+            _poolService = GamePlayContext.PoolService;
             _poolItem = GetComponent<MonoPoolItemBase>();
         }
 

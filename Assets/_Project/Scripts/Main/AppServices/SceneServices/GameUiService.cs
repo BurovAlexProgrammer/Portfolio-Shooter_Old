@@ -1,4 +1,6 @@
-﻿using _Project.Scripts.Main.Game;
+﻿using _Project.Scripts.Main.AppServices.Base;
+using _Project.Scripts.Main.Contexts;
+using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.UI;
 using _Project.Scripts.Main.UI.Window;
@@ -9,7 +11,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.AppServices.SceneServices
 {
-    public class GameUiService : MonoServiceBase
+    public class GameUiService : MonoGamePlayContext
     {
         [SerializeField] private BarView _healthBarView;
         [SerializeField] private WindowGamePause _windowGamePause;
@@ -32,6 +34,7 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
             _statisticService = statisticService;
             _player = player;
             Init();
+            this.RegisterContext();
         }
 
         private void OnDestroy()

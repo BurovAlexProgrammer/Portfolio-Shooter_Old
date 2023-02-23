@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices.PoolService
+namespace _Project.Scripts.Main.AppServices.SceneServices.PoolService
 {
     public abstract class PoolServiceBase : IPoolService
     {
@@ -12,6 +13,7 @@ namespace _Project.Scripts.Main.AppServices.PoolService
         {
             _poolDictionary = new Dictionary<MonoPoolItemBase, MonoPool>();
             _transform = Object.Instantiate(new GameObject("Pool Service")).transform;
+            this.RegisterContext();
         }
         
         private Dictionary<MonoPoolItemBase, MonoPool> _poolDictionary;

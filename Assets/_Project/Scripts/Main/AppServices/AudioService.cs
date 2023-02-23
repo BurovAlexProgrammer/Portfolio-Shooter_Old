@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -28,6 +29,7 @@ namespace _Project.Scripts.Main.AppServices
             _screenService = screenService;
             _audioListener = _screenService.MainCamera.GetComponent<AudioListener>();
             _musicAudioSource = GetComponent<AudioSource>();
+            this.RegisterService();
         }
 
         public void Setup(SettingsService settingsService)

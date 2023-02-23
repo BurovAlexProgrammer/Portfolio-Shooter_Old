@@ -1,5 +1,6 @@
 using System;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Game.GameState;
 using Cysharp.Threading.Tasks;
@@ -47,6 +48,7 @@ namespace _Project.Scripts.Main.AppServices
 
             _gameStateMachine = _diContainer.Instantiate<GameStateMachine>();
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
+            this.RegisterService();
         }
 
         public async UniTask SetGameState<T>() where T : IGameState

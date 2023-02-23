@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
@@ -34,6 +35,7 @@ namespace _Project.Scripts.Main.AppServices
         {
             _initialScene = SceneManager.GetActiveScene();
             _blackFrame.alpha = 1f;
+            this.RegisterService();
             ShowScene();
         }
 

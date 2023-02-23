@@ -1,6 +1,8 @@
 ﻿using System;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
@@ -8,6 +10,12 @@ namespace _Project.Scripts.Main.AppServices
     {
         public Action<Character> CharacterDead;
 
+        [Inject]
+        public void Construct()
+        {
+            this.RegisterService();
+        }
+        
         public void SubscribeCharacter(Character character)
         {
             character.Health.Dead += () =>

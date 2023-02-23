@@ -1,4 +1,5 @@
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using Tayx.Graphy;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -13,16 +14,20 @@ namespace _Project.Scripts.Main.AppServices
         [SerializeField] private GraphyManager _internalProfiler;
         [SerializeField] private bool _showProfilerOnStartup;
 
-        [Inject] private ControlService _controlService;
+        private ControlService _controlService;
 
         public Camera MainCamera => _mainCamera;
         public VolumeProfile VolumeProfile => _volume.profile;
 
-        public void Init()
+
+        [Inject]
+        public void Construct(ControlService controlService)
         {
+            _controlService = controlService;
             var controls = _controlService.Controls;
             _internalProfiler.enabled = _showProfilerOnStartup;
             controls.Player.InternalProfiler.BindAction(BindActions.Started, ctx => ToggleShowProfiler());
+            this.RegisterService();
         }
 
         private void ToggleShowProfiler()

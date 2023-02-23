@@ -1,32 +1,33 @@
 ﻿using System;
 using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Audio;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Game.Weapon;
+using _Project.Scripts.Main.Installers;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
-using Context = _Project.Scripts.Main.Installers.Context;
 
 namespace _Project.Scripts.Main.Game
 {
     [RequireComponent(typeof(HealthBase))]
     [RequireComponent(typeof(CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public abstract class PlayerBase : MonoBehaviour
+    public abstract class PlayerBase : MonoBehaviour, IGamePlayContextItem
     {
         [SerializeField] private CameraHolder _cameraHolder;
         [SerializeField] private PlayerConfig _config;
-        [FormerlySerializedAs("_gun")] [SerializeField] private GunBase _gunPrefab;
+        [SerializeField] private GunBase _gun;
         [SerializeField] private bool _canMove;
         [SerializeField] private bool _canRotate;
         [SerializeField] private bool _canShoot;
         [SerializeField] private bool _useGravity;
         [SerializeField] private SimpleAudioEvent _startPhrase;
-        
-        [Inject] private ControlService _controlService;
-        [Inject] private SettingsService _settingsService;
-        [Inject] private StatisticService _statisticService;
+
+        private ControlService _controlService;
+        private SettingsService _settingsService;
+        private StatisticService _statisticService;
 
         private CharacterController _characterController;
         private AudioSource _audioSource;
@@ -39,18 +40,26 @@ namespace _Project.Scripts.Main.Game
         private float _rotationY;
         private bool _shootInputValue;
         private Vector3 _playerMove;
-        private GunBase _gun;
 
         public CameraHolder CameraHolder => _cameraHolder;
         public HealthBase Health => _health;
 
+        [Inject]
+        private void Construct(ControlService controlService, SettingsService settingsService,
+            StatisticService statisticService)
+        {
+            _controlService = controlService;
+            _settingsService = settingsService;
+            _statisticService = statisticService;
+            this.RegisterContext();
+        }
+
         private void Awake()
         {
-            _gun = Context.DiContainer.InstantiatePrefabForComponent<GunBase>(_gunPrefab);
             _health = GetComponent<HealthBase>();
             _characterController = GetComponent<CharacterController>();
             _audioSource = GetComponent<AudioSource>();
-            _playerControl = _controlService.Controls.Player;
+            _playerControl = Services.ControlService.Controls.Player;
         }
 
         private void Start()
@@ -69,7 +78,7 @@ namespace _Project.Scripts.Main.Game
         {
             _rotateInputValue = _playerControl.Rotate.ReadValue<Vector2>();
             _rotateLerpValue = Vector2.Lerp(_rotateLerpValue, _rotateInputValue, _config.RotateLerpTime);
-            
+
             if (_canRotate)
             {
                 Rotate(_rotateLerpValue);
@@ -85,9 +94,9 @@ namespace _Project.Scripts.Main.Game
         {
             _moveInputValue = _playerControl.Move.ReadValue<Vector2>().normalized;
             _moveLerpValue = Vector2.Lerp(_moveLerpValue, _moveInputValue, _config.MoveLerpTime);
-            
+
             if (_canMove)
-            { 
+            {
                 Move(_moveLerpValue);
             }
         }
@@ -105,20 +114,22 @@ namespace _Project.Scripts.Main.Game
             _canRotate = true;
             _canShoot = true;
         }
-        
+
         protected virtual void Move(Vector2 inputValue)
         {
             if (!_canMove) return;
-            
+
             var moveVector = inputValue * Time.fixedDeltaTime * _config.MoveSpeed;
             var gravityVelocity = _useGravity ? Physics.gravity * Time.fixedDeltaTime : Vector3.zero;
-            _characterController.Move(transform.right * moveVector.x + transform.forward * moveVector.y + gravityVelocity);
+            _characterController.Move(transform.right * moveVector.x + transform.forward * moveVector.y +
+                                      gravityVelocity);
 
             if (_characterController.velocity != Vector3.zero)
             {
-                _statisticService.AddValueToRecord(StatisticData.RecordName.Movement, _characterController.velocity.magnitude * Time.fixedDeltaTime); 
+                _statisticService.AddValueToRecord(StatisticData.RecordName.Movement,
+                    _characterController.velocity.magnitude * Time.fixedDeltaTime);
             }
-        } 
+        }
 
         protected virtual void Rotate(Vector2 inputValue)
         {

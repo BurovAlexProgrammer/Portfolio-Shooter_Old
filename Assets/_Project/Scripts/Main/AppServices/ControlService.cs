@@ -1,3 +1,4 @@
+using _Project.Scripts.Main.AppServices.Base;
 using JetBrains.Annotations;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace _Project.Scripts.Main.AppServices
         public ControlService()
         {
             Controls = new Controls();
+            this.RegisterService();
         }
         
         public void LockCursor()

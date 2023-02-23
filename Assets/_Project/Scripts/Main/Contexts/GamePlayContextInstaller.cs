@@ -1,34 +1,31 @@
-using System;
 using _Project.Scripts.Main.AppServices.PoolService;
 using _Project.Scripts.Main.AppServices.SceneServices;
+using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Main.Installers
+namespace _Project.Scripts.Main.Contexts
 {
-    public class GameContext : MonoInstaller
+    public class GamePlayContextInstaller : MonoInstaller, IGamePlayContextInstaller
     {
-        private static GameContext _instance;
-        public static GameContext Instance => _instance;
-        
         [SerializeField] private PlayerBase _playerPrefab;
         [SerializeField] private Transform _playerStartPoint;
         [SerializeField] private GameUiService _gameUiServicePrefab;
-        [SerializeField] private PoolServiceBase _poolServicePrefab;
         [SerializeField] private BrainControlService _brainControlServiceInstance;
         [SerializeField] private SpawnControlService _spawnControlServiceInstance;
 
+        private IPoolService _poolService;
         private PlayerBase _player;
+        
         public PlayerBase Player => _player;
+        public IPoolService PoolService => _poolService;
         public BrainControlService BrainControl => _brainControlServiceInstance;
         public SpawnControlService SpawnControl => _spawnControlServiceInstance;
 
         public override void InstallBindings()
         {
-            if (_instance != null) throw new Exception("SceneContext singleton already exists");
-
-            _instance = this;
+            Contexts.GamePlayContext = this;
             
             InstallPlayer();
             InstallGameUI();
@@ -71,15 +68,7 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<PlayerBase>()
                 .FromComponentInNewPrefab(_playerPrefab)
                 .WithGameObjectName("Player")
-                .AsSingle()
-                .OnInstantiated((ctx, instance) =>
-                {
-                    _player = instance as PlayerBase;
-                    var playerTransform = _player.transform;
-                    playerTransform.position = _playerStartPoint.position;
-                    playerTransform.rotation = _playerStartPoint.rotation;
-                    Destroy(_playerStartPoint.gameObject);
-                });
+                .AsSingle();
         }
 
         private void InstallBrainControl()
@@ -97,16 +86,6 @@ namespace _Project.Scripts.Main.Installers
                 .Bind<SpawnControlService>()
                 .FromInstance(_spawnControlServiceInstance)
                 .AsSingle();
-        }
-    }
-    
-    public static class SceneContext {
-        private static DiContainer _diContainer;
-
-        public static DiContainer DiContainer
-        {
-            get => _diContainer;
-            set => _diContainer ??= value;
         }
     }
 }

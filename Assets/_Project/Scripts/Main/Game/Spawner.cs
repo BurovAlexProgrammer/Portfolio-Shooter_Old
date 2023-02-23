@@ -1,10 +1,9 @@
 ﻿using _Project.Scripts.Extension;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.AppServices.PoolService;
+using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Main.Game
@@ -21,14 +20,24 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _spawnTimer;
         [SerializeField] private float _timerMinutes;
         
-        [Inject] private PlayerBase _player;
-        [Inject] private PoolServiceBase _poolService;
+        private PlayerBase _player;
+        private IPoolService _poolService;
 
         private bool _paused;
+
+        private void Awake()
+        {
+            _player = GamePlayContext.Player;
+            _poolService = GamePlayContext.PoolService;
+        }
 
         private void OnDisable()
         {
             StopSpawn();
+        }
+
+        private void OnDestroy()
+        {
         }
 
         public void StartSpawn()

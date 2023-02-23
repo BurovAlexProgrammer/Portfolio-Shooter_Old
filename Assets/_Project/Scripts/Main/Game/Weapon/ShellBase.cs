@@ -1,7 +1,9 @@
 ﻿using _Project.Scripts.Extension;
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.AppServices.PoolService;
+using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
 using _Project.Scripts.Main.Game.Health;
+using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -16,14 +18,14 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private Destruction _destructionPrefab;
         [SerializeField] private float _lifeTime = 5f;
         
-        [Inject] private PoolServiceBase _poolService;
-        
+        private IPoolService _poolService;
         private Rigidbody _rigidbody;
         private bool _collided;
 
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
+            _poolService = Contexts.GamePlayContext.PoolService;
         }
 
         private void OnCollisionEnter(Collision collision)

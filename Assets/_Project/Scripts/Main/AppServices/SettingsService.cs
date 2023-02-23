@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Settings;
 using UnityEngine;
 using Zenject;
@@ -41,6 +42,7 @@ namespace _Project.Scripts.Main.AppServices
                 settingGroup.Init(this);
             }
             
+            this.RegisterService();
             Load();
         }
 

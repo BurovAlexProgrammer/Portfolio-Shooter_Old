@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Localizations;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
@@ -34,6 +35,7 @@ namespace _Project.Scripts.Main.AppServices
             _settingsService = settingsService;
             _currentLocale = _settingsService.GameSettings.CurrentLocale;
             _localizations = new Dictionary<Locales, Localization>();
+            this.RegisterService();
             Init();
         }
 

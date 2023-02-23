@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -112,7 +111,7 @@ namespace _Project.Scripts.Main.Wrappers
                 }
             }
             
-            var instance = SceneContext.DiContainer.InstantiatePrefabForComponent<MonoPoolItemBase>(_prefab, _container);
+            var instance = Object.Instantiate(_prefab, _container);
             instance.gameObject.name = _prefab.name + " " + (_inactivePool.Count + _activePool.Count + 1);
             instance.gameObject.SetActive(false);
             instance.Returned += OnItemReturn;

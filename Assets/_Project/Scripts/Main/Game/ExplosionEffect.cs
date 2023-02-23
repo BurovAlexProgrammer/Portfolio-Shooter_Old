@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.Base;
+using _Project.Scripts.Main.Installers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using Zenject;
@@ -15,13 +17,14 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _liftForce = 0.1f;
         [SerializeField] private ForceMode _forceMode = ForceMode.Force;
 
-        [Inject] private DebugService _debugService;
+        private DebugService _debugService;
         
         private Collider[] _colliders;
         private List<Rigidbody> _rigidbodies;
 
         private void Awake()
         {
+            _debugService = Services.DebugService;
             _rigidbodies = new List<Rigidbody>();
 
             switch (_dependencies)

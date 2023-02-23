@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using _Project.Scripts.Main.Contexts;
+using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -47,7 +48,14 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void FindTarget(BrainOwner brainOwner)
         {
-            brainOwner.SetTarget(brainOwner.Player.gameObject);
+            var player = GamePlayContext.Player;
+            if (player == null)
+            {
+                Debug.LogWarning($"No target Player for hunter brain.");
+                return;
+            }
+            
+            brainOwner.SetTarget(player.gameObject);
         }
     }
 }
