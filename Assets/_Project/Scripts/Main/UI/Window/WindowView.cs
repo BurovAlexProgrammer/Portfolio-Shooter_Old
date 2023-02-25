@@ -12,12 +12,15 @@ namespace _Project.Scripts.Main.UI.Window
         [SerializeField] protected CanvasGroup _canvasGroup;
 
         public event Action<bool> DialogSwitched;
-
+        public event Action Opened;
+        public event Action Closed;
+        
         public virtual async UniTask Show()
         {
             gameObject.SetActive(true);
             await transform.DOCustomShowWindow().AsyncWaitForCompletion();
             _canvasGroup.interactable = true;
+            Opened?.Invoke();
         }
 
         public virtual async UniTask Close()
@@ -25,6 +28,7 @@ namespace _Project.Scripts.Main.UI.Window
             _canvasGroup.interactable = false;
             await transform.DOCustomHideWindow().AsyncWaitForCompletion();
             gameObject.SetActive(false);
+            Closed?.Invoke();
         }
 
         protected virtual void OnDialogSwitched(bool state)

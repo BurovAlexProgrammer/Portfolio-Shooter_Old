@@ -1,18 +1,22 @@
-﻿using _Project.Scripts.Main.Game.Weapon;
+﻿using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
+using _Project.Scripts.Main.Contexts;
+using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
 using UnityEngine;
-using static _Project.Scripts.Main.AppServices.Services;
 
 namespace _Project.Scripts.Main.Game.Health
 {
     public class SimpleHealth : HealthBase
     {
         [SerializeField] private Destruction _destructionPrefab;
-
+        
+        private IPoolService _poolService;
+        
         private MonoPoolItemBase _poolItem;
 
         private void Awake()
         {
+            _poolService = GamePlayContext.PoolService;
             _poolItem = GetComponent<MonoPoolItemBase>();
         }
 
@@ -35,9 +39,9 @@ namespace _Project.Scripts.Main.Game.Health
         {
             if (_destructionPrefab != null)
             {
-                var enemyParts = PoolService.GetAndActivate(_destructionPrefab);
-                enemyParts.Transform.position = Transform.position;
-                enemyParts.Transform.rotation = Transform.rotation;
+                var enemyParts = _poolService.GetAndActivate(_destructionPrefab);
+                enemyParts.transform.position = transform.position;
+                enemyParts.transform.rotation = transform.rotation;
             }
 
             if (_poolItem != null)

@@ -84,7 +84,7 @@ namespace _Project.Scripts.Main.Wrappers
             {
                 foreach (var item in _activePool.ToArray())
                 {
-                    if (item.GameObject.activeSelf == false) continue; 
+                    if (item.gameObject.activeSelf == false) continue; 
                         
                     item.ReturnToPool();
                 }

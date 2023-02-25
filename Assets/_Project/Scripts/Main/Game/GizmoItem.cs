@@ -1,9 +1,10 @@
 ﻿using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 namespace _Project.Scripts.Main.Game
 {
-    public class GizmoItem : MonoBeh
+    public class GizmoItem : MonoBehaviour
     {
         public float ShowTime = 1f;
 
@@ -16,7 +17,7 @@ namespace _Project.Scripts.Main.Game
         {
             await time.WaitInSeconds();
             
-            Destroy(GameObject);
+            Destroy(gameObject);
         }
     }
 }

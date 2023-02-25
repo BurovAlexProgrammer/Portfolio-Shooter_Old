@@ -1,4 +1,3 @@
-using System;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.UI;
@@ -26,9 +25,6 @@ namespace _Project.Scripts.Main.UI.Window
 
         [Inject] private GameManagerService _gameManager;
         [Inject] private StatisticService _statisticService;
-
-        public event Action Opened;
-        public event Action Closed;
 
         private void Awake()
         {

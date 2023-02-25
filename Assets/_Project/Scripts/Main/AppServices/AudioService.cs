@@ -1,5 +1,6 @@
 ﻿using System;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -9,7 +10,7 @@ namespace _Project.Scripts.Main.AppServices
 {
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(AudioSource))]
-    public class AudioService : BaseService
+    public class AudioService : MonoServiceBase
     {
         [SerializeField] private AudioListener _audioListener;
         [SerializeField] private AudioSource _musicAudioSource;
@@ -18,17 +19,14 @@ namespace _Project.Scripts.Main.AppServices
         [SerializeField] private AudioClip[] _battlePlaylist;
         [SerializeField] private AudioClip[] _menuPlaylist;
 
-        [Inject] private ScreenService _screenService;
+        private ScreenService _screenService;
 
         private MusicPlayerState _currentState;
 
-        private void Awake()
+        [Inject]
+        public void Construct(ScreenService screenService)
         {
-            Init();
-        }
-
-        public void Init()
-        {
+            _screenService = screenService;
             _audioListener = _screenService.MainCamera.GetComponent<AudioListener>();
             _musicAudioSource = GetComponent<AudioSource>();
         }

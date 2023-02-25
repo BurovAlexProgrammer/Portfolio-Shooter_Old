@@ -1,6 +1,6 @@
 using System;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Game.GameState;
 using Cysharp.Threading.Tasks;
@@ -11,15 +11,19 @@ using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class GameManagerService : BaseService
+    public class GameManagerService : MonoServiceBase
     {
-        [SerializeField, ReadOnlyField] private GameStateMachine _gameStateMachine;
-        [SerializeField, ReadOnlyField] private bool _isGamePause;
-        [SerializeField, ReadOnlyField] private int _scores;
+        [Inject] private DiContainer _diContainer;
+        
+        private GameStateMachine _gameStateMachine;
+        private bool _isGamePause;
+        private int _scores;
 
-        [Inject] private ControlService _controlService;
-        [Inject] private SceneLoaderService _sceneLoader;
-        [Inject] private StatisticService _statisticService;
+        private ControlService _controlService;
+        private SceneLoaderService _sceneLoader;
+        private StatisticService _statisticService;
+        private EventListenerService _eventListenerService;
+        private AudioService _audioService;
 
         public event Action<bool> SwitchPause;
         public event Action GameOver;
@@ -27,35 +31,43 @@ namespace _Project.Scripts.Main.AppServices
         private bool _transaction;
         private bool _isGameOver;
 
-        public GameState ActiveGameState => _gameStateMachine.ActiveState;
+        public IGameState ActiveGameState => _gameStateMachine.ActiveState;
         public bool IsGamePause => _isGamePause;
         public bool IsGameOver => _isGameOver;
         public int Scores => _scores;
 
-        public async UniTask SetGameState(GameState newState)
+        [Inject]
+        public void Construct(ControlService controlService, SceneLoaderService sceneLoader,
+            StatisticService statisticService, EventListenerService eventListenerService, AudioService audioService)
         {
-            await _gameStateMachine.SetState(newState);
+            _controlService = controlService;
+            _sceneLoader = sceneLoader;
+            _statisticService = statisticService;
+            _eventListenerService = eventListenerService;
+            _audioService = audioService;
+
+            _gameStateMachine = _diContainer.Instantiate<GameStateMachine>();
+            _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
+        }
+
+        public async UniTask SetGameState<T>() where T : IGameState
+        {
+            await _gameStateMachine.SetState<T>();
         }
 
         private void Awake()
         {
-            Services.EventListenerService.CharacterDead += AddScoresOnCharacterDead;
+            _eventListenerService.CharacterDead += AddScoresOnCharacterDead;
+        }
+
+        private void Start()
+        {
+            _gameStateMachine.Start().Forget();
         }
 
         private void OnDestroy()
         {
-            Services.EventListenerService.CharacterDead -= AddScoresOnCharacterDead;
-        }
-
-        public void Init()
-        {
-            if (string.IsNullOrEmpty(_sceneLoader.InitialScene.name))
-            {
-                _sceneLoader.Init();
-            }
-
-            _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
-            _gameStateMachine.Init().Forget();
+            _eventListenerService.CharacterDead -= AddScoresOnCharacterDead;
         }
 
         public void RestartGame()
@@ -63,28 +75,28 @@ namespace _Project.Scripts.Main.AppServices
             _isGameOver = false;
             RestoreTimeSpeed();
             _statisticService.EndGameDataSaving(this);
-            _gameStateMachine.SetState(new GameStates.RestartGame()).Forget();
-            _gameStateMachine.SetState(new GameStates.PlayNewGame()).Forget();
+            _gameStateMachine.SetState<GameStates.RestartGame>().Forget();
+            _gameStateMachine.SetState<GameStates.PlayNewGame>().Forget();
         }
 
         public void QuitGame()
         {
-            _gameStateMachine.SetState(new GameStates.QuitGame()).Forget();
+            _gameStateMachine.SetState<GameStates.QuitGame>().Forget();
         }
 
         public void GoToMainMenu()
         {
             _statisticService.EndGameDataSaving(this);
-            _gameStateMachine.SetState(new GameStates.MainMenu()).Forget();
+            _gameStateMachine.SetState<GameStates.MainMenu>().Forget();
         }
 
         public void PrepareToPlay()
         {
-            Services.AudioService.PlayMusic(AudioService.MusicPlayerState.Battle).Forget();
-            Services.ControlService.LockCursor();
-            Services.ControlService.Controls.Player.Enable();
-            Services.ControlService.Controls.Menu.Disable();
-            Services.StatisticService.ResetSessionRecords();
+            _audioService.PlayMusic(AudioService.MusicPlayerState.Battle).Forget();
+            _controlService.LockCursor();
+            _controlService.Controls.Player.Enable();
+            _controlService.Controls.Menu.Disable();
+            _statisticService.ResetSessionRecords();
         }
 
         public async void PauseGame(InputAction.CallbackContext ctx)
@@ -146,7 +158,7 @@ namespace _Project.Scripts.Main.AppServices
             GameOver?.Invoke();
         }
 
-        public bool ActiveStateEquals<T>() where T : GameState
+        public bool ActiveStateEquals<T>() where T : IGameState
         {
             return ActiveGameState.EqualsState(typeof(T));
         }

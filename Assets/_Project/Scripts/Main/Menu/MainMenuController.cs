@@ -24,7 +24,7 @@ namespace _Project.Scripts.Main.Menu
 
         public void StartNewGame()
         {
-            _gameManager.SetGameState(new GameStates.PlayNewGame()).Forget();
+            _gameManager.SetGameState<GameStates.PlayNewGame>().Forget();
         }
 
         protected override async UniTask EnterState(MenuStates newState)

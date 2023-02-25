@@ -1,34 +1,23 @@
-﻿using _Project.Scripts.Main.Game;
+﻿using _Project.Scripts.Main.Contexts;
+using _Project.Scripts.Main.Game;
 using UnityEngine;
+using Zenject;
 
 namespace _Project.Scripts.Main.AppServices.SceneServices
 {
-    public class SpawnControlService : BaseService
+    public class SpawnControlService : MonoGamePlayContext
     {
         [SerializeField] private bool _startOnEnable;
         [SerializeField] private Spawner[] _spawners;
 
         private bool _started;
 
-        private void Start()
+        [Inject]
+        public void Construct()
         {
-            if (!_started && _startOnEnable)
-            {
-                _started = true;
-                StartSpawn();
-            }
+            this.RegisterContext();
         }
         
-        private void OnEnable()
-        {
-            if (!_started) return;
-
-            if (_startOnEnable)
-            {
-                StartSpawn();
-            }
-        }
-
         public void StartSpawn()
         {
             for (var i = 0; i < _spawners.Length; i++)
@@ -58,6 +47,25 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
             for (var i = 0; i < _spawners.Length; i++)
             {
                 _spawners[i].ContinueSpawn();
+            }
+        }
+        
+        private void Start()
+        {
+            if (!_started && _startOnEnable)
+            {
+                _started = true;
+                StartSpawn();
+            }
+        }
+        
+        private void OnEnable()
+        {
+            if (!_started) return;
+
+            if (_startOnEnable)
+            {
+                StartSpawn();
             }
         }
     }

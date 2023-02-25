@@ -6,9 +6,9 @@ namespace _Project.Scripts.Main.Game.GameState
 {
     public static partial class GameStates
     {
-        public class RestartGame : GameState
+        public class RestartGame : IGameState
         {
-            public override async UniTask EnterState()
+            public async UniTask EnterState()
             {
                 var currentScene = SceneManager.GetActiveScene();
                 var newScene = SceneManager.CreateScene("Empty");

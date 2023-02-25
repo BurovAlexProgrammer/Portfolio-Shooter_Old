@@ -1,12 +1,21 @@
 ﻿using System.Collections.Generic;
+using _Project.Scripts.Main.AppServices.Base;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Brain;
+using Zenject;
 
 namespace _Project.Scripts.Main.AppServices.SceneServices
 {
-    public class BrainControlService : BaseService
+    public class BrainControlService : MonoGamePlayContext
     {
         private readonly LinkedList<BrainOwner> _brains = new ();
         private LinkedListNode<BrainOwner> _brainNode;
+
+        [Inject]
+        public void Construct()
+        {
+            this.RegisterContext();
+        }
         
         private void Update()
         {
@@ -25,5 +34,6 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
         {
             _brains.Remove(brainOwner);
         }
+
     }
 }

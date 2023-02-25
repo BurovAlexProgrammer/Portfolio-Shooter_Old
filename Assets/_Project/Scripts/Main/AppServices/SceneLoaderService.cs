@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.Base;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
+using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class SceneLoaderService : BaseService
+    public class SceneLoaderService : MonoServiceBase
     {
         [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;
@@ -25,10 +27,8 @@ namespace _Project.Scripts.Main.AppServices
             { Scenes.MiniGameLevel, "MiniGameLevel" },
         };
 
-        public string MainMenuScene => _mainMenuScene.scenePath;
-        public Scene InitialScene => _initialScene;
-
-        public void Init()
+        [Inject]
+        protected override void Construct()
         {
             _initialScene = SceneManager.GetActiveScene();
             _blackFrame.alpha = 1f;

@@ -1,7 +1,10 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.PoolService;
+using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
+using Cysharp.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
-using static _Project.Scripts.Main.AppServices.Services;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
@@ -12,6 +15,8 @@ namespace _Project.Scripts.Main.Game.Weapon
         [SerializeField] private ShellBase _shellPrefab;
 
         private float _shootTimer;
+
+        [Inject] private IPoolService _poolService;
 
         public virtual bool TryShoot()
         {
@@ -28,7 +33,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         protected virtual void Shoot()
         {
-            var shell = PoolService.Get(_shellPrefab).GetComponent<ShellBase>();
+            var shell = _poolService.Get(_shellPrefab).GetComponent<ShellBase>();
             shell.Shoot(transform);
             shell.DestroyOnLifetimeEnd();
             

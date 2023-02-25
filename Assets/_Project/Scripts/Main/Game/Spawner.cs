@@ -1,13 +1,14 @@
 ﻿using _Project.Scripts.Extension;
+using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
-using Zenject;
 using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Main.Game
 {
-    public class Spawner : MonoBeh
+    public class Spawner : MonoBehaviour
     {
         [SerializeField] private float _startDelay = 3f;
         [SerializeField] private float _maxSpawnTime = 5f;
@@ -19,13 +20,24 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _spawnTimer;
         [SerializeField] private float _timerMinutes;
         
-        [Inject] private PlayerBase _player;
+        private PlayerBase _player;
+        private IPoolService _poolService;
 
         private bool _paused;
-        
+
+        private void Awake()
+        {
+            _player = GamePlayContext.Player;
+            _poolService = GamePlayContext.PoolService;
+        }
+
         private void OnDisable()
         {
             StopSpawn();
+        }
+
+        private void OnDestroy()
+        {
         }
 
         public void StartSpawn()
@@ -81,8 +93,8 @@ namespace _Project.Scripts.Main.Game
         private void Spawn()
         {
             var t = _player;
-            var instance = AppServices.Services.PoolService.Get(_prefab);
-            instance.Transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
+            var instance = _poolService.Get(_prefab);
+            instance.transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
             instance.gameObject.SetActive(true);
         }
 

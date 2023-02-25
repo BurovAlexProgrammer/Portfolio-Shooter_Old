@@ -1,13 +1,14 @@
 ﻿using System;
+using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class EventListenerService : BaseService
+    public class EventListenerService : ServiceBase
     {
         public Action<Character> CharacterDead;
-
+        
         public void SubscribeCharacter(Character character)
         {
             character.Health.Dead += () =>
@@ -16,5 +17,6 @@ namespace _Project.Scripts.Main.AppServices
                 CharacterDead?.Invoke(character);
             };
         }
+
     }
 }

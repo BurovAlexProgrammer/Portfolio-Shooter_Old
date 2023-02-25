@@ -1,14 +1,16 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
+using _Project.Scripts.Main.AppServices.Base;
+using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;
-using static _Project.Scripts.Main.AppServices.Services;
+using Zenject;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
-    public class BrainOwner : MonoBeh
+    public class BrainOwner : MonoBehaviour
     {
         [SerializeField] private Brain _brain;
         [SerializeField] private GameObject _target;
@@ -17,9 +19,10 @@ namespace _Project.Scripts.Main.Game.Brain
         [SerializeField, ReadOnlyField] private Character _character;
         [SerializeField, ReadOnlyField] NavMeshAgent _navMeshAgent;
 
+        private BrainControlService _brainControl;
+
         private bool _isTargetExist;
 
-        public PlayerBase Player => GameContext.Instance.Player;
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         public GameObject Target => _target;
         public HealthBase TargetHealth => _targetHealth;
@@ -28,16 +31,17 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void OnEnable()
         {
-            BrainControl.AddBrain(this);
+            _brainControl.AddBrain(this);
         }
 
         private void OnDisable()
         {
-            BrainControl.RemoveBrain(this);
+            _brainControl.RemoveBrain(this);
         }
 
         private void Awake()
         {
+            _brainControl = Contexts.GamePlayContext.BrainControlService;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _character = GetComponent<Character>();
         }
