@@ -16,7 +16,6 @@ namespace _Project.Scripts.Main.SceneScripts
             _player = GamePlayContext.Player;
             _player.CameraHolder.SetCamera();
             _player.Enable();
-            UnityEditor.EditorApplication.isPaused = true;
             _player.transform.position = _playerStartPoint.position;
             _player.transform.rotation = _playerStartPoint.rotation;
         }
