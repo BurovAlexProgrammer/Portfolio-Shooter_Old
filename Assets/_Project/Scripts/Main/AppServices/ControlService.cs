@@ -5,15 +5,14 @@ using UnityEngine;
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class ControlService : IService
+    public class ControlService : ServiceBase
     {
-        public Controls Controls { get; private set; }
+        public readonly Controls Controls;
         public CursorLockMode CursorLockState => Cursor.lockState;
 
         public ControlService()
         {
             Controls = new Controls();
-            this.RegisterService();
         }
         
         public void LockCursor()

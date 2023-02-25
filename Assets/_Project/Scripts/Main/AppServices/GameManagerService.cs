@@ -48,7 +48,6 @@ namespace _Project.Scripts.Main.AppServices
 
             _gameStateMachine = _diContainer.Instantiate<GameStateMachine>();
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
-            this.RegisterService();
         }
 
         public async UniTask SetGameState<T>() where T : IGameState

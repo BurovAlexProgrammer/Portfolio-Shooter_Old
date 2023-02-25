@@ -27,7 +27,6 @@ namespace _Project.Scripts.Main.AppServices
             var controls = _controlService.Controls;
             _internalProfiler.enabled = _showProfilerOnStartup;
             controls.Player.InternalProfiler.BindAction(BindActions.Started, ctx => ToggleShowProfiler());
-            this.RegisterService();
         }
 
         private void ToggleShowProfiler()

@@ -3,6 +3,7 @@ using System.IO;
 using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game.GameState;
 using Cysharp.Threading.Tasks;
+using JetBrains.Annotations;
 using Newtonsoft.Json;
 using UnityEngine;
 using Zenject;
@@ -10,7 +11,8 @@ using static _Project.Scripts.Main.StatisticData;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class StatisticService : MonoServiceBase
+    [UsedImplicitly]
+    public class StatisticService : ServiceBase
     {
         public Action<RecordName, string> RecordChanged; 
         
@@ -27,7 +29,6 @@ namespace _Project.Scripts.Main.AppServices
             _statisticData = new StatisticData();
             _storedFolder ??= Application.dataPath + "/StoredData/";
             _storedFolderPath = _storedFolder + "Statistic.data";
-            this.RegisterService();
             LoadFromFile();
             TimerExecuting();
         }

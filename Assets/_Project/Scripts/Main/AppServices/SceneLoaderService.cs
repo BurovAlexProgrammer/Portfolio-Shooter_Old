@@ -27,15 +27,11 @@ namespace _Project.Scripts.Main.AppServices
             { Scenes.MiniGameLevel, "MiniGameLevel" },
         };
 
-        public string MainMenuScene => _mainMenuScene.scenePath;
-        public Scene InitialScene => _initialScene;
-
         [Inject]
-        public void Construct()
+        protected override void Construct()
         {
             _initialScene = SceneManager.GetActiveScene();
             _blackFrame.alpha = 1f;
-            this.RegisterService();
             ShowScene();
         }
 

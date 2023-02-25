@@ -1,11 +1,12 @@
 using System.IO;
 using _Project.Scripts.Main.AppServices;
+using _Project.Scripts.Main.AppServices.Base;
 using DG.Tweening;
 using UnityEngine;
 using Zenject;
 using AudioService = _Project.Scripts.Main.AppServices.AudioService;
 
-namespace _Project.Scripts.Main.Installers
+namespace _Project.Scripts.Main.Contexts.Installers
 {
     public class BootstrapInstaller : MonoInstaller
     {
@@ -15,11 +16,10 @@ namespace _Project.Scripts.Main.Installers
         [SerializeField] private GameManagerService _gameManagerServicePrefab;
         [SerializeField] private DebugService _debugServicePrefab;
         [SerializeField] private AudioService _audioServicePrefab;
-        [SerializeField] private StatisticService _statisticServicePrefab;
-        [SerializeField] private EventListenerService _eventListenerServicePrefab;
 
         public override void InstallBindings()
         {
+            Services.Clear();
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
             InstallEventListenerService();
@@ -32,6 +32,7 @@ namespace _Project.Scripts.Main.Installers
             InstallControlService();
             InstallDebugService();
             InstallStatisticService();
+            InstallFileService();
             
             if (_debugServicePrefab.SaveLogToFile)
             {
@@ -39,12 +40,21 @@ namespace _Project.Scripts.Main.Installers
             }
         }
 
+        private void InstallFileService()
+        {
+            Container
+                .Bind<IFileService>()
+                .To<FileService>()
+                .FromNew()
+                .AsSingle()
+                .NonLazy();
+        }
+
         private void InstallEventListenerService()
         {
             Container
                 .Bind<EventListenerService>()
-                .FromComponentInNewPrefab(_eventListenerServicePrefab)
-                .WithGameObjectName("Event Listener")
+                .FromNew()
                 .AsSingle()
                 .NonLazy();
         }
@@ -53,8 +63,7 @@ namespace _Project.Scripts.Main.Installers
         {
             Container
                 .Bind<StatisticService>()
-                .FromComponentInNewPrefab(_statisticServicePrefab)
-                .WithGameObjectName("Statistic Service")
+                .FromNew()
                 .AsSingle()
                 .NonLazy();
         }

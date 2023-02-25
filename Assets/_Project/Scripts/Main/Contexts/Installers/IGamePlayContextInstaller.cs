@@ -2,7 +2,7 @@
 using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
 using _Project.Scripts.Main.Game;
 
-namespace _Project.Scripts.Main.Contexts
+namespace _Project.Scripts.Main.Contexts.Installers
 {
     public interface IGamePlayContextInstaller 
     {

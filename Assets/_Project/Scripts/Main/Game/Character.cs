@@ -35,8 +35,8 @@ namespace _Project.Scripts.Main.Game
 
         private void Awake()
         {
-            _eventListener = Services.EventListenerService;
-            _statisticService = Services.StatisticService;
+            _eventListener = Services.EventListener;
+            _statisticService = Services.Statistics;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _brainOwner = GetComponent<BrainOwner>();
             _animator = GetComponent<Animator>();

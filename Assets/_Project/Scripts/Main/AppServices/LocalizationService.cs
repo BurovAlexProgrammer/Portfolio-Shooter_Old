@@ -16,7 +16,7 @@ using Zenject;
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class LocalizationService : IService
+    public class LocalizationService : ServiceBase
     {
         private Locales _currentLocale;
         private Dictionary<Locales, Localization> _localizations;
@@ -35,7 +35,6 @@ namespace _Project.Scripts.Main.AppServices
             _settingsService = settingsService;
             _currentLocale = _settingsService.GameSettings.CurrentLocale;
             _localizations = new Dictionary<Locales, Localization>();
-            this.RegisterService();
             Init();
         }
 

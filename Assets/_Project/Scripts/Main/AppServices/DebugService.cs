@@ -14,12 +14,6 @@ namespace _Project.Scripts.Main.AppServices
 
         public bool SaveLogToFile => _serviceConfig.SaveLogToFile;
 
-        [Inject]
-        public void Construct()
-        {
-            this.RegisterService();
-        }
-        
         public void CreateExplosionGizmo(Transform targetTransform, float radius)
         {
             if (_serviceConfig.ShowExplosionSphere == false) return;

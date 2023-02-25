@@ -4,6 +4,7 @@ using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
 using _Project.Scripts.Main.Game;
 using _Project.Scripts.Main.Installers;
+using UnityEngine;
 
 namespace _Project.Scripts.Main.Contexts
 {
@@ -17,6 +18,16 @@ namespace _Project.Scripts.Main.Contexts
         public static BrainControlService BrainControlService { get; private set; }
 
         private static T Get<T>() where T : IGamePlayContextItem => _contextLocator.Get<T>();
+
+        public static void Clear()
+        {
+            _contextLocator.Clear();
+            GameUiService = null;
+            Player = null;
+            PoolService = null;
+            Spawner = null;
+            BrainControlService = null;
+        }
 
         public static void RegisterContext<T>(this T instance) where T : IGamePlayContextItem
         {

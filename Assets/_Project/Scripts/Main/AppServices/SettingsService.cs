@@ -15,7 +15,7 @@ namespace _Project.Scripts.Main.AppServices
 
         private AudioService _audioService;
         private ScreenService _screenService;
-
+        private IFileService _fileService;
         private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
@@ -23,16 +23,22 @@ namespace _Project.Scripts.Main.AppServices
         public GameSettings GameSettings => _gameSettings.CurrentSettings;
         public AudioService AudioService => _audioService;
         public ScreenService ScreenService => _screenService;
+        public IFileService FileService => _fileService;
 
         [Inject]
-        public void Construct(AudioService audioService, ScreenService screenService)
+        protected void Construct(AudioService audioService, ScreenService screenService, IFileService fileService)
         {
-            _audioService = audioService; 
+            _audioService = audioService;
             _screenService = screenService;
-            
+            _fileService = fileService;
+            Init();
+        }
+        
+        private void Init()
+        {
             _settingList = new List<ISettingGroup>
             {
-                _audioSettings, 
+                _audioSettings,
                 _videoSettings,
                 _gameSettings,
             };
@@ -41,9 +47,6 @@ namespace _Project.Scripts.Main.AppServices
             {
                 settingGroup.Init(this);
             }
-            
-            this.RegisterService();
-            Load();
         }
 
         public void Load()

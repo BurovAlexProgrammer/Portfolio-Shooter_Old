@@ -5,12 +5,11 @@ using _Project.Scripts.Main.Game;
 using UnityEngine;
 using Zenject;
 
-namespace _Project.Scripts.Main.Contexts
+namespace _Project.Scripts.Main.Contexts.Installers
 {
     public class GamePlayContextInstaller : MonoInstaller, IGamePlayContextInstaller
     {
         [SerializeField] private PlayerBase _playerPrefab;
-        [SerializeField] private Transform _playerStartPoint;
         [SerializeField] private GameUiService _gameUiServicePrefab;
         [SerializeField] private BrainControlService _brainControlServiceInstance;
         [SerializeField] private SpawnControlService _spawnControlServiceInstance;
@@ -25,8 +24,7 @@ namespace _Project.Scripts.Main.Contexts
 
         public override void InstallBindings()
         {
-            Contexts.GamePlayContext = this;
-            
+            GamePlayContext.Clear();
             InstallPlayer();
             InstallGameUI();
             InstallPoolService();
@@ -37,7 +35,8 @@ namespace _Project.Scripts.Main.Contexts
         private void OnDestroy()
         {
             Container.Unbind<GameUiService>();
-            Container.Unbind<Player>();
+            Container.Unbind<PlayerBase>();
+            Container.Unbind<IPoolService>();
             Container.Unbind<BrainControlService>();
             Container.Unbind<SpawnControlService>();
         }
@@ -68,7 +67,8 @@ namespace _Project.Scripts.Main.Contexts
                 .Bind<PlayerBase>()
                 .FromComponentInNewPrefab(_playerPrefab)
                 .WithGameObjectName("Player")
-                .AsSingle();
+                .AsSingle()
+                .NonLazy();
         }
 
         private void InstallBrainControl()
@@ -76,8 +76,7 @@ namespace _Project.Scripts.Main.Contexts
             Container
                 .Bind<BrainControlService>()
                 .FromInstance(_brainControlServiceInstance)
-                .AsSingle()
-                .NonLazy(); 
+                .AsSingle().NonLazy(); 
         }
 
         private void InstallSpawnControl()
@@ -85,7 +84,7 @@ namespace _Project.Scripts.Main.Contexts
             Container
                 .Bind<SpawnControlService>()
                 .FromInstance(_spawnControlServiceInstance)
-                .AsSingle();
+                .AsSingle().NonLazy();
         }
     }
 }

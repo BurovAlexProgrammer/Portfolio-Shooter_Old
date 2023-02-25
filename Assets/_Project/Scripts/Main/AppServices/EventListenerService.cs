@@ -2,19 +2,12 @@
 using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class EventListenerService : MonoServiceBase
+    public class EventListenerService : ServiceBase
     {
         public Action<Character> CharacterDead;
-
-        [Inject]
-        public void Construct()
-        {
-            this.RegisterService();
-        }
         
         public void SubscribeCharacter(Character character)
         {
