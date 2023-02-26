@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -9,11 +10,11 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private CharacterData _characterData;
         [SerializeField] private float _attackTimer;
 
-        private bool _inProgress;
+        private bool _attackInProgress;
         public event Action DamageTargetAction;
         public event Action PlayAttackSoundAction;
 
-        public bool ReadyToAttack => !_inProgress && _attackTimer <= 0f;
+        public bool ReadyToAttack => !_attackInProgress && _attackTimer <= 0f;
 
         public void Init(Character character)
         {
@@ -22,21 +23,21 @@ namespace _Project.Scripts.Main.Game
 
         public void StartAttack()
         {
-            _inProgress = true;
+            _attackInProgress = true;
         }
 
         public void EndAttack()
         {
-            _inProgress = false;
+            _attackInProgress = false;
         }
 
-        public async void RunAttackDelay()
+        public async UniTask RunAttackDelay(CancellationToken cancellationToken = default)
         {
             _attackTimer = _characterData.AttackDelay;
 
             while (_attackTimer > 0f)
             {
-                await UniTask.NextFrame();
+                await UniTask.NextFrame(cancellationToken);
                 _attackTimer -= Time.deltaTime;
             }
         }

@@ -1,3 +1,4 @@
+using System.Threading;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.AppServices;
@@ -6,6 +7,7 @@ using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
 using static _Project.Scripts.Extension.Common;
@@ -20,11 +22,11 @@ namespace _Project.Scripts.Main.Game
         [SerializeField, ReadOnlyField] private Attacker _attacker;
         [SerializeField, ReadOnlyField] private Animator _animator;
 
-        [Header("Audio")] [SerializeField, ReadOnlyField]
-        private AudioSource _audioSource;
-
+        [Header("Audio")] 
+        [SerializeField, ReadOnlyField] private AudioSource _audioSource;
         [SerializeField] private AudioEvent _attackEvent;
 
+        public CancellationToken CancellationToken { get; private set; }
         private EventListenerService _eventListener;
         private StatisticService _statisticService;
         private NavMeshAgent _navMeshAgent;
@@ -35,6 +37,7 @@ namespace _Project.Scripts.Main.Game
 
         private void Awake()
         {
+            CancellationToken = gameObject.GetCancellationTokenOnDestroy();
             _eventListener = Services.EventListener;
             _statisticService = Services.Statistics;
             _navMeshAgent = GetComponent<NavMeshAgent>();
@@ -85,9 +88,10 @@ namespace _Project.Scripts.Main.Game
             _attacker.PlayAttackSoundAction -= OnPlayAttackSound;
         }
 
-        public void PlayAttack(GameObject target)
+        public async UniTask PlayAttack()
         {
             _animator.SetTrigger(AnimatorParameterNames.Attack);
+            await _animator.GetClipLength(0).WaitInSeconds(CancellationToken);
         }
 
         private void OnDamageTarget()

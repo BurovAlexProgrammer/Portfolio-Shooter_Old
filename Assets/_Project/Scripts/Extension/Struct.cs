@@ -52,6 +52,11 @@ namespace _Project.Scripts.Extension
         {
             await UniTask.Delay(TimeSpan.FromSeconds(time), DelayType.DeltaTime, playerLoopTiming, cancellationToken);
         }
+        
+        public static async UniTask WaitInSeconds(this float time, CancellationToken cancellationToken)
+        {
+            await UniTask.Delay(TimeSpan.FromSeconds(time), DelayType.DeltaTime, PlayerLoopTiming.Update, cancellationToken);
+        }
 
         public static float GetRandomValue(this RangedFloat rangedFloat)
         {

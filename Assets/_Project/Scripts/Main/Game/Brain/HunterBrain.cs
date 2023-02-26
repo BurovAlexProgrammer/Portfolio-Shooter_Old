@@ -1,4 +1,5 @@
 ﻿using _Project.Scripts.Main.Contexts;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Brain
@@ -17,7 +18,7 @@ namespace _Project.Scripts.Main.Game.Brain
 
                 if (_targetDistance <= brainOwner.Character.Data.MeleeRange)
                 {
-                    AttackTarget(brainOwner);
+                    AttackTarget(brainOwner).Forget();
                 }
                 else
                 {
@@ -30,15 +31,14 @@ namespace _Project.Scripts.Main.Game.Brain
             }
         }
 
-        private void AttackTarget(BrainOwner brainOwner)
+        private async UniTask AttackTarget(BrainOwner brainOwner)
         {
             if (brainOwner.Character.Attacker.ReadyToAttack == false) return;
-            Debug.Log("Attack");
             
             brainOwner.Character.Attacker.StartAttack();
-            brainOwner.Character.PlayAttack(brainOwner.Target);
-            brainOwner.Character.Attacker.RunAttackDelay();
+            await brainOwner.Character.PlayAttack();
             brainOwner.Character.Attacker.EndAttack();
+            await brainOwner.Character.Attacker.RunAttackDelay(brainOwner.Character.CancellationToken);
         }
 
         private void MoveToTarget(BrainOwner brainOwner)

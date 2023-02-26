@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cysharp.Threading.Tasks;
@@ -50,44 +49,49 @@ namespace _Project.Scripts.Extension
             return animator.parameters.Single(x => x.name.Equals(key.ToString()));
         }
 
-        public static void SetTrigger(this Animator animator, AnimatorParameterNames name)
+        public static void SetTrigger(this Animator animator, AnimatorParameterNames parameterName)
         {
-            var parameter = animator.GetParameter(name);
+            var parameter = animator.GetParameter(parameterName);
             
             if (parameter.type != AnimatorControllerParameterType.Trigger) 
                 throw new Exception(ExceptionMessages.AnimatorParameterInvalidType(parameter));
-            
-            animator.SetTrigger(AnimatorParameters[AnimatorParameterNames.Attack]);
+
+            animator.SetTrigger(AnimatorParameters[parameterName]);
         }
         
-        public static void SetFloat(this Animator animator, AnimatorParameterNames name, float value)
+        public static void SetFloat(this Animator animator, AnimatorParameterNames parameterName, float value)
         {
-            var parameter = animator.GetParameter(name);
+            var parameter = animator.GetParameter(parameterName);
             
-            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+            if (parameter.type != AnimatorControllerParameterType.Float) 
                 throw new Exception(ExceptionMessages.AnimatorParameterInvalidType(parameter));
             
-            animator.SetFloat(AnimatorParameters[AnimatorParameterNames.Attack], value);
+            animator.SetFloat(AnimatorParameters[parameterName], value);
         }
         
-        public static void SetInt(this Animator animator, AnimatorParameterNames name, int value)
+        public static void SetInt(this Animator animator, AnimatorParameterNames parameterName, int value)
         {
-            var parameter = animator.GetParameter(name);
+            var parameter = animator.GetParameter(parameterName);
             
-            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+            if (parameter.type != AnimatorControllerParameterType.Int) 
                 throw new Exception(ExceptionMessages.AnimatorParameterInvalidType(parameter));
             
-            animator.SetInteger(AnimatorParameters[AnimatorParameterNames.Attack], value);
+            animator.SetInteger(AnimatorParameters[parameterName], value);
         }
         
-        public static void SetBool(this Animator animator, AnimatorParameterNames name, bool value)
+        public static void SetBool(this Animator animator, AnimatorParameterNames parameterName, bool value)
         {
-            var parameter = animator.GetParameter(name);
+            var parameter = animator.GetParameter(parameterName);
             
-            if (parameter.type != AnimatorControllerParameterType.Trigger) 
+            if (parameter.type != AnimatorControllerParameterType.Bool) 
                 throw new Exception();
 
-            animator.SetBool(AnimatorParameters[AnimatorParameterNames.Attack], value);
+            animator.SetBool(AnimatorParameters[parameterName], value);
+        }
+
+        public static float GetClipLength(this Animator animator, int layerIndex)
+        {
+            return animator.GetCurrentAnimatorClipInfo(layerIndex).Length;
         }
 
         public static class ExceptionMessages
