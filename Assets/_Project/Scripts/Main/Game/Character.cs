@@ -55,7 +55,7 @@ namespace _Project.Scripts.Main.Game
             if (Health != null)
             {
                 Health.Init(_data.Health, _data.Health);
-                Health.Dead += OnDead;
+                Health.OnDead += OnDead;
             }
 
             if (_attacker != null)

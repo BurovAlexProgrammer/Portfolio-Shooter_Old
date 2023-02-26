@@ -8,8 +8,8 @@ namespace _Project.Scripts.Main.Game.Health
         [SerializeField] private float _maxValue;
         [SerializeField] private float _currentValue;
 
-        public event Action Dead;
-        public event Action<HealthBase> Changed;
+        public event Action OnDead;
+        public event Action<HealthBase> OnChanged;
 
         public float MaxValue => _maxValue;
         public float CurrentValue => _currentValue;
@@ -27,19 +27,21 @@ namespace _Project.Scripts.Main.Game.Health
 
         public void TakeDamage(float value)
         {
-            if (_currentValue == 0f) return;
+            if (value < 0f) throw new Exception(Messages.TakeDamageCannotBeNegative);
+            
+            if (_currentValue <= 0f || value == 0f) return;
 
             _currentValue -= value;
 
             if (_currentValue <= 0f)
             {
                 _currentValue = 0f;
-                Changed?.Invoke(this);
-                Dead?.Invoke();
+                OnChanged?.Invoke(this);
+                OnDead?.Invoke();
                 return;
             } 
             
-            Changed?.Invoke(this);
+            OnChanged?.Invoke(this);
         }
     }
 }

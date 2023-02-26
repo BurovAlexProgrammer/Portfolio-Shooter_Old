@@ -41,7 +41,7 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
         {
             _gameManager.SwitchPause -= OnSwitchGamePause;
             _gameManager.GameOver -= OnGameOver;
-            _player.Health.Changed -= OnPlayerHealthChanged;
+            _player.Health.OnChanged -= OnPlayerHealthChanged;
             _statisticService.RecordChanged -= OnStaticRecordChanged;
             _windowGamePause.DialogSwitched -= OnDialogSwitched;
             _windowGameOver.DialogSwitched -= OnDialogSwitched;
@@ -56,7 +56,7 @@ namespace _Project.Scripts.Main.AppServices.SceneServices
         {
             _gameManager.SwitchPause += OnSwitchGamePause;
             _gameManager.GameOver += OnGameOver;
-            _player.Health.Changed += OnPlayerHealthChanged;
+            _player.Health.OnChanged += OnPlayerHealthChanged;
             _statisticService.RecordChanged += OnStaticRecordChanged;
             _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
             _windowGamePause.DialogSwitched += OnDialogSwitched;

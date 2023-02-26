@@ -11,7 +11,7 @@ namespace _Project.Scripts.Main.AppServices
         
         public void SubscribeCharacter(Character character)
         {
-            character.Health.Dead += () =>
+            character.Health.OnDead += () =>
             {
                 Debug.Log($"Character '{character.gameObject.name}' Dead (click to select)", character);
                 CharacterDead?.Invoke(character);

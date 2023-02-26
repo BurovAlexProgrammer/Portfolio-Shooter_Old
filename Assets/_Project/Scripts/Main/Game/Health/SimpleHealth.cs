@@ -27,12 +27,12 @@ namespace _Project.Scripts.Main.Game.Health
                 SetValue(MaxValue);
             }
 
-            Dead += Destruct;
+            OnDead += Destruct;
         }
 
         private void OnDisable()
         {
-            Dead -= Destruct;
+            OnDead -= Destruct;
         }
 
         private void Destruct()
