@@ -16,8 +16,8 @@ namespace _Project.Scripts.Main.Game.Health
 
         public void Init(float currentHealth, float maxHealth)
         {
-            _currentValue = currentHealth;
             _maxValue = maxHealth;
+            _currentValue = Math.Min(currentHealth, maxHealth);
         }
 
         protected void SetValue(float value)
