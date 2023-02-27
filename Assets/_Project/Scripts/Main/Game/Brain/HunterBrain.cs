@@ -16,7 +16,7 @@ namespace _Project.Scripts.Main.Game.Brain
                 _targetDistance =
                     Vector3.Distance(brainOwner.transform.position, brainOwner.TargetHealth.transform.position);
 
-                if (_targetDistance <= brainOwner.Character.Data.MeleeRange)
+                if (_targetDistance <= brainOwner.CharacterController.Data.MeleeRange)
                 {
                     AttackTarget(brainOwner).Forget();
                 }
@@ -33,12 +33,12 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private async UniTask AttackTarget(BrainOwner brainOwner)
         {
-            if (brainOwner.Character.Attacker.ReadyToAttack == false) return;
+            if (brainOwner.CharacterController.Attacker.ReadyToAttack == false) return;
             
-            brainOwner.Character.Attacker.StartAttack();
-            await brainOwner.Character.PlayAttack();
-            brainOwner.Character.Attacker.EndAttack();
-            await brainOwner.Character.Attacker.RunAttackDelay(brainOwner.Character.CancellationToken);
+            brainOwner.CharacterController.Attacker.StartAttack();
+            await brainOwner.CharacterController.PlayAttack();
+            brainOwner.CharacterController.Attacker.EndAttack();
+            await brainOwner.CharacterController.Attacker.RunAttackDelay(brainOwner.CharacterController.CancellationToken);
         }
 
         private void MoveToTarget(BrainOwner brainOwner)

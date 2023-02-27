@@ -14,7 +14,7 @@ using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.Game
 {
-    public class Character : MonoPoolItemBase
+    public class CharacterController : MonoPoolItemBase
     {
         [SerializeField] private CharacterData _data;
         [SerializeField, ReadOnlyField] private BrainOwner _brainOwner;

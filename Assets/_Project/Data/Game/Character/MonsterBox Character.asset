@@ -16,6 +16,6 @@ MonoBehaviour:
   _health: 100
   _speed: 5
   _acceleration: 12
-  _attackDelay: 2.5
+  _attackDelay: 1.5
   _meleeRange: 3
   _meleeDamage: 30

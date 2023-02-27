@@ -2,19 +2,20 @@
 using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Game;
 using UnityEngine;
+using CharacterController = _Project.Scripts.Main.Game.CharacterController;
 
 namespace _Project.Scripts.Main.AppServices
 {
     public class EventListenerService : ServiceBase
     {
-        public Action<Character> CharacterDead;
+        public Action<CharacterController> CharacterDead;
         
-        public void SubscribeCharacter(Character character)
+        public void SubscribeCharacter(CharacterController characterController)
         {
-            character.Health.OnDead += () =>
+            characterController.Health.OnDead += () =>
             {
-                Debug.Log($"Character '{character.gameObject.name}' Dead (click to select)", character);
-                CharacterDead?.Invoke(character);
+                Debug.Log($"Character '{characterController.gameObject.name}' Dead (click to select)", characterController);
+                CharacterDead?.Invoke(characterController);
             };
         }
 

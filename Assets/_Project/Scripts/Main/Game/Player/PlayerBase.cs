@@ -11,7 +11,7 @@ using Zenject;
 namespace _Project.Scripts.Main.Game
 {
     [RequireComponent(typeof(HealthBase))]
-    [RequireComponent(typeof(CharacterController))]
+    [RequireComponent(typeof(UnityEngine.CharacterController))]
     [RequireComponent(typeof(AudioSource))]
     public abstract class PlayerBase : MonoBehaviour, IGamePlayContextItem
     {
@@ -24,7 +24,7 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private bool _useGravity;
         [SerializeField] private SimpleAudioEvent _startPhrase;
 
-        private CharacterController _characterController;
+        private UnityEngine.CharacterController _characterController;
         private AudioSource _audioSource;
         private HealthBase _health;
         private Controls.PlayerActions _playerControl;
@@ -48,7 +48,7 @@ namespace _Project.Scripts.Main.Game
         private void Awake()
         {
             _health = GetComponent<HealthBase>();
-            _characterController = GetComponent<CharacterController>();
+            _characterController = GetComponent<UnityEngine.CharacterController>();
             _audioSource = GetComponent<AudioSource>();
             _playerControl = Services.ControlService.Controls.Player;
         }

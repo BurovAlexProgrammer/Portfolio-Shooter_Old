@@ -8,6 +8,7 @@ using DG.Tweening;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Zenject;
+using CharacterController = _Project.Scripts.Main.Game.CharacterController;
 
 namespace _Project.Scripts.Main.AppServices
 {
@@ -179,9 +180,9 @@ namespace _Project.Scripts.Main.AppServices
             _statisticService.SetScores(_scores);
         }
 
-        private void AddScoresOnCharacterDead(Character character)
+        private void AddScoresOnCharacterDead(CharacterController characterController)
         {
-            AddScores(character.Data.Score);
+            AddScores(characterController.Data.Score);
         }
 
         private void ReturnGame(InputAction.CallbackContext ctx)

@@ -16,9 +16,9 @@ namespace _Project.Scripts.Main.Game
 
         public bool ReadyToAttack => !_attackInProgress && _attackTimer <= 0f;
 
-        public void Init(Character character)
+        public void Init(CharacterController characterController)
         {
-            _characterData = character.Data;
+            _characterData = characterController.Data;
         }
 
         public void StartAttack()

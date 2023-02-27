@@ -1,12 +1,10 @@
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
-using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.AppServices.SceneServices;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.Installers;
 using UnityEngine;
 using UnityEngine.AI;
-using Zenject;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
@@ -16,7 +14,7 @@ namespace _Project.Scripts.Main.Game.Brain
         [SerializeField] private GameObject _target;
         [SerializeField] private HealthBase _targetHealth;
         [SerializeField] private TransformInfo _transformInfoTarget;
-        [SerializeField, ReadOnlyField] private Character _character;
+        [SerializeField, ReadOnlyField] private CharacterController _characterController;
         [SerializeField, ReadOnlyField] NavMeshAgent _navMeshAgent;
 
         private BrainControlService _brainControl;
@@ -27,7 +25,7 @@ namespace _Project.Scripts.Main.Game.Brain
         public GameObject Target => _target;
         public HealthBase TargetHealth => _targetHealth;
         public bool IsTargetExist => _isTargetExist;
-        public Character Character => _character;
+        public CharacterController CharacterController => _characterController;
 
         private void OnEnable()
         {
@@ -41,9 +39,9 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void Awake()
         {
-            _brainControl = Contexts.GamePlayContext.BrainControlService;
+            _brainControl = GamePlayContext.BrainControlService;
             _navMeshAgent = GetComponent<NavMeshAgent>();
-            _character = GetComponent<Character>();
+            _characterController = GetComponent<CharacterController>();
         }
 
         public void Think()
