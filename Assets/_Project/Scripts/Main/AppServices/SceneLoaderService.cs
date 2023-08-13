@@ -11,7 +11,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class SceneLoaderService : MonoServiceBase
+    public class SceneLoaderService : MonoBehaviour, IService
     {
         [SerializeField] private ScenePicker _mainMenuScene;
         [SerializeField] private CanvasGroup _blackFrame;
@@ -28,7 +28,7 @@ namespace _Project.Scripts.Main.AppServices
         };
 
         [Inject]
-        protected override void Construct()
+        private void Construct()
         {
             _initialScene = SceneManager.GetActiveScene();
             _blackFrame.alpha = 1f;

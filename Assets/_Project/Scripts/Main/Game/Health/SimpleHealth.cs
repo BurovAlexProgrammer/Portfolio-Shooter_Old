@@ -12,12 +12,12 @@ namespace _Project.Scripts.Main.Game.Health
         
         private IPoolService _poolService;
         
-        private MonoPoolItemBase _poolItem;
+        private BasePoolItem _poolItem;
 
         private void Awake()
         {
             _poolService = GamePlayContext.PoolService;
-            _poolItem = GetComponent<MonoPoolItemBase>();
+            _poolItem = GetComponent<BasePoolItem>();
         }
 
         private void OnEnable()

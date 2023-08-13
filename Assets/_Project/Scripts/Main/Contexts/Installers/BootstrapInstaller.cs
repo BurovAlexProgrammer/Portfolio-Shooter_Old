@@ -19,7 +19,6 @@ namespace _Project.Scripts.Main.Contexts.Installers
 
         public override void InstallBindings()
         {
-            Services.Clear();
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
             InstallEventListenerService();

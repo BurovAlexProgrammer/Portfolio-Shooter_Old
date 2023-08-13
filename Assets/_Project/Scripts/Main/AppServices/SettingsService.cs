@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Settings;
 using UnityEngine;
 using Zenject;
@@ -7,15 +6,15 @@ using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class SettingsService : MonoServiceBase
+    public class SettingsService : MonoBehaviour, IService
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
         [SerializeField] private SettingGroup<GameSettings> _gameSettings;
 
-        private AudioService _audioService;
-        private ScreenService _screenService;
-        private IFileService _fileService;
+        [Inject] private AudioService _audioService;
+        [Inject] private ScreenService _screenService;
+        [Inject] private IFileService _fileService;
         private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
@@ -26,14 +25,12 @@ namespace _Project.Scripts.Main.AppServices
         public IFileService FileService => _fileService;
 
         [Inject]
-        protected void Construct(AudioService audioService, ScreenService screenService, IFileService fileService)
+        private void Construct()
         {
-            _audioService = audioService;
-            _screenService = screenService;
-            _fileService = fileService;
+            
             Init();
         }
-        
+
         private void Init()
         {
             _settingList = new List<ISettingGroup>

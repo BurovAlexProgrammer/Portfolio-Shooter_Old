@@ -8,6 +8,7 @@ using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Localizations;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using ModestTree;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceLocations;
@@ -16,7 +17,7 @@ using Zenject;
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class LocalizationService : ServiceBase
+    public class LocalizationService : IService
     {
         private Locales _currentLocale;
         private Dictionary<Locales, Localization> _localizations;
@@ -27,12 +28,11 @@ namespace _Project.Scripts.Main.AppServices
         public bool IsLoaded => _isLoaded;
 
         
-        private SettingsService _settingsService;
+        [Inject] private SettingsService _settingsService;
 
         [Inject]
-        public void Construct(SettingsService settingsService)
+        private void Construct()
         {
-            _settingsService = settingsService;
             _currentLocale = _settingsService.GameSettings.CurrentLocale;
             _localizations = new Dictionary<Locales, Localization>();
             Init();
@@ -50,6 +50,7 @@ namespace _Project.Scripts.Main.AppServices
 
         private async void Init()
         {
+            _localizations = new Dictionary<Locales, Localization>();
             var resources = await Addressables.LoadResourceLocationsAsync("locale").Task;
             var localeAssets = GetLocaleAssets(resources);
             var tasks = LoadAssets(localeAssets);
@@ -59,7 +60,10 @@ namespace _Project.Scripts.Main.AppServices
             {
                 var filePath = resources[i].ToString();
                 var localization = LoadLocaleFile(textAssets[i], filePath);
-                _localizations.Add(localization.Locale, localization);
+                if (!_localizations.TryAdd(localization.Locale, localization))
+                {
+                    Log.Error($"Cannot add localization to dictionary. Already registered. Locale: {localization.Locale}");
+                }
             }
 
             if (!_localizations.ContainsKey(_currentLocale))

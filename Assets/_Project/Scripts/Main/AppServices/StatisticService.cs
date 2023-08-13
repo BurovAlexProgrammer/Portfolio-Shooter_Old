@@ -12,7 +12,7 @@ using static _Project.Scripts.Main.StatisticData;
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class StatisticService : ServiceBase
+    public class StatisticService : IService
     {
         public Action<RecordName, string> RecordChanged; 
         
@@ -20,12 +20,12 @@ namespace _Project.Scripts.Main.AppServices
         private string _storedFolder;
         private string _storedFolderPath;
         
-        private GameManagerService _gameManager;
+        [Inject] private GameManagerService _gameManager;
 
         [Inject]
-        public void Construct(GameManagerService gameManager)
+        private void Construct()
         {
-            _gameManager = gameManager;
+            
             _statisticData = new StatisticData();
             _storedFolder ??= Application.dataPath + "/StoredData/";
             _storedFolderPath = _storedFolder + "Statistic.data";

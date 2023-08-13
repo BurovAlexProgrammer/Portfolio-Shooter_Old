@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Main.Game.Weapon
 {
-    public class Destruction : MonoPoolItemBase
+    public class Destruction : BasePoolItem
     {
         [SerializeField] private Behaviors _behavior;
         [SerializeField] private float _lifeTime = 5f;

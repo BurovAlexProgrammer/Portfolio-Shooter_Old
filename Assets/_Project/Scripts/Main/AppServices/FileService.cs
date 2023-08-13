@@ -6,7 +6,7 @@ using UnityEngine;
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class FileService : ServiceBase, IFileService
+    public class FileService : IFileService
     {
         private const string StoredFolder = "StoredData";
         

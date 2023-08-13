@@ -6,7 +6,7 @@ using CharacterController = _Project.Scripts.Main.Game.CharacterController;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class EventListenerService : ServiceBase
+    public class EventListenerService : IService
     {
         public Action<CharacterController> CharacterDead;
         

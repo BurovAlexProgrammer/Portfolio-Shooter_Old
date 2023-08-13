@@ -1,22 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using Zenject;
 using Object = UnityEngine.Object;
 
 namespace _Project.Scripts.Main.Wrappers
 {
     [Serializable]
-    public class MonoPool
+    public class MonoPool: MonoBehaviour
     {
-        private MonoPoolItemBase _prefab;
+        private BasePoolItem _prefab;
         private int _initCapacity;
         private int _maxCapacity;
         private int _instanceCount;
-        private Transform _container;
+        private Transform _transform;
         private OverAllocationBehaviour _overAllocationBehaviour;
+        private DiContainer _diContainer;
 
-        private Queue<MonoPoolItemBase> _inactivePool;
-        private List<MonoPoolItemBase> _activePool;
+        private Queue<BasePoolItem> _inactivePool;
+        private List<BasePoolItem> _activePool;
 
         public enum OverAllocationBehaviour
         {
@@ -26,22 +28,43 @@ namespace _Project.Scripts.Main.Wrappers
             DestructFirst
         }
 
-        public MonoPool(MonoPoolItemBase prefab, Transform container, int initialCapacity, int maxCapacity, OverAllocationBehaviour behaviour = OverAllocationBehaviour.Warning)
+        public static MonoPool Instantiate(DiContainer diContainer, Transform parent)
+        {
+            var instance = new GameObject();
+            var monoPool = instance.AddComponent<MonoPool>();
+            monoPool.SetDiContainer(diContainer);
+            instance.transform.SetParent(parent);
+            return monoPool;
+        }
+        
+        public static MonoPool Instantiate(Transform parent)
+        {
+            var instance = Instantiate(new GameObject(), parent);
+            var pool = instance.AddComponent<MonoPool>();
+            return pool;
+        }
+
+        public void Setup(BasePoolItem prefab, int initialCapacity, int maxCapacity, OverAllocationBehaviour behaviour = OverAllocationBehaviour.Warning)
         {
             Clear();
             _prefab = prefab;
-            _container = container;
+            _transform = transform;
             _initCapacity = initialCapacity;
             _maxCapacity = maxCapacity;
             _overAllocationBehaviour = behaviour;
-
+            
             for (var i = 0; i < _initCapacity; i++)
             {
                 AddInstance();
             }
         }
-        
-        public MonoPoolItemBase Get()
+
+        public void SetDiContainer(DiContainer diContainer)
+        {
+            _diContainer = diContainer;
+        }
+
+        public BasePoolItem Get()
         {
             if (_inactivePool.Count == 0)
             {
@@ -74,8 +97,8 @@ namespace _Project.Scripts.Main.Wrappers
                 }
             }
             
-            _inactivePool = new Queue<MonoPoolItemBase>();
-            _activePool = new List<MonoPoolItemBase>();
+            _inactivePool = new Queue<BasePoolItem>();
+            _activePool = new List<BasePoolItem>();
         }
 
         public void DeactivateItems()
@@ -111,7 +134,7 @@ namespace _Project.Scripts.Main.Wrappers
                 }
             }
             
-            var instance = Object.Instantiate(_prefab, _container);
+            var instance = _diContainer.InstantiatePrefab(_prefab, _transform).GetComponent<BasePoolItem>();
             instance.gameObject.name = _prefab.name + " " + (_inactivePool.Count + _activePool.Count + 1);
             instance.gameObject.SetActive(false);
             instance.Returned += OnItemReturn;
@@ -119,7 +142,7 @@ namespace _Project.Scripts.Main.Wrappers
             _instanceCount++;
         }
 
-        private void OnItemReturn(MonoPoolItemBase item)
+        private void OnItemReturn(BasePoolItem item)
         {
             var index = _activePool.FindIndex(x => x.Id == item.Id);
             

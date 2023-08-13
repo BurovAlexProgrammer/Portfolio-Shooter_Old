@@ -1,4 +1,5 @@
 ﻿using System;
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Contexts;
@@ -23,6 +24,10 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private bool _canShoot;
         [SerializeField] private bool _useGravity;
         [SerializeField] private SimpleAudioEvent _startPhrase;
+
+        [Inject] private StatisticService _statisticService;
+        [Inject] private ControlService _controlService;
+        [Inject] private SettingsService _settingsService;
 
         private UnityEngine.CharacterController _characterController;
         private AudioSource _audioSource;
@@ -50,7 +55,7 @@ namespace _Project.Scripts.Main.Game
             _health = GetComponent<HealthBase>();
             _characterController = GetComponent<UnityEngine.CharacterController>();
             _audioSource = GetComponent<AudioSource>();
-            _playerControl = Services.ControlService.Controls.Player;
+            _playerControl = _controlService.Controls.Player;
         }
 
         private void Start()
@@ -117,7 +122,7 @@ namespace _Project.Scripts.Main.Game
 
             if (_characterController.velocity != Vector3.zero)
             {
-                Services.Statistics.AddValueToRecord(StatisticData.RecordName.Movement,
+                _statisticService.AddValueToRecord(StatisticData.RecordName.Movement,
                     _characterController.velocity.magnitude * Time.fixedDeltaTime);
             }
         }
@@ -127,7 +132,7 @@ namespace _Project.Scripts.Main.Game
             if (!_canMove) return;
             if (inputValue == Vector2.zero) return;
 
-            var delta = Time.deltaTime * _config.RotateSpeed * Services.Settings.GameSettings.Sensitivity;
+            var delta = Time.deltaTime * _config.RotateSpeed * _settingsService.GameSettings.Sensitivity;
             _rotationY -= inputValue.y * delta;
             _rotationY = Math.Clamp(_rotationY, -_config.MaxVerticalAngle, _config.MaxVerticalAngle);
             _cameraHolder.transform.localRotation = Quaternion.Euler(_rotationY, 0f, 0f);
@@ -138,7 +143,7 @@ namespace _Project.Scripts.Main.Game
         {
             if (_gun.TryShoot())
             {
-                Services.Statistics.AddValueToRecord(StatisticData.RecordName.FireCount, 1);
+                _statisticService.AddValueToRecord(StatisticData.RecordName.FireCount, 1);
             }
         }
     }

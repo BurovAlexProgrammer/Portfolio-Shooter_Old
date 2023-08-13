@@ -6,7 +6,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class DebugService : MonoServiceBase
+    public class DebugService : MonoBehaviour, IService
     {
         [SerializeField] private DebugServiceConfig _serviceConfig;
         [SerializeField] private GizmoItem _explosionGizmoPrefab;

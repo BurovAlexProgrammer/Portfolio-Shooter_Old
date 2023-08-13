@@ -12,19 +12,19 @@ using CharacterController = _Project.Scripts.Main.Game.CharacterController;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class GameManagerService : MonoServiceBase
+    public class GameManagerService : MonoBehaviour, IService
     {
         [Inject] private DiContainer _diContainer;
-        
+
         private GameStateMachine _gameStateMachine;
         private bool _isGamePause;
         private int _scores;
 
-        private ControlService _controlService;
-        private SceneLoaderService _sceneLoader;
-        private StatisticService _statisticService;
-        private EventListenerService _eventListenerService;
-        private AudioService _audioService;
+        [Inject] private ControlService _controlService;
+        [Inject] private SceneLoaderService _sceneLoader;
+        [Inject] private StatisticService _statisticService;
+        [Inject] private EventListenerService _eventListenerService;
+        [Inject] private AudioService _audioService;
 
         public event Action<bool> SwitchPause;
         public event Action GameOver;
@@ -38,15 +38,9 @@ namespace _Project.Scripts.Main.AppServices
         public int Scores => _scores;
 
         [Inject]
-        public void Construct(ControlService controlService, SceneLoaderService sceneLoader,
-            StatisticService statisticService, EventListenerService eventListenerService, AudioService audioService)
+        private void Construct()
         {
-            _controlService = controlService;
-            _sceneLoader = sceneLoader;
-            _statisticService = statisticService;
-            _eventListenerService = eventListenerService;
-            _audioService = audioService;
-
+            
             _gameStateMachine = _diContainer.Instantiate<GameStateMachine>();
             _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
         }

@@ -13,7 +13,7 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private float _startDelay = 3f;
         [SerializeField] private float _maxSpawnTime = 5f;
         [SerializeField] private AnimationCurve _difficultCurve;
-        [SerializeField] private MonoPoolItemBase _prefab;
+        [SerializeField] private BasePoolItem _prefab;
         [Header("Info")]
         [SerializeField] private float _spawnRate;
         [SerializeField] private float _timer;

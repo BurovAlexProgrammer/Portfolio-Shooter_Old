@@ -10,7 +10,7 @@ namespace _Project.Scripts.Main.AppServices
 {
     [RequireComponent(typeof(AudioSource))]
     [RequireComponent(typeof(AudioSource))]
-    public class AudioService : MonoServiceBase
+    public class AudioService : MonoBehaviour, IService
     {
         [SerializeField] private AudioListener _audioListener;
         [SerializeField] private AudioSource _musicAudioSource;

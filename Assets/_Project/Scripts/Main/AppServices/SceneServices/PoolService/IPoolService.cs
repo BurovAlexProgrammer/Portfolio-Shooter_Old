@@ -5,8 +5,8 @@ namespace _Project.Scripts.Main.AppServices.SceneServices.PoolService
 {
     public interface IPoolService : IGamePlayContextItem
     {
-        public MonoPoolItemBase Get(MonoPoolItemBase prefab);
-        public MonoPoolItemBase GetAndActivate(MonoPoolItemBase prefab);
+        public BasePoolItem Get(BasePoolItem prefab);
+        public BasePoolItem GetAndActivate(BasePoolItem prefab);
         public void Disable();
     }
 }

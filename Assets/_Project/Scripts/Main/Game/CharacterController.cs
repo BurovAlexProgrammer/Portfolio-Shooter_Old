@@ -10,11 +10,12 @@ using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using Zenject;
 using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.Game
 {
-    public class CharacterController : MonoPoolItemBase
+    public class CharacterController : BasePoolItem
     {
         [SerializeField] private CharacterData _data;
         [SerializeField, ReadOnlyField] private BrainOwner _brainOwner;
@@ -26,9 +27,10 @@ namespace _Project.Scripts.Main.Game
         [SerializeField, ReadOnlyField] private AudioSource _audioSource;
         [SerializeField] private AudioEvent _attackEvent;
 
+        [Inject] private StatisticService _statisticService;
+        [Inject] private EventListenerService _eventListener;
+        
         public CancellationToken CancellationToken { get; private set; }
-        private EventListenerService _eventListener;
-        private StatisticService _statisticService;
         private NavMeshAgent _navMeshAgent;
 
         public CharacterData Data => _data;
@@ -38,8 +40,6 @@ namespace _Project.Scripts.Main.Game
         private void Awake()
         {
             CancellationToken = gameObject.GetCancellationTokenOnDestroy();
-            _eventListener = Services.EventListener;
-            _statisticService = Services.Statistics;
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _brainOwner = GetComponent<BrainOwner>();
             _animator = GetComponent<Animator>();

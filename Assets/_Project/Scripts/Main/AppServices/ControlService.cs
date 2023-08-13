@@ -5,7 +5,7 @@ using UnityEngine;
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class ControlService : ServiceBase
+    public class ControlService : IService
     {
         public readonly Controls Controls;
         public CursorLockMode CursorLockState => Cursor.lockState;

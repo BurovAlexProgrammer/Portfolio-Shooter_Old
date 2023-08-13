@@ -4,14 +4,14 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Wrappers
 {
-    public abstract class MonoPoolItemBase : MonoBehaviour
+    public abstract class BasePoolItem : MonoBehaviour
     {
         private static int _idGenerator;
         private static int NewId => _idGenerator++;
         
         private int _id = -1;
         
-        public Action<MonoPoolItemBase> Returned;
+        public Action<BasePoolItem> Returned;
         
         public int Id
         {

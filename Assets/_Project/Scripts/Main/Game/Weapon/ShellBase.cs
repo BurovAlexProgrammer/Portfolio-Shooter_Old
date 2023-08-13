@@ -1,10 +1,8 @@
 ﻿using System.Threading;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.AppServices.PoolService;
 using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
+using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.Installers;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
@@ -12,7 +10,7 @@ using UnityEngine;
 namespace _Project.Scripts.Main.Game.Weapon
 {
     [RequireComponent(typeof(Rigidbody))]
-    public abstract class ShellBase : MonoPoolItemBase
+    public abstract class ShellBase : BasePoolItem
     {
         [SerializeField] private Destruction _destructionPrefab;
         [SerializeField] private ShellConfig _shellConfig;
@@ -30,7 +28,7 @@ namespace _Project.Scripts.Main.Game.Weapon
             _gameObject = gameObject;
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
-            _poolService = Contexts.GamePlayContext.PoolService;
+            _poolService = GamePlayContext.PoolService;
             _cancellationToken = _gameObject.GetCancellationTokenOnDestroy();
         }
 
