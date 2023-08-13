@@ -6,6 +6,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Health
 {
+    [DisallowMultipleComponent]
     public class SimpleHealth : HealthBase
     {
         [SerializeField] private Destruction _destructionPrefab;

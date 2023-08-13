@@ -8,6 +8,7 @@ using UnityEngine.AI;
 
 namespace _Project.Scripts.Main.Game.Brain
 {
+    [DisallowMultipleComponent]
     public class BrainOwner : MonoBehaviour
     {
         [SerializeField] private Brain _brain;
@@ -24,7 +25,7 @@ namespace _Project.Scripts.Main.Game.Brain
         public NavMeshAgent NavMeshAgent => _navMeshAgent;
         public GameObject Target => _target;
         public HealthBase TargetHealth => _targetHealth;
-        public bool IsTargetExist => _isTargetExist;
+        public bool IsTargetExist => _target != null && _target.activeInHierarchy;
         public CharacterController CharacterController => _characterController;
 
         private void OnEnable()
@@ -53,7 +54,6 @@ namespace _Project.Scripts.Main.Game.Brain
         {
             _target = target;
             _targetHealth = target.GetComponent<HealthBase>();
-            _isTargetExist = _target != null;
         }
     }
 }

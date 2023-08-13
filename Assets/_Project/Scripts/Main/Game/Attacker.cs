@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace _Project.Scripts.Main.Game
 {
+    [DisallowMultipleComponent]
     public class Attacker : MonoBehaviour
     {
         [SerializeField] private CharacterData _characterData;

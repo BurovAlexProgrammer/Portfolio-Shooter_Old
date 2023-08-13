@@ -6,6 +6,7 @@ using Zenject;
 
 namespace _Project.Scripts.Main.Game.Health
 {
+    [DisallowMultipleComponent]
     public class PlayerHealth : HealthBase
     {
         [SerializeField, ReadOnlyField] private AudioSource _audioSource;

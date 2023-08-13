@@ -2,7 +2,6 @@ using System.Threading;
 using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Audio;
 using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Game.Health;
@@ -10,11 +9,13 @@ using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Serialization;
 using Zenject;
 using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.Game
 {
+    [DisallowMultipleComponent]
     public class CharacterController : BasePoolItem
     {
         [SerializeField] private CharacterData _data;
@@ -22,14 +23,13 @@ namespace _Project.Scripts.Main.Game
         [SerializeField, ReadOnlyField] private HealthBase _health;
         [SerializeField, ReadOnlyField] private Attacker _attacker;
         [SerializeField, ReadOnlyField] private Animator _animator;
-
         [Header("Audio")] 
         [SerializeField, ReadOnlyField] private AudioSource _audioSource;
-        [SerializeField] private AudioEvent _attackEvent;
+        [SerializeField] private AudioEvent _attackAudioEvent;
 
         [Inject] private StatisticService _statisticService;
         [Inject] private EventListenerService _eventListener;
-        
+
         public CancellationToken CancellationToken { get; private set; }
         private NavMeshAgent _navMeshAgent;
 
@@ -55,10 +55,10 @@ namespace _Project.Scripts.Main.Game
                 _navMeshAgent.stoppingDistance = _data.MeleeRange - 0.1f;
             }
 
-            if (Health != null)
+            if (_health != null)
             {
-                Health.Init(_data.Health, _data.Health);
-                Health.OnDead += OnDead;
+                _health.Init(_data.Health, _data.Health);
+                _health.OnDead += OnDead;
             }
 
             if (_attacker != null)
@@ -84,8 +84,16 @@ namespace _Project.Scripts.Main.Game
 
         private void OnDestroy()
         {
-            _attacker.DamageTargetAction -= OnDamageTarget;
-            _attacker.PlayAttackSoundAction -= OnPlayAttackSound;
+            if (_attacker != null)
+            {
+                _attacker.DamageTargetAction -= OnDamageTarget;
+                _attacker.PlayAttackSoundAction -= OnPlayAttackSound;
+            }
+
+            if (_health != null)
+            {
+                _health.OnDead -= OnDead;
+            }
         }
 
         public async UniTask PlayAttack()
@@ -101,7 +109,7 @@ namespace _Project.Scripts.Main.Game
 
         private void OnPlayAttackSound()
         {
-            _attackEvent.Play(_audioSource);
+            _attackAudioEvent.Play(_audioSource);
         }
     }
 }
