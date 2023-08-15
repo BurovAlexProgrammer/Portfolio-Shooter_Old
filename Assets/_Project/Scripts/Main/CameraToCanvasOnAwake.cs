@@ -1,6 +1,7 @@
 using _Project.Scripts.Main.AppServices;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main
 {
@@ -9,7 +10,12 @@ namespace _Project.Scripts.Main
     {
         [SerializeField] private CameraTypes _camera;
 
-        [Inject] private ScreenService _screenService;
+        private ScreenService _screenService;
+
+        private void Awake()
+        {
+            _screenService = Context.GetService<ScreenService>();
+        }
 
         private enum CameraTypes
         {

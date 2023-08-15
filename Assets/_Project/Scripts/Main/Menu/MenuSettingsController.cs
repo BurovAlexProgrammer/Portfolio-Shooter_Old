@@ -1,16 +1,22 @@
+using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Settings;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
-using SettingsService = _Project.Scripts.Main.AppServices.SettingsService;
 
 namespace _Project.Scripts.Main.Menu
 {
     public class MenuSettingsController : MonoBehaviour
     {
-        [Inject] private SettingsService _settings;
+        private SettingsService _settings;
 
         public VideoSettings VideoSettings => _settings.Video;
         public GameSettings GameSettings => _settings.GameSettings;
+
+        private void Awake()
+        {
+            _settings = Context.GetService<SettingsService>();
+        }
 
         public void Apply()
         {

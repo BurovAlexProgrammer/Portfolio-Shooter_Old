@@ -1,13 +1,19 @@
 using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Localizations
 {
     public abstract class LocalizedTextComponent : MonoBehaviour
     {
-        [Inject] protected LocalizationService _localization;
+        protected LocalizationService _localization;
+
+        private void Awake()
+        {
+            _localization = Context.GetService<LocalizationService>();
+        }
 
         private async void Start()
         {

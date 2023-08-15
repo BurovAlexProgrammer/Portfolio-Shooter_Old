@@ -1,12 +1,12 @@
-using _Project.Scripts.Extension;
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using Main.Contexts;
+using Main.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
 using static _Project.Scripts.Extension.Common;
 using static _Project.Scripts.Main.StatisticData.FormatType;
 using static _Project.Scripts.Main.StatisticData.RecordName;
@@ -23,11 +23,13 @@ namespace _Project.Scripts.Main.UI.Window
         [SerializeField] private Button _quitGameButton;
         [SerializeField] private DialogView _quitGameDialog;
 
-        [Inject] private GameManagerService _gameManager;
-        [Inject] private StatisticService _statisticService;
+        private GameManagerService _gameManager;
+        private StatisticService _statisticService;
 
         private void Awake()
         {
+            _gameManager = Context.GetService<GameManagerService>();
+            _statisticService = Context.GetService<StatisticService>();
             _retryButton.onClick.AddListener(Retry);
             _mainMenuButton.onClick.AddListener(GoToMainMenu);
             _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
@@ -61,7 +63,7 @@ namespace _Project.Scripts.Main.UI.Window
             await DOVirtual
                 .Int(0, surviveTime, duration, x => _surviveTimeText.text = x.Format(StringFormat.Time))
                 .AsyncWaitForCompletion();
-            
+
             await DOVirtual
                 .Int(0, kills, duration, x => _killsCountText.text = x.ToString())
                 .AsyncWaitForCompletion();
@@ -75,7 +77,7 @@ namespace _Project.Scripts.Main.UI.Window
         {
             await Close();
             _gameManager.GoToMainMenu();
-        } 
+        }
 
         private void ShowQuitGameDialog()
         {
@@ -89,7 +91,7 @@ namespace _Project.Scripts.Main.UI.Window
                 _gameManager.QuitGame();
                 return;
             }
-        
+
             _quitGameDialog.Close().Forget();
         }
     }

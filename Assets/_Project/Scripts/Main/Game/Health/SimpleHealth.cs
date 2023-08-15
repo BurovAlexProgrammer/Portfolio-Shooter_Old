@@ -1,7 +1,7 @@
-﻿using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
-using _Project.Scripts.Main.Contexts;
-using _Project.Scripts.Main.Game.Weapon;
+﻿using _Project.Scripts.Main.Game.Weapon;
 using _Project.Scripts.Main.Wrappers;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Health
@@ -17,7 +17,7 @@ namespace _Project.Scripts.Main.Game.Health
 
         private void Awake()
         {
-            _poolService = GamePlayContext.PoolService;
+            _poolService = Context.GetService<PoolService>();
             _poolItem = GetComponent<BasePoolItem>();
         }
 
@@ -41,8 +41,8 @@ namespace _Project.Scripts.Main.Game.Health
             if (_destructionPrefab != null)
             {
                 var enemyParts = _poolService.GetAndActivate(_destructionPrefab);
-                enemyParts.transform.position = transform.position;
-                enemyParts.transform.rotation = transform.rotation;
+                enemyParts.GameObject.transform.position = transform.position;
+                enemyParts.GameObject.transform.rotation = transform.rotation;
             }
 
             if (_poolItem != null)

@@ -1,6 +1,7 @@
 ﻿using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
-using Zenject;
+using Main.Contexts;
+using Main.Service;
 
 namespace _Project.Scripts.Main.Game.GameState
 {
@@ -8,10 +9,11 @@ namespace _Project.Scripts.Main.Game.GameState
     {
         public class CustomScene : IGameState
         {
-            [Inject] private GameManagerService _gameManager;
+            private GameManagerService _gameManager;
 
             public async UniTask EnterState()
             {
+                _gameManager ??= Context.GetService<GameManagerService>();
                 await UniTask.Yield();
                 _gameManager.PrepareToPlay();
             }

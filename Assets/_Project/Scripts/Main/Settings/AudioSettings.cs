@@ -1,6 +1,5 @@
 using _Project.Scripts.Main.AppServices;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Settings
 {

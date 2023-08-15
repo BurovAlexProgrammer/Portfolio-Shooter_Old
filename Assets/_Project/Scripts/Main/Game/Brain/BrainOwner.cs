@@ -3,6 +3,8 @@ using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Health;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -40,7 +42,7 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void Awake()
         {
-            _brainControl = GamePlayContext.BrainControlService;
+            _brainControl = Context.GetSceneObject<BrainControlService>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _characterController = GetComponent<CharacterController>();
         }

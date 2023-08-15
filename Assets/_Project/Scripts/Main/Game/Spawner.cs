@@ -1,10 +1,10 @@
-﻿using _Project.Scripts.Extension;
-using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
-using _Project.Scripts.Main.Contexts;
+﻿using System.Threading;
+using _Project.Scripts.Extension;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace _Project.Scripts.Main.Game
 {
@@ -22,13 +22,15 @@ namespace _Project.Scripts.Main.Game
         
         private PlayerBase _player;
         private IPoolService _poolService;
+        
+        private CancellationToken _cancellationToken;
 
         private bool _paused;
 
         private void Awake()
         {
-            _player = GamePlayContext.Player;
-            _poolService = GamePlayContext.PoolService;
+            _player = Context.GetSceneObject<Player>();
+            _poolService = Context.GetService<PoolService>();
         }
 
         private void OnDisable()
@@ -65,7 +67,7 @@ namespace _Project.Scripts.Main.Game
         {
             await _startDelay.WaitInSeconds();
 
-            while (this != null && enabled)
+            while (!_cancellationToken.IsCancellationRequested && enabled)
             {
                 if (_paused) continue;
                 
@@ -92,8 +94,7 @@ namespace _Project.Scripts.Main.Game
 
         private void Spawn()
         {
-            var t = _player;
-            var instance = _poolService.Get(_prefab);
+            var instance = _poolService.Get(_prefab).GameObject;
             instance.transform.position = new Vector3 {x = Random.Range(-10f, 10f), z = Random.Range(-10f, 10f)};
             instance.gameObject.SetActive(true);
         }

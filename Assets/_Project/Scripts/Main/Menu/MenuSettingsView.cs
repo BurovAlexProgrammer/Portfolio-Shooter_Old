@@ -4,11 +4,11 @@ using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Localizations;
 using _Project.Scripts.Main.UI;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using Zenject;
-using Button = UnityEngine.UI.Button;
 
 namespace _Project.Scripts.Main.Menu
 {
@@ -21,7 +21,7 @@ namespace _Project.Scripts.Main.Menu
         [SerializeField] private GameSettingViews _gameSettingViews;
         [SerializeField] private TextMeshProUGUI _textRestartRequire;
 
-        [Inject] private LocalizationService _localizationService;
+        private LocalizationService _localizationService;
 
         private void Start()
         {
@@ -30,6 +30,7 @@ namespace _Project.Scripts.Main.Menu
         
         private void Awake()
         {
+            _localizationService = Context.GetService<LocalizationService>();
             _buttonSave.onClick.AddListener(SaveSettings);
             _buttonReset.onClick.AddListener(ResetToDefault);
             var videoSettings = _settingsController.VideoSettings;

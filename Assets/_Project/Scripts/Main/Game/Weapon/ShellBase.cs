@@ -1,10 +1,10 @@
 ﻿using System.Threading;
 using _Project.Scripts.Extension;
-using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
-using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Weapon
@@ -28,7 +28,7 @@ namespace _Project.Scripts.Main.Game.Weapon
             _gameObject = gameObject;
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
-            _poolService = GamePlayContext.PoolService;
+            _poolService = Context.GetService<PoolService>();
             _cancellationToken = _gameObject.GetCancellationTokenOnDestroy();
         }
 
@@ -80,7 +80,7 @@ namespace _Project.Scripts.Main.Game.Weapon
 
         private void Destruct()
         {
-            var destruction = _poolService.Get(_destructionPrefab);
+            var destruction = _poolService.Get(_destructionPrefab).GameObject;
             var rigidbodies = destruction.GetComponentsInChildren<Rigidbody>();
             destruction.transform.position = _transform.position;
             destruction.transform.rotation = _transform.rotation;

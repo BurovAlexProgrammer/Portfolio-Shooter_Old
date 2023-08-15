@@ -1,5 +1,4 @@
 using System.Threading;
-using _Project.Scripts.Extension;
 using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Audio;
@@ -7,10 +6,10 @@ using _Project.Scripts.Main.Game.Brain;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Wrappers;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.Serialization;
-using Zenject;
 using static _Project.Scripts.Extension.Common;
 
 namespace _Project.Scripts.Main.Game
@@ -27,8 +26,8 @@ namespace _Project.Scripts.Main.Game
         [SerializeField, ReadOnlyField] private AudioSource _audioSource;
         [SerializeField] private AudioEvent _attackAudioEvent;
 
-        [Inject] private StatisticService _statisticService;
-        [Inject] private EventListenerService _eventListener;
+        private StatisticService _statisticService;
+        private EventListenerService _eventListener;
 
         public CancellationToken CancellationToken { get; private set; }
         private NavMeshAgent _navMeshAgent;
@@ -39,6 +38,8 @@ namespace _Project.Scripts.Main.Game
 
         private void Awake()
         {
+            _statisticService = Context.GetService<StatisticService>();
+            _eventListener = Context.GetService<EventListenerService>();
             CancellationToken = gameObject.GetCancellationTokenOnDestroy();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _brainOwner = GetComponent<BrainOwner>();

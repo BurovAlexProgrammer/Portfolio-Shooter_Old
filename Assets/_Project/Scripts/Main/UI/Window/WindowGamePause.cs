@@ -3,10 +3,11 @@ using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.AppServices.SceneServices;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Zenject;
 
 namespace _Project.Scripts.Main.UI.Window
 {
@@ -20,13 +21,17 @@ namespace _Project.Scripts.Main.UI.Window
         [SerializeField] private Button _mainMenuButton;
         [SerializeField] private DialogView _quitGameDialog;
 
-        [Inject] private GameManagerService _gameManager;
-        [Inject] private SettingsService _settingsService;
-        [Inject] private ControlService _controlService;
-        [Inject] private GameUiService _gameUiService;
+        private GameManagerService _gameManager;
+        private SettingsService _settingsService;
+        private ControlService _controlService;
+        private GameUiService _gameUiService;
 
         private void Awake()
         {
+            _gameManager = Context.GetService<GameManagerService>();
+            _settingsService = Context.GetService<SettingsService>();
+            _controlService = Context.GetService<ControlService>();
+            _gameUiService = Context.GetService<GameUiService>();
             _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _restartGameButton.onClick.AddListener(RestartGame);
             _returnGameButton.onClick.AddListener(ReturnGame);
@@ -39,7 +44,7 @@ namespace _Project.Scripts.Main.UI.Window
             _canvasGroup.interactable = false;
             gameObject.SetActive(false);
         }
-        
+
         private void Start()
         {
             _musicToggle.isOn = _settingsService.Audio.MusicEnabled;
@@ -76,7 +81,7 @@ namespace _Project.Scripts.Main.UI.Window
             await Close();
             _gameManager.RestartGame();
         }
-        
+
         private async void ReturnGame()
         {
             await Close();
@@ -86,7 +91,7 @@ namespace _Project.Scripts.Main.UI.Window
         private void ReturnGame(InputAction.CallbackContext ctx)
         {
             if (_gameUiService.DialogShowing) return;
-            
+
             ReturnGame();
         }
 
@@ -95,13 +100,13 @@ namespace _Project.Scripts.Main.UI.Window
             _settingsService.Audio.MusicEnabled = newValue;
             _settingsService.Save();
         }
-    
+
         private void OnSoundsSwitch(bool newValue)
         {
             _settingsService.Audio.SoundEnabled = newValue;
             _settingsService.Save();
         }
-    
+
         private void ShowQuitGameDialog()
         {
             _quitGameDialog.Show().Forget();
@@ -111,7 +116,7 @@ namespace _Project.Scripts.Main.UI.Window
         {
             QuitDialogConfirmAsync(result).Forget();
         }
-        
+
         private async UniTaskVoid QuitDialogConfirmAsync(bool result)
         {
             if (result)
@@ -121,7 +126,7 @@ namespace _Project.Scripts.Main.UI.Window
                 _gameManager.QuitGame();
                 return;
             }
-        
+
             _quitGameDialog.Close().Forget();
         }
     }

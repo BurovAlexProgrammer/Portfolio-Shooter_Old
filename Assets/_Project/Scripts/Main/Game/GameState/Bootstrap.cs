@@ -1,7 +1,8 @@
 ﻿using _Project.Scripts.Extension;
 using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
-using Zenject;
+using Main.Contexts;
+using Main.Service;
 
 namespace _Project.Scripts.Main.Game.GameState
 {
@@ -11,14 +12,9 @@ namespace _Project.Scripts.Main.Game.GameState
         {
             private SceneLoaderService _sceneLoaderService;
 
-            [Inject]
-            public void Construct(SceneLoaderService sceneLoaderService)
-            {
-                _sceneLoaderService = sceneLoaderService;
-            }
-            
             public async UniTask EnterState()
             {
+                _sceneLoaderService ??= Context.GetService<SceneLoaderService>();
                 _sceneLoaderService.ShowScene();
                 await 3f.WaitInSeconds();
             }

@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Scripts.Extension;
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.UI;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
+using UnityEngine.UI;
 using static _Project.Scripts.Extension.Common;
 using static _Project.Scripts.Main.StatisticData;
-using Button = UnityEngine.UI.Button;
 
 namespace _Project.Scripts.Main.Menu
 {
@@ -17,10 +17,11 @@ namespace _Project.Scripts.Main.Menu
         [SerializeField] private Button _buttonBack;
         [SerializeField] private List<TextField> _textFields;
 
-        [Inject] private StatisticService _statisticService;
+        private StatisticService _statisticService;
         
         private void Awake()
         {
+            _statisticService = Context.GetService<StatisticService>();
             _buttonBack.onClick.AddListener(GoPrevMenu);
         }
 

@@ -46,12 +46,16 @@ namespace _Project.Scripts.Main.Game
         //Animation Event
         public void DamageTarget()
         {
+            if (this == null) return;
+            
             DamageTargetAction?.Invoke();
         }
         
         //Animation Event
         public void PlayAttackSound()
         {
+            if (this == null) return;
+            
             PlayAttackSoundAction?.Invoke();
         }
     }

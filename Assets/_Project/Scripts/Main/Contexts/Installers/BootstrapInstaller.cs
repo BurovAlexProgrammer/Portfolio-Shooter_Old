@@ -1,91 +1,49 @@
+using System.Collections;
 using System.IO;
 using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.AppServices.Base;
 using DG.Tweening;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
-using AudioService = _Project.Scripts.Main.AppServices.AudioService;
+using UnityEngine.SceneManagement;
 
 namespace _Project.Scripts.Main.Contexts.Installers
 {
-    public class BootstrapInstaller : MonoInstaller
+    public class BootstrapInstaller : MonoBehaviour
     {
-        [SerializeField] private SceneLoaderService _sceneLoaderServicePrefab;
-        [SerializeField] private ScreenService _screenServicePrefab;
-        [SerializeField] private SettingsService _settingsServicePrefab;
-        [SerializeField] private GameManagerService _gameManagerServicePrefab;
-        [SerializeField] private DebugService _debugServicePrefab;
-        [SerializeField] private AudioService _audioServicePrefab;
+        [SerializeField] private string _startupGameScene;
+        [SerializeField] private ScreenServiceInstaller _screenServiceInstaller;
+        [SerializeField] private ControlServiceInstaller _controlServiceInstaller;
+        [SerializeField] private DebugServiceInstaller _debugServiceInstaller;
+        [SerializeField] private SettingsServiceInstaller _settingsServiceInstaller;
+        [SerializeField] private AudioServiceInstaller _audioServiceInstaller;
 
-        public override void InstallBindings()
+        public void Awake()
         {
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
-            InstallEventListenerService();
-            InstallSceneLoaderService();
-            InstallScreenService();
-            InstallAudioService();
-            InstallGameManagerService();
-            InstallSettingService();
-            InstallLocalizationService();
-            InstallControlService();
-            InstallDebugService();
-            InstallStatisticService();
-            InstallFileService();
+            Context.RegisterService<ControlService>(_controlServiceInstaller);
+            Context.RegisterService<ScreenService>(_screenServiceInstaller);
+            Context.RegisterService<PoolService>();
+            Context.RegisterService<DebugService>(_debugServiceInstaller);
+            Context.RegisterService<AudioService>(_audioServiceInstaller);
+            Context.RegisterService<SettingsService>(_settingsServiceInstaller);
+            Context.RegisterService<LocalizationService>();
             
-            if (_debugServicePrefab.SaveLogToFile)
-            {
-                Application.logMessageReceived += LogToFile;
-            }
+            // if (_debugServicePrefab.SaveLogToFile)
+            // {
+            //     Application.logMessageReceived += LogToFile;
+            // }
+            
+            StartCoroutine(LateStartup());
         }
-
-        private void InstallFileService()
+        
+        private IEnumerator LateStartup()
         {
-            Container
-                .Bind<IFileService>()
-                .To<FileService>()
-                .FromNew()
-                .AsSingle()
-                .NonLazy();
+            yield return null;
+            SceneManager.LoadScene(_startupGameScene);
         }
-
-        private void InstallEventListenerService()
-        {
-            Container
-                .Bind<EventListenerService>()
-                .FromNew()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallStatisticService()
-        {
-            Container
-                .Bind<StatisticService>()
-                .FromNew()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallAudioService()
-        {
-            Container
-                .Bind<AudioService>()
-                .FromComponentInNewPrefab(_audioServicePrefab)
-                .WithGameObjectName("Audio Service")
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallDebugService()
-        {
-            Container
-                .Bind<DebugService>()
-                .FromComponentInNewPrefab(_debugServicePrefab)
-                .WithGameObjectName("Debug Service")
-                .AsSingle()
-                .NonLazy();
-        }
+        
 
         private void LogToFile(string condition, string stacktrace, LogType type)
         {
@@ -95,63 +53,6 @@ namespace _Project.Scripts.Main.Contexts.Installers
             streamWriter.WriteLine("----");
             streamWriter.WriteLine($"{stacktrace}");
             streamWriter.WriteLine("-----------------------------------------------------------------------------------------");
-        }
-
-        private void InstallControlService()
-        {
-            Container
-                .Bind<ControlService>()
-                .FromNew()
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallSettingService()
-        {
-            Container
-                .Bind<SettingsService>()
-                .FromComponentInNewPrefab(_settingsServicePrefab)
-                .WithGameObjectName("Settings Service")
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallScreenService()
-        {
-            Container
-                .Bind<ScreenService>()
-                .FromComponentInNewPrefab(_screenServicePrefab)
-                .WithGameObjectName("Screen Service")
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallSceneLoaderService()
-        {
-           Container
-                .Bind<SceneLoaderService>()
-                .FromComponentInNewPrefab(_sceneLoaderServicePrefab)
-                .WithGameObjectName("Scene Loader")
-                .AsSingle()
-                .NonLazy();
-        }
-
-        private void InstallGameManagerService()
-        {
-            Container
-                .Bind<GameManagerService>()
-                .FromComponentInNewPrefab(_gameManagerServicePrefab)
-                .WithGameObjectName("Game Manager")
-                .AsSingle()
-                .NonLazy();
-        }
-        
-        void InstallLocalizationService()
-        {
-            Container
-                .Bind<LocalizationService>()
-                .AsSingle()
-                .NonLazy();
         }
     }
 }

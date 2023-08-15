@@ -1,9 +1,11 @@
+#nullable enable
 using System;
 using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
 using SceneName = _Project.Scripts.Main.AppServices.SceneLoaderService.Scenes;
 
 namespace _Project.Scripts.Main.Game.GameState
@@ -11,8 +13,6 @@ namespace _Project.Scripts.Main.Game.GameState
     [UsedImplicitly]
     public class GameStateMachine
     {
-        [Inject] private DiContainer _diContainer;
-        
         public event Action StateChanged;
 
         private IGameState _activeState;
@@ -20,10 +20,9 @@ namespace _Project.Scripts.Main.Game.GameState
         
         public IGameState ActiveState => _activeState;
 
-        [Inject]
-        public void Construct(SceneLoaderService sceneLoaderService)
+        public GameStateMachine()
         {
-            _sceneLoader = sceneLoaderService;
+            _sceneLoader = Context.GetService<SceneLoaderService>();
         }
         
         public async UniTask Start()
@@ -54,7 +53,7 @@ namespace _Project.Scripts.Main.Game.GameState
                 await _activeState.ExitState();
             }
 
-            _activeState = _diContainer.Instantiate<T>();
+            _activeState = Activator.CreateInstance<T>();
 
             Debug.Log("GameState Enter: " + _activeState.GetType().Name);
             await _activeState.EnterState();

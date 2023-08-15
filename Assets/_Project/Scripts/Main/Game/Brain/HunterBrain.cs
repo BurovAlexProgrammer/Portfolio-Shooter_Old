@@ -1,5 +1,7 @@
 ﻿using _Project.Scripts.Main.Contexts;
 using Cysharp.Threading.Tasks;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.Game.Brain
@@ -48,7 +50,8 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void FindTarget(BrainOwner brainOwner)
         {
-            var player = GamePlayContext.Player;
+            var player = Context.GetSceneObject<Player>();
+            
             if (player == null)
             {
                 Debug.LogWarning($"No target Player for hunter brain.");

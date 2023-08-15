@@ -1,20 +1,18 @@
 ﻿using System;
 using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.AppServices.Base;
 using _Project.Scripts.Main.Audio;
-using _Project.Scripts.Main.Contexts;
 using _Project.Scripts.Main.Game.Health;
 using _Project.Scripts.Main.Game.Weapon;
-using _Project.Scripts.Main.Installers;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Game
 {
     [RequireComponent(typeof(HealthBase))]
     [RequireComponent(typeof(UnityEngine.CharacterController))]
     [RequireComponent(typeof(AudioSource))]
-    public abstract class PlayerBase : MonoBehaviour, IGamePlayContextItem
+    public abstract class PlayerBase : MonoBehaviour, IPlayer
     {
         [SerializeField] private CameraHolder _cameraHolder;
         [SerializeField] private PlayerConfig _config;
@@ -25,9 +23,9 @@ namespace _Project.Scripts.Main.Game
         [SerializeField] private bool _useGravity;
         [SerializeField] private SimpleAudioEvent _startPhrase;
 
-        [Inject] private StatisticService _statisticService;
-        [Inject] private ControlService _controlService;
-        [Inject] private SettingsService _settingsService;
+        private StatisticService _statisticService;
+        private ControlService _controlService;
+        private SettingsService _settingsService;
 
         private UnityEngine.CharacterController _characterController;
         private AudioSource _audioSource;
@@ -44,14 +42,11 @@ namespace _Project.Scripts.Main.Game
         public CameraHolder CameraHolder => _cameraHolder;
         public HealthBase Health => _health;
 
-        [Inject]
-        private void Construct()
-        {
-            this.RegisterContext();
-        }
-
         private void Awake()
         {
+            _statisticService = Context.GetService<StatisticService>();
+                _controlService = Context.GetService<ControlService>();
+            _settingsService = Context.GetService<SettingsService>();
             _health = GetComponent<HealthBase>();
             _characterController = GetComponent<UnityEngine.CharacterController>();
             _audioSource = GetComponent<AudioSource>();
@@ -111,7 +106,7 @@ namespace _Project.Scripts.Main.Game
             _canShoot = true;
         }
 
-        protected virtual void Move(Vector2 inputValue)
+        public virtual void Move(Vector2 inputValue)
         {
             if (!_canMove) return;
 
@@ -127,7 +122,7 @@ namespace _Project.Scripts.Main.Game
             }
         }
 
-        protected virtual void Rotate(Vector2 inputValue)
+        public virtual void Rotate(Vector2 inputValue)
         {
             if (!_canMove) return;
             if (inputValue == Vector2.zero) return;

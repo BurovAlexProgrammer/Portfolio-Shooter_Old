@@ -15,6 +15,9 @@ namespace _Project.Scripts.Main.Menu
         
         private MenuStates _activeState;
         private MenuStates _prevState;
+
+        protected virtual void Init() {}
+        protected virtual void Dispose() {}
         
         private void Awake()
         {
@@ -28,6 +31,8 @@ namespace _Project.Scripts.Main.Menu
                 _menus[i].GoBack += GoToPrevMenu;
                 _menus[i].HideImmediate();
             }
+
+            Init();
         }
 
         private void OnDestroy()
@@ -36,6 +41,8 @@ namespace _Project.Scripts.Main.Menu
             {
                 _menus[i].GoBack -= GoToPrevMenu;
             }
+
+            Dispose();
         }
 
         public async void SetState(MenuStates newState)

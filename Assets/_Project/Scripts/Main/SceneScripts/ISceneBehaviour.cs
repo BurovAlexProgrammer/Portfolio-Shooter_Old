@@ -1,6 +1,4 @@
-﻿using Zenject;
-
-namespace _Project.Scripts.Main.SceneScripts
+﻿namespace _Project.Scripts.Main.SceneScripts
 {
     public interface ISceneBehaviour 
     {

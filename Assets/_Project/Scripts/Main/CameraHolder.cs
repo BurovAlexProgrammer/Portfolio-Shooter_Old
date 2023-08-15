@@ -1,13 +1,19 @@
 ﻿using _Project.Scripts.Main.AppServices;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main
 {
     public class CameraHolder : MonoBehaviour
     {
-        [Inject] private ScreenService _screenService;
-        
+        private ScreenService _screenService;
+
+        private void Awake()
+        {
+            _screenService = Context.GetService<ScreenService>();
+        }
+
         private void OnDestroy()
         {
             if (_screenService == null || _screenService.MainCamera == null) return;

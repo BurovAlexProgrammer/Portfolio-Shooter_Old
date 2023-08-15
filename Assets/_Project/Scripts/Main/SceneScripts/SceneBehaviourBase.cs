@@ -1,27 +1,26 @@
-﻿using _Project.Scripts.Main.Contexts;
-using _Project.Scripts.Main.Game;
+﻿using _Project.Scripts.Main.Game;
+using Main.Contexts;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.SceneScripts
 {
-    public abstract class SceneBehaviourBase : MonoInstaller, ISceneBehaviour
+    public abstract class SceneBehaviourBase : MonoBehaviour, ISceneBehaviour
     {
         [SerializeField] private Transform _playerStartPoint;
         private PlayerBase _player;
-        
-        public override void Start()
+
+        public void Start()
         {
             Debug.Log("Start");
-            _player = GamePlayContext.Player;
-            _player.CameraHolder.SetCamera();
-            _player.Enable();
-            _player.transform.position = _playerStartPoint.position;
-            _player.transform.rotation = _playerStartPoint.rotation;
-        }
+            _player = Context.GetSceneObject<Player>();
 
-        public override void InstallBindings()
-        {
+            if (_player != null)
+            {
+                _player.CameraHolder.SetCamera();
+                _player.Enable();
+                _player.transform.position = _playerStartPoint.position;
+                _player.transform.rotation = _playerStartPoint.rotation;
+            }
         }
     }
 }

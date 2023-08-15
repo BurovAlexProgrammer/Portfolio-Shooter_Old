@@ -1,20 +1,27 @@
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Game.GameState;
 using Cysharp.Threading.Tasks;
-using Zenject;
+using Main.Contexts;
+using Main.Service;
 
 namespace _Project.Scripts.Main.Menu
 {
     public class MainMenuController : MenuController
     {
-        [Inject] private SceneLoaderService _sceneLoader;
-        [Inject] private GameManagerService _gameManager;
-        
-        private void Start()
+        private SceneLoaderService _sceneLoader;
+        private GameManagerService _gameManager;
+
+        protected override void Init()
         {
-            _ = EnterState(MenuStates.MainMenu);
+            base.Init();
+            _sceneLoader = Context.GetService<SceneLoaderService>();
+            _gameManager = Context.GetService<GameManagerService>();
         }
 
+        private void Start()
+        {
+            EnterState(MenuStates.MainMenu).Forget();
+        }
 
         public async void QuitGame()
         {
@@ -43,11 +50,11 @@ namespace _Project.Scripts.Main.Menu
                     break;
             }
         }
-        
+
         protected override async UniTask ExitState(MenuStates oldState)
         {
             await base.ExitState(oldState);
-            
+
             switch (oldState)
             {
                 case MenuStates.Settings:

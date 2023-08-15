@@ -1,8 +1,9 @@
 ﻿using _Project.Scripts.Extension.Attributes;
 using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.Main.Audio;
+using Main.Contexts;
+using Main.Service;
 using UnityEngine;
-using Zenject;
 
 namespace _Project.Scripts.Main.Game.Health
 {
@@ -13,10 +14,11 @@ namespace _Project.Scripts.Main.Game.Health
         [SerializeField] private AudioEvent _gameOverAudioEvent;
         [SerializeField] private AudioEvent _takeDamageAudioEvent;
 
-        [Inject] private GameManagerService _gameManager;
+        private GameManagerService _gameManager;
 
         private void Awake()
         {
+            _gameManager = Context.GetService<GameManagerService>();
             _audioSource = GetComponent<AudioSource>();
         }
 
@@ -36,13 +38,13 @@ namespace _Project.Scripts.Main.Game.Health
             OnChanged -= OnChangedHealth;
             OnDead -= OnLifeEnd;
         }
-        
+
         private void OnLifeEnd()
         {
             _gameOverAudioEvent.Play(_audioSource);
             _gameManager.RunGameOver();
         }
-        
+
         private void OnChangedHealth(HealthBase health)
         {
             _takeDamageAudioEvent.Play(_audioSource);

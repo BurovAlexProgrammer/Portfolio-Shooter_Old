@@ -1,6 +1,6 @@
 ﻿using _Project.Scripts.Main.AppServices.SceneServices;
-using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
 using _Project.Scripts.Main.Game;
+using Main.Service;
 
 namespace _Project.Scripts.Main.Contexts.Installers
 {
