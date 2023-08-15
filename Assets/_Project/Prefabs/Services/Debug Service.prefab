@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5401816689806275438}
-  - component: {fileID: 2020632961071291257}
+  - component: {fileID: 1914221857636106461}
   m_Layer: 0
   m_Name: Debug Service
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2020632961071291257
+--- !u!114 &1914221857636106461
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,13 +42,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 2850553054769956721}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 045e9c48955241b9b931cbcf40181905, type: 3}
+  m_Script: {fileID: 11500000, guid: e70ec16521824f12954d90443f0aee9b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _serviceConfig: {fileID: 11400000, guid: f3ec578b601ffdf4aab810e9f4e3cf38, type: 2}
-  _explosionGizmoPrefab: {fileID: 6628451794915386892, guid: 50445ee2ca6a7ab46adb9ec45beeab48,
-    type: 3}
-  _gizmosContainer: {fileID: 5734978998176976126}
+  Config: {fileID: 11400000, guid: f3ec578b601ffdf4aab810e9f4e3cf38, type: 2}
 --- !u!1 &8569542398087246204
 GameObject:
   m_ObjectHideFlags: 0

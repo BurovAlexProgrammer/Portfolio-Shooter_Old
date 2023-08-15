@@ -42,7 +42,7 @@ namespace Main.Contexts
 
             if (newService is IConstructInstaller)
             {
-                throw new Exception($"Service {typeof(T).Name} has Construct. Use Services.Register(IServiceInstaller installer) instead");
+                throw new Exception($"Service {typeof(T).Name} has Construct. Use Services.RegisterService(IServiceInstaller installer) instead");
             }
 
             _registeredServices.Add(typeof(T), newService);
@@ -59,7 +59,7 @@ namespace Main.Contexts
 
             if (newService is not IConstructInstaller)
             {
-                throw new Exception($"Service {typeof(T).Name} doesn't have Construct. Use Services.Register() instead");
+                throw new Exception($"Service {typeof(T).Name} doesn't have Construct. Use Services.RegisterService() instead");
             }
 
             (newService as IConstructInstaller).Construct(installer);

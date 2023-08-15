@@ -42,7 +42,7 @@ namespace _Project.Scripts.Main.AppServices
             _eventListenerService = Context.GetService<EventListenerService>();
             _audioService = Context.GetService<AudioService>();
             _gameStateMachine = new GameStateMachine();
-            _controlService.Controls.Player.Pause.BindAction(BindActions.Started, PauseGame);
+            _controlService.Controls1.Player.Pause.BindAction(BindActions.Started, PauseGame);
         }
 
         public async UniTask SetGameState<T>() where T : IGameState
@@ -89,8 +89,8 @@ namespace _Project.Scripts.Main.AppServices
         {
             _audioService.PlayMusic(AudioService.MusicPlayerState.Battle);
             _controlService.LockCursor();
-            _controlService.Controls.Player.Enable();
-            _controlService.Controls.Menu.Disable();
+            _controlService.Controls1.Player.Enable();
+            _controlService.Controls1.Menu.Disable();
             _statisticService.ResetSessionRecords();
         }
 
@@ -106,13 +106,13 @@ namespace _Project.Scripts.Main.AppServices
             var fixedDeltaTime = Time.fixedDeltaTime;
             _transaction = true;
             _isGamePause = true;
-            _controlService.Controls.Player.Disable();
+            _controlService.Controls1.Player.Disable();
             _controlService.UnlockCursor();
             SwitchPause?.Invoke(_isGamePause);
 
             await FluentSetTimeScale(0f);
 
-            _controlService.Controls.Menu.Enable();
+            _controlService.Controls1.Menu.Enable();
             Time.fixedDeltaTime = fixedDeltaTime;
             _transaction = false;
         }
@@ -129,12 +129,12 @@ namespace _Project.Scripts.Main.AppServices
             _transaction = true;
             _isGamePause = false;
             SwitchPause?.Invoke(_isGamePause);
-            _controlService.Controls.Player.Enable();
+            _controlService.Controls1.Player.Enable();
             _controlService.LockCursor();
 
             await FluentSetTimeScale(1f);
 
-            _controlService.Controls.Menu.Disable();
+            _controlService.Controls1.Menu.Disable();
             _transaction = false;
         }
 
@@ -142,12 +142,12 @@ namespace _Project.Scripts.Main.AppServices
         {
             Debug.Log("Game Over");
             _statisticService.EndGameDataSaving(this);
-            _controlService.Controls.Player.Disable();
+            _controlService.Controls1.Player.Disable();
 
             await FluentSetTimeScale(1f);
 
             _controlService.UnlockCursor();
-            _controlService.Controls.Menu.Enable();
+            _controlService.Controls1.Menu.Enable();
 
             _isGameOver = true;
             GameOver?.Invoke();

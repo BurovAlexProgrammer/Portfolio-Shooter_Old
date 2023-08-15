@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Main.Contexts
 {
-    public class BootContextComponent : MonoBehaviour
+    public class ContextComponent : MonoBehaviour
     {
         private Transform ContextHierarchy;
         private Transform ServicesHierarchy;
@@ -16,6 +16,7 @@ namespace Main.Contexts
             ServicesHierarchy.SetParent(ContextHierarchy);
             DontDestroyOnLoad(ServicesHierarchy.gameObject);
             Context.Init(ContextHierarchy, ServicesHierarchy);
+            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()

@@ -22,7 +22,8 @@ namespace _Project.Scripts.Main.Contexts.Installers
         {
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
-            Context.RegisterService<ControlService>(_controlServiceInstaller);
+            Context.RegisterService<ControlService>();
+            Context.RegisterService<FileService>(); //How to Register IFileService 
             Context.RegisterService<ScreenService>(_screenServiceInstaller);
             Context.RegisterService<PoolService>();
             Context.RegisterService<DebugService>(_debugServiceInstaller);

@@ -50,7 +50,7 @@ namespace _Project.Scripts.Main.Game
             _health = GetComponent<HealthBase>();
             _characterController = GetComponent<UnityEngine.CharacterController>();
             _audioSource = GetComponent<AudioSource>();
-            _playerControl = _controlService.Controls.Player;
+            _playerControl = _controlService.Controls1.Player;
         }
 
         private void Start()

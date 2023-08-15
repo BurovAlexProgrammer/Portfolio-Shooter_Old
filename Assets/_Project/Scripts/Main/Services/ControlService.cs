@@ -1,20 +1,23 @@
 using _Project.Scripts.Main.AppServices.Base;
 using JetBrains.Annotations;
+using Main.Service;
 using UnityEngine;
 
 namespace _Project.Scripts.Main.AppServices
 {
     [UsedImplicitly]
-    public class ControlService : IService
+    public class ControlService : IService, IConstruct
     {
-        public readonly Controls Controls;
+        public Controls _controls;
         public CursorLockMode CursorLockState => Cursor.lockState;
 
-        public ControlService()
+        public Controls Controls1 => _controls;
+
+        public void Construct()
         {
-            Controls = new Controls();
+            _controls = new Controls();
         }
-        
+
         public void LockCursor()
         {
             Cursor.lockState = CursorLockMode.Locked;

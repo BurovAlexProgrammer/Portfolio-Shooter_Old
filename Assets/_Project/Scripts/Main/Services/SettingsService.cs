@@ -7,7 +7,7 @@ using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
 
 namespace _Project.Scripts.Main.AppServices
 {
-    public class SettingsService : MonoBehaviour, IService, IConstruct
+    public class SettingsService : MonoBehaviour, IService, IConstructInstaller
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
@@ -24,14 +24,6 @@ namespace _Project.Scripts.Main.AppServices
         public AudioService AudioService => _audioService;
         public ScreenService ScreenService => _screenService;
         public IFileService FileService => _fileService;
-
-        public void Construct()
-        {
-            _audioService = Context.GetService<AudioService>();
-            _screenService = Context.GetService<ScreenService>();
-            _fileService = Context.GetService<FileService>();
-            Init();
-        }
 
         private void Init()
         {
@@ -88,6 +80,18 @@ namespace _Project.Scripts.Main.AppServices
             {
                 settingGroup.ApplySettings(this);
             }
+        }
+
+        public void Construct(IServiceInstaller installer)
+        {
+            var serviceInstaller = installer as SettingsServiceInstaller;
+            _videoSettings = serviceInstaller.VideoSettings;
+                _audioSettings = serviceInstaller.AudioSettings;
+            _gameSettings = serviceInstaller.GameSettings;
+            _audioService = Context.GetService<AudioService>();
+            _screenService = Context.GetService<ScreenService>();
+            _fileService = Context.GetService<FileService>();
+            Init();
         }
     }
 }
