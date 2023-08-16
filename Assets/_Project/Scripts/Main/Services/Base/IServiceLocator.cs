@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Main.AppServices.Base
+﻿namespace Main.Services
 {
     public interface IServiceLocator<T>
     {

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Project.Scripts.Main
+namespace Main
 {
     [CreateAssetMenu(menuName = "Custom/GameColors")]
     public class GameColors : ScriptableObject

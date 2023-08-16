@@ -1,4 +1,4 @@
-﻿namespace Main.Service
+﻿namespace Main.Services
 {
     public interface IConstruct
     {

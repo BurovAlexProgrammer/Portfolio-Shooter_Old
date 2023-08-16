@@ -6,7 +6,7 @@ using Newtonsoft.Json.Converters;
 using UnityEngine;
 using Object = System.Object;
 
-namespace _Project.Scripts.Extension
+namespace Main.Extension
 {
     public static partial class Common
     {

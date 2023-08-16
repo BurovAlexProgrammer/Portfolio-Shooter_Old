@@ -1,6 +1,6 @@
 using System;
-using _Project.Scripts.Main;
-using _Project.Scripts.Main.Game.Health;
+using Main;
+using Main.Game.Health;
 using FluentAssertions;
 using NSubstitute;
 using NUnit.Framework;

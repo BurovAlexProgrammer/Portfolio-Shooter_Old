@@ -1,14 +1,13 @@
 #nullable enable
 using System;
-using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
-using SceneName = _Project.Scripts.Main.AppServices.SceneLoaderService.Scenes;
+using SceneName = Main.Services.SceneLoaderService.Scenes;
 
-namespace _Project.Scripts.Main.Game.GameState
+namespace Main.Game.GameState
 {
     [UsedImplicitly]
     public class GameStateMachine

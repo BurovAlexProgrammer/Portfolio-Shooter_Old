@@ -1,6 +1,6 @@
-﻿using _Project.Scripts.Main.AppServices;
+﻿using Main.Services;
 
-namespace Main.Service
+namespace Main.Services
 {
     public class DebugServiceInstaller : BaseServiceInstaller
     {

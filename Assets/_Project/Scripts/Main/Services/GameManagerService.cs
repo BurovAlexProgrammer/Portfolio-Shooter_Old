@@ -1,15 +1,14 @@
 using System;
-using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Game.GameState;
+using Main.Extension;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Contexts;
-using Main.Service;
+using Main.Game.GameState;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using CharacterController = _Project.Scripts.Main.Game.CharacterController;
+using CharacterController = Main.Game.CharacterController;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     public class GameManagerService : MonoBehaviour, IService, IConstruct
     {

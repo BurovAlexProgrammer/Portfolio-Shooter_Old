@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Main.Game
+﻿namespace Main.Game.Player
 {
     public class Player: PlayerBase
     {

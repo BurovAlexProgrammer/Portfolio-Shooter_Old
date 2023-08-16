@@ -1,10 +1,10 @@
-﻿using _Project.Scripts.Main.Game.Weapon;
-using _Project.Scripts.Main.Wrappers;
+﻿using Main.Game.Weapon;
+using Main.Wrappers;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Health
+namespace Main.Game.Health
 {
     [DisallowMultipleComponent]
     public class SimpleHealth : HealthBase

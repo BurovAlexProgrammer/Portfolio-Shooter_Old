@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using _Project.Scripts.Main.AppServices;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using Object = System.Object;
 

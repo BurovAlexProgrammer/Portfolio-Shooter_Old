@@ -1,13 +1,12 @@
 ﻿using System;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Audio;
-using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.Game.Weapon;
+using Main.Audio;
+using Main.Game.Health;
+using Main.Game.Weapon;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game.Player
 {
     [RequireComponent(typeof(HealthBase))]
     [RequireComponent(typeof(UnityEngine.CharacterController))]

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace _Project.Scripts.Extension.Attributes
+namespace Main.Extension.Attributes
 {
     [Serializable]
     public struct RangedFloat

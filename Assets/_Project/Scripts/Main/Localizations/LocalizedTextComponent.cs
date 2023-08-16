@@ -1,10 +1,9 @@
-using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Localizations
+namespace Main.Localizations
 {
     public abstract class LocalizedTextComponent : MonoBehaviour
     {

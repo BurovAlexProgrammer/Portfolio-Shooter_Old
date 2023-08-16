@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game
 {
     [CreateAssetMenu(menuName = "Custom/CharacterData")]
     public class CharacterData : ScriptableObject

@@ -1,7 +1,7 @@
-using _Project.Scripts.Main.AppServices;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Settings
+namespace Main.Settings
 {
     public abstract class SettingsSO : ScriptableObject
     {

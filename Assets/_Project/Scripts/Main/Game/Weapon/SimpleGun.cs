@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Main.Game.Weapon
+﻿namespace Main.Game.Weapon
 {
     public class SimpleGun : GunBase
     {

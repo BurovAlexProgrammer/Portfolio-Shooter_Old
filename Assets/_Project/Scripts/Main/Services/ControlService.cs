@@ -1,9 +1,8 @@
-using _Project.Scripts.Main.AppServices.Base;
+using Main.Services;
 using JetBrains.Annotations;
-using Main.Service;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     [UsedImplicitly]
     public class ControlService : IService, IConstruct

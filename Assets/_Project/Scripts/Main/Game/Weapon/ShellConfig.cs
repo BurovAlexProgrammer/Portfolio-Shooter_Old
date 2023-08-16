@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Weapon
+namespace Main.Game.Weapon
 {
     [CreateAssetMenu(menuName = "Custom/Shell")]
     public class ShellConfig : ScriptableObject

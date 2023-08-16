@@ -2,7 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine.InputSystem;
 
-namespace _Project.Scripts.Extension
+namespace Main.Extension
 {
     public enum BindActions
     {

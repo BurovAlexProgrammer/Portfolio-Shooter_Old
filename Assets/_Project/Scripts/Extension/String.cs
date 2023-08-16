@@ -1,6 +1,6 @@
 using System;
 
-namespace _Project.Scripts.Extension
+namespace Main.Extension
 {
     public static partial class Common
     {

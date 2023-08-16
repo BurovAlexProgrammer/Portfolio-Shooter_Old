@@ -1,17 +1,16 @@
-using _Project.Scripts.Main.AppServices;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using static _Project.Scripts.Extension.Common;
-using static _Project.Scripts.Main.StatisticData.FormatType;
-using static _Project.Scripts.Main.StatisticData.RecordName;
+using static Main.Extension.Common;
+using static Main.StatisticData.FormatType;
+using static Main.StatisticData.RecordName;
 
-namespace _Project.Scripts.Main.UI.Window
+namespace Main.UI.Window
 {
     public class WindowGameOver : WindowView
     {

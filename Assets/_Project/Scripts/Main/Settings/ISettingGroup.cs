@@ -1,6 +1,6 @@
-using _Project.Scripts.Main.AppServices;
+using Main.Services;
 
-namespace _Project.Scripts.Main.Settings
+namespace Main.Settings
 {
     public interface ISettingGroup
     {

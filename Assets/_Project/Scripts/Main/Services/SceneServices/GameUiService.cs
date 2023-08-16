@@ -1,12 +1,12 @@
-﻿using _Project.Scripts.Main.Game;
-using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.UI;
-using _Project.Scripts.Main.UI.Window;
+﻿using Main.UI;
+using Main.UI.Window;
 using Cysharp.Threading.Tasks;
-using Main.Service;
+using Main.Game.Health;
+using Main.Game.Player;
+using Main.Services;
 using TMPro;
 
-namespace _Project.Scripts.Main.AppServices.SceneServices
+namespace Main.Services
 {
     public class GameUiService : IService, IConstructInstaller
     {

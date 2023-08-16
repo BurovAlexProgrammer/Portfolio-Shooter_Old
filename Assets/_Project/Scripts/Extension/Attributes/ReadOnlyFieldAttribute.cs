@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Extension.Attributes
+namespace Main.Extension.Attributes
 {
     [System.AttributeUsage(System.AttributeTargets.Field, Inherited = true, AllowMultiple = false)]
     public class ReadOnlyFieldAttribute : PropertyAttribute { }

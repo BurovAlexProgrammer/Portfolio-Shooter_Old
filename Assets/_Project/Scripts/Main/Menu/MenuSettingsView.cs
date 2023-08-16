@@ -1,16 +1,15 @@
 using System;
 using System.Linq;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Localizations;
-using _Project.Scripts.Main.UI;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Localizations;
+using Main.Services;
+using Main.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Main.Menu
+namespace Main.Menu
 {
     public class MenuSettingsView : MenuView
     {

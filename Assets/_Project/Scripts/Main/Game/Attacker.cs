@@ -3,7 +3,7 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game
 {
     [DisallowMultipleComponent]
     public class Attacker : MonoBehaviour

@@ -1,10 +1,9 @@
-﻿using _Project.Scripts.Main.Contexts;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Brain
+namespace Main.Game.Brain
 {
     [CreateAssetMenu(menuName = "Custom/Brain/Hunter")]
     public class HunterBrain : Brain
@@ -50,7 +49,7 @@ namespace _Project.Scripts.Main.Game.Brain
 
         private void FindTarget(BrainOwner brainOwner)
         {
-            var player = Context.GetSceneObject<Player>();
+            var player = Context.GetSceneObject<Player.Player>();
             
             if (player == null)
             {

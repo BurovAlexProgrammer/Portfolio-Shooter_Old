@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     [CreateAssetMenu(menuName = "Custom/Debug Config")]
     public class DebugServiceConfig : ScriptableObject

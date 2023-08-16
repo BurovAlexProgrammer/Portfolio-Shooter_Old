@@ -1,8 +1,8 @@
-﻿using _Project.Scripts.Extension.Attributes;
+﻿using Main.Extension.Attributes;
 using UnityEditor;
 using UnityEngine;
 
-namespace _Project.Scripts.Extension.Editor
+namespace Main.Extension.Editor
 {
     [CustomPropertyDrawer(typeof(ReadOnlyFieldAttribute))]
     public class ReadOnlyDrawer : PropertyDrawer

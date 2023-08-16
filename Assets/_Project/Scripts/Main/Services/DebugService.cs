@@ -1,10 +1,10 @@
 ﻿using System;
-using _Project.Scripts.Main.Game;
+using Main.Game;
 using DG.Tweening;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     public class DebugService : MonoBehaviour, IService, IConstructInstaller
     {

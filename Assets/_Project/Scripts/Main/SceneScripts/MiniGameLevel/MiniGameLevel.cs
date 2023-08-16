@@ -1,4 +1,4 @@
-namespace _Project.Scripts.Main.SceneScripts.MiniGameLevel
+namespace Main.SceneScripts.MiniGameLevel
 {
     public class MiniGameLevel : SceneBehaviourBase
     {

@@ -1,6 +1,6 @@
-﻿using _Project.Scripts.Main.Settings;
+﻿using Main.Settings;
 
-namespace Main.Service
+namespace Main.Services
 {
     public class SettingsServiceInstaller : BaseServiceInstaller
     {

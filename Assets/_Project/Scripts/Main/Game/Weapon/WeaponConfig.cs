@@ -1,7 +1,7 @@
-﻿using _Project.Scripts.Main.Audio;
+﻿using Main.Audio;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Weapon
+namespace Main.Game.Weapon
 {
     [CreateAssetMenu(menuName = "Custom/Weapon")]
     public class WeaponConfig : ScriptableObject

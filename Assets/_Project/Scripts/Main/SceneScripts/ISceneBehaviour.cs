@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Main.SceneScripts
+﻿namespace Main.SceneScripts
 {
     public interface ISceneBehaviour 
     {

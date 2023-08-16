@@ -1,4 +1,4 @@
-﻿using _Project.Scripts.Main.Game.Health;
+﻿using Main.Game.Health;
 using NSubstitute;
 
 namespace Tests.PlayMode.Health

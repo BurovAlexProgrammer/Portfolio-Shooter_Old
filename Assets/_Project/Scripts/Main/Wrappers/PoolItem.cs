@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Threading;
-using _Project.Scripts.Extension;
+using Main.Extension;
 using smApplication.Scripts.Extension;
 using UnityEngine;
 using Object = System.Object;

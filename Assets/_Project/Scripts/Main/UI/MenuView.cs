@@ -1,10 +1,10 @@
 using System;
-using _Project.Scripts.Extension;
+using Main.Extension;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.UI
+namespace Main.UI
 {
     [RequireComponent(typeof(RectTransform))]
     [RequireComponent(typeof(CanvasGroup))]

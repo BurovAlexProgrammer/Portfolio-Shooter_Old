@@ -1,15 +1,16 @@
 ﻿using System;
 using System.IO;
-using _Project.Scripts.Main.Game.GameState;
+using Main;
+using Main.Game.GameState;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Main.Contexts;
 using Newtonsoft.Json;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
-using static _Project.Scripts.Main.StatisticData;
+using static Main.StatisticData;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     [UsedImplicitly]
     public class StatisticService : IService, IConstruct

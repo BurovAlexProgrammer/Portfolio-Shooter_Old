@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Scripts.Main.AppServices;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game
 {
     public class ExplosionEffect : MonoBehaviour
     {

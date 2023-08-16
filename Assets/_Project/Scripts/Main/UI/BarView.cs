@@ -1,9 +1,9 @@
-using _Project.Scripts.Extension.Attributes;
+using Main.Extension.Attributes;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Main.UI
+namespace Main.UI
 {
     public class BarView : MonoBehaviour
     {

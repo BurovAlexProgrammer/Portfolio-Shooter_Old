@@ -1,8 +1,8 @@
-﻿using _Project.Scripts.Extension;
+﻿using Main.Extension;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game
 {
     public class GizmoItem : MonoBehaviour
     {

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Contexts;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using sm_application.Scripts.Main.Wrappers;
 using UnityEngine;
 
-namespace Main.Service
+namespace Main.Services
 {
     public class PoolService : IPoolService
     {

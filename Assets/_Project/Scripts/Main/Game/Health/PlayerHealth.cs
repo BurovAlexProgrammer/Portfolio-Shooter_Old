@@ -1,11 +1,10 @@
-﻿using _Project.Scripts.Extension.Attributes;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Audio;
+﻿using Main.Extension.Attributes;
+using Main.Audio;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Health
+namespace Main.Game.Health
 {
     [DisallowMultipleComponent]
     public class PlayerHealth : HealthBase

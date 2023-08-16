@@ -1,7 +1,7 @@
 ﻿using UnityEngine.EventSystems;
 using UnityEngine.InputSystem.UI;
 
-namespace Main.Service
+namespace Main.Services
 {
     public class ControlServiceInstaller : BaseServiceInstaller
     {

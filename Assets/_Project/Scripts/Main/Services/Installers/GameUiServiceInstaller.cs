@@ -1,10 +1,10 @@
-﻿using _Project.Scripts.Main.UI;
-using _Project.Scripts.Main.UI.Window;
-using Main.Service;
+﻿using Main.UI;
+using Main.UI.Window;
+using Main.Services;
 using TMPro;
 using UnityEngine.Serialization;
 
-namespace _Project.Scripts.Main.AppServices.SceneServices
+namespace Main.Services
 {
     public class GameUiServiceInstaller : BaseServiceInstaller
     {

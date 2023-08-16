@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.UI;
+using Main.UI;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using UnityEngine.UI;
-using static _Project.Scripts.Extension.Common;
-using static _Project.Scripts.Main.StatisticData;
+using static Main.Extension.Common;
+using static Main.StatisticData;
 
-namespace _Project.Scripts.Main.Menu
+namespace Main.Menu
 {
     public class MenuStatisticView : MenuView
     {

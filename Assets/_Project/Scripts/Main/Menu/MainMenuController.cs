@@ -1,10 +1,9 @@
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Game.GameState;
+using Main.Game.GameState;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 
-namespace _Project.Scripts.Main.Menu
+namespace Main.Menu
 {
     public class MainMenuController : MenuController
     {

@@ -1,14 +1,15 @@
 using System;
 using System.Collections.Generic;
-using _Project.Scripts.Extension;
+using Main.Extension;
+using Main;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     public class SceneLoaderService : MonoBehaviour, IService, IConstruct
     {

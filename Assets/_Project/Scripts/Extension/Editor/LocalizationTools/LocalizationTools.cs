@@ -2,11 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using _Project.Scripts.Main.Localizations;
+using Main.Localizations;
 using UnityEngine;
 using Newtonsoft.Json;
 
-namespace _Project.Scripts.Extension.Editor.LocalizationTools
+namespace Main.Extension.Editor.LocalizationTools
 {
     public class LocalizationTools
     {

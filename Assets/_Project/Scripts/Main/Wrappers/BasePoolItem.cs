@@ -1,8 +1,8 @@
 ﻿using System;
-using _Project.Scripts.Extension;
+using Main.Extension;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Wrappers
+namespace Main.Wrappers
 {
     public abstract class BasePoolItem : MonoBehaviour
     {

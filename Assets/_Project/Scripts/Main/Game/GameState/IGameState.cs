@@ -1,7 +1,7 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
 
-namespace _Project.Scripts.Main.Game.GameState
+namespace Main.Game.GameState
 {
     public interface IGameState
 

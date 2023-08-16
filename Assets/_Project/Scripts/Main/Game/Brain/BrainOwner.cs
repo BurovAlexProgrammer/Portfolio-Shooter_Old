@@ -1,14 +1,12 @@
-using _Project.Scripts.Extension;
-using _Project.Scripts.Extension.Attributes;
-using _Project.Scripts.Main.AppServices.SceneServices;
-using _Project.Scripts.Main.Contexts;
-using _Project.Scripts.Main.Game.Health;
+using Main.Extension;
+using Main.Extension.Attributes;
+using Main.Game.Health;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace _Project.Scripts.Main.Game.Brain
+namespace Main.Game.Brain
 {
     [DisallowMultipleComponent]
     public class BrainOwner : MonoBehaviour

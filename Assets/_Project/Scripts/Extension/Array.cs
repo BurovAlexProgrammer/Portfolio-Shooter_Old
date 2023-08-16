@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
 
-namespace _Project.Scripts.Extension
+namespace Main.Extension
 {
     public static partial class Common 
     {

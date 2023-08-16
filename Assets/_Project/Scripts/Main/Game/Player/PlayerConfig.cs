@@ -1,7 +1,7 @@
-﻿using _Project.Scripts.Extension.Attributes;
+﻿using Main.Extension.Attributes;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game.Player
 {
     [CreateAssetMenu(menuName = "Custom/Player Config")]
     public class PlayerConfig : ScriptableObject

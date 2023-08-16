@@ -1,10 +1,10 @@
-﻿using _Project.Scripts.Main.UI;
+﻿using Main.UI;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Main.Menu
+namespace Main.Menu
 {
     public class MenuAboutDemoView : MenuView
     {

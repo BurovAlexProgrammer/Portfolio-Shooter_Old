@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Brain
+namespace Main.Game.Brain
 {
     public abstract class Brain : ScriptableObject
     {

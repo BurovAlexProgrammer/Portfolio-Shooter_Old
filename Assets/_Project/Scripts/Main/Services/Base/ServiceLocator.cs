@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace _Project.Scripts.Main.AppServices.Base
+namespace Main.Services
 {
     public sealed class ServiceLocator<T> : IServiceLocator<T> where T: class
     {

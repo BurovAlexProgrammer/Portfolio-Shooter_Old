@@ -1,7 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.GameState
+namespace Main.Game.GameState
 {
     public static partial class GameStates
     {

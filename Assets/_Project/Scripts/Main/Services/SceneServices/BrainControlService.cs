@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using _Project.Scripts.Main.Game.Brain;
+using Main.Game.Brain;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices.SceneServices
+namespace Main.Services
 {
     public class BrainControlService : MonoBehaviour
     {

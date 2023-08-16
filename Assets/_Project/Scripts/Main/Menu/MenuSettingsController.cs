@@ -1,10 +1,9 @@
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Settings;
+using Main.Settings;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Menu
+namespace Main.Menu
 {
     public class MenuSettingsController : MonoBehaviour
     {

@@ -1,11 +1,10 @@
-﻿using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Contexts;
+﻿using Main.Extension;
 using Main.Contexts;
 using smApplication.Scripts.Extension;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace Main.Service
+namespace Main.Services
 {
     public abstract class BaseServiceInstaller: MonoBehaviour, IServiceInstaller
     {

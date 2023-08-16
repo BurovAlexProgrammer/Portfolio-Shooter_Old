@@ -1,9 +1,9 @@
 ﻿using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Weapon
+namespace Main.Game.Weapon
 {
     public abstract class GunBase: MonoBehaviour
     {

@@ -1,13 +1,13 @@
 ﻿using System.Threading;
-using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.Wrappers;
+using Main.Extension;
+using Main.Game.Health;
+using Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game.Weapon
+namespace Main.Game.Weapon
 {
     [RequireComponent(typeof(Rigidbody))]
     public abstract class ShellBase : BasePoolItem

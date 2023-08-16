@@ -1,8 +1,7 @@
-﻿using _Project.Scripts.Main.AppServices.SceneServices;
-using _Project.Scripts.Main.Game;
-using Main.Service;
+﻿using Main.Game.Player;
+using Main.Services;
 
-namespace _Project.Scripts.Main.Contexts.Installers
+namespace Main.Contexts.Installers
 {
     public interface IGamePlayContextInstaller 
     {

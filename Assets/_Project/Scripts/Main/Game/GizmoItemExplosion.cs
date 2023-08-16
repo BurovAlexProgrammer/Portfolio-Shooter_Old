@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Main.Game
+﻿namespace Main.Game
 {
     public class GizmoItemExplosion : GizmoItem
     {

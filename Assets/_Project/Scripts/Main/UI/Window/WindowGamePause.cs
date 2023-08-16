@@ -1,15 +1,13 @@
-using _Project.Scripts.Extension;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.AppServices.SceneServices;
+using Main.Extension;
 using _Project.Scripts.UI;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Main.UI.Window
+namespace Main.UI.Window
 {
     public class WindowGamePause : WindowView
     {

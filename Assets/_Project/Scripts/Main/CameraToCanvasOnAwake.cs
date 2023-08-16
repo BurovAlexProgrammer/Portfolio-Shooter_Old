@@ -1,9 +1,8 @@
-using _Project.Scripts.Main.AppServices;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main
+namespace Main
 {
     [RequireComponent(typeof(Canvas))]
     public class CameraToCanvasOnAwake : MonoBehaviour

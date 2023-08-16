@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace _Project.Scripts.Main.Wrappers
+namespace Main.Wrappers
 {
     public static class Serializer
     {

@@ -1,8 +1,8 @@
 using System;
-using _Project.Scripts.Main.AppServices;
+using Main.Services;
 using sm_application.Scripts.Main.Wrappers;
 
-namespace Main.Service
+namespace Main.Services
 {
     public interface IPoolService: IService, IConstruct
     {

@@ -1,9 +1,8 @@
-﻿using _Project.Scripts.Main.AppServices;
-using Main.Contexts;
-using Main.Service;
+﻿using Main.Contexts;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main
+namespace Main
 {
     public class CameraHolder : MonoBehaviour
     {

@@ -1,8 +1,8 @@
-﻿using _Project.Scripts.Main.Game;
-using Main.Contexts;
+﻿using Main.Contexts;
+using Main.Game.Player;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.SceneScripts
+namespace Main.SceneScripts
 {
     public abstract class SceneBehaviourBase : MonoBehaviour, ISceneBehaviour
     {

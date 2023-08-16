@@ -1,11 +1,11 @@
-using _Project.Scripts.Extension;
+using Main.Extension;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using Tayx.Graphy;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     public class ScreenService : MonoBehaviour, IService, IConstructInstaller
     {

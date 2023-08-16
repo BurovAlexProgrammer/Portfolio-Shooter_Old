@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Localizations;
+using Main.Extension;
+// using _Project.Scripts.Extension;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Main.Contexts;
-using Main.Service;
+using Main.Localizations;
 using sm_application.Scripts.Main.Wrappers;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.ResourceLocations;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     [UsedImplicitly]
     public class LocalizationService : IService, IConstruct
@@ -110,7 +110,7 @@ namespace _Project.Scripts.Main.AppServices
                 if (Application.isEditor)
                 {
                     Debug.LogError($"Key '{newKey}' not in current locale '{_currentLocale.ToString()}'.");
-                    var localizations = _localizations.Select((x) => x.Value);
+                    var localizations = Enumerable.Select(_localizations, (x) => x.Value);
                     foreach (var localization in localizations)
                     {
                         if (localization.LocalizedItems.ContainsKey(newKey) == false)

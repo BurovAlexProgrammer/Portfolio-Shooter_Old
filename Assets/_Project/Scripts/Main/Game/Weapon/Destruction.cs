@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Threading;
-using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Wrappers;
+using Main.Extension;
+using Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Project.Scripts.Main.Game.Weapon
+namespace Main.Game.Weapon
 {
     public class Destruction : BasePoolItem
     {

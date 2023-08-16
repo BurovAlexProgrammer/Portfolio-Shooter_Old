@@ -1,8 +1,8 @@
-﻿using _Project.Scripts.Extension;
+﻿using Main.Extension;
 using Cysharp.Threading.Tasks;
 using UnityEngine.SceneManagement;
 
-namespace _Project.Scripts.Main.Game.GameState
+namespace Main.Game.GameState
 {
     public static partial class GameStates
     {

@@ -1,12 +1,13 @@
 ﻿using System.Threading;
-using _Project.Scripts.Extension;
-using _Project.Scripts.Main.Wrappers;
+using Main.Extension;
+using Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Game.Player;
+using Main.Services;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game
 {
     public class Spawner : MonoBehaviour
     {
@@ -29,7 +30,7 @@ namespace _Project.Scripts.Main.Game
 
         private void Awake()
         {
-            _player = Context.GetSceneObject<Player>();
+            _player = Context.GetSceneObject<Player.Player>();
             _poolService = Context.GetService<PoolService>();
         }
 

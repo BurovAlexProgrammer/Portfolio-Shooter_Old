@@ -1,10 +1,9 @@
-﻿using _Project.Scripts.Extension;
-using _Project.Scripts.Main.AppServices;
+﻿using Main.Extension;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 
-namespace _Project.Scripts.Main.Game.GameState
+namespace Main.Game.GameState
 {
     public static partial class GameStates
     {

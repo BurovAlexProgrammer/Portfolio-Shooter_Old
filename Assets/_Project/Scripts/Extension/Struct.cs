@@ -1,11 +1,11 @@
 using System;
 using System.Threading;
-using _Project.Scripts.Extension.Attributes;
 using Cysharp.Threading.Tasks;
+using Main.Extension.Attributes;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace _Project.Scripts.Extension
+namespace Main.Extension
 {
     public static partial class Common
     {

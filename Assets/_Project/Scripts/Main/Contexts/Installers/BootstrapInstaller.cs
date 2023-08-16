@@ -1,13 +1,12 @@
 using System.Collections;
 using System.IO;
-using _Project.Scripts.Main.AppServices;
 using DG.Tweening;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace _Project.Scripts.Main.Contexts.Installers
+namespace Main.Contexts.Installers
 {
     public class BootstrapInstaller : MonoBehaviour
     {

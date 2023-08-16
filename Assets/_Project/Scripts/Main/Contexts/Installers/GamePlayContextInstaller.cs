@@ -1,7 +1,7 @@
 // using _Project.Scripts.Main.AppServices.SceneServices;
 // using _Project.Scripts.Main.AppServices.SceneServices.PoolService;
-// using _Project.Scripts.Main.Game;
-// using sm_application.Scripts.Main.Service;
+// using Main.Game;
+// using sm_application.Scripts.Main.Services;
 // using UnityEngine;
 //
 // namespace _Project.Scripts.Main.Contexts.Installers

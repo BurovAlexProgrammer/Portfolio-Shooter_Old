@@ -1,8 +1,8 @@
 ﻿using System;
 using UnityEngine;
-using CharacterController = _Project.Scripts.Main.Game.CharacterController;
+using CharacterController = Main.Game.CharacterController;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     public class EventListenerService : IService
     {

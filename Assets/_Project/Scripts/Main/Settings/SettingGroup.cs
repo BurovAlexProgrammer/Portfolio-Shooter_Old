@@ -1,13 +1,13 @@
 using System;
 using System.IO;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Wrappers;
+using Main.Services;
+using Main.Wrappers;
 using Newtonsoft.Json;
 using UnityEngine;
-using static _Project.Scripts.Extension.Common;
+using static Main.Extension.Common;
 using Debug = UnityEngine.Debug;
 
-namespace _Project.Scripts.Main.Settings
+namespace Main.Settings
 {
     [Serializable]
     public class SettingGroup<T> : ISettingGroup where T : SettingsSO

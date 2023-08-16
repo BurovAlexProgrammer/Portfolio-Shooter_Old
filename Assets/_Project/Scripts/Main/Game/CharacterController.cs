@@ -1,18 +1,17 @@
 using System.Threading;
-using _Project.Scripts.Extension.Attributes;
-using _Project.Scripts.Main.AppServices;
-using _Project.Scripts.Main.Audio;
-using _Project.Scripts.Main.Game.Brain;
-using _Project.Scripts.Main.Game.Health;
-using _Project.Scripts.Main.Wrappers;
+using Main.Extension.Attributes;
+using Main.Audio;
+using Main.Game.Brain;
+using Main.Game.Health;
+using Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
 using UnityEngine.AI;
-using static _Project.Scripts.Extension.Common;
+using static Main.Extension.Common;
 
-namespace _Project.Scripts.Main.Game
+namespace Main.Game
 {
     [DisallowMultipleComponent]
     public class CharacterController : BasePoolItem

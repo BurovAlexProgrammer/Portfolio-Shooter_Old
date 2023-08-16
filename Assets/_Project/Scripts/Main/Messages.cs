@@ -1,4 +1,4 @@
-﻿namespace _Project.Scripts.Main
+﻿namespace Main
 {
     public static class Messages
     {

@@ -1,9 +1,9 @@
 ﻿using System.IO;
-using _Project.Scripts.Main.AppServices.Base;
+using Main.Services;
 using JetBrains.Annotations;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     [UsedImplicitly]
     public class FileService : IFileService

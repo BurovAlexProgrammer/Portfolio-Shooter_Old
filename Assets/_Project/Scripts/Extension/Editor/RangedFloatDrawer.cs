@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-namespace _Project.Scripts.Extension.Attributes.Editor
+namespace Main.Extension.Attributes.Editor
 {
 	[CustomPropertyDrawer(typeof(RangedFloat), true)]
 	public class RangedFloatDrawer : PropertyDrawer {

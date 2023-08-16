@@ -1,9 +1,9 @@
-using _Project.Scripts.Extension;
+using Main.Extension;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace _Project.Scripts.Main.UI.ToggleView
+namespace Main.UI.ToggleView
 {
     [RequireComponent(typeof(UnityEngine.UI.Toggle))]
     public class ToggleView : MonoBehaviour

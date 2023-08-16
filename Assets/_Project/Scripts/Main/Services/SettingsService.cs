@@ -1,11 +1,11 @@
 using System.Collections.Generic;
-using _Project.Scripts.Main.Settings;
+using Main.Settings;
 using Main.Contexts;
-using Main.Service;
+using Main.Services;
 using UnityEngine;
-using AudioSettings = _Project.Scripts.Main.Settings.AudioSettings;
+using AudioSettings = Main.Settings.AudioSettings;
 
-namespace _Project.Scripts.Main.AppServices
+namespace Main.Services
 {
     public class SettingsService : MonoBehaviour, IService, IConstructInstaller
     {

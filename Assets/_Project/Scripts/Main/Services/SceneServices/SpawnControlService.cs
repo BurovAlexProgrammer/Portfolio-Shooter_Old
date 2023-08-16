@@ -1,7 +1,7 @@
-﻿using _Project.Scripts.Main.Game;
+﻿using Main.Game;
 using UnityEngine;
 
-namespace _Project.Scripts.Main.AppServices.SceneServices
+namespace Main.Services
 {
     public class SpawnControlService : MonoBehaviour
     {
