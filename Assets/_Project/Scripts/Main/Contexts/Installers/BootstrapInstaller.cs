@@ -20,17 +20,21 @@ namespace Main.Contexts.Installers
         {
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
-            Context.RegisterService<ControlService>();
-            Context.RegisterService<FileService>(); //How to Register IFileService 
-            Context.RegisterService<ScreenService>(_screenServiceInstaller);
-            Context.RegisterService<SceneLoaderService>();
-            Context.RegisterService<PoolService>();
-            Context.RegisterService<DebugService>(_debugServiceInstaller);
-            Context.RegisterService<AudioService>(_audioServiceInstaller);
-            Context.RegisterService<SettingsService>(_settingsServiceInstaller);
-            Context.RegisterService<LocalizationService>();
-            Context.RegisterService<StatisticService>();
-            Context.RegisterService<GameManagerService>();
+            Context.BindService<ControlService>();
+            // Context.BindService<FileService>(); //How to Register IFileService 
+            Context.BindService<ScreenService>(_screenServiceInstaller);
+            // Context.BindService<SceneLoaderService>();
+            // Context.BindService<PoolService>();
+            // Context.BindService<DebugService>(_debugServiceInstaller);
+            // Context.BindService<AudioService>(_audioServiceInstaller);
+            // Context.BindService<SettingsService>(_settingsServiceInstaller);
+            // Context.BindService<LocalizationService>();
+            // Context.BindService<StatisticService>();
+            // Context.BindService<GameManagerService>();
+
+            Context.InitServices();
+
+            UnityEditor.EditorApplication.isPlaying = false;
             
             StartCoroutine(LateStartup());
         }
