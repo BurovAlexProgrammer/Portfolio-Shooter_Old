@@ -24,7 +24,6 @@ namespace Main.Menu
 
         public async void QuitGame()
         {
-            await _sceneLoader.HideScene();
             _gameManager.QuitGame();
         }
 

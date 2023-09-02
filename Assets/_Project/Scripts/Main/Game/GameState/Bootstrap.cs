@@ -14,7 +14,6 @@ namespace Main.Game.GameState
             public async UniTask EnterState()
             {
                 _sceneLoaderService ??= Context.GetService<SceneLoaderService>();
-                _sceneLoaderService.ShowScene();
                 await 3f.WaitInSeconds();
             }
         }

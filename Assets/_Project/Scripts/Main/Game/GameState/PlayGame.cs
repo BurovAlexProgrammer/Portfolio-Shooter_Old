@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Contexts;
+using Main.DTOs;
 using Main.Services;
 using UnityEngine;
 
@@ -25,7 +26,7 @@ namespace Main.Game.GameState
                 _statisticService ??= Context.GetService<StatisticService>();
                 await UniTask.Yield();
                 _gameManager.PrepareToPlay();
-                await _sceneLoaderService.LoadSceneAsync(SceneLoaderService.Scenes.MiniGameLevel);
+                await _sceneLoaderService.LoadSceneAsync(DTO.Scenes.MiniGameLevel);
             }
 
             public async UniTask ExitState()

@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using Main.Contexts;
+using Main.DTOs;
 using Main.Services;
 
 namespace Main.Game.GameState
@@ -16,7 +17,7 @@ namespace Main.Game.GameState
                 _audioService = Context.GetService<AudioService>();
                     _sceneLoaderService = Context.GetService<SceneLoaderService>();
                 _audioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
-                await _sceneLoaderService.LoadSceneAsync(SceneLoaderService.Scenes.MainMenu);
+                await _sceneLoaderService.LoadSceneAsync(DTO.Scenes.MainMenu);
             }
         }
     }

@@ -12,8 +12,9 @@ namespace Main.Localizations
 
         private TextMeshProUGUI _textMesh;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _textMesh = GetComponent<TextMeshProUGUI>();
         }
 

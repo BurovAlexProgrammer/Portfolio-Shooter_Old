@@ -1,7 +1,6 @@
 using System.Collections;
 using System.IO;
 using DG.Tweening;
-using Main.Contexts;
 using Main.Services;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -24,16 +23,14 @@ namespace Main.Contexts.Installers
             Context.RegisterService<ControlService>();
             Context.RegisterService<FileService>(); //How to Register IFileService 
             Context.RegisterService<ScreenService>(_screenServiceInstaller);
+            Context.RegisterService<SceneLoaderService>();
             Context.RegisterService<PoolService>();
             Context.RegisterService<DebugService>(_debugServiceInstaller);
             Context.RegisterService<AudioService>(_audioServiceInstaller);
             Context.RegisterService<SettingsService>(_settingsServiceInstaller);
             Context.RegisterService<LocalizationService>();
-            
-            // if (_debugServicePrefab.SaveLogToFile)
-            // {
-            //     Application.logMessageReceived += LogToFile;
-            // }
+            Context.RegisterService<StatisticService>();
+            Context.RegisterService<GameManagerService>();
             
             StartCoroutine(LateStartup());
         }

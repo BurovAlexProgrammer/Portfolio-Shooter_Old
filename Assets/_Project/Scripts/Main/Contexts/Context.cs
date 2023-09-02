@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Main.Services;
+using sm_application.Scripts.Main.Wrappers;
 using UnityEngine;
 using Object = System.Object;
 
@@ -15,6 +16,8 @@ namespace Main.Contexts
         private static Transform _contextHierarchy;
         private static Transform _servicesHierarchy;
 
+        private static Queue<Type> _complexServices = new Queue<Type>();
+
         public static Transform ContextHierarchy => _contextHierarchy;
 
         public static Transform ServicesHierarchy => _servicesHierarchy;
@@ -24,28 +27,74 @@ namespace Main.Contexts
             _contextHierarchy = contextHierarchy;
             _servicesHierarchy = servicesHierarchy;
         }
-        
+
         public static void RegisterService<T>() where T : IService
         {
-            if (_registeredServices.ContainsKey(typeof(T)))
+            T newService = default;
+            
+            try
             {
-                throw new Exception($"Service type of {typeof(T).Name} registered already");
+                if (_registeredServices.ContainsKey(typeof(T)))
+                {
+                    Log.Error($"Service type of {typeof(T).Name} registered already");
+                    return;
+                }
+
+                newService = Activator.CreateInstance<T>();
+
+                if (newService is IConstruct)
+                {
+                    (newService as IConstruct).Construct();
+                }
+
+                if (newService is IConstructInstaller)
+                {
+                    Log.Error($"Service {typeof(T).Name} has Construct. Use Services.RegisterService(IServiceInstaller installer) instead");
+                }
+
+                _registeredServices.Add(typeof(T), newService);
             }
-
-            var newService = Activator.CreateInstance<T>();
-
-            if (newService is IConstruct)
+            catch (Exception exc)
             {
-                (newService as IConstruct).Construct();
+                _registeredServices.Add(typeof(T), newService);
+                _complexServices.Enqueue(typeof(T));
             }
-
-            if (newService is IConstructInstaller)
+            finally
             {
-                throw new Exception($"Service {typeof(T).Name} has Construct. Use Services.RegisterService(IServiceInstaller installer) instead");
-            }
+                for (var i = 0; i < _complexServices.ToArray().Length; i++)
+                {
+                    try
+                    {
+                        var serviceType = _complexServices.Dequeue();
+                        var service = _registeredServices[serviceType];
 
-            _registeredServices.Add(typeof(T), newService);
+                        if (service is IConstruct)
+                        {
+                            (service as IConstruct).Construct();
+                        }
+
+                        if (service is IConstructInstaller)
+                        {
+                            Log.Error($"Service {serviceType.Name} has Construct. Use Services.RegisterService(IServiceInstaller installer) instead");
+                        }
+                    }
+                    catch (Exception exc)
+                    {
+                        _complexServices.Enqueue(typeof(T));
+                    }
+                }
+            }
         }
+
+        // private static T InstantiateService<T>() where T : class
+        // {
+        //     if (typeof(T) is MonoBehaviour)
+        //     {
+        //         var gameObject = new GameObject();
+        //         gameObject.name = typeof(T).Name;
+        //         return GameObject.Instantiate(gameObject) as T;
+        //     }
+        // }
 
         public static void RegisterService<T>(IServiceInstaller installer) where T : IService
         {

@@ -10,7 +10,7 @@ using CharacterController = Main.Game.CharacterController;
 
 namespace Main.Services
 {
-    public class GameManagerService : MonoBehaviour, IService, IConstruct
+    public class GameManagerService : IService, IConstruct
     {
         private GameStateMachine _gameStateMachine;
         private bool _isGamePause;
@@ -19,7 +19,6 @@ namespace Main.Services
         private ControlService _controlService;
         private SceneLoaderService _sceneLoader;
         private StatisticService _statisticService;
-        private EventListenerService _eventListenerService;
         private AudioService _audioService;
 
         public event Action<bool> SwitchPause;
@@ -38,7 +37,6 @@ namespace Main.Services
             _controlService = Context.GetService<ControlService>();
             _sceneLoader = Context.GetService<SceneLoaderService>();
             _statisticService = Context.GetService<StatisticService>();
-            _eventListenerService = Context.GetService<EventListenerService>();
             _audioService = Context.GetService<AudioService>();
             _gameStateMachine = new GameStateMachine();
             _controlService.Controls1.Player.Pause.BindAction(BindActions.Started, PauseGame);
@@ -49,19 +47,9 @@ namespace Main.Services
             await _gameStateMachine.SetState<T>();
         }
 
-        private void Awake()
-        {
-            _eventListenerService.CharacterDead += AddScoresOnCharacterDead;
-        }
-
         private void Start()
         {
             _gameStateMachine.Start().Forget();
-        }
-
-        private void OnDestroy()
-        {
-            _eventListenerService.CharacterDead -= AddScoresOnCharacterDead;
         }
 
         public void RestartGame()

@@ -1,46 +1,41 @@
 using System;
 using System.Collections.Generic;
-using Main.Extension;
-using Main;
+using System.Linq;
 using Cysharp.Threading.Tasks;
-using DG.Tweening;
-using Main.Services;
-using UnityEngine;
+using Main.DTOs;
+using Main.Extension;
 using UnityEngine.AddressableAssets;
 using UnityEngine.SceneManagement;
 
 namespace Main.Services
 {
-    public class SceneLoaderService : MonoBehaviour, IService, IConstruct
+    public class SceneLoaderService : IService, IConstruct
     {
-        [SerializeField] private ScenePicker _mainMenuScene;
-        [SerializeField] private CanvasGroup _blackFrame;
-        [SerializeField] private AnimationCurve _fadeCurve;
-
+        private Dictionary<DTO.Scenes, string> _sceneNames;
         private Scene _currentScene;
         private Scene _preparedScene;
         private Scene _initialScene;
-        private readonly Dictionary<Scenes, string> _sceneNames = new()
-        {
-            { Scenes.Boot, "Boot" },
-            { Scenes.MainMenu, "MainMenu" },
-            { Scenes.MiniGameLevel, "MiniGameLevel" },
-        };
-        
+        private Scene _bootScene;
+        public Scene InitialScene => _initialScene;
+
         public void Construct()
         {
-            
-            _initialScene = SceneManager.GetActiveScene();
-            _blackFrame.alpha = 1f;
-            ShowScene();
+            _sceneNames = Enum.GetValues(typeof(DTO.Scenes))
+                .Cast<DTO.Scenes>()
+                .ToDictionary(x => x, x => x.ToString());
+            _currentScene = _initialScene = SceneManager.GetActiveScene();
+            _bootScene = SceneManager.GetSceneByName(GetSceneName(DTO.Scenes.Boot));
         }
 
-        public async UniTask LoadSceneAsync(Scenes scene)
+        public bool InitialSceneEquals(DTO.Scenes scene)
         {
-            var sceneName = GetSceneName(scene);
-            await UniTask.WhenAll(HideScene(), PrepareScene(sceneName));
-            ActivatePreparedScene();
-            ShowScene();
+            return _currentScene.name == scene.ToString();
+        }
+
+        public async UniTask LoadSceneAsync(DTO.Scenes scene)
+        {
+            await UniTask.WhenAll(PrepareScene(scene));
+            SwitchToPreparedScene();
         }
 
         public async void ReloadActiveScene()
@@ -52,69 +47,49 @@ namespace Main.Services
             _preparedScene = sceneInstance.Scene;
             _preparedScene.SetActive(false);
         }
-        
+
+        public void UnloadCurrentScene()
+        {
+            var currentScene = SceneManager.GetActiveScene();
+            var newScene = SceneManager.CreateScene("Empty");
+            newScene.SetActive(true);
+
+            SceneManager.UnloadSceneAsync(currentScene);
+        }
+
         public async void UnloadActiveScene()
         {
             await SceneManager.UnloadSceneAsync(_currentScene);
         }
-        
-        public void ShowScene()
+
+        public bool IsCustomScene()
         {
-            _blackFrame.gameObject.SetActive(true);
-            _blackFrame
-                .DOFade(0f, 0.5f)
-                .From(1f)
-                .SetEase(_fadeCurve)
-                .OnComplete(() => _blackFrame.gameObject.SetActive(false));
+            return _initialScene != _bootScene;
         }
 
-        public async UniTask HideScene()
-        {
-            _blackFrame.gameObject.SetActive(true);
-            await _blackFrame
-                .DOFade(1f, 0.3f)
-                .From(0f)
-                .AsyncWaitForCompletion();
-        }
-
-        private async UniTask PrepareScene(string sceneName)
+        private async UniTask PrepareScene(DTO.Scenes scene)
         {
             _currentScene = SceneManager.GetActiveScene();
-            var asyncOperationHandle = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+            var asyncOperationHandle = Addressables.LoadSceneAsync(GetSceneName(scene), LoadSceneMode.Additive);
             await asyncOperationHandle.Task;
             var sceneInstance = asyncOperationHandle.Result;
             _preparedScene = sceneInstance.Scene;
             _preparedScene.SetActive(false);
         }
 
-        private void ActivatePreparedScene()
+        private void SwitchToPreparedScene()
         {
             _preparedScene.SetActive(true);
             SceneManager.SetActiveScene(_preparedScene);
             SceneManager.UnloadSceneAsync(_currentScene);
         }
 
-        public enum Scenes
+        private string GetSceneName(DTO.Scenes scene)
         {
-            Boot,
-            MainMenu,
-            Intro,
-            MiniGameLevel,
-        }
-
-        public bool InitialSceneEquals(Scenes scene)
-        {
-            if (_initialScene.name == null)
+            if (_sceneNames.TryGetValue(scene, out var result))
             {
-                _initialScene = SceneManager.GetActiveScene();
+                return result;
             }
-            
-            return GetSceneName(scene).Equals(_initialScene.name);
-        }
-
-        private string GetSceneName(Scenes scene)
-        {
-            if (_sceneNames.ContainsKey(scene)) return _sceneNames[scene];
 
             throw new Exception("Scene Key not found!");
         }

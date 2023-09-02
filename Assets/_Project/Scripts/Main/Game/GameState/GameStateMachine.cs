@@ -3,9 +3,9 @@ using System;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 using Main.Contexts;
+using Main.DTOs;
 using Main.Services;
 using UnityEngine;
-using SceneName = Main.Services.SceneLoaderService.Scenes;
 
 namespace Main.Game.GameState
 {
@@ -22,11 +22,12 @@ namespace Main.Game.GameState
         public GameStateMachine()
         {
             _sceneLoader = Context.GetService<SceneLoaderService>();
+            _activeState = new Initial_GameState();
         }
         
         public async UniTask Start()
         {
-            if (_sceneLoader.InitialSceneEquals(SceneName.Boot))
+            if (_sceneLoader.InitialSceneEquals(DTO.Scenes.Boot))
             {
                 await SetState<GameStates.Bootstrap>();
                 await SetState<GameStates.MainMenu>();

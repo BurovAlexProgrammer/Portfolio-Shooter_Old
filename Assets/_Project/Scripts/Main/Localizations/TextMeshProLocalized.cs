@@ -10,8 +10,9 @@ namespace Main.Localizations
 
         private TextMeshPro _textMesh;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             _textMesh = GetComponent<TextMeshPro>();
         }
 

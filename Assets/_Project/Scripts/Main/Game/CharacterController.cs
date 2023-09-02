@@ -26,7 +26,6 @@ namespace Main.Game
         [SerializeField] private AudioEvent _attackAudioEvent;
 
         private StatisticService _statisticService;
-        private EventListenerService _eventListener;
 
         public CancellationToken CancellationToken { get; private set; }
         private NavMeshAgent _navMeshAgent;
@@ -38,7 +37,6 @@ namespace Main.Game
         private void Awake()
         {
             _statisticService = Context.GetService<StatisticService>();
-            _eventListener = Context.GetService<EventListenerService>();
             CancellationToken = gameObject.GetCancellationTokenOnDestroy();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _brainOwner = GetComponent<BrainOwner>();
@@ -46,7 +44,6 @@ namespace Main.Game
             _health = GetComponent<HealthBase>();
             _attacker = GetComponent<Attacker>();
             _audioSource = GetComponent<AudioSource>();
-            _eventListener.SubscribeCharacter(this);
 
             if (_navMeshAgent != null)
             {

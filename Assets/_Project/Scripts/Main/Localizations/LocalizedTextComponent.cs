@@ -9,7 +9,7 @@ namespace Main.Localizations
     {
         protected LocalizationService _localization;
 
-        private void Awake()
+        protected virtual void Awake()
         {
             _localization = Context.GetService<LocalizationService>();
         }
