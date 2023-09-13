@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5267273263142944901}
-  - component: {fileID: 4887400520490138805}
+  - component: {fileID: 1641930100210027112}
   m_Layer: 0
   m_Name: Settings Service
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4887400520490138805
+--- !u!114 &1641930100210027112
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,18 +41,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 712946252079723239}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd3f1c2c3e554be0b429297b33c89979, type: 3}
+  m_Script: {fileID: 11500000, guid: 81ab18eb63ae4f07a66e71f0255de44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VideoSettings:
+  _videoSettings:
     _default: {fileID: 11400000, guid: b01f39ea548d009439c20ddbeb074bf7, type: 2}
-    _saved: {fileID: 11400000, guid: 61350a91fa938ad4dbebe2dc8ea54f2c, type: 2}
+    _saved: {fileID: 0}
     _current: {fileID: 0}
-  AudioSettings:
+  _audioSettings:
     _default: {fileID: 11400000, guid: 509a72a8be20039469c6260f51e54009, type: 2}
-    _saved: {fileID: 11400000, guid: 5d27284cb5222da4dba2dec9b0492490, type: 2}
+    _saved: {fileID: 0}
     _current: {fileID: 0}
-  GameSettings:
+  _gameSettings:
     _default: {fileID: 11400000, guid: 7cc46d04653f94448bebc10764d0201e, type: 2}
-    _saved: {fileID: 11400000, guid: 9d17a7cd594cf2d49b17675ada939c32, type: 2}
+    _saved: {fileID: 0}
     _current: {fileID: 0}

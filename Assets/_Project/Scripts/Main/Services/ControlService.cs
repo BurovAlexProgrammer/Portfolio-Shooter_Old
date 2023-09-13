@@ -1,11 +1,13 @@
-using Main.Services;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem.UI;
 
 namespace Main.Services
 {
     [UsedImplicitly]
-    public class ControlService : IService, IConstruct
+    [RequireComponent(typeof(EventSystem), typeof(InputSystemUIInputModule))]
+    public class ControlService : MonoBehaviour, IService, IConstruct
     {
         public Controls _controls;
         public CursorLockMode CursorLockState => Cursor.lockState;

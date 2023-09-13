@@ -10,32 +10,30 @@ namespace Main.Contexts.Installers
     public class BootstrapInstaller : MonoBehaviour
     {
         [SerializeField] private string _startupGameScene;
-        [SerializeField] private ScreenServiceInstaller _screenServiceInstaller;
-        [SerializeField] private ControlServiceInstaller _controlServiceInstaller;
-        [SerializeField] private DebugServiceInstaller _debugServiceInstaller;
-        [SerializeField] private SettingsServiceInstaller _settingsServiceInstaller;
-        [SerializeField] private AudioServiceInstaller _audioServiceInstaller;
+        [SerializeField] private ScreenService _screenServicePrefab;
+        [SerializeField] private ControlService _controlServicePrefab;
+        [SerializeField] private DebugService _debugServicePrefab;
+        [SerializeField] private SettingsService _settingsServicePrefab;
+        [SerializeField] private AudioService _audioServicePrefab;
 
         public void Awake()
         {
             gameObject.name = "Services";
             DOTween.SetTweensCapacity(1000, 50);
-            Context.BindService<ControlService>();
-            // Context.BindService<FileService>(); //How to Register IFileService 
-            Context.BindService<ScreenService>(_screenServiceInstaller);
-            // Context.BindService<SceneLoaderService>();
-            // Context.BindService<PoolService>();
-            // Context.BindService<DebugService>(_debugServiceInstaller);
-            // Context.BindService<AudioService>(_audioServiceInstaller);
-            // Context.BindService<SettingsService>(_settingsServiceInstaller);
-            // Context.BindService<LocalizationService>();
-            // Context.BindService<StatisticService>();
-            // Context.BindService<GameManagerService>();
+            Context.BindService<ScreenService>(_screenServicePrefab);
+            Context.BindService<DebugService>(_debugServicePrefab);
+            Context.BindService<AudioService>(_audioServicePrefab); 
+            Context.BindService<SettingsService>(_settingsServicePrefab);
+            Context.BindService<ControlService>(_controlServicePrefab);
+            Context.BindService<FileService>().As<IFileService>(); 
+            Context.BindService<SceneLoaderService>();
+            Context.BindService<PoolService>();
+            Context.BindService<LocalizationService>();
+            Context.BindService<StatisticService>();
+            Context.BindService<GameManagerService>();
 
             Context.InitServices();
 
-            UnityEditor.EditorApplication.isPlaying = false;
-            
             StartCoroutine(LateStartup());
         }
         

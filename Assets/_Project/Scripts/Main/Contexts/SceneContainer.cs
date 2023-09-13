@@ -4,7 +4,7 @@ namespace Main.Contexts
 {
     public class SceneContainer : ContextContainerBase
     {
-        public SceneContainer(Type bindType, ServiceContainer.Scope scope = ServiceContainer.Scope.App) : base(bindType, scope)
+        public SceneContainer(Type bindType, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App) : base(bindType, scope)
         {
         }
     }

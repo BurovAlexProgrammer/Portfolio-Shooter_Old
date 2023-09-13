@@ -13,6 +13,13 @@ namespace Main.Services
         private Dictionary<UInt64, PoolItem> _itemsDictionary = new Dictionary<UInt64, PoolItem>();
         private Transform _itemsContainer;
 
+        public void Construct()
+        {
+            var poolService = new GameObject() { name = "Pool Service"};
+            poolService.transform.SetParent(Context.ServicesHierarchy);
+            _itemsContainer = poolService.transform;
+        }
+        
         public void Init()
         {
             _poolDictionary = new Dictionary<object, Pool>();
@@ -75,14 +82,7 @@ namespace Main.Services
                 pool.DeactivateItems();
             }
         }
-
-        public void Construct()
-        {
-            var poolService = new GameObject() { name = "Pool Service"};
-            poolService.transform.SetParent(Context.ServicesHierarchy);
-            _itemsContainer = poolService.transform;
-        }
-
+        
         public void ReturnItem(UInt64 id)
         {
             foreach (var (key, pool) in _poolDictionary)

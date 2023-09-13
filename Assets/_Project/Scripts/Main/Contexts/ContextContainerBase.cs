@@ -7,11 +7,11 @@ namespace Main.Contexts
     {
         public Type BindType;
         public Type SourceType;
-        public ServiceContainer.Scope Scope = ServiceContainer.Scope.App;
+        public ServiceContainer.ContextScope Scope = ServiceContainer.ContextScope.App;
         public List<Type> Dependencies = new();
         public object Instance;
 
-        public ContextContainerBase(Type bindType, ServiceContainer.Scope scope = ServiceContainer.Scope.App)
+        public ContextContainerBase(Type bindType, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App)
         {
             Scope = scope;
             BindType = bindType;

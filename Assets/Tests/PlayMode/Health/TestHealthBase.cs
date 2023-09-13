@@ -38,7 +38,6 @@ namespace Tests.PlayMode.Health
         {
             //Assign
             var damage = Constants.DefaultHealthMax; 
-            var invokeTriggered = false;
             var health = Create.HealthBase();
             var eventMonitor = health.Monitor();
             health.DefaultSetup();
@@ -53,7 +52,6 @@ namespace Tests.PlayMode.Health
         {
             //Assign
             var damage = float.MaxValue; 
-            var invokeTriggered = false;
             var health = Create.HealthBase();
             var eventMonitor = health.Monitor();
             health.DefaultSetup();
@@ -109,7 +107,6 @@ namespace Tests.PlayMode.Health
         public void WhenTakeDamage0_ThenActionChangedNotInvoked()
         {
             //Assign
-            bool invokeTriggered = false;
             var health = Create.HealthBase();
             var eventMonitor = health.Monitor(); 
             health.DefaultSetup();

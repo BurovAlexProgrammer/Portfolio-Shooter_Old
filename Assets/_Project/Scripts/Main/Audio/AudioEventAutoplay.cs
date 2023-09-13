@@ -1,6 +1,7 @@
 using Main.Extension;
 using Cysharp.Threading.Tasks.Triggers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Main.Audio
 {
@@ -9,7 +10,7 @@ namespace Main.Audio
     {
         [SerializeField] private Behaviours _behaviour;
         [SerializeField] private AudioEvent _audioEvent;
-        [SerializeField] private float _timer;
+        [SerializeField] private float _delay;
     
         private AudioSource _audioSource;
         private Collider _collider;
@@ -31,8 +32,8 @@ namespace Main.Audio
                     if (_collider == null) Debug.LogError("Collider not found. (Click for info)", gameObject);
                     CheckColliding();
                     break;
-                case Behaviours.ByTimer:
-                    PlayByTimer();
+                case Behaviours.WithDelay:
+                    PlayWithDelay();
                     break;
             }
         }
@@ -45,9 +46,9 @@ namespace Main.Audio
             Play();
         }
 
-        private async void PlayByTimer()
+        private async void PlayWithDelay()
         {
-            await _timer.WaitInSeconds();
+            await _delay.WaitInSeconds();
         
             Play();
         }
@@ -61,7 +62,7 @@ namespace Main.Audio
         {
             OnStart,
             OnCollideOnce,
-            ByTimer,
+            WithDelay,
         }
     }
 }

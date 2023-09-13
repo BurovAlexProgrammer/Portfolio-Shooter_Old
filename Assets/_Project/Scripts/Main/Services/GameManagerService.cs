@@ -3,6 +3,7 @@ using Main.Extension;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Main.Contexts;
+using Main.Contexts.DI;
 using Main.Game.GameState;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,10 +17,10 @@ namespace Main.Services
         private bool _isGamePause;
         private int _scores;
 
-        private ControlService _controlService;
-        private SceneLoaderService _sceneLoader;
-        private StatisticService _statisticService;
-        private AudioService _audioService;
+        [Inject] private ControlService _controlService;
+        [Inject] private SceneLoaderService _sceneLoader;
+        [Inject] private StatisticService _statisticService;
+        [Inject] private AudioService _audioService;
 
         public event Action<bool> SwitchPause;
         public event Action GameOver;
@@ -34,10 +35,6 @@ namespace Main.Services
 
         public void Construct()
         {
-            _controlService = Context.GetService<ControlService>();
-            _sceneLoader = Context.GetService<SceneLoaderService>();
-            _statisticService = Context.GetService<StatisticService>();
-            _audioService = Context.GetService<AudioService>();
             _gameStateMachine = new GameStateMachine();
             _controlService.Controls1.Player.Pause.BindAction(BindActions.Started, PauseGame);
         }

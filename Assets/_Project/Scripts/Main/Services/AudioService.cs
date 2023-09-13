@@ -9,32 +9,20 @@ using UnityEngine.Audio;
 
 namespace Main.Services
 {
-    public class AudioService : IService, IConstructInstaller
+    public class AudioService : MonoBehaviour, IService
     {
-        private AudioServiceInstaller _serviceInstaller;
-        private AudioListener _audioListener;
-        private AudioSource _musicAudioSource;
-        private AudioMixerGroup _soundEffectMixerGroup;
-        private AudioMixerGroup _musicMixerGroup;
-        private AudioClip[] _battlePlaylist;
-        private AudioClip[] _menuPlaylist;
+        [SerializeField] private AudioListener _audioListener;
+        [SerializeField] private AudioSource _musicAudioSource;
+        [SerializeField] private AudioMixerGroup _soundEffectMixerGroup;
+        [SerializeField] private AudioMixerGroup _musicMixerGroup;
+        [SerializeField] private AudioClip[] _battlePlaylist;
+        [SerializeField] private AudioClip[] _menuPlaylist;
 
         private MusicPlayerState _currentState;
         
         public enum MusicPlayerState {None, MainMenu, Battle}
 
         public AudioListener AudioListener => _audioListener;
-        
-        public void Construct(IServiceInstaller installer)
-        {
-            _serviceInstaller = installer.Install() as AudioServiceInstaller;
-            _audioListener = _serviceInstaller.AudioListener;
-            _musicAudioSource = _serviceInstaller.MusicAudioSource;
-            _soundEffectMixerGroup = _serviceInstaller.SoundEffectMixerGroup;
-            _musicMixerGroup = _serviceInstaller.MusicMixerGroup;
-            _battlePlaylist = _serviceInstaller.BattlePlaylist;
-            _menuPlaylist = _serviceInstaller.MenuPlaylist;
-        }
 
         public void Setup(SettingsService settingsService)
         {
@@ -83,7 +71,7 @@ namespace Main.Services
                 case MusicPlayerState.MainMenu:
                     if (_menuPlaylist.Length == 0)
                     {
-                        Log.Warn("No audio clips on menuPlayList", _serviceInstaller);
+                        Log.Warn("No audio clips on menuPlayList", gameObject);
                     }
                     else
                     {
@@ -94,7 +82,7 @@ namespace Main.Services
                 case MusicPlayerState.Battle:
                     if (_battlePlaylist.Length == 0)
                     {
-                        Log.Warn("No audio clips on battlePlayList", _serviceInstaller);
+                        Log.Warn("No audio clips on battlePlayList", gameObject);
                     }
                     else
                     {

@@ -1,4 +1,4 @@
-#nullable enable
+// #nullable enable
 using System;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
@@ -57,6 +57,7 @@ namespace Main.Game.GameState
 
             Debug.Log("GameState Enter: " + _activeState.GetType().Name);
             await _activeState.EnterState();
+            
             StateChanged?.Invoke();
         }
     }

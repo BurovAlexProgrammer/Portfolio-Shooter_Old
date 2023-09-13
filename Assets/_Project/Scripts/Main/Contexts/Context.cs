@@ -28,71 +28,57 @@ namespace Main.Contexts
             _servicesHierarchy = servicesHierarchy;
         }
 
-        public static ServiceContainer BindService<T>(ServiceContainer.Scope scope = ServiceContainer.Scope.App) where T : IService
+        public static ServiceContainerBuilder BindService(Type type, GameObject prefab = null, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App)
         {
-            if (_registeredServices.ContainsKey(typeof(T)))
+            if (_registeredServices.ContainsKey(type))
             {
-                Log.Error($"Service type of {typeof(T).Name} registered already");
+                Log.Error($"Service type of '{type.Name}' registered already");
                 return null;
             }
 
-            var serviceContainer = new ServiceContainer(typeof(T));
-
-            if (serviceContainer.BindType.IsSubclassOf(typeof(MonoBehaviour)))
+            if (type.IsSubclassOf(typeof(MonoBehaviour)) && prefab == null)
             {
-                var gameObject = new GameObject();
-                GameObject.Instantiate(gameObject, _servicesHierarchy);
-                var service = gameObject.AddComponent(serviceContainer.BindType) as IService;
-                
-                serviceContainer.Service = service;
+                Log.Warn($"Service type of '{type.Name}' is MonoBehaviour. Add prefab instance to instantiate.");
+            }
+
+            var serviceContainerBuilder = new ServiceContainerBuilder(type);
+            var serviceContainer = serviceContainerBuilder.ServiceContainer;
+            serviceContainer.BindType = type;
+            serviceContainer.SourceType = type;
+
+            if (type.IsSubclassOf(typeof(MonoBehaviour)))
+            {
+                var gameObject = UnityEngine.Object.Instantiate(prefab, _servicesHierarchy);
+                gameObject.name = serviceContainer.SourceType.Name;
+                var service = gameObject.GetComponent(serviceContainer.BindType);
+                serviceContainer.Instance = service;
+                serviceContainer.Service = service as IService;
             }
             else
             {
-                serviceContainer.Service = Activator.CreateInstance<T>();
+                serviceContainer.Service = Activator.CreateInstance(type) as IService;
+                serviceContainer.Instance = serviceContainer.Service;
             }
 
-            serviceContainer.Instance = serviceContainer.Service;
-            SetDependencies(serviceContainer);
-            _registeredServices.Add(typeof(T), serviceContainer);
+            _registeredServices.Add(type, serviceContainer);
 
-            return serviceContainer;
-
-            // _registeredServices.Add(typeof(T), serviceContainer);
-            // _complexServices.Enqueue(typeof(T));
-            //
-            // {
-            //     for (var i = 0; i < _complexServices.ToArray().Length; i++)
-            //     {
-            //         try
-            //         {
-            //             var serviceType = _complexServices.Dequeue();
-            //             var service = _registeredServices[serviceType];
-            //         }
-            //         catch (Exception exc)
-            //         {
-            //             _complexServices.Enqueue(typeof(T));
-            //         }
-            //     }
-            // }
+            return serviceContainerBuilder;
         }
 
-        public static ServiceContainer BindService<T>(IServiceInstaller installer, ServiceContainer.Scope scope = ServiceContainer.Scope.App) where T : IService
+        public static ServiceContainerBuilder BindService<T>() where T : IService
         {
-            var serviceContainer = BindService<T>(scope);
-            serviceContainer.ConstructInstaller = installer;
-
-            return serviceContainer;
+            return BindService(typeof(T));
         }
 
-        // private static T InstantiateService<T>() where T : class
-        // {
-        //     if (typeof(T) is MonoBehaviour)
-        //     {
-        //         var gameObject = new GameObject();
-        //         gameObject.name = typeof(T).Name;
-        //         return GameObject.Instantiate(gameObject) as T;
-        //     }
-        // }
+        public static ServiceContainerBuilder BindService<T>(GameObject prefab = null, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App) where T : IService
+        {
+            return BindService(typeof(T), prefab, scope);
+        }
+
+        public static ServiceContainerBuilder BindService<T>(MonoBehaviour prefab = null, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App) where T : IService
+        {
+            return BindService(typeof(T), prefab.gameObject, scope);
+        }
 
         public static void SetDependencies(ContextContainerBase container)
         {
@@ -117,11 +103,6 @@ namespace Main.Contexts
                     }
                 }
             }
-        }
-
-        public static bool IsBoundService<T>() where T : IService
-        {
-            return _registeredServices.ContainsKey(typeof(T));
         }
 
         public static bool IsBoundService(Type type)
@@ -209,15 +190,50 @@ namespace Main.Contexts
         {
             foreach (var (_, container) in _registeredServices)
             {
-                if (container.Service is IConstruct constructor)
+                if (container.IsInitialized) continue;
+
+                SetDependencies(container);
+
+                if (container.Service is IConstruct)
                 {
-                    constructor.Construct();
+                    container.Initialize();
                 }
 
-                if (container.Service is IConstructInstaller constructInstaller)
+                container.IsInitialized = true;
+            }
+        }
+
+        public class ServiceContainerBuilder
+        {
+            public ServiceContainer ServiceContainer;
+
+            public ServiceContainerBuilder(ServiceContainer serviceContainer)
+            {
+                ServiceContainer = serviceContainer;
+            }
+
+            public ServiceContainerBuilder(Type type)
+            {
+                var serviceContainer = new ServiceContainer(type);
+                ServiceContainer = serviceContainer;
+            }
+
+            public ServiceContainerBuilder As<T>()
+            {
+                _registeredServices.Remove(ServiceContainer.BindType);
+                ServiceContainer.BindType = typeof(T);
+                _registeredServices.Add(typeof(T), ServiceContainer);
+                return this;
+            }
+
+            public ServiceContainerBuilder WithInstaller()
+            {
+                //TODO find installer
+                if (ServiceContainer.Service.GetType().IsSubclassOf(typeof(MonoBehaviour)))
                 {
-                    constructInstaller.Construct(container.ConstructInstaller);
                 }
+
+                return this;
             }
         }
     }

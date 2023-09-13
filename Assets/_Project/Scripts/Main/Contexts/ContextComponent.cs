@@ -14,9 +14,7 @@ namespace Main.Contexts
             DontDestroyOnLoad(ContextHierarchy.gameObject);
             ServicesHierarchy = new GameObject() {name = "Services"}.transform;
             ServicesHierarchy.SetParent(ContextHierarchy);
-            DontDestroyOnLoad(ServicesHierarchy.gameObject);
             Context.Init(ContextHierarchy, ServicesHierarchy);
-            DontDestroyOnLoad(gameObject);
         }
 
         private void Start()

@@ -22,7 +22,7 @@ namespace Main.Menu
             EnterState(MenuStates.MainMenu).Forget();
         }
 
-        public async void QuitGame()
+        public void QuitGame()
         {
             _gameManager.QuitGame();
         }

@@ -8,7 +8,7 @@ using TMPro;
 
 namespace Main.Services
 {
-    public class GameUiService : IService, IConstructInstaller
+    public class GameUiService : IService
     {
         private BarView _healthBarView;
         private WindowGamePause _windowGamePause;
@@ -23,16 +23,6 @@ namespace Main.Services
         private bool _dialogShowing;
 
         public bool DialogShowing => _dialogShowing;
-
-        public void Construct(IServiceInstaller installer)
-        {
-            var serviceInstaller = installer as GameUiServiceInstaller;
-            _healthBarView = serviceInstaller.HealthBarView;
-            _windowGamePause = serviceInstaller.WindowGamePause;
-            _windowGameOver = serviceInstaller.WindowGameOver;
-            _killCountText = serviceInstaller.KillCountText;
-            _scoreCountText = serviceInstaller.ScoreCountText;
-        }
 
         ~GameUiService()
         {

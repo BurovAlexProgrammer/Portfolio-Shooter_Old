@@ -25,7 +25,7 @@ namespace Main
         private void OnEnable()
         {
             var canvas = GetComponent<Canvas>();
-            canvas.worldCamera = _camera == CameraTypes.MainCamera ? _screenService.MainCamera : null;
+            canvas.worldCamera = _camera == CameraTypes.MainCamera ? _screenService.CameraMain : null;
             enabled = false;
         }
     }

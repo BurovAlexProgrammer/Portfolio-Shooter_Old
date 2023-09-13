@@ -1,21 +1,22 @@
 using System.Collections.Generic;
-using Main.Settings;
 using Main.Contexts;
-using Main.Services;
+using Main.Contexts.DI;
+using Main.Settings;
 using UnityEngine;
 using AudioSettings = Main.Settings.AudioSettings;
 
 namespace Main.Services
 {
-    public class SettingsService : MonoBehaviour, IService, IConstructInstaller
+    public class SettingsService : MonoBehaviour, IService, IConstruct
     {
         [SerializeField] private SettingGroup<VideoSettings> _videoSettings;
         [SerializeField] private SettingGroup<AudioSettings> _audioSettings;
         [SerializeField] private SettingGroup<GameSettings> _gameSettings;
 
-        private AudioService _audioService;
-        private ScreenService _screenService;
-        private IFileService _fileService;
+        [Inject] private AudioService _audioService;
+        [Inject] private ScreenService _screenService;
+        [Inject] private IFileService _fileService;
+        
         private List<ISettingGroup> _settingList;
 
         public VideoSettings Video => _videoSettings.CurrentSettings;
@@ -25,7 +26,8 @@ namespace Main.Services
         public ScreenService ScreenService => _screenService;
         public IFileService FileService => _fileService;
 
-        private void Init()
+        
+        public void Construct()
         {
             _settingList = new List<ISettingGroup>
             {
@@ -80,18 +82,6 @@ namespace Main.Services
             {
                 settingGroup.ApplySettings(this);
             }
-        }
-
-        public void Construct(IServiceInstaller installer)
-        {
-            var serviceInstaller = installer as SettingsServiceInstaller;
-            _videoSettings = serviceInstaller.VideoSettings;
-                _audioSettings = serviceInstaller.AudioSettings;
-            _gameSettings = serviceInstaller.GameSettings;
-            _audioService = Context.GetService<AudioService>();
-            _screenService = Context.GetService<ScreenService>();
-            _fileService = Context.GetService<FileService>();
-            Init();
         }
     }
 }
