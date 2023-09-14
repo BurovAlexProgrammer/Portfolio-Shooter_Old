@@ -38,8 +38,25 @@ namespace Main.Extension
             if (float.IsNaN(z) == false) quaternion.z = z;
             if (float.IsNaN(w) == false) quaternion.w = w;
         }
+        
+        public static void New(this Quaternion quaternion, float x = float.NaN, float y = float.NaN, float z = float.NaN, float w = float.NaN)
+        {
+            if (float.IsNaN(x) == false) quaternion.x = x;
+            if (float.IsNaN(y) == false) quaternion.y = y;
+            if (float.IsNaN(z) == false) quaternion.z = z;
+            if (float.IsNaN(w) == false) quaternion.w = w;
+        }
 
         public static Color Set(this ref Color color, float r = float.NaN, float g= float.NaN, float b = float.NaN, float a= float.NaN)
+        {
+            if (float.IsNaN(r) == false) color.r = r;
+            if (float.IsNaN(g) == false) color.g = g;
+            if (float.IsNaN(b) == false) color.b = b;
+            if (float.IsNaN(a) == false) color.a = a;
+            return color;
+        }
+        
+        public static Color New(this Color color, float r = float.NaN, float g= float.NaN, float b = float.NaN, float a= float.NaN)
         {
             if (float.IsNaN(r) == false) color.r = r;
             if (float.IsNaN(g) == false) color.g = g;

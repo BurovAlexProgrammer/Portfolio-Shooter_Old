@@ -297,6 +297,8 @@ MonoBehaviour:
   _internalProfiler: {fileID: 394764085355896457}
   _internalProfilerToggle: {fileID: 3027022478318800228}
   _cameraHolder: {fileID: 7649848082608286040}
+  _cameraFrame: {fileID: 1843110620652957208}
+  _sceneAppearDuration: 0.3
   _showProfilerOnStartup: 0
 --- !u!1 &4280167464216941228
 GameObject:

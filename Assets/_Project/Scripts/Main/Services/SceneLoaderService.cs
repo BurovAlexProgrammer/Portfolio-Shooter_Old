@@ -11,30 +11,26 @@ namespace Main.Services
 {
     public class SceneLoaderService : IService, IConstruct
     {
-        private Dictionary<DTO.Scenes, string> _sceneNames;
         private Scene _currentScene;
         private Scene _preparedScene;
         private Scene _initialScene;
         private Scene _bootScene;
+        
         public Scene InitialScene => _initialScene;
+
+        public const string BootSceneName = "Boot";
 
         public void Construct()
         {
-            _sceneNames = Enum.GetValues(typeof(DTO.Scenes))
-                .Cast<DTO.Scenes>()
-                .ToDictionary(x => x, x => x.ToString());
             _currentScene = _initialScene = SceneManager.GetActiveScene();
-            _bootScene = SceneManager.GetSceneByName(GetSceneName(DTO.Scenes.Boot));
+            _bootScene = SceneManager.GetSceneByName(BootSceneName);
         }
 
-        public bool InitialSceneEquals(DTO.Scenes scene)
-        {
-            return _currentScene.name == scene.ToString();
-        }
+        public bool IsInitialScene(string sceneName) => _currentScene.name == sceneName;
 
-        public async UniTask LoadSceneAsync(DTO.Scenes scene)
+        public async UniTask LoadSceneAsync(string sceneName)
         {
-            await UniTask.WhenAll(PrepareScene(scene));
+            await UniTask.WhenAll(PrepareScene(sceneName));
             SwitchToPreparedScene();
         }
 
@@ -67,10 +63,10 @@ namespace Main.Services
             return _initialScene != _bootScene;
         }
 
-        private async UniTask PrepareScene(DTO.Scenes scene)
+        private async UniTask PrepareScene(string sceneName)
         {
             _currentScene = SceneManager.GetActiveScene();
-            var asyncOperationHandle = Addressables.LoadSceneAsync(GetSceneName(scene), LoadSceneMode.Additive);
+            var asyncOperationHandle = Addressables.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
             await asyncOperationHandle.Task;
             var sceneInstance = asyncOperationHandle.Result;
             _preparedScene = sceneInstance.Scene;
@@ -82,16 +78,6 @@ namespace Main.Services
             _preparedScene.SetActive(true);
             SceneManager.SetActiveScene(_preparedScene);
             SceneManager.UnloadSceneAsync(_currentScene);
-        }
-
-        private string GetSceneName(DTO.Scenes scene)
-        {
-            if (_sceneNames.TryGetValue(scene, out var result))
-            {
-                return result;
-            }
-
-            throw new Exception("Scene Key not found!");
         }
     }
 }

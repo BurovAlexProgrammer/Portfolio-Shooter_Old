@@ -17,7 +17,7 @@ namespace Main.Game.GameState
                 _audioService = Context.GetService<AudioService>();
                     _sceneLoaderService = Context.GetService<SceneLoaderService>();
                 _audioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
-                await _sceneLoaderService.LoadSceneAsync(DTO.Scenes.MainMenu);
+                await _sceneLoaderService.LoadSceneAsync("MiniGameLevel");
             }
         }
     }

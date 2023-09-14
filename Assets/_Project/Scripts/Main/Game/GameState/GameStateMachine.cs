@@ -27,7 +27,7 @@ namespace Main.Game.GameState
         
         public async UniTask Start()
         {
-            if (_sceneLoader.InitialSceneEquals(DTO.Scenes.Boot))
+            if (_sceneLoader.IsInitialScene("Boot"))
             {
                 await SetState<GameStates.Bootstrap>();
                 await SetState<GameStates.MainMenu>();

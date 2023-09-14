@@ -1,5 +1,7 @@
-﻿using Main.Contexts;
+﻿using System;
+using Main.Contexts;
 using Main.Game.Player;
+using Main.Services;
 using UnityEngine;
 
 namespace Main.SceneScripts
@@ -7,11 +9,23 @@ namespace Main.SceneScripts
     public abstract class SceneBehaviourBase : MonoBehaviour, ISceneBehaviour
     {
         [SerializeField] private Transform _playerStartPoint;
+        [SerializeField] private bool _smoothSceneAppearance;
+        
         private PlayerBase _player;
+        private ScreenService _screenService;
 
-        public void Start()
+        protected virtual void Awake()
         {
-            Debug.Log("Start");
+            _screenService = Context.GetService<ScreenService>();
+        }
+
+        protected virtual void Start()
+        {
+            if (_smoothSceneAppearance)
+            {
+                _screenService.ShowSceneAsync();
+            }
+            
             _player = Context.GetSceneObject<Player>();
 
             if (_player != null)

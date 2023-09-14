@@ -173,7 +173,7 @@ namespace Main.Contexts
 
         public static void Dispose()
         {
-            foreach (var type in _registeredServices.Keys.ToList())
+            foreach (var type in _registeredServices.Keys.ToArray())
             {
                 if (_registeredServices[type] is IDisposable disposable)
                 {
@@ -184,6 +184,7 @@ namespace Main.Contexts
             }
 
             _registeredServices.Clear();
+            _sceneObjects.Clear();
         }
 
         public static void InitServices()

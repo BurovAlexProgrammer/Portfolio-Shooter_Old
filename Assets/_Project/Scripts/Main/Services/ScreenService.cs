@@ -1,23 +1,28 @@
 using System;
+using Cysharp.Threading.Tasks;
+using DG.Tweening;
 using Main.Contexts.DI;
+using Main.Extension;
 using Main.Settings;
 using sm_application.Scripts.Main.Wrappers;
 using Tayx.Graphy;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Main.Services
 {
     public class ScreenService : MonoBehaviour, IService
     {
-        [FormerlySerializedAs("_mainCamera")] [SerializeField] private Camera _cameraMain;
+        [SerializeField] private Camera _cameraMain;
         [SerializeField] private Volume _volume;
         [SerializeField] private GraphyManager _internalProfiler;
         [SerializeField] private Toggle _internalProfilerToggle;
         [SerializeField] private Transform _cameraHolder;
+        [SerializeField] private Image _cameraFrame;
+        [SerializeField] private float _sceneAppearDuration;
+        
         
         [SerializeField] private bool _showProfilerOnStartup;
         
@@ -105,5 +110,41 @@ namespace Main.Services
            audioListener.transform.SetParent(_cameraMain.transform);
            audioListener.transform.localPosition = Vector3.zero;
         }
+
+        public async UniTask ShowSceneAsync(bool force = false)
+        {
+            if (force)
+            {
+                var color = _cameraFrame.color;
+                color.a = 0f;
+                _cameraFrame.color = color;
+                return;
+            }
+
+            await DOVirtual
+                .Float(1f, 0f, _sceneAppearDuration, value =>
+                {
+                    _cameraFrame.color = _cameraFrame.color.New(a: value);
+                })
+                .AsyncWaitForCompletion();
+        } 
+        
+        public async UniTask HideSceneAsync(bool force)
+        {
+            if (force)
+            {
+                var color = _cameraFrame.color;
+                color.a = 0f;
+                _cameraFrame.color = color;
+                return;
+            }
+
+            await DOVirtual
+                .Float(0f, 1f, _sceneAppearDuration, value =>
+                {
+                    _cameraFrame.color = _cameraFrame.color.New(a: value);
+                })
+                .AsyncWaitForCompletion();
+        } 
     }
 }

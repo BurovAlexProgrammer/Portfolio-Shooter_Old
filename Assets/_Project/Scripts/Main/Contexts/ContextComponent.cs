@@ -10,8 +10,8 @@ namespace Main.Contexts
         
         private void Awake()
         {
-            ContextHierarchy = new GameObject() {name = "Context"}.transform;
-            DontDestroyOnLoad(ContextHierarchy.gameObject);
+            ContextHierarchy = transform;
+            DontDestroyOnLoad(gameObject);
             ServicesHierarchy = new GameObject() {name = "Services"}.transform;
             ServicesHierarchy.SetParent(ContextHierarchy);
             Context.Init(ContextHierarchy, ServicesHierarchy);
