@@ -26,7 +26,7 @@ namespace Main.Game.GameState
                 _statisticService ??= Context.GetService<StatisticService>();
                 await UniTask.Yield();
                 _gameManager.PrepareToPlay();
-                await _sceneLoaderService.LoadSceneAsync("MiniGameLevel");
+                await _sceneLoaderService.LoadSceneAsync(Scenes.MiniGameLevel);
             }
 
             public async UniTask ExitState()

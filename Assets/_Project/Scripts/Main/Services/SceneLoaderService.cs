@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using Main.DTOs;
 using Main.Extension;
@@ -17,16 +14,13 @@ namespace Main.Services
         private Scene _bootScene;
         
         public Scene InitialScene => _initialScene;
-
-        public const string BootSceneName = "Boot";
+        public bool IsInitialScene(string sceneName) => _currentScene.name == sceneName;
 
         public void Construct()
         {
             _currentScene = _initialScene = SceneManager.GetActiveScene();
-            _bootScene = SceneManager.GetSceneByName(BootSceneName);
+            _bootScene = SceneManager.GetSceneByName(Scenes.Boot);
         }
-
-        public bool IsInitialScene(string sceneName) => _currentScene.name == sceneName;
 
         public async UniTask LoadSceneAsync(string sceneName)
         {

@@ -1,4 +1,5 @@
 // #nullable enable
+
 using System;
 using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
@@ -27,7 +28,7 @@ namespace Main.Game.GameState
         
         public async UniTask Start()
         {
-            if (_sceneLoader.IsInitialScene("Boot"))
+            if (_sceneLoader.IsInitialScene(Scenes.Boot))
             {
                 await SetState<GameStates.Bootstrap>();
                 await SetState<GameStates.MainMenu>();

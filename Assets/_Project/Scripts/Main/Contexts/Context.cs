@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using Main.Contexts.DI;
+using Main.Contexts.Installers;
 using Main.Services;
 using sm_application.Scripts.Main.Wrappers;
 using UnityEngine;
@@ -13,6 +14,7 @@ namespace Main.Contexts
 {
     public class Context
     {
+        public static ProjectContextInstaller ProjectContextInstaller;
         private static readonly Dictionary<Type, ServiceContainer> _registeredServices = new();
         private static readonly ConditionalWeakTable<Type, SceneContainer> _sceneObjects = new();
         private static Transform _contextHierarchy;
@@ -173,6 +175,8 @@ namespace Main.Contexts
 
         public static void Dispose()
         {
+            ProjectContextInstaller = null;
+            
             foreach (var type in _registeredServices.Keys.ToArray())
             {
                 if (_registeredServices[type] is IDisposable disposable)

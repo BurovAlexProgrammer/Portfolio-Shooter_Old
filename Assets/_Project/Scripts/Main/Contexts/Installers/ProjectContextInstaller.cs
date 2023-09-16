@@ -1,35 +1,53 @@
-﻿using smApplication.Scripts.Extension;
+﻿using System;
+using smApplication.Scripts.Extension;
 using UnityEngine;
 
-namespace Main.Contexts
+namespace Main.Contexts.Installers
 {
-    public class ContextComponent : MonoBehaviour
+    public abstract class ProjectContextInstaller : MonoBehaviour
     {
         private Transform ContextHierarchy;
         private Transform ServicesHierarchy;
-        
+
         private void Awake()
         {
             ContextHierarchy = transform;
             DontDestroyOnLoad(gameObject);
-            ServicesHierarchy = new GameObject() {name = "Services"}.transform;
+            ServicesHierarchy = new GameObject() { name = "Services" }.transform;
             ServicesHierarchy.SetParent(ContextHierarchy);
             Context.Init(ContextHierarchy, ServicesHierarchy);
+            InstallBindings();
+            OnBindingsInstalled();
+            Context.InitServices();
+            OnServicesInitialized();
         }
 
         private void Start()
         {
-            #if UNITY_EDITOR
+#if UNITY_EDITOR
             UnityEditorUtility.ExpandScene(ContextHierarchy.gameObject.scene);
             UnityEditorUtility.ExpandHierarchyItem(ContextHierarchy);
             UnityEditorUtility.ExpandHierarchyItem(ServicesHierarchy);
             UnityEditorUtility.ExpandHierarchyItem(ServicesHierarchy);
-            #endif
+#endif
         }
 
         private void OnApplicationQuit()
         {
             Context.Dispose();
+        }
+
+        protected virtual void InstallBindings()
+        {
+            throw new Exception($"{this.GetType().Name} not implement InstallBindings");
+        }
+
+        protected virtual void OnBindingsInstalled()
+        {
+        }
+
+        protected virtual void OnServicesInitialized()
+        {
         }
     }
 }
