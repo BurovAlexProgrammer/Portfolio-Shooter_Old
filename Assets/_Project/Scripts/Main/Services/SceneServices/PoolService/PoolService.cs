@@ -16,7 +16,7 @@ namespace Main.Services
         public void Construct()
         {
             var poolService = new GameObject() { name = "Pool Service"};
-            poolService.transform.SetParent(Context.ServicesHierarchy);
+            poolService.transform.SetParent(Context.ContextHierarchy);
             _itemsContainer = poolService.transform;
         }
         

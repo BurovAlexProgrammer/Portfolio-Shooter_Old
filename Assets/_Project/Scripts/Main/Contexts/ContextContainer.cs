@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Main.Extension;
 using Main.Services;
 using sm_application.Scripts.Main.Wrappers;
 using UnityEngine;
@@ -75,13 +76,21 @@ namespace Main.Contexts
             }
             
             _instance = Object.Instantiate(prefab);
+            (_instance as GameObject).CleanName();
+            
+            if (_scope == ContextScope.App)
+            {
+                (_instance as GameObject).transform.SetParent(Context.ContextHierarchy);
+            }
+            
             return this;
         }
 
         public ContextContainer FromNewPrefab(MonoBehaviour prefab)
         {
             FromNewPrefab(prefab.gameObject);
-            _instance = (Instance as GameObject).GetComponent(prefab.GetType());
+            var component = (_instance as GameObject).GetComponent(prefab.GetType());
+            _instance = component;
             return this;
         }
     }

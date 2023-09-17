@@ -16,18 +16,15 @@ namespace Main.Contexts
         private static readonly Dictionary<Type, ContextContainer> _containers = new();
         // private static readonly ConditionalWeakTable<Type, ContextContainer> _sceneObjects = new();
         private static Transform _contextHierarchy;
-        private static Transform _servicesHierarchy;
         private static ContextHandler _contextHandler;
 
         public static Transform ContextHierarchy => _contextHierarchy;
-        public static Transform ServicesHierarchy => _servicesHierarchy;
         public static ProjectContextInstaller ProjectContextInstaller => _projectContextInstaller;
 
         public static void Init(ProjectContextInstaller projectContextInstaller, Transform contextHierarchy, Transform servicesHierarchy)
         {
             _projectContextInstaller = projectContextInstaller;
             _contextHierarchy = contextHierarchy;
-            _servicesHierarchy = servicesHierarchy;
             _contextHandler = new ContextHandler(_containers);
         }
 
