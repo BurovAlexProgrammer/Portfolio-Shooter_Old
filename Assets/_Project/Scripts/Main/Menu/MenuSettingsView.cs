@@ -29,7 +29,7 @@ namespace Main.Menu
         
         private void Awake()
         {
-            _localizationService = Context.GetService<LocalizationService>();
+            _localizationService = Context.Resolve<LocalizationService>();
             _buttonSave.onClick.AddListener(SaveSettings);
             _buttonReset.onClick.AddListener(ResetToDefault);
             var videoSettings = _settingsController.VideoSettings;

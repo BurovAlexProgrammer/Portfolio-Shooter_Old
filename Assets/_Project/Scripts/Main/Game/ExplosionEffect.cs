@@ -21,7 +21,7 @@ namespace Main.Game
 
         private void Awake()
         {
-            _debugService = Context.GetService<DebugService>();
+            _debugService = Context.Resolve<DebugService>();
             _rigidbodies = new List<Rigidbody>();
 
             switch (_dependencies)

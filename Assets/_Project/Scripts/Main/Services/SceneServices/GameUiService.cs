@@ -1,9 +1,8 @@
-﻿using Main.UI;
-using Main.UI.Window;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
+using Main.Game;
 using Main.Game.Health;
-using Main.Game.Player;
-using Main.Services;
+using Main.UI;
+using Main.UI.Window;
 using TMPro;
 
 namespace Main.Services
@@ -18,7 +17,7 @@ namespace Main.Services
 
         GameManagerService _gameManager;
         StatisticService _statisticService;
-        PlayerBase _player;
+        Player _player;
 
         private bool _dialogShowing;
 

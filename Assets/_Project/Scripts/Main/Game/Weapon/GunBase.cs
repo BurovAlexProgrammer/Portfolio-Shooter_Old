@@ -17,7 +17,7 @@ namespace Main.Game.Weapon
 
         private void Awake()
         {
-            _poolService = Context.GetService<IPoolService>();
+            _poolService = Context.Resolve<IPoolService>();
         }
 
         public virtual bool TryShoot()

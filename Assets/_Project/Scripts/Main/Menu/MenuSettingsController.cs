@@ -14,7 +14,7 @@ namespace Main.Menu
 
         private void Awake()
         {
-            _settings = Context.GetService<SettingsService>();
+            _settings = Context.Resolve<SettingsService>();
         }
 
         public void Apply()

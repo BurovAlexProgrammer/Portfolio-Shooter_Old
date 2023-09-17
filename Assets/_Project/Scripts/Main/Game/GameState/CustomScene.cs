@@ -12,7 +12,7 @@ namespace Main.Game.GameState
 
             public async UniTask EnterState()
             {
-                _gameManager ??= Context.GetService<GameManagerService>();
+                _gameManager ??= Context.Resolve<GameManagerService>();
                 await UniTask.Yield();
                 _gameManager.PrepareToPlay();
             }

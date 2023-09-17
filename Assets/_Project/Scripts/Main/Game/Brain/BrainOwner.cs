@@ -40,7 +40,7 @@ namespace Main.Game.Brain
 
         private void Awake()
         {
-            _brainControl = Context.GetSceneObject<BrainControlService>();
+            _brainControl = Context.Resolve<BrainControlService>();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _characterController = GetComponent<CharacterController>();
         }

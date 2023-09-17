@@ -1,6 +1,6 @@
-﻿using System;
+﻿using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Game.Player;
+using Main.Game;
 using Main.Services;
 using UnityEngine;
 
@@ -11,22 +11,22 @@ namespace Main.SceneScripts
         [SerializeField] private Transform _playerStartPoint;
         [SerializeField] private bool _smoothSceneAppearance;
         
-        private PlayerBase _player;
+        private Player _player;
         private ScreenService _screenService;
 
         protected virtual void Awake()
         {
-            _screenService = Context.GetService<ScreenService>();
+            _screenService = Context.Resolve<ScreenService>();
         }
 
         protected virtual void Start()
         {
             if (_smoothSceneAppearance)
             {
-                _screenService.ShowSceneAsync();
+                _screenService.ShowSceneAsync().Forget();
             }
             
-            _player = Context.GetSceneObject<Player>();
+            _player = Context.Resolve<Player>();
 
             if (_player != null)
             {

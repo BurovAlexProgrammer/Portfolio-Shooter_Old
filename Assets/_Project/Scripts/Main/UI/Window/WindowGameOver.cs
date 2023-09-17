@@ -27,8 +27,8 @@ namespace Main.UI.Window
 
         private void Awake()
         {
-            _gameManager = Context.GetService<GameManagerService>();
-            _statisticService = Context.GetService<StatisticService>();
+            _gameManager = Context.Resolve<GameManagerService>();
+            _statisticService = Context.Resolve<StatisticService>();
             _retryButton.onClick.AddListener(Retry);
             _mainMenuButton.onClick.AddListener(GoToMainMenu);
             _quitGameButton.onClick.AddListener(ShowQuitGameDialog);

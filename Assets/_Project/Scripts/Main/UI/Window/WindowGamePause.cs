@@ -26,10 +26,10 @@ namespace Main.UI.Window
 
         private void Awake()
         {
-            _gameManager = Context.GetService<GameManagerService>();
-            _settingsService = Context.GetService<SettingsService>();
-            _controlService = Context.GetService<ControlService>();
-            _gameUiService = Context.GetService<GameUiService>();
+            _gameManager = Context.Resolve<GameManagerService>();
+            _settingsService = Context.Resolve<SettingsService>();
+            _controlService = Context.Resolve<ControlService>();
+            _gameUiService = Context.Resolve<GameUiService>();
             _controlService.Controls1.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _restartGameButton.onClick.AddListener(RestartGame);
             _returnGameButton.onClick.AddListener(ReturnGame);

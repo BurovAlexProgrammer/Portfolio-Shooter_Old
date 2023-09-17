@@ -20,7 +20,7 @@ namespace Main.Menu
         
         private void Awake()
         {
-            _statisticService = Context.GetService<StatisticService>();
+            _statisticService = Context.Resolve<StatisticService>();
             _buttonBack.onClick.AddListener(GoPrevMenu);
         }
 

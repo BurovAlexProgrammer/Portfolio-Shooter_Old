@@ -13,7 +13,7 @@ namespace Main
 
         private void Awake()
         {
-            _screenService = Context.GetService<ScreenService>();
+            _screenService = Context.Resolve<ScreenService>();
         }
 
         private enum CameraTypes

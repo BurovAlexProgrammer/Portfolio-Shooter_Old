@@ -15,10 +15,10 @@ namespace Main.Contexts.Installers
             DontDestroyOnLoad(gameObject);
             ServicesHierarchy = new GameObject() { name = "Services" }.transform;
             ServicesHierarchy.SetParent(ContextHierarchy);
-            Context.Init(ContextHierarchy, ServicesHierarchy);
+            Context.Init(this, ContextHierarchy, ServicesHierarchy);
             InstallBindings();
             OnBindingsInstalled();
-            Context.InitServices();
+            Context.InitDependencies();
             OnServicesInitialized();
         }
 

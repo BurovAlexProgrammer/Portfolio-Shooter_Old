@@ -36,7 +36,7 @@ namespace Main.Game
 
         private void Awake()
         {
-            _statisticService = Context.GetService<StatisticService>();
+            _statisticService = Context.Resolve<StatisticService>();
             CancellationToken = gameObject.GetCancellationTokenOnDestroy();
             _navMeshAgent = GetComponent<NavMeshAgent>();
             _brainOwner = GetComponent<BrainOwner>();

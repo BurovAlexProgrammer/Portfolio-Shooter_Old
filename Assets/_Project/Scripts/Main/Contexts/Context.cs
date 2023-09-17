@@ -2,89 +2,66 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using Main.Contexts.DI;
 using Main.Contexts.Installers;
 using Main.Services;
 using sm_application.Scripts.Main.Wrappers;
 using UnityEngine;
-using Object = System.Object;
 
 namespace Main.Contexts
 {
-    public class Context
+    public partial class Context
     {
-        public static ProjectContextInstaller ProjectContextInstaller;
-        private static readonly Dictionary<Type, ServiceContainer> _registeredServices = new();
-        private static readonly ConditionalWeakTable<Type, SceneContainer> _sceneObjects = new();
+        private static ProjectContextInstaller _projectContextInstaller;
+        private static readonly Dictionary<Type, ContextContainer> _containers = new();
+        // private static readonly ConditionalWeakTable<Type, ContextContainer> _sceneObjects = new();
         private static Transform _contextHierarchy;
         private static Transform _servicesHierarchy;
-        private static Queue<Type> _complexServices = new Queue<Type>();
+        private static ContextHandler _contextHandler;
 
         public static Transform ContextHierarchy => _contextHierarchy;
         public static Transform ServicesHierarchy => _servicesHierarchy;
+        public static ProjectContextInstaller ProjectContextInstaller => _projectContextInstaller;
 
-        public static void Init(Transform contextHierarchy, Transform servicesHierarchy)
+        public static void Init(ProjectContextInstaller projectContextInstaller, Transform contextHierarchy, Transform servicesHierarchy)
         {
+            _projectContextInstaller = projectContextInstaller;
             _contextHierarchy = contextHierarchy;
             _servicesHierarchy = servicesHierarchy;
+            _contextHandler = new ContextHandler(_containers);
         }
 
-        public static ServiceContainerBuilder BindService(Type type, GameObject prefab = null, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App)
+        public static ContextContainer Bind(Type type, ContextScope scope = ContextScope.App)
         {
-            if (_registeredServices.ContainsKey(type))
+            if (_containers.ContainsKey(type))
             {
                 Log.Error($"Service type of '{type.Name}' registered already");
                 return null;
             }
 
-            if (type.IsSubclassOf(typeof(MonoBehaviour)) && prefab == null)
-            {
-                Log.Warn($"Service type of '{type.Name}' is MonoBehaviour. Add prefab instance to instantiate.");
-            }
+            var contextContainer = new ContextContainer(type, _contextHandler);
+            _containers.Add(type, contextContainer);
 
-            var serviceContainerBuilder = new ServiceContainerBuilder(type);
-            var serviceContainer = serviceContainerBuilder.ServiceContainer;
-            serviceContainer.BindType = type;
-            serviceContainer.SourceType = type;
-
-            if (type.IsSubclassOf(typeof(MonoBehaviour)))
-            {
-                var gameObject = UnityEngine.Object.Instantiate(prefab, _servicesHierarchy);
-                gameObject.name = serviceContainer.SourceType.Name;
-                var service = gameObject.GetComponent(serviceContainer.BindType);
-                serviceContainer.Instance = service;
-                serviceContainer.Service = service as IService;
-            }
-            else
-            {
-                serviceContainer.Service = Activator.CreateInstance(type) as IService;
-                serviceContainer.Instance = serviceContainer.Service;
-            }
-
-            _registeredServices.Add(type, serviceContainer);
-
-            return serviceContainerBuilder;
+            return contextContainer;
         }
 
-        public static ServiceContainerBuilder BindService<T>() where T : IService
+        public static ContextContainer Bind<T>()
         {
-            return BindService(typeof(T));
+            return Bind(typeof(T));
         }
 
-        public static ServiceContainerBuilder BindService<T>(GameObject prefab = null, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App) where T : IService
+        public static ContextContainer Bind<T>(GameObject prefab = null, ContextScope scope = ContextScope.App) 
         {
-            return BindService(typeof(T), prefab, scope);
+            return Bind(typeof(T), scope);
         }
 
-        public static ServiceContainerBuilder BindService<T>(MonoBehaviour prefab = null, ServiceContainer.ContextScope scope = ServiceContainer.ContextScope.App) where T : IService
+        public static ContextContainer Bind<T>(MonoBehaviour prefab = null, ContextScope scope = ContextScope.App) where T : IService
         {
-            return BindService(typeof(T), prefab.gameObject, scope);
+            return Bind(typeof(T), scope);
         }
 
-        public static void SetDependencies(ContextContainerBase container)
+        private static void SetDependencies(ContextContainer container)
         {
-            var t1 = container.SourceType;
             var fields = container.SourceType.GetFields(BindingFlags.Instance | BindingFlags.NonPublic);
 
             foreach (var field in fields)
@@ -97,149 +74,92 @@ namespace Main.Contexts
                         var dependencyContainer = GetDependency(dependencyType);
                         container.Dependencies.Add(dependencyType);
                         field.SetValue(container.Instance, dependencyContainer.Instance);
-
-                        if (container is ServiceContainer && !IsBoundService(dependencyType))
-                        {
-                            _complexServices.Enqueue(dependencyType);
-                        }
                     }
                 }
             }
         }
 
-        public static bool IsBoundService(Type type)
+        public static T Resolve<T>()
         {
-            return _registeredServices.ContainsKey(type);
-        }
-
-        public static T GetService<T>() where T : IService
-        {
-            if (_registeredServices.ContainsKey(typeof(T)) == false)
+            if (_containers.ContainsKey(typeof(T)) == false)
             {
-                throw new Exception($"Service type of {typeof(T).Name} not found.");
+                throw new Exception($"Dependency type of {typeof(T).Name} not found.");
             }
 
-            return (T)_registeredServices[typeof(T)].Service;
+            return (T)_containers[typeof(T)].Instance;
         }
 
-        private static ContextContainerBase GetDependency(Type dependencyType)
+        private static ContextContainer GetDependency(Type dependencyType)
         {
-            if (_registeredServices.TryGetValue(dependencyType, out var result))
+            if (_containers.TryGetValue(dependencyType, out var result))
             {
                 return result;
-            }
-
-            if (_sceneObjects.TryGetValue(dependencyType, out var sceneObject))
-            {
-                return sceneObject;
             }
 
             Log.Error($"Dependency type of '{dependencyType}' not found.");
             return null;
         }
 
-        public static void InitScene()
-        {
-            _sceneObjects.Clear();
-        }
-
-        public static void RegisterSceneObject(Object obj)
-        {
-            //TODO implement
-            var sceneContainer = new SceneContainer(obj.GetType());
-            sceneContainer.Instance = obj;
-            _sceneObjects.AddOrUpdate(obj.GetType(), sceneContainer);
-        }
-
-        // public static void RegisterSceneObject(GameObject gameObject)
-        // {
-        //     _sceneObjects.AddOrUpdate(gameObject, gameObject.GetType());
-        // }
-        //
-        // public static void RegisterSceneObject(MonoBehaviour monoBehaviour)
-        // {
-        //     _sceneObjects.AddOrUpdate(monoBehaviour, monoBehaviour.GetType());
-        // }
-
-        public static T GetSceneObject<T>() where T : class
-        {
-            var type = typeof(T);
-
-            return _sceneObjects.TryGetValue(type, out var result) ? result as T : null;
-        }
-
         public static void DisposeSceneContext()
         {
-            _sceneObjects.Clear();
+            foreach (var (key, value) in _containers)
+            {
+                if (value.Scope == ContextScope.Scene)
+                {
+                    if (value.Instance is IDisposable disposable)
+                    {
+                        disposable.Dispose();
+                    }
+                    
+                    _containers.Remove(key);
+                }
+            }
         }
 
         public static void Dispose()
         {
-            ProjectContextInstaller = null;
+            _projectContextInstaller = null;
             
-            foreach (var type in _registeredServices.Keys.ToArray())
+            foreach (var type in _containers.Keys.ToArray())
             {
-                if (_registeredServices[type] is IDisposable disposable)
+                if (_containers[type].Instance is IDisposable disposable)
                 {
                     disposable.Dispose();
                 }
 
-                _registeredServices[type] = null;
+                _containers[type] = null;
             }
 
-            _registeredServices.Clear();
-            _sceneObjects.Clear();
+            _containers.Clear();
         }
 
-        public static void InitServices()
+        public static void InitDependencies()
         {
-            foreach (var (_, container) in _registeredServices)
+            foreach (var (_, container) in _containers)
             {
                 if (container.IsInitialized) continue;
 
                 SetDependencies(container);
-
-                if (container.Service is IConstruct)
-                {
-                    container.Initialize();
-                }
-
-                container.IsInitialized = true;
+                
+                container.Initialize();
             }
         }
-
-        public class ServiceContainerBuilder
+    }
+    
+    public class ContextHandler
+    {
+        private Dictionary<Type, ContextContainer> _containers;
+            
+        public ContextHandler(Dictionary<Type, ContextContainer> containers)
         {
-            public ServiceContainer ServiceContainer;
-
-            public ServiceContainerBuilder(ServiceContainer serviceContainer)
-            {
-                ServiceContainer = serviceContainer;
-            }
-
-            public ServiceContainerBuilder(Type type)
-            {
-                var serviceContainer = new ServiceContainer(type);
-                ServiceContainer = serviceContainer;
-            }
-
-            public ServiceContainerBuilder As<T>()
-            {
-                _registeredServices.Remove(ServiceContainer.BindType);
-                ServiceContainer.BindType = typeof(T);
-                _registeredServices.Add(typeof(T), ServiceContainer);
-                return this;
-            }
-
-            public ServiceContainerBuilder WithInstaller()
-            {
-                //TODO find installer
-                if (ServiceContainer.Service.GetType().IsSubclassOf(typeof(MonoBehaviour)))
-                {
-                }
-
-                return this;
-            }
+            _containers = containers;
+        }
+            
+        public void Rebind(Type oldType, Type newType)
+        {
+            var container = _containers[oldType];
+            _containers.Remove(oldType);
+            _containers.Add(newType, container);
         }
     }
 }

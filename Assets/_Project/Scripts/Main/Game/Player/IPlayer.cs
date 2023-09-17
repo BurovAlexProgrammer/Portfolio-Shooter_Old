@@ -1,7 +1,7 @@
 ﻿using Main.Game.Health;
 using UnityEngine;
 
-namespace Main.Game.Player
+namespace Main.Game
 {
     public interface IPlayer
     {

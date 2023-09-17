@@ -13,7 +13,7 @@ namespace Main.Game.GameState
 
             public async UniTask EnterState()
             {
-                _sceneLoaderService ??= Context.GetService<SceneLoaderService>();
+                _sceneLoaderService ??= Context.Resolve<SceneLoaderService>();
                 await 3f.WaitInSeconds();
             }
         }

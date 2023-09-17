@@ -11,7 +11,7 @@ namespace Main.Localizations
 
         protected virtual void Awake()
         {
-            _localization = Context.GetService<LocalizationService>();
+            _localization = Context.Resolve<LocalizationService>();
         }
 
         private async void Start()

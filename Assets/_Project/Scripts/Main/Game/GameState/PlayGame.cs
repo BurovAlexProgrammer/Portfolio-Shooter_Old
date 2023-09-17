@@ -19,11 +19,11 @@ namespace Main.Game.GameState
 
             public async UniTask EnterState()
             {
-                _gameManager ??= Context.GetService<GameManagerService>();
-                _audioService ??= Context.GetService<AudioService>();
-                _controlService ??= Context.GetService<ControlService>();
-                _sceneLoaderService ??= Context.GetService<SceneLoaderService>();
-                _statisticService ??= Context.GetService<StatisticService>();
+                _gameManager ??= Context.Resolve<GameManagerService>();
+                _audioService ??= Context.Resolve<AudioService>();
+                _controlService ??= Context.Resolve<ControlService>();
+                _sceneLoaderService ??= Context.Resolve<SceneLoaderService>();
+                _statisticService ??= Context.Resolve<StatisticService>();
                 await UniTask.Yield();
                 _gameManager.PrepareToPlay();
                 await _sceneLoaderService.LoadSceneAsync(Scenes.MiniGameLevel);

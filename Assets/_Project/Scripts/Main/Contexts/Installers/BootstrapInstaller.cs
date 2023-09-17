@@ -21,17 +21,17 @@ namespace Main.Contexts.Installers
         protected override void InstallBindings()
         {
             DOTween.SetTweensCapacity(1000, 50);
-            Context.BindService<ScreenService>(_screenServicePrefab);
-            Context.BindService<DebugService>(_debugServicePrefab);
-            Context.BindService<AudioService>(_audioServicePrefab);
-            Context.BindService<SettingsService>(_settingsServicePrefab);
-            Context.BindService<ControlService>(_controlServicePrefab);
-            Context.BindService<FileService>().As<IFileService>();
-            Context.BindService<SceneLoaderService>();
-            Context.BindService<PoolService>();
-            Context.BindService<LocalizationService>();
-            Context.BindService<StatisticService>();
-            Context.BindService<GameManagerService>();
+            Context.Bind<ScreenService>().FromNewPrefab(_screenServicePrefab);
+            Context.Bind<DebugService>().FromNewPrefab(_debugServicePrefab);
+            Context.Bind<AudioService>().FromNewPrefab(_audioServicePrefab);
+            Context.Bind<SettingsService>().FromNewPrefab(_settingsServicePrefab);
+            Context.Bind<ControlService>().FromNewPrefab(_controlServicePrefab);
+            Context.Bind<FileService>().As<IFileService>().FromNew();
+            Context.Bind<SceneLoaderService>().FromNew();
+            Context.Bind<PoolService>().FromNew();
+            Context.Bind<LocalizationService>().FromNew();
+            Context.Bind<StatisticService>().FromNew();
+            Context.Bind<GameManagerService>().FromNew();
             
             StartCoroutine(LateStartup());
         }
@@ -40,7 +40,7 @@ namespace Main.Contexts.Installers
         {
             yield return null;
             
-            if (Context.GetService<SceneLoaderService>().IsInitialScene(Scenes.Boot))
+            if (Context.Resolve<SceneLoaderService>().IsInitialScene(Scenes.Boot))
             {
                 SceneManager.LoadScene(_startupGameScene);
             }

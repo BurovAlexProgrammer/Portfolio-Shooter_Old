@@ -13,8 +13,8 @@ namespace Main.Menu
         protected override void Init()
         {
             base.Init();
-            _sceneLoader = Context.GetService<SceneLoaderService>();
-            _gameManager = Context.GetService<GameManagerService>();
+            _sceneLoader = Context.Resolve<SceneLoaderService>();
+            _gameManager = Context.Resolve<GameManagerService>();
         }
 
         private void Start()

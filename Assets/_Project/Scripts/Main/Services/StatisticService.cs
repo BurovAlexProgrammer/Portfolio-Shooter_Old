@@ -25,7 +25,7 @@ namespace Main.Services
 
         public void Construct()
         {
-            _gameManager = Context.GetService<GameManagerService>();
+            _gameManager = Context.Resolve<GameManagerService>();
             _statisticData = new StatisticData();
             _storedFolder ??= Application.dataPath + "/StoredData/";
             _storedFolderPath = _storedFolder + "Statistic.data";

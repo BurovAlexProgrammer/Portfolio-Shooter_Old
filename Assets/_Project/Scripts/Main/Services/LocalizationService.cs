@@ -31,7 +31,7 @@ namespace Main.Services
 
         public void Construct()
         {
-            _settingsService = Context.GetService<SettingsService>();
+            _settingsService = Context.Resolve<SettingsService>();
             _currentLocale = _settingsService.GameSettings.CurrentLocale;
             _localizations = new Dictionary<Locales, Localization>();
             Init();

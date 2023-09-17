@@ -1,10 +1,9 @@
 ﻿using System.Threading;
-using Main.Extension;
-using Main.Wrappers;
 using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Game.Player;
+using Main.Extension;
 using Main.Services;
+using Main.Wrappers;
 using UnityEngine;
 
 namespace Main.Game
@@ -21,7 +20,7 @@ namespace Main.Game
         [SerializeField] private float _spawnTimer;
         [SerializeField] private float _timerMinutes;
         
-        private PlayerBase _player;
+        private Player _player;
         private IPoolService _poolService;
         
         private CancellationToken _cancellationToken;
@@ -30,8 +29,8 @@ namespace Main.Game
 
         private void Awake()
         {
-            _player = Context.GetSceneObject<Player.Player>();
-            _poolService = Context.GetService<PoolService>();
+            _player = Context.Resolve<Player>();
+            _poolService = Context.Resolve<PoolService>();
         }
 
         private void OnDisable()

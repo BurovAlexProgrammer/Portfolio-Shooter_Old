@@ -49,7 +49,7 @@ namespace Main.Game.Brain
 
         private void FindTarget(BrainOwner brainOwner)
         {
-            var player = Context.GetSceneObject<Player.Player>();
+            var player = Context.Resolve<Player>();
             
             if (player == null)
             {

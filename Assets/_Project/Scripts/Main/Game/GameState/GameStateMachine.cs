@@ -22,7 +22,7 @@ namespace Main.Game.GameState
 
         public GameStateMachine()
         {
-            _sceneLoader = Context.GetService<SceneLoaderService>();
+            _sceneLoader = Context.Resolve<SceneLoaderService>();
             _activeState = new Initial_GameState();
         }
         

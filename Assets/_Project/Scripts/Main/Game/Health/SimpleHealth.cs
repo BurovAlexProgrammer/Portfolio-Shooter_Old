@@ -17,7 +17,7 @@ namespace Main.Game.Health
 
         private void Awake()
         {
-            _poolService = Context.GetService<PoolService>();
+            _poolService = Context.Resolve<PoolService>();
             _poolItem = GetComponent<BasePoolItem>();
         }
 

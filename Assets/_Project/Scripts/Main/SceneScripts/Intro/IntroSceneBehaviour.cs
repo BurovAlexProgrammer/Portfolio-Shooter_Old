@@ -16,7 +16,7 @@ namespace Main.SceneScripts.Intro
         {
             base.Awake();
             await _introDuration.WaitInSeconds();
-            Context.GetService<SceneLoaderService>().LoadSceneAsync(_nextSceneName).Forget();
+            Context.Resolve<SceneLoaderService>().LoadSceneAsync(_nextSceneName).Forget();
         }
     }
 }

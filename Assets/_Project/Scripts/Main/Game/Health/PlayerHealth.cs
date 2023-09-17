@@ -17,7 +17,7 @@ namespace Main.Game.Health
 
         private void Awake()
         {
-            _gameManager = Context.GetService<GameManagerService>();
+            _gameManager = Context.Resolve<GameManagerService>();
             _audioSource = GetComponent<AudioSource>();
         }
 
