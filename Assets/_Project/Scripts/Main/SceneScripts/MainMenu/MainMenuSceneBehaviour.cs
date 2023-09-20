@@ -5,7 +5,7 @@ using static Main.Menu.MenuController;
 
 namespace Main.SceneScripts.MainMenu
 {
-    public class MainMenuView : MonoBehaviour
+    public class MainMenuSceneBehaviour : SceneBehaviourBase
     {
         [SerializeField] private MainMenuController _menuController;
         [SerializeField] private Button _settingsButton;
@@ -17,8 +17,9 @@ namespace Main.SceneScripts.MainMenu
         [SerializeField] private Button _buttonStatistic;
         [SerializeField] private Button _buttonAbout;
 
-        void Start()
+        protected override void Start()
         {
+            base.Start();
             _settingsButton.onClick.AddListener(() => _menuController.SetState(MenuStates.Settings));
             _backFromSettings.onClick.AddListener(() => _menuController.SetState(MenuStates.MainMenu));
             _buttonQuit.onClick.AddListener(() => _menuController.SetState(MenuStates.QuitGame));

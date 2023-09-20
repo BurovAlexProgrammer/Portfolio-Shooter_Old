@@ -28,7 +28,6 @@ namespace Main.Contexts.Installers
             Context.Bind<ControlService>().FromNewPrefab(_controlServicePrefab);
             Context.Bind<FileService>().As<IFileService>().FromNew();
             Context.Bind<SceneLoaderService>().FromNew();
-            Context.Bind<PoolService>().FromNew();
             Context.Bind<LocalizationService>().FromNew();
             Context.Bind<StatisticService>().FromNew();
             Context.Bind<GameManagerService>().FromNew();

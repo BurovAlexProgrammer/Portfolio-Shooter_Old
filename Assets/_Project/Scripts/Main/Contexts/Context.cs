@@ -42,17 +42,12 @@ namespace Main.Contexts
             return contextContainer;
         }
 
-        public static ContextContainer Bind<T>()
+        public static ContextContainer Bind(object source, ContextScope scope = ContextScope.App)
         {
-            return Bind(typeof(T));
+            return Bind(source.GetType(), scope);
         }
-
-        public static ContextContainer Bind<T>(GameObject prefab = null, ContextScope scope = ContextScope.App) 
-        {
-            return Bind(typeof(T), scope);
-        }
-
-        public static ContextContainer Bind<T>(MonoBehaviour prefab = null, ContextScope scope = ContextScope.App) where T : IService
+        
+        public static ContextContainer Bind<T>(ContextScope scope = ContextScope.App)
         {
             return Bind(typeof(T), scope);
         }

@@ -22,8 +22,7 @@ namespace Main.Contexts
             {
                 for (var i = 0; i < _installerPrefabs.Length; i++)
                 {
-                    var installer = Instantiate(_installerPrefabs[i], transform);
-                    installer.gameObject.CleanName();
+                    _installerPrefabs[i].Initialize();
                 }
             }
         }

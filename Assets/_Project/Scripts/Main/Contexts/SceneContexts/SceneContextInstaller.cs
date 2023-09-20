@@ -1,17 +1,16 @@
 ﻿using System;
-using smApplication.Scripts.Extension;
 using UnityEngine;
 
 namespace Main.Contexts.Installers
 {
     public abstract class SceneContextInstaller : MonoBehaviour
     {
-        private void Awake()
+        public void Initialize()
         {
             InstallBindings();
             OnBindingsInstalled();
             Context.InitDependencies();
-            OnServicesInitialized();
+            OnInitialized();
         }
 
         private void OnDestroy()
@@ -28,7 +27,7 @@ namespace Main.Contexts.Installers
         {
         }
 
-        protected virtual void OnServicesInitialized()
+        protected virtual void OnInitialized()
         {
         }
     }

@@ -30,7 +30,7 @@ namespace Main.Game
         private void Awake()
         {
             _player = Context.Resolve<Player>();
-            _poolService = Context.Resolve<PoolService>();
+            _poolService = Context.Resolve<IPoolService>();
         }
 
         private void OnDisable()
@@ -45,7 +45,7 @@ namespace Main.Game
         public void StartSpawn()
         {
             enabled = true;
-            _ = Spawning();
+            Spawning().Forget();
         }
 
         public void StopSpawn()

@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading;
 using Main.Extension;
-using smApplication.Scripts.Extension;
 using UnityEngine;
-using Object = System.Object;
 
 namespace sm_application.Scripts.Main.Wrappers
 {
@@ -32,7 +30,7 @@ namespace sm_application.Scripts.Main.Wrappers
                     Debug.LogError($"Pool of objectKey: \"{nameof(Object)}\" is not GameObject type.");
                     return default;
                 } 
-                return Object as GameObject;
+                return _gameObject;
             }
         }
 
@@ -45,7 +43,7 @@ namespace sm_application.Scripts.Main.Wrappers
                     Debug.LogError($"Pool of objectKey: \"{nameof(Object)}\" is not MonoBehaviour type.");
                     return default;
                 } 
-                return Object as MonoBehaviour;
+                return _component;
             }
         }
 

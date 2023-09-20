@@ -111,7 +111,7 @@ namespace Main.Services
            audioListener.transform.localPosition = Vector3.zero;
         }
 
-        public async UniTask ShowSceneAsync(bool force = false)
+        public async UniTask ScreenFadeInAsync(bool force = false)
         {
             if (force)
             {
@@ -129,7 +129,7 @@ namespace Main.Services
                 .AsyncWaitForCompletion();
         } 
         
-        public async UniTask HideSceneAsync(bool force)
+        public async UniTask ScreenFadeOutAsync(bool force = false)
         {
             if (force)
             {

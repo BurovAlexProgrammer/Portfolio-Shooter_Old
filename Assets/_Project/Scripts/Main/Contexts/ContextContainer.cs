@@ -54,6 +54,18 @@ namespace Main.Contexts
             _bindType = type;
             return this;
         }
+        
+        public ContextContainer FromInstance(GameObject gameObject)
+        {
+            _instance = gameObject;
+            return this;
+        }
+
+        public ContextContainer FromInstance(MonoBehaviour monoBehaviour)
+        {
+            _instance = monoBehaviour;
+            return this;
+        }
 
         public ContextContainer FromNew()
         {

@@ -1,6 +1,5 @@
 ﻿using Cysharp.Threading.Tasks;
 using Main.Contexts;
-using Main.Game;
 using Main.Services;
 using UnityEngine;
 
@@ -8,9 +7,9 @@ namespace Main.SceneScripts
 {
     public abstract class SceneBehaviourBase : MonoBehaviour
     {
-        [SerializeField] private bool _smoothSceneAppearance;
+        [SerializeField] protected bool _smoothSceneAppearance;
         
-        private ScreenService _screenService;
+        protected ScreenService _screenService;
 
         protected virtual void Awake()
         {
@@ -21,7 +20,7 @@ namespace Main.SceneScripts
         {
             if (_smoothSceneAppearance)
             {
-                _screenService.ShowSceneAsync().Forget();
+                _screenService.ScreenFadeInAsync().Forget();
             }
         }
     }

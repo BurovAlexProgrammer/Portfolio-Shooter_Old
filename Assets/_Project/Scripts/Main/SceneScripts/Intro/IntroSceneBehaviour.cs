@@ -16,6 +16,12 @@ namespace Main.SceneScripts.Intro
         {
             base.Awake();
             await _introDuration.WaitInSeconds();
+
+            if (_smoothSceneAppearance)
+            {
+                await _screenService.ScreenFadeOutAsync();
+            }
+            
             Context.Resolve<SceneLoaderService>().LoadSceneAsync(_nextSceneName).Forget();
         }
     }

@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Main.Game
 {
-    [RequireComponent(typeof(HealthBase))]
+    [RequireComponent(typeof(PlayerHealth))]
     [RequireComponent(typeof(UnityEngine.CharacterController))]
     [RequireComponent(typeof(AudioSource))]
     public sealed class Player : MonoBehaviour, IPlayer
@@ -133,7 +133,7 @@ namespace Main.Game
             transform.Rotate(inputValue.x * Vector3.up * delta);
         }
 
-        protected void TryShoot()
+        private void TryShoot()
         {
             if (_gun.TryShoot())
             {

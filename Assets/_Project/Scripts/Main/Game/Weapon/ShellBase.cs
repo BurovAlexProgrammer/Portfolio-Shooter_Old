@@ -28,7 +28,7 @@ namespace Main.Game.Weapon
             _gameObject = gameObject;
             _transform = transform;
             _rigidbody = GetComponent<Rigidbody>();
-            _poolService = Context.Resolve<PoolService>();
+            _poolService = Context.Resolve<IPoolService>();
             _cancellationToken = _gameObject.GetCancellationTokenOnDestroy();
         }
 

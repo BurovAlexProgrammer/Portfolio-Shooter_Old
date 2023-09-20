@@ -92,7 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4623806979323550822}
-  - component: {fileID: 6778786076881365828}
+  - component: {fileID: 16996116455246754}
   - component: {fileID: 2868835938778812559}
   - component: {fileID: 8995502875322642257}
   - component: {fileID: 9123952313604711187}
@@ -121,7 +121,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6778786076881365828
+--- !u!114 &16996116455246754
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,15 +130,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5518685102165091296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ed757247f28f44b687705817cc0fd83b, type: 3}
+  m_Script: {fileID: 11500000, guid: bbdf85652ff36154286855f337cb2e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cameraHolder: {fileID: 2632336050109998029}
   _config: {fileID: 11400000, guid: dcda238fdd10abd4ab0d22bd6bd32df1, type: 2}
   _gun: {fileID: 75479655363943444}
-  _canMove: 0
-  _canRotate: 0
-  _canShoot: 0
+  _canMove: 1
+  _canRotate: 1
+  _canShoot: 1
   _useGravity: 1
   _startPhrase: {fileID: 11400000, guid: efd1936928819b74e81902b465c4d21f, type: 2}
 --- !u!143 &2868835938778812559

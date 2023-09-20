@@ -1,6 +1,9 @@
 ﻿using System;
-using smApplication.Scripts.Extension;
 using UnityEngine;
+
+#if UNITY_EDITOR
+using smApplication.Scripts.Extension;
+#endif
 
 namespace Main.Contexts.Installers
 {

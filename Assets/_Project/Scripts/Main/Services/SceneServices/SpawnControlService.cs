@@ -10,6 +10,30 @@ namespace Main.Services
 
         private bool _started;
         
+        private void Start()
+        {
+            if (!_started && _startOnEnable)
+            {
+                _started = true;
+                StartSpawn();
+            }
+        }
+        
+        private void OnEnable()
+        {
+            if (!_started) return;
+
+            if (_startOnEnable)
+            {
+                StartSpawn();
+            }
+        }
+
+        private void OnDisable()
+        {
+            StopSpawn();
+        }
+
         public void StartSpawn()
         {
             for (var i = 0; i < _spawners.Length; i++)
@@ -39,25 +63,6 @@ namespace Main.Services
             for (var i = 0; i < _spawners.Length; i++)
             {
                 _spawners[i].ContinueSpawn();
-            }
-        }
-        
-        private void Start()
-        {
-            if (!_started && _startOnEnable)
-            {
-                _started = true;
-                StartSpawn();
-            }
-        }
-        
-        private void OnEnable()
-        {
-            if (!_started) return;
-
-            if (_startOnEnable)
-            {
-                StartSpawn();
             }
         }
     }
