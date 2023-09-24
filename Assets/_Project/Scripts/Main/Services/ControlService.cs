@@ -12,7 +12,7 @@ namespace Main.Services
         public Controls _controls;
         public CursorLockMode CursorLockState => Cursor.lockState;
 
-        public Controls Controls1 => _controls;
+        public Controls Controls => _controls;
 
         public void Construct()
         {

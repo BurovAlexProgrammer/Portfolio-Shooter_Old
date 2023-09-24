@@ -124,18 +124,10 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4501174773649936709}
   m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  serializedVersion: 2
+  m_Size: {x: 1.17, y: 1.13, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1418297655173411843
 MonoBehaviour:
@@ -298,17 +290,17 @@ NavMeshAgent:
   m_GameObject: {fileID: 7574077792932038324}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
+  m_Radius: 0.17
+  m_Speed: 2.6
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 360
-  m_StoppingDistance: 2
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
-  m_BaseOffset: 1
+  m_Height: 0.32
+  m_BaseOffset: 0.66
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!95 &2294491430220131258
@@ -350,7 +342,7 @@ MonoBehaviour:
   _attacker: {fileID: 0}
   _animator: {fileID: 0}
   _audioSource: {fileID: 0}
-  _attackAudioEvent: {fileID: 0}
+  _attackAudioEvent: {fileID: 11400000, guid: 62f844c1d87421f44816aabf96874dbe, type: 2}
 --- !u!114 &4766088675235381070
 MonoBehaviour:
   m_ObjectHideFlags: 0

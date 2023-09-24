@@ -30,7 +30,7 @@ namespace Main.UI.Window
             _settingsService = Context.Resolve<SettingsService>();
             _controlService = Context.Resolve<ControlService>();
             _gameUiService = Context.Resolve<GameUiService>();
-            _controlService.Controls1.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
+            _controlService.Controls.Menu.Pause.BindAction(BindActions.Started, ReturnGame);
             _restartGameButton.onClick.AddListener(RestartGame);
             _returnGameButton.onClick.AddListener(ReturnGame);
             _quitGameButton.onClick.AddListener(ShowQuitGameDialog);
@@ -51,7 +51,7 @@ namespace Main.UI.Window
 
         private void OnDestroy()
         {
-            _controlService.Controls1.Menu.Pause.UnbindAction(BindActions.Started, ReturnGame);
+            _controlService.Controls.Menu.Pause.UnbindAction(BindActions.Started, ReturnGame);
             _restartGameButton.onClick.RemoveListener(RestartGame);
             _returnGameButton.onClick.RemoveListener(ReturnGame);
             _quitGameButton.onClick.RemoveListener(ShowQuitGameDialog);

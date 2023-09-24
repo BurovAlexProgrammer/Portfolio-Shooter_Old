@@ -1,19 +1,21 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using Main.Game;
 using Main.Game.Health;
 using Main.UI;
 using Main.UI.Window;
 using TMPro;
+using UnityEngine;
 
 namespace Main.Services
 {
-    public class GameUiService : IService
+    public class GameUiService : MonoBehaviour, IConstruct, IDisposable
     {
-        private BarView _healthBarView;
-        private WindowGamePause _windowGamePause;
-        private WindowGameOver _windowGameOver;
-        private TextMeshProUGUI _killCountText;
-        private TextMeshProUGUI _scoreCountText;
+        [SerializeField] private BarView _healthBarView;
+        [SerializeField] private WindowGamePause _windowGamePause;
+        [SerializeField] private WindowGameOver _windowGameOver;
+        [SerializeField] private TextMeshProUGUI _killCountText;
+        [SerializeField] private TextMeshProUGUI _scoreCountText;
 
         GameManagerService _gameManager;
         StatisticService _statisticService;
@@ -23,7 +25,18 @@ namespace Main.Services
 
         public bool DialogShowing => _dialogShowing;
 
-        ~GameUiService()
+        public void Construct()
+        {
+            _gameManager.SwitchPause += OnSwitchGamePause;
+            _gameManager.GameOver += OnGameOver;
+            _player.Health.OnChanged += OnPlayerHealthChanged;
+            _statisticService.RecordChanged += OnStaticRecordChanged;
+            _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
+            _windowGamePause.DialogSwitched += OnDialogSwitched;
+            _windowGameOver.DialogSwitched += OnDialogSwitched;
+        }
+        
+        public void Dispose()
         {
             _gameManager.SwitchPause -= OnSwitchGamePause;
             _gameManager.GameOver -= OnGameOver;
@@ -36,17 +49,6 @@ namespace Main.Services
         private void OnDialogSwitched(bool state)
         {
             _dialogShowing = state;
-        }
-
-        private void Init()
-        {
-            _gameManager.SwitchPause += OnSwitchGamePause;
-            _gameManager.GameOver += OnGameOver;
-            _player.Health.OnChanged += OnPlayerHealthChanged;
-            _statisticService.RecordChanged += OnStaticRecordChanged;
-            _healthBarView.Init(_player.Health.CurrentValue, _player.Health.MaxValue);
-            _windowGamePause.DialogSwitched += OnDialogSwitched;
-            _windowGameOver.DialogSwitched += OnDialogSwitched;
         }
 
         private void OnGameOver()
