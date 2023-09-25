@@ -50,13 +50,13 @@ namespace Main.UI.Window
 
         public override async UniTask Show()
         {
+            await base.Show();
             _buttonPanel.localScale = _buttonPanel.localScale.SetAsNew(x: 0f);
             _buttonPanel.SetScale(x: 0f);
             const float duration = 0.8f;
             var kills = _statisticService.GetIntegerValue(KillMonsterCount, Session);
             var surviveTime =
                 Mathf.RoundToInt(_statisticService.GetFloatValue(LastGameSessionDuration, Session));
-            await base.Show();
 
 
             await DOVirtual

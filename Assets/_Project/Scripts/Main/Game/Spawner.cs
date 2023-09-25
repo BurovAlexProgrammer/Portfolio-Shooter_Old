@@ -23,8 +23,6 @@ namespace Main.Game
         private Player _player;
         private IPoolService _poolService;
         
-        private CancellationToken _cancellationToken;
-
         private bool _paused;
 
         private void Awake()
@@ -67,7 +65,7 @@ namespace Main.Game
         {
             await _startDelay.WaitInSeconds();
 
-            while (!_cancellationToken.IsCancellationRequested && enabled)
+            while (this != null && enabled)
             {
                 if (_paused) continue;
                 

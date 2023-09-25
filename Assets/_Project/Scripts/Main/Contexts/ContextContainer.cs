@@ -57,12 +57,22 @@ namespace Main.Contexts
         
         public ContextContainer FromInstance(GameObject gameObject)
         {
+            if (gameObject == null)
+            {
+                Log.Error("Bind FromInstance(null) is wrong.");
+            }
+            
             _instance = gameObject;
             return this;
         }
 
         public ContextContainer FromInstance(MonoBehaviour monoBehaviour)
         {
+            if (monoBehaviour == null)
+            {
+                Log.Error("Bind FromInstance(null) is wrong.");
+            }
+            
             _instance = monoBehaviour;
             return this;
         }

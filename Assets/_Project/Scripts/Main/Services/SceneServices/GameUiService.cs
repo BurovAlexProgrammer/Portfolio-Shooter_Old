@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using Main.Contexts.DI;
 using Main.Game;
 using Main.Game.Health;
 using Main.UI;
@@ -17,9 +18,9 @@ namespace Main.Services
         [SerializeField] private TextMeshProUGUI _killCountText;
         [SerializeField] private TextMeshProUGUI _scoreCountText;
 
-        GameManagerService _gameManager;
-        StatisticService _statisticService;
-        Player _player;
+        [Inject] GameManagerService _gameManager;
+        [Inject] StatisticService _statisticService;
+        [Inject] Player _player;
 
         private bool _dialogShowing;
 
