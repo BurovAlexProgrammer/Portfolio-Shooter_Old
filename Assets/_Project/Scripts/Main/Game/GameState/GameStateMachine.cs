@@ -30,15 +30,21 @@ namespace Main.Game.GameState
         {
             if (_sceneLoader.IsInitialScene(Scenes.Boot))
             {
-                await SetState<GameStates.Bootstrap>();
-                await SetState<GameStates.MainMenu>();
+                await SetStateAsync<GameStates.Bootstrap>();
+                await SetStateAsync<GameStates.MainMenu>();
+                return;
+            }
+
+            if (_sceneLoader.IsInitialScene(Scenes.MainMenu))
+            {
+                SetStateAsync<GameStates.MainMenu>().Forget();
                 return;
             }
             
-            await SetState<GameStates.CustomScene>();
+            SetStateAsync<GameStates.CustomScene>().Forget();
         }
 
-        public async UniTask SetState<T>() where T : IGameState
+        public async UniTask SetStateAsync<T>() where T : IGameState
         {
             var newStateType = typeof(T);
             

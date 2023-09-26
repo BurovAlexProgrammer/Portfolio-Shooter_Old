@@ -1,6 +1,5 @@
 ﻿using Main.Contexts.Installers;
 using Main.DTOs;
-using Main.Extension;
 using UnityEngine;
 
 namespace Main.Contexts

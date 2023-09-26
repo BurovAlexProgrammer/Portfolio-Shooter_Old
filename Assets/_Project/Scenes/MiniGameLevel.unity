@@ -530,6 +530,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3087371815810612295, guid: ef36dfc33f84cb941b864c4a320e5293,
         type: 3}
+      propertyPath: _startOnEnable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3087371815810612295, guid: ef36dfc33f84cb941b864c4a320e5293,
+        type: 3}
       propertyPath: _spawners.Array.size
       value: 2
       objectReference: {fileID: 0}

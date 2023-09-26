@@ -42,7 +42,7 @@ namespace Main.Services
 
         public async UniTask SetGameState<T>() where T : IGameState
         {
-            await _gameStateMachine.SetState<T>();
+            await _gameStateMachine.SetStateAsync<T>();
         }
 
         public void RestartGame()
@@ -50,19 +50,19 @@ namespace Main.Services
             _isGameOver = false;
             RestoreTimeSpeed();
             _statisticService.EndGameDataSaving(this);
-            _gameStateMachine.SetState<GameStates.RestartGame>().Forget();
-            _gameStateMachine.SetState<GameStates.PlayNewGame>().Forget();
+            _gameStateMachine.SetStateAsync<GameStates.RestartGame>().Forget();
+            _gameStateMachine.SetStateAsync<GameStates.PlayNewGame>().Forget();
         }
 
         public void QuitGame()
         {
-            _gameStateMachine.SetState<GameStates.QuitGame>().Forget();
+            _gameStateMachine.SetStateAsync<GameStates.QuitGame>().Forget();
         }
 
         public void GoToMainMenu()
         {
             _statisticService.EndGameDataSaving(this);
-            _gameStateMachine.SetState<GameStates.MainMenu>().Forget();
+            _gameStateMachine.SetStateAsync<GameStates.MainMenu>().Forget();
         }
 
         public void PrepareToPlay()

@@ -15,9 +15,9 @@ namespace Main.Game.GameState
             public async UniTask EnterState()
             {
                 _audioService = Context.Resolve<AudioService>();
-                    _sceneLoaderService = Context.Resolve<SceneLoaderService>();
+                _sceneLoaderService = Context.Resolve<SceneLoaderService>();
                 _audioService.PlayMusic(AudioService.MusicPlayerState.MainMenu);
-                await _sceneLoaderService.LoadSceneAsync(Scenes.MiniGameLevel);
+                await _sceneLoaderService.LoadSceneAsync(Scenes.MainMenu);
             }
         }
     }
